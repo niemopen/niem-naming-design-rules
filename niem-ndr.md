@@ -4994,7 +4994,7 @@ The _appinfo namespace_ defines attributes which provide additional semantics fo
 
 #### Deprecation
 
-The `appinfo` schema provides a construct for indicating that a construct is deprecated. A deprecated component is one whose use is not recommended. A deprecated component may be kept in a schema for support of older versions but should not be used in new efforts. A deprecated component may be removed, replaced, or renamed in a later version of a namespace.
+The `appinfo` schema provides a construct for indicating that a component is deprecated. A deprecated component is one whose use is not recommended. A deprecated component may be kept in a schema for support of older versions but should not be used in new efforts. A deprecated component may be removed, replaced, or renamed in a later version of a namespace.
 
 > **[Definition: deprecated component]**
 > A **deprecated component** is one that developers are discouraged from using, typically because a better alternative exists, yet which is maintained in the schema for compatibility with previous versions of the namespace.
