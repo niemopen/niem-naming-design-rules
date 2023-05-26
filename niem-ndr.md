@@ -846,7 +846,7 @@ With the exception of this section, NIEM rules are explained in this document wi
 
 This section defines the meaning of NIEM-conformant XML data and schemas through the definition of mappings from XML data and schema to RDF data and schema.
 
-### Rule 5-1. `structures:uri` denotes resource identifier
+### Rule 5-1. Instance must be consistent with RDF interpretation
 
 > **[Rule 5-1] ([INS](#Applicability-of-rules-to-conformance-targets)) (Interpretation)**
 > The interpretation of a _conformant instance XML document_ MUST be consistent with an RDFS interpretation of the RDF graph composed of the RDF entailed by the XML document and the RDF entailed by the schema.
@@ -6931,7 +6931,7 @@ The applicable elements for a metadata element are identified by [Rule 10-41, _M
 - [Rule 4-4, _Document element has attribute `ct:conformanceTargets`_ (REF, EXT)](#rule-4-4-document-element-has-attribute-ct:conformancetargets): [Section 4.3, _Conformance target identifiers_](#conformance-target-identifiers)
 - [Rule 4-5, _Schema claims reference schema conformance target_ (REF)](#rule-4-5-schema-claims-reference-schema-conformance-target): [Section 4.3, _Conformance target identifiers_](#conformance-target-identifiers)
 - [Rule 4-6, _Schema claims extension conformance target_ (EXT)](#rule-4-6-schema-claims-extension-conformance-target): [Section 4.3, _Conformance target identifiers_](#conformance-target-identifiers)
-- [Rule 5-1, _`structures:uri` denotes resource identifier_ (INS)](#rule-5-1-structures:uri-denotes-resource-identifier): [Section 5.1, _Purpose of the NIEM conceptual model_](#purpose-of-the-niem-conceptual-model)
+- [Rule 5-1, _Instance must be consistent with RDF interpretation_ (INS)](#rule-5-1-instance-must-be-consistent-with-RDF-interpretation): [Section 5.1, _Purpose of the NIEM conceptual model_](#purpose-of-the-niem-conceptual-model)
 - [Rule 7-1, _Document is an XML document_ (REF, EXT, INS)](#rule-7-1-document-is-an-xml-document): [Section 7.1, _Conformance to XML_](#conformance-to-xml)
 - [Rule 7-2, _Document uses XML namespaces properly_ (REF, EXT, INS)](#rule-7-2-document-uses-xml-namespaces-properly): [Section 7.2, _Conformance to XML Namespaces_](#conformance-to-xml-namespaces)
 - [Rule 7-3, _Document is a schema document_ (REF, EXT)](#rule-7-3-document-is-a-schema-document): [Section 7.3, _Conformance to XML Schema_](#conformance-to-xml-schema)
