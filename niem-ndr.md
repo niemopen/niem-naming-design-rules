@@ -758,7 +758,7 @@ Each rule within this document is applicable to one or more of the conformance t
 | Code | Target                                                                                                                                                                      |
 | ---- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | REF  | [reference schema document](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#definition_reference_schema_document)               |
-| EXT  | [extension schema document](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#definition_extension_schema_document)               | 
+| EXT  | [extension schema document](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#definition_extension_schema_document)               |
 | SET  | [conformant schema document set](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#definition_conformant_schema_document_set)     |
 | INS  | [conformant instance XML document](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#definition_conformant_instance_XML_document) |
 
@@ -846,7 +846,7 @@ With the exception of this section, NIEM rules are explained in this document wi
 
 This section defines the meaning of NIEM-conformant XML data and schemas through the definition of mappings from XML data and schema to RDF data and schema.
 
-### Rule 5-1. `structures:uri` denotes resource identifier
+### Rule 5-1. Instance must be consistent with RDF interpretation
 
 > **[Rule 5-1] ([INS](#Applicability-of-rules-to-conformance-targets)) (Interpretation)**
 > The interpretation of a _conformant instance XML document_ MUST be consistent with an RDFS interpretation of the RDF graph composed of the RDF entailed by the XML document and the RDF entailed by the schema.
@@ -1016,7 +1016,7 @@ The literal for a simple value `$value` is:
 - Otherwise, if `$value` has a base type definition `$base-type` that is listed as an RDF-compatible XSD type in [RDF Concepts](#Appendix-A-References)         [Section 5.1, _The XML Schema Built-in Datatypes_](http://www.w3.org/TR/2014/REC-rdf11-concepts-20140225/#xsd-datatypes), and `$base-type` is not `xs:string`, then the literal is:
 
 > `"$lexical-form"^^$datatype-IRI`
-> 
+>
 > Where:
 > -   `$lexical-form` is a Unicode string for `$value`.
 > -   `$datatype-IRI` is the QName of `$base-type`.
@@ -1024,7 +1024,7 @@ The literal for a simple value `$value` is:
 - Otherwise, the literal is a simple literal, which is:
 
 > `"$lexical-form"`
-> 
+>
 > Where: `$lexical-form` is a Unicode string for `$value`.
 
 ### Instance document mapped to RDF
@@ -1301,7 +1301,7 @@ This specification should state what is required for interoperability, not all t
 > **[Principle 1]**
 > This specification SHOULD specify what is necessary for semantic interoperability and no more.
 
-The term **semantic interoperability** is here defined as "the ability of two or more computer systems to exchange information and have the meaning of that information automatically interpreted by the receiving system accurately enough to produce useful results."      
+The term **semantic interoperability** is here defined as "the ability of two or more computer systems to exchange information and have the meaning of that information automatically interpreted by the receiving system accurately enough to produce useful results."
 
 ### Focus on rules for schemas
 
@@ -1634,7 +1634,7 @@ Note that the metadata maintained for each NIEM component contains additional de
 
 For convenience and reference, the summary requirements and recommendations in [ISO 11179-4](#Appendix-A-References) are reproduced here:
 
-> **ISO 11179 Requirements**      
+> **ISO 11179 Requirements**
 >
 > A data definition SHALL:
 >
@@ -1644,7 +1644,7 @@ For convenience and reference, the summary requirements and recommendations in [
 > - Contain only commonly understood abbreviations.
 > - Be expressed without embedding definitions of other data or underlying concepts.
 
-> **ISO 11179 Recommendations**      
+> **ISO 11179 Recommendations**
 >
 > A data definition SHOULD:
 >
@@ -1781,13 +1781,13 @@ Every component defined by or used in a NIEM schema has a target namespace.
 
 XML Schema requires that namespaces used in external references be imported using the `xs:import` element. The `xs:import` element appears as an immediate child of the `xs:schema` element. A schema must import any namespace which is not the local namespace, and which is referenced from the schema.
 
-The behavior of import statements is not necessarily intuitive. In short, the import introduces a namespace into the schema document in which the import appears; it has no transitive effect. If the namespace introduced by an import statement are not referenced from that schema document, then the import statement has no effect. 
+The behavior of import statements is not necessarily intuitive. In short, the import introduces a namespace into the schema document in which the import appears; it has no transitive effect. If the namespace introduced by an import statement are not referenced from that schema document, then the import statement has no effect.
 
 Certain tools have been seen introducing transitive behavior on imports, which is not portable across XML Schema validating parsers. If namespace 1 imports namespace 2 which imports namespace 3, a reference from namespace 1 to namespace 3 is not legal; namespace 1 must explicitly import namespace 3. A tool that imports transitively may allow schema 1 to reference 3 without a direct import of namespace 3. This is prohibited by rules which require imports of namespaces of referenced components.
 
 ## Documentation is for people; appinfo is for machines
 
-The XML Schema specification defines two types of annotations: _user information_ and _application information_. It defines that user information is for human consumption, while application information is for automatic processing. 
+The XML Schema specification defines two types of annotations: _user information_ and _application information_. It defines that user information is for human consumption, while application information is for automatic processing.
 
 [XML Schema Structures](#Appendix-A-References)      [Section 3.13, _Annotations_](http://www.w3.org/TR/2004/REC-xmlschema-1-20041028/#cAnnotations) states:
 
@@ -1834,7 +1834,7 @@ The following sections are broken down in the order provided by [XML Schema Stru
 Although the XML namespace is to be imported as if it is conformant, types from that namespace may not be the _base type definition_ of any type.
 
 > **[Rule 9-1] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:*[exists(@base)]">
@@ -1849,7 +1849,7 @@ The term _base type definition_ has a normative definition.
 ##### Rule 9-2. No base type of `xs:ID`
 
 > **[Rule 9-2] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:*[exists(@base)]">
@@ -1862,7 +1862,7 @@ The term _base type definition_ has a normative definition.
 ##### Rule 9-3. No base type of `xs:IDREF`
 
 > **[Rule 9-3] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:*[exists(@base)]">
@@ -1875,7 +1875,7 @@ The term _base type definition_ has a normative definition.
 ##### Rule 9-4. No base type of `xs:IDREFS`
 
 > **[Rule 9-4] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:*[exists(@base)]">
@@ -1888,7 +1888,7 @@ The term _base type definition_ has a normative definition.
 ##### Rule 9-5. No base type of `xs:anyType`
 
 > **[Rule 9-5] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:*[exists(@base)]">
@@ -1905,7 +1905,7 @@ NIEM-conformant schemas must not use `xs:anyType`, because this feature permits 
 ##### Rule 9-6. No base type of `xs:anySimpleType`
 
 > **[Rule 9-6] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:*[exists(@base)]">
@@ -1922,7 +1922,7 @@ NIEM-conformant schemas must not use `xs:anySimpleType` because this feature is 
 ##### Rule 9-7. No base type of `xs:NOTATION`
 
 > **[Rule 9-7] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:*[exists(@base)]">
@@ -1937,7 +1937,7 @@ XML Schema notations allow the attachment of system and public identifiers on fi
 ##### Rule 9-8. No base type of `xs:ENTITY`
 
 > **[Rule 9-8] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:*[exists(@base)]">
@@ -1950,7 +1950,7 @@ XML Schema notations allow the attachment of system and public identifiers on fi
 ##### Rule 9-9. No base type of `xs:ENTITIES`
 
 > **[Rule 9-9] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:*[exists(@base)]">
@@ -1965,7 +1965,7 @@ XML Schema notations allow the attachment of system and public identifiers on fi
 #### Rule 9-10. Simple type definition is top-level
 
 > **[Rule 9-10] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:simpleType">
@@ -1980,7 +1980,7 @@ NIEM does not support anonymous types in NIEM-conformant schemas. All XML Schema
 #### Rule 9-11. No simple type disallowed derivation
 
 > **[Rule 9-11] ([REF](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:simpleType">
@@ -1993,7 +1993,7 @@ NIEM does not support anonymous types in NIEM-conformant schemas. All XML Schema
 #### Rule 9-12. Simple type has data definition
 
 > **[Rule 9-12] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:simpleType">
@@ -2013,7 +2013,7 @@ An attribute `fixed` on a constraining facet (e.g., `xs:maxInclusive`) of a simp
 The use of `fixed` on simple type facets violates _**[Principle 17]**, above_, since it prevents an extension schema from constraining a base type. As a result, the `fixed` on simple type facets in reference schemas is prohibited.
 
 > **[Rule 9-13] ([REF](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:*[self::xs:length or self::xs:minLength or self::xs:maxLength or self::xs:whiteSpace
@@ -2028,7 +2028,7 @@ The use of `fixed` on simple type facets violates _**[Principle 17]**, above_, s
 #### Rule 9-14. Enumeration has data definition
 
 > **[Rule 9-14] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:enumeration">
@@ -2050,7 +2050,7 @@ There is no prohibition on `xs:anyType` as a list item type, because xs:anyType 
 ##### Rule 9-15. No list item type of `xs:ID`
 
 > **[Rule 9-15] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:*[exists(@itemType)]">
@@ -2063,7 +2063,7 @@ There is no prohibition on `xs:anyType` as a list item type, because xs:anyType 
 ##### Rule 9-16. No list item type of `xs:IDREF`
 
 > **[Rule 9-16] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:*[exists(@itemType)]">
@@ -2076,7 +2076,7 @@ There is no prohibition on `xs:anyType` as a list item type, because xs:anyType 
 ##### Rule 9-17. No list item type of `xs:anySimpleType`
 
 > **[Rule 9-17] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:*[exists(@itemType)]">
@@ -2089,7 +2089,7 @@ There is no prohibition on `xs:anyType` as a list item type, because xs:anyType 
 ##### Rule 9-18. No list item type of `xs:ENTITY`
 
 > **[Rule 9-18] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:*[exists(@itemType)]">
@@ -2108,7 +2108,7 @@ There is no prohibition on `xs:anyType` as a union member type, because xs:anyTy
 ##### Rule 9-19. No union member types of `xs:ID`
 
 > **[Rule 9-19] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:*[exists(@memberTypes)]">
@@ -2123,7 +2123,7 @@ There is no prohibition on `xs:anyType` as a union member type, because xs:anyTy
 ##### Rule 9-20. No union member types of `xs:IDREF`
 
 > **[Rule 9-20] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:*[exists(@memberTypes)]">
@@ -2138,7 +2138,7 @@ There is no prohibition on `xs:anyType` as a union member type, because xs:anyTy
 ##### Rule 9-21. No union member types of `xs:IDREFS`
 
 > **[Rule 9-21] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:*[exists(@memberTypes)]">
@@ -2153,7 +2153,7 @@ There is no prohibition on `xs:anyType` as a union member type, because xs:anyTy
 ##### Rule 9-22. No union member types of `xs:anySimpleType`
 
 > **[Rule 9-22] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:*[exists(@memberTypes)]">
@@ -2168,7 +2168,7 @@ There is no prohibition on `xs:anyType` as a union member type, because xs:anyTy
 ##### Rule 9-23. No union member types of `xs:ENTITY`
 
 > **[Rule 9-23] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:*[exists(@memberTypes)]">
@@ -2183,7 +2183,7 @@ There is no prohibition on `xs:anyType` as a union member type, because xs:anyTy
 ##### Rule 9-24. No union member types of `xs:ENTITIES`
 
 > **[Rule 9-24] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:*[exists(@memberTypes)]">
@@ -2200,7 +2200,7 @@ There is no prohibition on `xs:anyType` as a union member type, because xs:anyTy
 #### Rule 9-25. Complex type definition is top-level
 
 > **[Rule 9-25] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:complexType">
@@ -2215,7 +2215,7 @@ Note that this implies that every `xs:complexType` element has a `name` attribut
 #### Rule 9-26. Complex type has data definition
 
 > **[Rule 9-26] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:complexType">
@@ -2233,7 +2233,7 @@ This document defines the term _data definition_.
 ##### Rule 9-27. No mixed content on complex type
 
 > **[Rule 9-27] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:complexType[exists(@mixed)]">
@@ -2250,7 +2250,7 @@ Well-defined markup languages exist outside NIEM and may be used with NIEM data.
 ##### Rule 9-28. No mixed content on complex content
 
 > **[Rule 9-28] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:complexContent[exists(@mixed)]">
@@ -2265,7 +2265,7 @@ See [Rule 9-27, _No mixed content on complex type_ (REF, EXT), above,](#rule-9-2
 #### Rule 9-29. Complex type content is explicitly simple or complex
 
 > **[Rule 9-29] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:complexType">
@@ -2282,7 +2282,7 @@ XML Schema provides shorthand to defining complex content of a complex type, whi
 ##### Rule 9-30. Complex content uses extension
 
 > **[Rule 9-30] ([REF](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:complexContent">
@@ -2316,7 +2316,7 @@ The first rule handles cases that can be determined within a single schema docum
 ###### Rule 9-31. Base type of complex type with complex content must have complex content
 
 > **[Rule 9-31] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:complexType/xs:complexContent/xs:*[
@@ -2333,7 +2333,7 @@ The first rule handles cases that can be determined within a single schema docum
 ###### Rule 9-32. Base type of complex type with complex content must have complex content
 
 > **[Rule 9-32] ([SET](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:complexType[
@@ -2354,7 +2354,7 @@ The first rule handles cases that can be determined within a single schema docum
 ##### Rule 9-33. Simple content uses extension
 
 > **[Rule 9-33] ([REF](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:simpleContent">
@@ -2369,7 +2369,7 @@ This rule ensures that the definition of a complex type with simple content will
 #### Rule 9-34. No complex type disallowed substitutions
 
 > **[Rule 9-34] ([REF](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:complexType">
@@ -2382,7 +2382,7 @@ This rule ensures that the definition of a complex type with simple content will
 #### Rule 9-35. No complex type disallowed derivation
 
 > **[Rule 9-35] ([REF](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:complexType">
@@ -2405,7 +2405,7 @@ Within an element declaration, the attributes `fixed`, `nillable`, and `substitu
 #### Rule 9-36. Element declaration is top-level
 
 > **[Rule 9-36] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:element[exists(@name)]">
@@ -2420,7 +2420,7 @@ All schema components defined by NIEM-conformant schemas must be named, accessib
 #### Rule 9-37. Element declaration has data definition
 
 > **[Rule 9-37] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:element[exists(@name)]">
@@ -2436,7 +2436,7 @@ This document defines the term _data definition_.
 #### Rule 9-38. Untyped element is abstract
 
 > **[Rule 9-38] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:schema/xs:element[empty(@type)]">
@@ -2454,7 +2454,7 @@ Untyped element declarations act as wildcards that may carry arbitrary data. By 
 The type `xs:anySimpleType` does not have any concrete semantics; The use of `xs:anySimpleType` is limited to the case where an abstract element is of type `xs:anySimpleType`, to act as a base for concrete implementations of the element.
 
 > **[Rule 9-39] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:element[exists(@type)
@@ -2486,7 +2486,7 @@ The prohibition of element types having the XML Schema namespace subsumes a proh
 The XML namespace may be imported into a conformant schema document as if it were conformant. This specification does not enable a reference to any types that may be defined by any implementation of a schema for that namespace.
 
 > **[Rule 9-41] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:element[exists(@type)]">
@@ -2499,7 +2499,7 @@ The XML namespace may be imported into a conformant schema document as if it wer
 #### Rule 9-42. Element type is not simple type
 
 > **[Rule 9-42] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:element[@type]">
@@ -2517,10 +2517,10 @@ The XML namespace may be imported into a conformant schema document as if it wer
 > </sch:pattern>
 > ```
 
-#### Rule 9-43. No element disallowed substitutions 
+#### Rule 9-43. No element disallowed substitutions
 
 > **[Rule 9-43] ([REF](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:element">
@@ -2533,7 +2533,7 @@ The XML namespace may be imported into a conformant schema document as if it wer
 #### Rule 9-44. No element disallowed derivation
 
 > **[Rule 9-44] ([REF](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:element">
@@ -2548,7 +2548,7 @@ The XML namespace may be imported into a conformant schema document as if it wer
 ##### Rule 9-45. No element default value
 
 > **[Rule 9-45] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:element">
@@ -2561,7 +2561,7 @@ The XML namespace may be imported into a conformant schema document as if it wer
 ##### Rule 9-46. No element fixed value
 
 > **[Rule 9-46] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:element">
@@ -2578,7 +2578,7 @@ All elements declared by reference schemas allow a nil value. This enables the I
 A developer may constrain the use of `nil` in an instance by setting `nillable` to false in subset schemas, or by use of non-XML Schema mechanisms, such as Schematron.
 
 > **[Rule 9-47] ([REF](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:element[@name and (empty(@abstract)
@@ -2603,7 +2603,7 @@ Within an attribute declaration, the attribute `form` is irrelevant to NIEM, as 
 #### Rule 9-48. Attribute declaration is top-level
 
 > **[Rule 9-48] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:attribute[exists(@name)]">
@@ -2618,7 +2618,7 @@ All schema components defined by NIEM-conformant schemas are named, accessible f
 #### Rule 9-49. Attribute declaration has data definition
 
 > **[Rule 9-49] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:attribute[exists(@name)]">
@@ -2634,7 +2634,7 @@ This document defines the term _data definition_.
 #### Rule 9-50. Attribute declaration has type
 
 > **[Rule 9-50] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:attribute[exists(@name)]">
@@ -2655,7 +2655,7 @@ These types are only explicitly prohibited from attributes, not elements, becaus
 ##### Rule 9-51. No attribute type of `xs:ID`
 
 > **[Rule 9-51] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:attribute[exists(@type)]">
@@ -2668,7 +2668,7 @@ These types are only explicitly prohibited from attributes, not elements, becaus
 ##### Rule 9-52. No attribute type of `xs:IDREF`
 
 > **[Rule 9-52] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:attribute[exists(@type)]">
@@ -2681,7 +2681,7 @@ These types are only explicitly prohibited from attributes, not elements, becaus
 ##### Rule 9-53. No attribute type of `xs:IDREFS`
 
 > **[Rule 9-53] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:attribute[exists(@type)]">
@@ -2694,7 +2694,7 @@ These types are only explicitly prohibited from attributes, not elements, becaus
 ##### Rule 9-54. No attribute type of `xs:ENTITY`
 
 > **[Rule 9-54] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:attribute[exists(@type)]">
@@ -2707,7 +2707,7 @@ These types are only explicitly prohibited from attributes, not elements, becaus
 ##### Rule 9-55. No attribute type of `xs:ENTITIES`
 
 > **[Rule 9-55] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:attribute[exists(@type)]">
@@ -2720,7 +2720,7 @@ These types are only explicitly prohibited from attributes, not elements, becaus
 ##### Rule 9-56. No attribute type of `xs:anySimpleType`
 
 > **[Rule 9-56] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:attribute[exists(@type)]">
@@ -2735,7 +2735,7 @@ These types are only explicitly prohibited from attributes, not elements, becaus
 ##### Rule 9-57. No attribute default values
 
 > **[Rule 9-57] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:attribute">
@@ -2754,7 +2754,7 @@ The `fixed` attribute is described by [XML Schema Structures](#Appendix-A-Refere
 > _default_ specifies that the attribute is to appear unconditionally in the post-schema-validation infoset, with the supplied value used whenever the attribute is not actually present; _fixed_ indicates that the attribute value if present must equal the supplied constraint value, and if absent receives the supplied value as for _default_.
 
 > **[Rule 9-58] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:attribute[exists(@ref) and @use eq 'required']">
@@ -2774,7 +2774,7 @@ This rule helps to ensure that schema processing does not alter processed data, 
 #### Rule 9-59. No use of element `xs:notation`
 
 > **[Rule 9-59] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:notation">
@@ -2802,7 +2802,7 @@ XML Schema defines a **particle** as an occurrence of `xs:element`, `xs:sequence
 #### Rule 9-61. No `xs:all`
 
 > **[Rule 9-61] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:all">
@@ -2819,7 +2819,7 @@ The element `xs:all` provides a set of particles (e.g., elements) that may be in
 ##### Rule 9-62. `xs:sequence` must be child of `xs:extension`
 
 > **[Rule 9-62] ([REF](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:sequence">
@@ -2832,7 +2832,7 @@ The element `xs:all` provides a set of particles (e.g., elements) that may be in
 ##### Rule 9-63. `xs:sequence` must be child of `xs:extension` or `xs:restriction`
 
 > **[Rule 9-63] ([EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:sequence">
@@ -2847,7 +2847,7 @@ The element `xs:all` provides a set of particles (e.g., elements) that may be in
 ##### Rule 9-64. No `xs:choice`
 
 > **[Rule 9-64] ([REF](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:choice">
@@ -2864,7 +2864,7 @@ The element `xs:choice` may be used in extension schemas, as it presents a simpl
 ##### Rule 9-65. `xs:choice` must be child of `xs:sequence`
 
 > **[Rule 9-65] ([EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:choice">
@@ -2889,7 +2889,7 @@ A schema developer who requires the instance syntax that would be obtained from 
 ##### Rule 9-66. Sequence has minimum cardinality 1
 
 > **[Rule 9-66] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:sequence">
@@ -2902,7 +2902,7 @@ A schema developer who requires the instance syntax that would be obtained from 
 ##### Rule 9-67. Sequence has maximum cardinality 1
 
 > **[Rule 9-67] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:sequence">
@@ -2918,7 +2918,7 @@ A schema developer who requires the instance syntax that would be obtained from 
 ##### Rule 9-68. Choice has minimum cardinality 1
 
 > **[Rule 9-68] ([EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:choice">
@@ -2931,7 +2931,7 @@ A schema developer who requires the instance syntax that would be obtained from 
 ##### Rule 9-69. Choice has maximum cardinality 1
 
 > **[Rule 9-69] ([EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:choice">
@@ -2951,7 +2951,7 @@ An attribute use has an {attribute declaration} property that is a top-level, na
 #### Rule 9-70. No use of `xs:any`
 
 > **[Rule 9-70] ([REF](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:any">
@@ -2966,7 +2966,7 @@ The `xs:any` particle (see Model Group Restrictions for an informative definitio
 #### Rule 9-71. No use of `xs:anyAttribute`
 
 > **[Rule 9-71] ([REF](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:anyAttribute">
@@ -2987,7 +2987,7 @@ Note that there is no prohibition on the use of `xs:selector` and `xs:field`, si
 ### Rule 9-72. No use of `xs:unique`
 
 > **[Rule 9-72] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:unique">
@@ -3000,7 +3000,7 @@ Note that there is no prohibition on the use of `xs:selector` and `xs:field`, si
 ### Rule 9-73. No use of `xs:key`
 
 > **[Rule 9-73] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:key">
@@ -3013,7 +3013,7 @@ Note that there is no prohibition on the use of `xs:selector` and `xs:field`, si
 ### Rule 9-74. No use of `xs:keyref`
 
 > **[Rule 9-74] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:keyref">
@@ -3030,7 +3030,7 @@ Note that there is no prohibition on the use of `xs:selector` and `xs:field`, si
 #### Rule 9-75. No use of `xs:group`
 
 > **[Rule 9-75] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:group">
@@ -3047,7 +3047,7 @@ NIEM does not allow groups of elements to be named other than as named complex t
 Per [Rule 11-23, _Schema uses only known attribute groups_ (REF, EXT), below](#rule-11-23-schema-uses-only-known-attribute-groups), the only attribute groups used in NIEM-conformant schemas are `structures:SimpleObjectAttributeGroup` and attribute groups defined by the IC-ISM and IC-NTK schemas. Therefore, NIEM-conformant schemas do not define additional attribute groups.
 
 > **[Rule 9-76] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:attributeGroup[@name]">
@@ -3063,7 +3063,7 @@ Per [Rule 11-23, _Schema uses only known attribute groups_ (REF, EXT), below](#r
 Note that this rule is written with a context that is not as precise as it could be. Its context is the parent node of the comment node, in order to avoid error messages when executed with common Schematron implementations.
 
 > **[Rule 9-77] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="node()[comment()]">
@@ -3078,7 +3078,7 @@ Since XML comments are not associated with any specific XML Schema construct, th
 ### Rule 9-78. Documentation element has no element children
 
 > **[Rule 9-78] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:documentation/node()">
@@ -3095,7 +3095,7 @@ XML Schema provides special annotations for support of automatic processing. The
 #### Rule 9-79. `xs:appinfo` children are comments, elements, or whitespace
 
 > **[Rule 9-79] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:appinfo/node()">
@@ -3112,7 +3112,7 @@ Application information elements are intended for automatic processing; the mean
 #### Rule 9-80. Appinfo child elements have namespaces
 
 > **[Rule 9-80] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:appinfo/*">
@@ -3127,7 +3127,7 @@ The XML namespaces specification includes the concept of content not in a namesp
 #### Rule 9-81. Appinfo descendants are not XML Schema elements
 
 > **[Rule 9-81] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:appinfo//xs:*">
@@ -3146,7 +3146,7 @@ The XML Schema language defines that the document element `xs:schema` may contai
 ### Rule 9-82. Schema has data definition
 
 > **[Rule 9-82] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:schema">
@@ -3160,7 +3160,7 @@ The XML Schema language defines that the document element `xs:schema` may contai
 ### Rule 9-83. Schema document defines target namespace
 
 > **[Rule 9-83] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:schema">
@@ -3177,7 +3177,7 @@ Schemas without defined namespaces provide definitions that are ambiguous, in th
 > **[Rule 9-84] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
 > The value of the attribute targetNamespace MUST match the production &lt;absolute-URI&gt; as defined by RFC 3986.
 
-Absolute URIs are the only universally meaningful URIs. URIs include both URLs and URNs. Finding the target namespace using standard XML Base technology is complicated and not specified by XML Schema. Relative URIs are not universally identifiable, as they are context-specific. `&lt;absolute-URI&gt;` is a grammar production defined by [RFC 3986](#Appendix-A-References)       [Section 4.3, _Absolute URI_](http://tools.ietf.org/html/rfc3986#section-4.3). 
+Absolute URIs are the only universally meaningful URIs. URIs include both URLs and URNs. Finding the target namespace using standard XML Base technology is complicated and not specified by XML Schema. Relative URIs are not universally identifiable, as they are context-specific. `&lt;absolute-URI&gt;` is a grammar production defined by [RFC 3986](#Appendix-A-References)       [Section 4.3, _Absolute URI_](http://tools.ietf.org/html/rfc3986#section-4.3).
 
 ### Rule 9-85. Schema has version
 
@@ -3193,7 +3193,7 @@ In such cases, a different value for the `version` attribute implies a different
 An author of an application schema or exchange may use the `version` attribute for these purposes within their schemas.
 
 > **[Rule 9-85] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:schema">
@@ -3207,7 +3207,7 @@ An author of an application schema or exchange may use the `version` attribute f
 ### Rule 9-86. No disallowed substitutions
 
 > **[Rule 9-86] ([REF](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:schema">
@@ -3220,7 +3220,7 @@ An author of an application schema or exchange may use the `version` attribute f
 ### Rule 9-87. No disallowed derivations
 
 > **[Rule 9-87] ([REF](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:schema">
@@ -3235,7 +3235,7 @@ An author of an application schema or exchange may use the `version` attribute f
 ### Rule 9-88. No use of `xs:redefine`
 
 > **[Rule 9-88] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:redefine">
@@ -3250,7 +3250,7 @@ The `xs:redefine` element allows an XML Schema document to restrict and extend c
 ### Rule 9-89. No use of `xs:include`
 
 > **[Rule 9-89] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:include">
@@ -3267,7 +3267,7 @@ Inclusion of schemas that do not have namespaces also complicates schema underst
 ### Rule 9-90. `xs:import` must have namespace
 
 > **[Rule 9-90] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:import">
@@ -3294,7 +3294,7 @@ Some tools do not enforce this constraint; one such tool carries imports from a 
 #### Rule 9-92. Namespace referenced by attribute `type` is imported
 
 > **[Rule 9-92] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:*[@type]">
@@ -3310,7 +3310,7 @@ Some tools do not enforce this constraint; one such tool carries imports from a 
 #### Rule 9-93. Namespace referenced by attribute `base` is imported
 
 > **[Rule 9-93] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:*[@base]">
@@ -3326,7 +3326,7 @@ Some tools do not enforce this constraint; one such tool carries imports from a 
 #### Rule 9-94. Namespace referenced by attribute `itemType` is imported
 
 > **[Rule 9-94] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:*[@itemType]">
@@ -3342,7 +3342,7 @@ Some tools do not enforce this constraint; one such tool carries imports from a 
 #### Rule 9-95. Namespaces referenced by attribute `memberTypes` is imported
 
 > **[Rule 9-95] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:*[@memberTypes]">
@@ -3359,7 +3359,7 @@ Some tools do not enforce this constraint; one such tool carries imports from a 
 #### Rule 9-96. Namespace referenced by attribute `ref` is imported
 
 > **[Rule 9-96] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:*[@ref]">
@@ -3374,7 +3374,7 @@ Some tools do not enforce this constraint; one such tool carries imports from a 
 #### Rule 9-97. Namespace referenced by attribute `substitutionGroup` is imported
 
 > **[Rule 9-97] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:*[@substitutionGroup]">
@@ -3457,7 +3457,7 @@ The categories of objects are covered by the following sections:
 ##### Rule 10-2. Object type with complex content is derived from `structures:ObjectType`
 
 > **[Rule 10-2] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:complexType[exists(xs:complexContent)
@@ -3549,10 +3549,10 @@ Developers of NIEM-conformant schemas and exchanges should create and use role t
 
 > **[Definition: RoleOf element]**
 > A **RoleOf element** is an _element declaration_ that
-> 
+>
 > - is defined by a _reference schema document_ or an _extension schema document_, and
 > - has a {name} that begins with "RoleOf".
-> 
+>
 > A RoleOf element represents a base type for a _role type_.
 
 We saw the use of _RoleOf element_       `nc:RoleOfPerson` in _Figure 10-3, _Role type `j:CrashDriverType`, modeling a driver involved in a crash_, above_. Its definition is the following figure:
@@ -3590,7 +3590,7 @@ Note that the value of the `j:CrashPerson` element was indicated above using a r
 #### Rule 10-3. RoleOf element type is an object type
 
 > **[Rule 10-3] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:element[@name[starts-with(., 'RoleOf')]]">
@@ -3609,7 +3609,7 @@ Note that by [Rule 11-13, _Element type is from conformant namespace_ (REF, EXT)
 #### Rule 10-4. Only object type has RoleOf element
 
 > **[Rule 10-4] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:complexType[
@@ -3636,7 +3636,7 @@ Note that _RoleOf element_ and _object type_ are defined terms.
 
 > **[Rule 10-6] ([INS](#Applicability-of-rules-to-conformance-targets)) (Interpretation)**
 > When a parent element has a child element valid to an _element declaration_ that is a _RoleOf element_,
-> 
+>
 > - The value of the parent element is a role object.
 > - The value of the child element is a base object of the role object.
 
@@ -3652,7 +3652,7 @@ There are a variety of commonly used standards that are represented in XML Schem
 
 > **[Definition: external schema document]**
 > An **external schema document** is any _schema document_ that is not one of
-> 
+>
 > - a _reference schema document_,
 > - an _extension schema document_, or
 > - a _schema document_ that has the _structures namespace_ as its target namespace.
@@ -3683,7 +3683,7 @@ A NIEM-conformant schema has well-known documentation points. Therefore, a schem
 ##### Rule 10-7. Import of external namespace has data definition
 
 > **[Rule 10-7] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:import[@appinfo:externalImportIndicator]">
@@ -3713,7 +3713,7 @@ In normal (conformant) type definition, a reference to an attribute or element i
 ##### Rule 10-9. Structure of external adapter type definition follows pattern
 
 > **[Rule 10-9] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:complexType[@appinfo:externalAdapterTypeIndicator]">
@@ -3728,7 +3728,7 @@ In normal (conformant) type definition, a reference to an attribute or element i
 ##### Rule 10-10. Element use from external adapter type defined by external schema documents
 
 > **[Rule 10-10] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:element[@ref
@@ -3745,7 +3745,7 @@ In normal (conformant) type definition, a reference to an attribute or element i
 ##### Rule 10-11. External adapter type not a base type
 
 > **[Rule 10-11] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:*[(self::xs:extension or self::xs:restriction)
@@ -3762,7 +3762,7 @@ In normal (conformant) type definition, a reference to an attribute or element i
 ##### Rule 10-12. External adapter type not a base type
 
 > **[Rule 10-12] ([SET](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:*[(self::xs:extension or self::xs:restriction)
@@ -3787,7 +3787,7 @@ Each external adapter type is meant to stand alone; each type expresses a single
 A complex type that is defined by a _reference schema document_ is permitted to contain an attribute use schema component only if it is an _external adapter type_. This does not apply to a complex type defined by an _extension schema document_, which is permitted to use external attributes, as long as each attribute use is a _documented component_, per [Rule 10-14, _External attribute use has data definition_ (REF, EXT), below](#rule-10-14-external-attribute-use-has-data-definition).
 
 > **[Rule 10-13] ([REF](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:attribute[some $ref-namespace in namespace-uri-from-QName(resolve-QName(@ref, .)),
@@ -3805,7 +3805,7 @@ This document defines the term _external adapter type_.
 ##### Rule 10-14. External attribute use has data definition
 
 > **[Rule 10-14] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:attribute[some $ref-namespace in namespace-uri-from-QName(resolve-QName(@ref, .)),
@@ -3834,7 +3834,7 @@ The term "attribute use schema component" is defined by [XML Schema Structures](
 ##### Rule 10-16. External element use has data definition
 
 > **[Rule 10-16] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:element[
@@ -3863,7 +3863,7 @@ Many code types have simple content composed of `xs:enumeration` values. Code ty
 #### Rule 10-17. Name of code type ends in "CodeType"
 
 > **[Rule 10-17] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:complexType[exists(xs:simpleContent[
@@ -3887,7 +3887,7 @@ See [Section 11.1.2.3, _Code simple types_, below,](#code-simple-types) for the 
 #### Rule 10-19. Element of code type has code representation term
 
 > **[Rule 10-19] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:element[exists(@name) and exists(@type) and ends-with(@type, 'CodeType')]">
@@ -3909,7 +3909,7 @@ A complex type that is a direct extension of a simple type from the XML Schema n
 #### Rule 10-20. Proxy type has designated structure
 
 > **[Rule 10-20] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:complexType[some $name in @name,
@@ -3981,7 +3981,7 @@ Note that the NIEM Core schema in NIEM 5.0 defines a type `nc:AssociationType`, 
 This schema fragment shows the definition of an association type that defines a relationship between a person and a telephone number. This is followed by the definition of an association element declaration that uses the association type.
 
 > **[Definition: association]**
-> An _association_ is a _conformant element information item_ that establishes a relationship between two or more objects, optionally including properties of that relationship. An association is an instance of an _association element declaration_, and has a type that is an _association type_. 
+> An _association_ is a _conformant element information item_ that establishes a relationship between two or more objects, optionally including properties of that relationship. An association is an instance of an _association element declaration_, and has a type that is an _association type_.
 
 > **[Definition: association element declaration]**
 > An **association element declaration** is an _element declaration_ declared in a _reference schema document_ or _extension schema document_ that describes a relationship between two or more objects, optionally including properties of that relationship.
@@ -3994,7 +3994,7 @@ This schema fragment shows the definition of an association type that defines a 
 #### Rule 10-21. Association type derived from `structures:AssociationType`
 
 > **[Rule 10-21] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:complexType">
@@ -4016,7 +4016,7 @@ Associations types are easily identifiable as such and have a common base type, 
 #### Rule 10-22. Association element type is an association type
 
 > **[Rule 10-22] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:element[exists(@name)]">
@@ -4069,7 +4069,7 @@ The term _augmentation_ describes any element in a NIEM-conformant instance XML 
 
 > **[Definition: augmentation]**
 > An **augmentation** is a _conformant element information item_ that:
-> 
+>
 > 1. is an instance of an _augmentation element declaration_,
 > 1. is a child of a _conformant element information item_ that is an instance of an _augmentable type_, and
 > 1. appears in the instance as a substitution for an augmentation point element.
@@ -4180,7 +4180,7 @@ Note that the augmentation method can introduce an additional element into every
 
 > **[Definition: augmentable type]**
 > An _augmentable type_ is _complex type definition_ that
-> 
+>
 > - is defined by either a _reference schema document_ or by an _extension schema document_, and
 > - is either
 > 	- an _association type_, or
@@ -4190,7 +4190,7 @@ Note that the augmentation method can introduce an additional element into every
 #### Rule 10-23. Augmentable type has augmentation point element
 
 > **[Rule 10-23] ([REF](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:complexType[
@@ -4211,7 +4211,7 @@ Note that the augmentation method can introduce an additional element into every
 #### Rule 10-24. Augmentable type has at most one augmentation point element
 
 > **[Rule 10-24] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:complexType[
@@ -4234,7 +4234,7 @@ Note that the augmentation method can introduce an additional element into every
 #### Rule 10-25. Augmentation point element corresponds to its base type
 
 > **[Rule 10-25] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:element[exists(@name[
@@ -4258,7 +4258,7 @@ This document defines the terms _schema document_, _element declaration_, and _a
 #### Rule 10-26. An augmentation point element has no type
 
 > **[Rule 10-26] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:element[exists(@name[
@@ -4274,7 +4274,7 @@ Because an augmentation point element has no type, it will be abstract, per [Rul
 #### Rule 10-27. An augmentation point element has no substitution group
 
 > **[Rule 10-27] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:element[exists(@name[
@@ -4290,7 +4290,7 @@ Because an augmentation point element has no type, it will be abstract, per [Rul
 #### Rule 10-28. Augmentation point element is only referenced by its base type
 
 > **[Rule 10-28] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:complexType//xs:element[exists(@ref[
@@ -4306,7 +4306,7 @@ Because an augmentation point element has no type, it will be abstract, per [Rul
 #### Rule 10-29. Augmentation point element use is optional
 
 > **[Rule 10-29] ([REF](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:complexType//xs:element[exists(@ref[
@@ -4320,7 +4320,7 @@ Because an augmentation point element has no type, it will be abstract, per [Rul
 #### Rule 10-30. Augmentation point element use is unbounded
 
 > **[Rule 10-30] ([REF](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:complexType//xs:element[exists(@ref[
@@ -4334,7 +4334,7 @@ Because an augmentation point element has no type, it will be abstract, per [Rul
 #### Rule 10-31. Augmentation point element use must be last element in its base type
 
 > **[Rule 10-31] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:complexType//xs:element[exists(@ref[
@@ -4349,13 +4349,13 @@ Because an augmentation point element has no type, it will be abstract, per [Rul
 
 > **[Definition: augmentation type]**
 > An **augmentation type** is a _complex type definition_ that
-> 
+>
 > 1. provides elements that establish relationships to a base object or association, rather than to the instance of the augmentation type itself, and
 > 1. is designed to be the type of an _augmentation element declaration_.
 
 > **[Definition: augmentation element declaration]**
 > An _augmentation element declaration_ is an _element declaration_ that
-> 
+>
 > 1. has a type that is an _augmentation type_, and
 > 1. carries elements that establish a relationship to its parent object or association
 > 1. is designed to be used as an _augmentation_ of its parent object or association
@@ -4384,7 +4384,7 @@ The primary indicator that a complex type is an _augmentation type_ is its name.
 #### Rule 10-34. Schema component with name ending in "AugmentationType" is an augmentation type
 
 > **[Rule 10-34] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:*[ends-with(@name, 'AugmentationType')]">
@@ -4401,7 +4401,7 @@ The _base type definition_ of an augmentation type is required to be from a conf
 #### Rule 10-35. Type derived from `structures:AugmentationType` is an augmentation type
 
 > **[Rule 10-35] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:*[(self::xs:restriction or self::xs:extension)
@@ -4419,7 +4419,7 @@ This rule ensures that any type that is derived from an augmentation type, inclu
 #### Rule 10-36. Augmentation element type is an augmentation type
 
 > **[Rule 10-36] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:element[exists(@name)]">
@@ -4436,7 +4436,7 @@ Using the qualifier `Augmentation` immediately identifies an element as represen
 
 > **[Rule 10-37] ([REF](#Applicability-of-rules-to-conformance-targets), [SET](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
 > Within a _reference schema document_, a complex type definition MUST NOT have an element use of
-> 
+>
 > - an _augmentation element declaration_, or
 > - an element declaration that is in the substitution group of an augmentation point element declaration.
 
@@ -4461,7 +4461,7 @@ A metadata type establishes a specific, named aggregation of data about data. An
 #### Rule 10-39. Metadata types are derived from `structures:MetadataType`
 
 > **[Rule 10-39] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:complexType">
@@ -4487,7 +4487,7 @@ A metadata type is derived from another metadata type, terminating in the base t
 #### Rule 10-40. Metadata element declaration type is a metadata type
 
 > **[Rule 10-40] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:element[exists(@name)]">
@@ -4505,18 +4505,18 @@ Each metadata element declaration may be applied to a set of elements. Any eleme
 
 > **[Rule 10-41] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets), [SET](#Applicability-of-rules-to-conformance-targets)) (Interpretation)**
 > The set of applicable elements for a metadata element declaration are as follows:
-> 
+>
 > - A metadata element declaration that has neither an attribute `appinfo:appliesToTypes` nor an attribute `appinfo:appliesToElements` may be applied to any element.
 > - A metadata element declaration that has either an attribute `appinfo:appliesToTypes` or an attribute `appinfo:appliesToElements` may be applied to
-> 
+>
 > 	- any element whose qualified name is in the value of `appinfo:appliesToElements`, or any element with a declaration that is in the substitution group of the declaration of such an element, and to
 > 	- any element with a type with a qualified name that is in the value of `appinfo:appliesToTypes`, or any element with a type that is validly derived from such a type.
-> 
+>
 
 _Figure 10-14, _Sample use of `appinfo:appliesToTypes`_, below,_ shows an example of `appinfo:appliesToTypes`, defining a metadata element that is applicable to all objects and all associations.
 
 ### Figure 10-14: Sample use of `appinfo:appliesToTypes`
-> 
+>
 > ```xml
 > <xs:element name="Metadata" type="nc:MetadataType" nillable="true"
 >    appinfo:appliesToTypes="structures:ObjectType structures:AssociationType">
@@ -4559,7 +4559,7 @@ To handle this need, NIEM has adopted the "Representation" pattern, in which a t
 For example, the definition of `nc:DateType` uses this pattern:
 
 ## Figure 10-15: A type definition that uses the "Representation" pattern
-> 
+>
 > ```xml
 > <xs:complexType name="DateType">
 >  <xs:annotation>
@@ -4581,32 +4581,32 @@ For example, the definition of `nc:DateType` uses this pattern:
 The type has elements that represent accuracy and margin of error, as well as an augmentation point. The actual date value, however, is carried by an element that substitutes for `nc:DateRepresentation`. That base element, and several substitutions are defined by the NIEM Core namespace:
 
 ## Figure 10-16: Element declarations that implement representations
-> 
+>
 > ```xml
 > <xs:element name="DateRepresentation" abstract="true">
 >  <xs:annotation>
 >    <xs:documentation>A data concept for a representation of a date.</xs:documentation>
 >  </xs:annotation>
 > </xs:element>
-> 
+>
 > <xs:element name="Date" type="niem-xs:date" substitutionGroup="nc:DateRepresentation" nillable="true">
 >  <xs:annotation>
 >    <xs:documentation>A full date.</xs:documentation>
 >  </xs:annotation>
 > </xs:element>
-> 
+>
 > <xs:element name="DateTime" type="niem-xs:dateTime" substitutionGroup="nc:DateRepresentation">
 >  <xs:annotation>
 >    <xs:documentation>A full date and time.</xs:documentation>
 >  </xs:annotation>
 > </xs:element>
-> 
+>
 > <xs:element name="YearDate" type="niem-xs:gYear" substitutionGroup="nc:DateRepresentation">
 >  <xs:annotation>
 >    <xs:documentation>A year.</xs:documentation>
 >  </xs:annotation>
 > </xs:element>
-> 
+>
 > <xs:element name="YearMonthDate" type="niem-xs:gYearMonth" substitutionGroup="nc:DateRepresentation">
 >  <xs:annotation>
 >    <xs:documentation>A year and month.</xs:documentation>
@@ -4627,7 +4627,7 @@ This method has several benefits:
 ### Rule 10-42. Name of element that ends in "Representation" is abstract
 
 > **[Rule 10-42] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:element[@name[ends-with(., 'Representation')]]">
@@ -4658,7 +4658,7 @@ The English language has many spelling variations for the same word. For example
 [XML](#Appendix-A-References)       [Section 2.12, _Language Identification_](http://www.w3.org/TR/2008/REC-xml-20081126/#sec-lang-tag) defines attribute `xml:lang`, which establishes the language used in the contents and attributes of an XML document. To facilitate clarity and future support for languages other than US English, each component name defined in a conformant schema is in the scope of an occurrence of `xml:lang`, which defines the language used in the component name.
 
 > **[Rule 10-45] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:*[exists(@name)]">
@@ -4673,7 +4673,7 @@ The English language has many spelling variations for the same word. For example
 ### Rule 10-46. Schema component names have only specific characters
 
 > **[Rule 10-46] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:*[exists(@name)]">
@@ -4715,7 +4715,7 @@ Names of conformant components use _camel case_ formatting. Camel case is the co
 #### Rule 10-49. Attribute name begins with lower case letter
 
 > **[Rule 10-49] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:attribute[exists(@name)]">
@@ -4729,7 +4729,7 @@ Names of conformant components use _camel case_ formatting. Camel case is the co
 #### Rule 10-50. Name of schema component other than attribute and proxy type begins with upper case letter
 
 > **[Rule 10-50] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:attribute">
@@ -4774,7 +4774,7 @@ The NDR establishes appinfo for local terminology that introduces such terms int
 
 > **[Definition: local term]**
 > In a conformant schema document, a local term is a word, phrase, acronym, or other string of characters for which all of the following are true:
-> 
+>
 > 1. It is not a term defined in the [OED](#Appendix-A-References), or it has a non-OED definition, or its word sense may not be clear.
 > 1. It is introduced into the schema document via an appinfo element `appinfo:LocalTerm`.
 > 1. It may be used in the local name of a schema component within the schema document.
@@ -4792,7 +4792,7 @@ See additional rules constraining the use of local terminology in [Section 10.9.
 
 > **[Rule 10-53] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Interpretation)**
 > An element information item `appinfo:LocalTerm` MUST establish a term as follows:
-> 
+>
 > 1.  The value of the attribute `term` is the [local term](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#definition_local_term); it may occur as a term within the name of a schema component within the schema document.
 > 2.  The value of the attribute `literal` is the meaning of the local term, provided as a full, plain-text form of the term. This may be useful when a local term is an abbreviation, acronym, or diminutive form of a longer term.
 > 3.  The value of the attribute `definition` is a dictionary-style description of the meaning of the local term.
@@ -4823,7 +4823,7 @@ Elements and attributes in NIEM-conformant schemas are given names that follow a
 
 > **[Rule 10-57] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
 > Except as specified elsewhere in this document, any element or attribute defined within the schema SHOULD have a name that takes the form:
-> 
+>
 > - Object-class qualifier terms (0 or more).
 > - An object class term (1).
 > - Property qualifier terms (0 or more).
@@ -4961,7 +4961,7 @@ This document defines the term _machine-readable annotation_ to normatively refe
 
 > **[Definition: machine-readable annotation]**
 > An information item within a schema is defined to be a machine-readable annotation when all of the following are true:
-> 
+>
 > 1. It is one of the following:
 > 	- It is an element information item that is a child of an `xs:appinfo` element.
 > 	- It is an attribute information item that satisfies the "{any attributes with non- schema namespace . . .}" clause within the declaration of an XML Schema element.
@@ -4994,7 +4994,7 @@ The _appinfo namespace_ defines attributes which provide additional semantics fo
 
 #### Deprecation
 
-The `appinfo` schema provides a construct for indicating that a construct is deprecated. A deprecated component is one whose use is not recommended. A deprecated component may be kept in a schema for support of older versions but should not be used in new efforts. A deprecated component may be removed, replaced, or renamed in a later version of a namespace.
+The `appinfo` schema provides a construct for indicating that a component is deprecated. A deprecated component is one whose use is not recommended. A deprecated component may be kept in a schema for support of older versions but should not be used in new efforts. A deprecated component may be removed, replaced, or renamed in a later version of a namespace.
 
 > **[Definition: deprecated component]**
 > A **deprecated component** is one that developers are discouraged from using, typically because a better alternative exists, yet which is maintained in the schema for compatibility with previous versions of the namespace.
@@ -5011,7 +5011,7 @@ Deprecation can allow version management to be more consistent; versions of sche
 ##### Rule 10-69. Deprecated annotates schema component
 
 > **[Rule 10-69] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```
 > <sch:pattern>xml
 >  <sch:rule context="*[exists(@appinfo:deprecated)]">
@@ -5028,7 +5028,7 @@ The annotation attributes `appinfo:externalImportIndicator` and `appinfo:externa
 ##### Rule 10-70. External import indicator annotates import
 
 > **[Rule 10-70] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="*[exists(@appinfo:externalImportIndicator)]">
@@ -5041,7 +5041,7 @@ The annotation attributes `appinfo:externalImportIndicator` and `appinfo:externa
 ##### Rule 10-71. External adapter type indicator annotates complex type
 
 > **[Rule 10-71] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="*[exists(@appinfo:externalAdapterTypeIndicator)]">
@@ -5056,7 +5056,7 @@ The annotation attributes `appinfo:externalImportIndicator` and `appinfo:externa
 ##### Rule 10-72. `appinfo:appliesToTypes` annotates metadata element
 
 > **[Rule 10-72] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="*[exists(@appinfo:appliesToTypes)]">
@@ -5070,7 +5070,7 @@ The annotation attributes `appinfo:externalImportIndicator` and `appinfo:externa
 ##### Rule 10-73. `appinfo:appliesToTypes` references types
 
 > **[Rule 10-73] ([SET](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="*[exists(@appinfo:appliesToTypes)]">
@@ -5086,7 +5086,7 @@ The annotation attributes `appinfo:externalImportIndicator` and `appinfo:externa
 ##### Rule 10-74. `appinfo:appliesToElements` annotates metadata element
 
 > **[Rule 10-74] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="*[exists(@appinfo:appliesToElements)]">
@@ -5101,7 +5101,7 @@ The annotation attributes `appinfo:externalImportIndicator` and `appinfo:externa
 ##### Rule 10-75. `appinfo:appliesToElements` references elements
 
 > **[Rule 10-75] ([SET](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="*[exists(@appinfo:appliesToElements)]">
@@ -5117,7 +5117,7 @@ The annotation attributes `appinfo:externalImportIndicator` and `appinfo:externa
 #### Rule 10-76. `appinfo:LocalTerm` annotates schema
 
 > **[Rule 10-76] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="appinfo:LocalTerm">
@@ -5132,7 +5132,7 @@ This document defines the term _application information_.
 #### Rule 10-77. `appinfo:LocalTerm` has literal or definition
 
 > **[Rule 10-77] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="appinfo:LocalTerm">
@@ -5167,7 +5167,7 @@ This section focuses on building NIEM data models using XML schema. Whereas [Sec
 ### Rule 11-1. Name of type ends in "Type"
 
 > **[Rule 11-1] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:complexType[some $name in @name,
@@ -5190,7 +5190,7 @@ Note that the first `sch:rule` and subsequent `sch:report` serve to provide an e
 ### Rule 11-2. Only types have name ending in "Type" or "SimpleType"
 
 > **[Rule 11-2] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:*[exists(@name) and ends-with(@name, 'SimpleType')]">
@@ -5211,7 +5211,7 @@ Use of the representation terms "Type" and "SimpleType" helps identify complex a
 #### Rule 11-3. Base type definition defined by conformant schema
 
 > **[Rule 11-3] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:*[exists(@base)]">
@@ -5230,7 +5230,7 @@ Use of the representation terms "Type" and "SimpleType" helps identify complex a
 #### Rule 11-4. Name of simple type ends in "SimpleType"
 
 > **[Rule 11-4] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:simpleType[@name]">
@@ -5256,7 +5256,7 @@ Items in a list are not individually addressable by NIEM metadata techniques. Th
 ##### Rule 11-6. List item type defined by conformant schemas
 
 > **[Rule 11-6] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:list[exists(@itemType)]">
@@ -5275,7 +5275,7 @@ Items in a list are not individually addressable by NIEM metadata techniques. Th
 ##### Rule 11-7. Union member types defined by conformant schemas
 
 > **[Rule 11-7] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:union[exists(@memberTypes)]">
@@ -5302,7 +5302,7 @@ Many code simple types are composed of `xs:enumeration` values. Code simple type
 ##### Rule 11-8. Name of a code simple type ends in "CodeSimpleType"
 
 > **[Rule 11-8] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:simpleType[exists(@name)
@@ -5322,7 +5322,7 @@ Many code simple types are composed of `xs:enumeration` values. Code simple type
 ##### Rule 11-10. Attribute of code simple type has code representation term
 
 > **[Rule 11-10] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:attribute[exists(@name) and exists(@type) and ends-with(@type, 'CodeSimpleType')]">
@@ -5346,7 +5346,7 @@ Within a _reference schema document_, a complex type with simple content can be 
 Both of these methods use the element `xs:extension`. Although these two methods have similar syntax, there are subtle differences. NIEM’s conformance rules ensure that any complex type has the necessary attributes for representing IDs, references, metadata, and relationship metadata. Case 1 does not require adding these attributes, as they are guaranteed to occur in the base type. However, in case 2, in which a new complex type is created from a simple type, the attributes for complex types must be added. This is done by reference to the attribute group `structures:SimpleObjectAttributeGroup`.
 
 > **[Rule 11-11] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:simpleContent/xs:extension[
@@ -5387,7 +5387,7 @@ This creates a pattern for complex type with simple content definition as follow
 This rule, in conjunction with [Rule 11-4, _Name of simple type ends in "SimpleType"_ (REF, EXT), above](#rule-11-4-name-of-simple-type-ends-in-simpletype), ensures that all conformant elements will have complex types that contain attributes from the structures namespace, enabling a consistent approach for using IDs, references, metadata, relationship metadata, and security markup data.
 
 > **[Rule 11-12] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:element[exists(@type)]">
@@ -5402,7 +5402,7 @@ This document defines the term _element declaration_.
 #### Rule 11-13. Element type is from conformant namespace
 
 > **[Rule 11-13] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:element[exists(@type)]">
@@ -5424,7 +5424,7 @@ Additional prohibitions on element types are defined by [Rule 9-41, _Element typ
 #### Rule 11-14. Name of element that ends in "Abstract" is abstract
 
 > **[Rule 11-14] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:element[@name]">
@@ -5445,7 +5445,7 @@ This rule checks all cases that are testable in a single schema document.
 ##### Rule 11-15. Name of element declaration with simple content has representation term
 
 > **[Rule 11-15] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:element[@name and @type
@@ -5467,7 +5467,7 @@ Representation terms are defined by _Table 10-2, _Property representation terms_
 This rule only checks the cases not testable in the (REF, EXT) version.
 
 > **[Rule 11-16] ([SET](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:element[@name and @type
@@ -5492,7 +5492,7 @@ Representation terms are defined by _Table 10-2, _Property representation terms_
 #### Rule 11-17. Element substitution group defined by conformant schema
 
 > **[Rule 11-17] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:element[exists(@substitutionGroup)]">
@@ -5511,7 +5511,7 @@ Representation terms are defined by _Table 10-2, _Property representation terms_
 #### Rule 11-18. Attribute type defined by conformant schema
 
 > **[Rule 11-18] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:attribute[exists(@type)]">
@@ -5528,7 +5528,7 @@ Representation terms are defined by _Table 10-2, _Property representation terms_
 #### Rule 11-19. Attribute name uses representation term
 
 > **[Rule 11-19] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:attribute[exists(@name)]">
@@ -5569,7 +5569,7 @@ This rule is also intended to prevent developers from creating complicated seque
 ##### Rule 11-21. Element reference defined by conformant schema
 
 > **[Rule 11-21] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:element[exists(ancestor::xs:complexType[empty(@appinfo:externalAdapterTypeIndicator)]) and @ref]">
@@ -5590,7 +5590,7 @@ The term _schema document_ is a defined term.
 #### Rule 11-22. Referenced attribute defined by conformant schemas
 
 > **[Rule 11-22] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:attribute[@ref]">
@@ -5612,7 +5612,7 @@ The term _schema document_ is a defined term.
 In conformant schemas, use of attribute groups is restricted. The only attribute group defined by NIEM for use in conformant schemas is `structures:SimpleObjectAttributeGroup`. This attribute group provides the attributes necessary for IDs, references, metadata, and relationship metadata. In addition, there are attributes defined by ISM and NTK namespaces, which may be used in conformant schemas. Rationale for this use is provided in [Section 7.6, _IC-ISM and IC-NTK_, above](#ic-ism-and-ic-ntk).
 
 > **[Rule 11-23] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:attributeGroup[@ref]">
@@ -5696,7 +5696,7 @@ A component definition is intended to describe semantic meaning only, not repres
 [XML](#Appendix-A-References)        [Section 2.12, _Language Identification_](http://www.w3.org/TR/2008/REC-xml-20081126/#sec-lang-tag) defines attribute `xml:lang`, which establishes the language used in the contents and attributes of an XML document. To facilitate clarity and future support for languages other than US English, each occurrence of `xs:documentation` in a conformant schema is in the scope of an occurrence of `xml:lang`, which defines the language used in the documentation.
 
 > **[Rule 11-30] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:documentation">
@@ -5717,7 +5717,7 @@ In order to provide a more consistent voice across NIEM, a model built from requ
 ###### Rule 11-31. Standard opening phrase for augmentation point element data definition
 
 > **[Rule 11-31] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:element[ends-with(@name, 'AugmentationPoint')]/xs:annotation/xs:documentation[1]">
@@ -5731,7 +5731,7 @@ In order to provide a more consistent voice across NIEM, a model built from requ
 ###### Rule 11-32. Standard opening phrase for augmentation element data definition
 
 > **[Rule 11-32] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:element[ends-with(@name, 'Augmentation')]/xs:annotation/xs:documentation[1]">
@@ -5747,7 +5747,7 @@ In order to provide a more consistent voice across NIEM, a model built from requ
 ###### Rule 11-33. Standard opening phrase for metadata element data definition
 
 > **[Rule 11-33] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:element[ends-with(@name, 'Metadata')
@@ -5762,7 +5762,7 @@ In order to provide a more consistent voice across NIEM, a model built from requ
 ###### Rule 11-34. Standard opening phrase for association element data definition
 
 > **[Rule 11-34] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:element[ends-with(@name, 'Association')
@@ -5777,7 +5777,7 @@ In order to provide a more consistent voice across NIEM, a model built from requ
 ###### Rule 11-35. Standard opening phrase for abstract element data definition
 
 > **[Rule 11-35] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:element[xs:boolean(@abstract) = true()
@@ -5792,7 +5792,7 @@ In order to provide a more consistent voice across NIEM, a model built from requ
 ###### Rule 11-36. Standard opening phrase for date element or attribute data definition
 
 > **[Rule 11-36] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="*[(self::xs:element or self::xs:attribute)
@@ -5808,7 +5808,7 @@ In order to provide a more consistent voice across NIEM, a model built from requ
 ###### Rule 11-37. Standard opening phrase for quantity element or attribute data definition
 
 > **[Rule 11-37] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="*[(self::xs:element or self::xs:attribute)
@@ -5824,7 +5824,7 @@ In order to provide a more consistent voice across NIEM, a model built from requ
 ###### Rule 11-38. Standard opening phrase for picture element or attribute data definition
 
 > **[Rule 11-38] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="*[(self::xs:element or self::xs:attribute)
@@ -5840,7 +5840,7 @@ In order to provide a more consistent voice across NIEM, a model built from requ
 ###### Rule 11-39. Standard opening phrase for indicator element or attribute data definition
 
 > **[Rule 11-39] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="*[(self::xs:element or self::xs:attribute)
@@ -5856,7 +5856,7 @@ In order to provide a more consistent voice across NIEM, a model built from requ
 ###### Rule 11-40. Standard opening phrase for identification element or attribute data definition
 
 > **[Rule 11-40] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="*[(self::xs:element or self::xs:attribute)
@@ -5872,7 +5872,7 @@ In order to provide a more consistent voice across NIEM, a model built from requ
 ###### Rule 11-41. Standard opening phrase for name element or attribute data definition
 
 > **[Rule 11-41] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="*[(self::xs:element or self::xs:attribute)
@@ -5888,7 +5888,7 @@ In order to provide a more consistent voice across NIEM, a model built from requ
 ###### Rule 11-42. Standard opening phrase for element or attribute data definition
 
 > **[Rule 11-42] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="*[(self::xs:element or self::xs:attribute)
@@ -5910,7 +5910,7 @@ In order to provide a more consistent voice across NIEM, a model built from requ
 ###### Rule 11-43. Standard opening phrase for association type data definition
 
 > **[Rule 11-43] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:complexType[ends-with(@name, 'AssociationType')]/xs:annotation/xs:documentation[1]">
@@ -5924,7 +5924,7 @@ In order to provide a more consistent voice across NIEM, a model built from requ
 ###### Rule 11-44. Standard opening phrase for augmentation type data definition
 
 > **[Rule 11-44] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:complexType[ends-with(@name, 'AugmentationType')]/xs:annotation/xs:documentation[1]">
@@ -5939,7 +5939,7 @@ In order to provide a more consistent voice across NIEM, a model built from requ
 ###### Rule 11-45. Standard opening phrase for metadata type data definition
 
 > **[Rule 11-45] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:complexType[ends-with(@name, 'MetadataType')]/xs:annotation/xs:documentation[1]">
@@ -5954,7 +5954,7 @@ In order to provide a more consistent voice across NIEM, a model built from requ
 ###### Rule 11-46. Standard opening phrase for complex type data definition
 
 > **[Rule 11-46] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:complexType/xs:annotation/xs:documentation[1]">
@@ -5968,7 +5968,7 @@ In order to provide a more consistent voice across NIEM, a model built from requ
 ##### Rule 11-47. Standard opening phrase for simple type data definition
 
 > **[Rule 11-47] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:simpleType/xs:annotation/xs:documentation[1]">
@@ -6000,7 +6000,7 @@ These rules embody the basic philosophy behind NIEM’s use of components with n
 ### Rule 11-50. Reference schema document imports reference schema document
 
 > **[Rule 11-50] ([SET](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:import[
@@ -6021,7 +6021,7 @@ This document defines the term _reference schema document_.
 ### Rule 11-51. Extension schema document imports reference or extension schema document
 
 > **[Rule 11-51] ([SET](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:import[
@@ -6047,7 +6047,7 @@ There are several namespaces that are treated specially by the NIEM NDR. When th
 #### Rule 11-52. Structures imported as conformant
 
 > **[Rule 11-52] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:import[exists(@namespace)
@@ -6061,7 +6061,7 @@ There are several namespaces that are treated specially by the NIEM NDR. When th
 #### Rule 11-53. XML namespace imported as conformant
 
 > **[Rule 11-53] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:import[exists(@namespace)
@@ -6075,7 +6075,7 @@ There are several namespaces that are treated specially by the NIEM NDR. When th
 ### Rule 11-54. Each namespace may have only a single root schema in a schema set
 
 > **[Rule 11-54] ([SET](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:schema[exists(@targetNamespace)
@@ -6089,10 +6089,10 @@ There are several namespaces that are treated specially by the NIEM NDR. When th
 > ```
 
 ### Rule 11-55. Consistently marked namespace imports
-XML Schemas allows multiple xs:import elements for the same namespace, which allows for multiple sets of annotations and schema locations. 
+XML Schemas allows multiple xs:import elements for the same namespace, which allows for multiple sets of annotations and schema locations.
 
 > **[Rule 11-55] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="xs:import">
@@ -6180,7 +6180,7 @@ NIEM provides two different ways to solve this problem: the use of local referen
 ### Rule 12-3. Element has only one resource identifying attribute
 
 > **[Rule 12-3] ([INS](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="*[exists(@structures:id) or exists(@structures:ref) or exists(@structures:uri)]">
@@ -6202,7 +6202,7 @@ The XML specifications define ID and IDREF attributes, which act as references i
 In short, within a NIEM-conformant XML document, an attribute `structures:ref` refers to an attribute `structures:id`. These attributes may appear in an XML document to express that an object that is the value of an element is the same as some other object within the document. For example, in the following example, the user of the weapon (Bart) is the same person that is the subject of the arrest:
 
 ### Figure 12-3: Example of `structures:id` and `structures:ref`
-> 
+>
 > ```xml
 > <j:Arrest>
 >  <j:ArrestInvolvedWeapon>
@@ -6224,7 +6224,7 @@ Note that rules below establish that relationships established using `structures
 Although many attributes with ID and IDREF semantics are defined by many vocabularies, for consistency, within a NIEM XML document any attribute `structures:ref` must refer to an attribute `structures:id`, and not any other attribute.
 
 > **[Rule 12-4] ([INS](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="*[@structures:ref]">
@@ -6242,14 +6242,14 @@ NIEM supports type-safe references: references using `structures:ref` and `struc
 
 > **[Rule 12-5] ([INS](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
 > Given that:
-> 
+>
 > - `$element` is an [element information item](http://www.w3.org/TR/2004/REC-xml-infoset-20040204/#infoitem.element)
 > - `$element` has attribute `structures:ref` with value `$ref`
 > - `$element` has [property [validation context]](http://www.w3.org/TR/2004/REC-xmlschema-1-20041028/#e-validation_context) with value called the _referencing element validation root_
 > - `$target` is an [element information item](http://www.w3.org/TR/2004/REC-xml-infoset-20040204/#infoitem.element)
 > - `$target` has attribute `structures:id` with value `$ref`
 > - `$target` has [property [validation context]](http://www.w3.org/TR/2004/REC-xmlschema-1-20041028/#e-validation_context) with value called the _referenced element validation root_
-> 
+>
 > Every element that has an attribute `structures:ref` MUST have a referencing element validation root that is equal to the referenced element validation root.
 
 The term "validation root" is defined by [XML Schema Structures](#Appendix-A-References)        [Section 5.2, _Assessing Schema-Validity_](http://www.w3.org/TR/2004/REC-xmlschema-1-20041028/#key-vr). It is established as a part of validity assessment of an XML document. It is required because relationships between the types of elements cannot be established if those elements were not assessed together.
@@ -6258,14 +6258,14 @@ The term "validation root" is defined by [XML Schema Structures](#Appendix-A-Ref
 
 > **[Rule 12-6] ([INS](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
 > Given that:
-> 
+>
 > - `$element` is an [element information item](http://www.w3.org/TR/2004/REC-xml-infoset-20040204/#infoitem.element)
 > - `$element` has attribute `structures:ref` with value `$ref`
 > - `$element` has [property [type definition]](http://www.w3.org/TR/2004/REC-xmlschema-1-20041028/#e-type_definition) with value called the _referencing element type definition_.
 > - `$target` is an [element information item](http://www.w3.org/TR/2004/REC-xml-infoset-20040204/#infoitem.element)
 > - `$target` has attribute `structures:id` with value `$ref`
 > - `$target` has [property [type definition]](http://www.w3.org/TR/2004/REC-xmlschema-1-20041028/#e-type_definition) with value called the _referenced element type definition_
-> 
+>
 > Every element that has an attribute `structures:ref` MUST have a _referenced element type definition_ that is validly derived from the _referencing element type definition_.
 
 The term **validly derived** is as established by [XML Schema Structures](#Appendix-A-References)        [subsection _Schema Component Constraint: Type Derivation OK (Complex)_](http://www.w3.org/TR/2004/REC-xmlschema-1-20041028/#cos-ct-derived-ok) within [Section 3.4.6, _Constraints on Complex Type Definition Schema Components_](http://www.w3.org/TR/2004/REC-xmlschema-1-20041028/#coss-ct).
@@ -6473,16 +6473,16 @@ The order of properties within an object may be expressed through the use of att
 
 > **[Rule 12-10] ([INS](#Applicability-of-rules-to-conformance-targets)) (Interpretation)**
 > Given two properties of object `$Object`,
-> 
+>
 > - property `$Property1` with attribute `structures:sequenceID` with value `$Value1`, and
 > - property `$Property2` with attribute `structures:sequenceID` with value `$Value2`
-> 
+>
 > If `$Value1` is less than `$Value2`, then `$Property1` MUST be interpreted as occurring before `$Property2` within `$Object`.
-> 
+>
 > If `$Value2` is less than `$Value1`, then `$Property2` MUST be interpreted as occurring before `$Property1` within `$Object`.
-> 
+>
 > The value of an attribute `structures:sequenceID` MUST be interpreted as an integer value. Comparisons between their values must be interpreted as comparisons between integers.
-> 
+>
 > The relative order of two properties, where either does not have attribute `structures:sequenceID` is unspecified. The relative order of two properties that have the same value for attribute `structures:sequenceID` is unspecified.
 
 This specification does not designate order of properties of an object where attribute `structures:sequenceID` does not appear.
@@ -6576,7 +6576,7 @@ Although not implemented in Schematron, this rule covers the cases not covered b
 ### Rule 12-16. Attribute `structures:metadata` references metadata element
 
 > **[Rule 12-16] ([INS](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="*[exists(@structures:metadata)]">
@@ -6593,7 +6593,7 @@ Note that this will NOT diagnose a scenario in which the element with a name end
 ### Rule 12-17. Attribute `structures:relationshipMetadata` references metadata element
 
 > **[Rule 12-17] ([INS](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> 
+>
 > ```xml
 > <sch:pattern>
 >  <sch:rule context="*[exists(@structures:relationshipMetadata)]">
@@ -6620,7 +6620,7 @@ The applicable elements for a metadata element are identified by [Rule 10-41, _M
 	- [RFC 2119]: Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, March 1997. Available from [http://www.ietf.org/rfc/rfc2119.txt](http://www.ietf.org/rfc/rfc2119.txt).
 	- [RFC 8174]: Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, May 2017. Available from [https://www.ietf.org/rfc/rfc8174.txt](https://www.ietf.org/rfc/rfc8174.txt).
 - [ClarkNS]: Clark, J. "XML Namespaces", 4 February 1999. Available from [http://www.jclark.com/xml/xmlns.htm](http://www.jclark.com/xml/xmlns.htm).
-- [Code Lists]: Webb Roberts. "NIEM Code Lists Specification." NIEM Technical Architecture Committee (NTAC), November 7, 2017. Available from [https://reference.niem.gov/niem/specification/code-lists/4.0/niem-code-lists-4.0.html](https://reference.niem.gov/niem/specification/code-lists/4.0/niem-code-lists-4.0.html). 
+- [Code Lists]: Webb Roberts. "NIEM Code Lists Specification." NIEM Technical Architecture Committee (NTAC), November 7, 2017. Available from [https://reference.niem.gov/niem/specification/code-lists/4.0/niem-code-lists-4.0.html](https://reference.niem.gov/niem/specification/code-lists/4.0/niem-code-lists-4.0.html).
 - [ConfReq]: Lynne Rosenthal, and Mark Skall, eds. "Conformance Requirements for Specifications v1.0." The Organization for the Advancement of Structured Information Standards (OASIS), March 15, 2002. [https://www.oasis-open.org/committees/download.php/305/conformance_requirements-v1.pdf](https://www.oasis-open.org/committees/download.php/305/conformance_requirements-v1.pdf).
 - [CTAS]: Roberts, Webb. "NIEM Conformance Targets Attribute Specification, Version 3.0." NIEM Technical Architecture Committee, July 31, 2014. [http://reference.niem.gov/niem/specification/conformance-targets-attribute/3.0/NIEM-CTAS-3.0-2014-07-31.html](http://reference.niem.gov/niem/specification/conformance-targets-attribute/3.0/NIEM-CTAS-3.0-2014-07-31.html).
 - [ISO 11179-4]: "ISO/IEC 11179-4 Information Technology — Metadata Registries (MDR) — Part 4: Formulation of Data Definitions Second Edition", 15 July 2004. Available from [http://standards.iso.org/ittf/PubliclyAvailableStandards/c035346_ISO_IEC_11179-4_2004(E).zip](http://standards.iso.org/ittf/PubliclyAvailableStandards/c035346_ISO_IEC_11179-4_2004(E).zip).
@@ -6931,7 +6931,7 @@ The applicable elements for a metadata element are identified by [Rule 10-41, _M
 - [Rule 4-4, _Document element has attribute `ct:conformanceTargets`_ (REF, EXT)](#rule-4-4-document-element-has-attribute-ct:conformancetargets): [Section 4.3, _Conformance target identifiers_](#conformance-target-identifiers)
 - [Rule 4-5, _Schema claims reference schema conformance target_ (REF)](#rule-4-5-schema-claims-reference-schema-conformance-target): [Section 4.3, _Conformance target identifiers_](#conformance-target-identifiers)
 - [Rule 4-6, _Schema claims extension conformance target_ (EXT)](#rule-4-6-schema-claims-extension-conformance-target): [Section 4.3, _Conformance target identifiers_](#conformance-target-identifiers)
-- [Rule 5-1, _`structures:uri` denotes resource identifier_ (INS)](#rule-5-1-structures:uri-denotes-resource-identifier): [Section 5.1, _Purpose of the NIEM conceptual model_](#purpose-of-the-niem-conceptual-model)
+- [Rule 5-1, _Instance must be consistent with RDF interpretation_ (INS)](#rule-5-1-instance-must-be-consistent-with-RDF-interpretation): [Section 5.1, _Purpose of the NIEM conceptual model_](#purpose-of-the-niem-conceptual-model)
 - [Rule 7-1, _Document is an XML document_ (REF, EXT, INS)](#rule-7-1-document-is-an-xml-document): [Section 7.1, _Conformance to XML_](#conformance-to-xml)
 - [Rule 7-2, _Document uses XML namespaces properly_ (REF, EXT, INS)](#rule-7-2-document-uses-xml-namespaces-properly): [Section 7.2, _Conformance to XML Namespaces_](#conformance-to-xml-namespaces)
 - [Rule 7-3, _Document is a schema document_ (REF, EXT)](#rule-7-3-document-is-a-schema-document): [Section 7.3, _Conformance to XML Schema_](#conformance-to-xml-schema)
