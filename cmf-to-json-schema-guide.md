@@ -8,6 +8,38 @@ It aims to enforce as much of the CMF as possible, while still being acceptable 
 
 A primary goal is to enable NIEM JSON exchanges that look like typical JSON that any JSON developer can implement instead of trying to essentially force JSON to work like XML. That does come at the cost of fairly complex JSON Schema defining those exchange instance document.
 
+## Define Namespaces
+
+CMF defines namespaces that divide NIEM into different groups for ease of model development and governance. In JSON, these become a `@context` object that maps prefixes to NIEM namespaces.
+
+This is the CMF declaration of the Justice and NIEM Core namespaces:
+
+```xml
+<Namespace structures:id="j">
+	<NamespaceURI>http://release.niem.gov/niem/domains/jxdm/7.0/</NamespaceURI>
+	<NamespacePrefixName>j</NamespacePrefixName>
+	<DefinitionText>Justice</DefinitionText>
+	<NamespaceKindCode>DOMAIN</NamespaceKindCode>
+</Namespace>
+<Namespace structures:id="nc">
+	<NamespaceURI>http://release.niem.gov/niem/niem-core/5.0/</NamespaceURI>
+	<NamespacePrefixName>nc</NamespacePrefixName>
+	<DefinitionText>NIEM Core.</DefinitionText>
+	<NamespaceKindCode>CORE</NamespaceKindCode>
+</Namespace>
+```
+
+The JSON representation pulls the prefix from `NamespacePrefixName` and the URI from `NamespaceURI` to create prefix/URI name value pairs.
+
+```json
+"@context" : {
+    "j": "http://release.niem.gov/niem/domains/jxdm/7.0/",
+    "nc": "http://release.niem.gov/niem/niem-core/5.0/"
+  }
+```
+
+The `@context` object must exist as part of the specification, but does not need to be included in JSON instances being exchanged.
+
 ## Replicate Properties and Classes
 
 Properties and classes in CMF map very easily over to JSON Schema properties and definitions.
@@ -38,7 +70,7 @@ In JSON Schema, each property is an object inside the `properties` object for th
 Here's the matching `Class` definition for` j.CrashType` in CMF. It shows that `j.CrashType` extends a base type called `j.DrivingIncidentType`, thus inheriting properties from that base type. Then it adds three additional contained properties, `j.CrashVehicle`, `j.CrashPerson`, and `nc.Location`.
 
 ```xml
-<Class structures:id="j.CrashType">
+<Class struct`ures:id="j.CrashType">
 	<Name>CrashType</Name>
 	<Namespace structures:ref="j" xsi:nil="true"/>
 	<DefinitionText>A data type for a traffic accident.</DefinitionText>
@@ -641,3 +673,123 @@ The equivalent JSON Schema replicates those string values as `const` values, lik
 			}
 		]
 ```
+
+## Schema Documents
+
+CMF contains a number of `SchemaDocument` objects. These are for enabling round-trip transformations between CMF and XML Schema. These are ignored for JSON Schema.
+
+## Normalization
+
+NIEM property and class names can be lengthy and some development environments can have issues with using the fully qualified names that NIEM uses, e.g. `nc:PersonGivenName`. NIEM allows mapping of these longer fully qualified names to shorter names. The mappings are put in the `@context` object along with namespace mappings.
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+	"@context" : {
+	    "nc": "http://release.niem.gov/niem/niem-core/5.0/",
+		"name": "nc:PersonName",
+		"first": "nc:PersonGivenName",
+		"middle": "nc:PersonMiddleName",
+		"last": "nc:PersonSurName",
+		"nametype": "nc:PersonNameType",
+		"nametexttype": "nc:PersonNameTextType",
+		"propernametexttype": "nc:ProperNameTextType",
+		"texttype": "nc:TextType"
+	},
+
+	"properties": {
+		"name": {
+			"description": "A combination of names and/or titles by which a person is known.",
+			"type": "array",
+			"items": {"$ref": "#/definitions/nametype"}
+		},
+		"first": {
+			"description": "A first name of a person.",
+			"$ref": "#/definitions/nametexttype"
+		},
+		"middle": {  
+			"description": "A middle name of a person.",  
+			"type": "array",  
+			"items": {"$ref": "#/definitions/nametexttype"}  
+		},
+		"last": {  
+			"description": "A last name or family name of a person.",  
+			"$ref": "#/definitions/nametexttype"  
+		}
+	},
+	"definitions": {
+		"nametype": {
+			"description": "A data type for a combination of names and/or titles by which a person is known.",
+			"type": "object",
+			"properties": {
+				"first": {"$ref": "#/properties/first"},
+				"middle": {"$ref": "#/properties/middle"},
+				"last": {"$ref": "#/properties/last"},
+			},
+			"required": ["last"]
+		},
+		"nametexttype": {
+			"description": "A data type for a name by which a person is known, referred, or addressed.",
+			"$ref": "#/definitions/propernametexttype"
+		},
+		"propernametexttype": {
+			"description": "A data type for a word or phrase by which a person or thing is known, referred, or addressed.",
+			"$ref": "#/definitions/texttype"
+		},
+		"texttype": {
+			"description": "A data type for a character string.",
+			"type": "string"
+		}
+
+	}
+}
+```
+
+Instance with fully qualified names:
+
+```json
+{
+	"nc:PersonName": [  
+		{  
+			"nc:PersonGivenName": "Peter",  
+			"nc:PersonMiddleName": [  
+				"Death",  
+				"Bredon"  
+			],  
+			"nc:PersonSurName": "Wimsey"  
+		}  
+	]
+}
+```
+
+Instance with short names:
+
+```json
+{
+	"@context" : {
+	    "nc": "http://release.niem.gov/niem/niem-core/5.0/",
+		"name": "nc:PersonName",
+		"first": "nc:PersonGivenName",
+		"middle": "nc:PersonMiddleName",
+		"last": "nc:PersonSurName"
+	},
+	
+	"name": [  
+		{  
+			"first": "Peter",  
+			"middle": [  
+				"Death",  
+				"Bredon"  
+			],  
+			"last": "Wimsey"  
+		}  
+	]
+}
+```
+
+As with namespace declarations above, the `@context` object MUST exist as part of the specification, but does not need to be included in JSON instances being exchanged. Structure, however, cannot be simplified via this mapping process.
+
+
+## Extensions
+
