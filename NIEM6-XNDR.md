@@ -4,10 +4,10 @@ This paper is about a least-effort update of the NIEM 5 NDR to form the new NIEM
 
 **Open questions**
 
-1. Do we need a conformance target for subset schema documents?  For message schema documents?
-2. Do we continue to forbid `@default` and `@fixed` in all schema documents?
-3. Do we keep RoleOf?
-4. Do we keep the metadata mechanism?
+1. Do we need a conformance target for subset schema documents?  For message schema documents?  ***YES***
+2. Do we continue to forbid `@default` and `@fixed` in all schema documents?  ***NO***
+3. Do we keep RoleOf?  ***NO***
+4. Do we keep the metadata mechanism?  ***NO***
 
 **NDR 5 rules and proposed dispositions**
 
@@ -17,7 +17,7 @@ Here is a list of the rules in the NIEM 5 NDR and where those rules belong in th
 * Applies to all XML conformance targets
 * Does not apply to message schema documents
 
-| NDR.5 | Rule Text | superfragilisticexp |
+| NDR.5 | Rule Text | applies to NIEM 6 |
 | ------ | --------- | ----------- |
 |        |           |             |
 | 9-1 | No base type in the XML namespace (REF, EXT) | All XSD targets |
@@ -31,9 +31,9 @@ Here is a list of the rules in the NIEM 5 NDR and where those rules belong in th
 | 9-9 | No base type of xs:ENTITIES (REF, EXT) | All XSD |
 | 9-10 | Simple type definition is top-level (REF, EXT) | not MSG |
 | 9-11 | No simple type disallowed derivation (REF) | REF |
-| 9-12 | Simple type has data definition (REF, EXT) | not MSG |
+| 9-12 | Simple type has data definition (REF, EXT) | not SUB, MSG |
 | 9-13 | No use of fixed on simple type facets (REF) | REF |
-| 9-14 | Enumeration has data definition (REF, EXT) | not MSG |
+| 9-14 | Enumeration has data definition (REF, EXT) | not SUB, MSG |
 | 9-15 | No list item type of xs:ID (REF, EXT) | All XSD |
 | 9-16 | No list item type of xs:IDREF (REF, EXT) | All XSD |
 | 9-17 | No list item type of xs:anySimpleType (REF, EXT) | All XSD |
@@ -45,7 +45,7 @@ Here is a list of the rules in the NIEM 5 NDR and where those rules belong in th
 | 9-23 | No union member types of xs:ENTITY (REF, EXT) | All XSD |
 | 9-24 | No union member types of xs:ENTITIES (REF, EXT) | All XSD |
 | 9-25 | Complex type definition is top-level (REF, EXT) | not MSG |
-| 9-26 | Complex type has data definition (REF, EXT) | not MSG |
+| 9-26 | Complex type has data definition (REF, EXT) | not SUB, MSG |
 | 9-27 | No mixed content on complex type (REF, EXT) | All XSD |
 | 9-28 | No mixed content on complex content (REF, EXT) | All XSD |
 | 9-29 | Complex type content is explicitly simple or complex (REF, EXT) | All XSD |
@@ -56,7 +56,7 @@ Here is a list of the rules in the NIEM 5 NDR and where those rules belong in th
 | 9-34 | No complex type disallowed substitutions (REF) | REF |
 | 9-35 | No complex type disallowed derivation (REF) | REF |
 | 9-36 | Element declaration is top-level (REF, EXT) | All XSD |
-| 9-37 | Element declaration has data definition (REF, EXT) | not MSG |
+| 9-37 | Element declaration has data definition (REF, EXT) | not SUB, MSG |
 | 9-38 | Untyped element is abstract (REF, EXT) | All XSD |
 | 9-39 | Element of type xs:anySimpleType is abstract (REF, EXT) | All XSD |
 | 9-40 | Element type not in the XML Schema namespace (REF, EXT) | All XSD |
@@ -64,11 +64,11 @@ Here is a list of the rules in the NIEM 5 NDR and where those rules belong in th
 | 9-42 | Element type is not simple type (REF, EXT) | not MSG |
 | 9-43 | No element disallowed substitutions (REF) | REF |
 | 9-44 | No element disallowed derivation (REF) | REF |
-| 9-45 | No element default value (REF, EXT) | REF, EXT |
-| 9-46 | No element fixed value (REF, EXT) | REF, EXT |
+| 9-45 | No element default value (REF, EXT) | not SUB, MSG |
+| 9-46 | No element fixed value (REF, EXT) | not SUB, MSG |
 | 9-47 | Element declaration is nillable (REF) | REF |
 | 9-48 | Attribute declaration is top-level (REF, EXT) | All XSD                  |
-| 9-49 | Attribute declaration has data definition (REF, EXT) | not MSG |
+| 9-49 | Attribute declaration has data definition (REF, EXT) | not SUB, MSG |
 | 9-50 | Attribute declaration has type (REF, EXT) | All XSD |
 | 9-51 | No attribute type of xs:ID (REF, EXT) | All XSD |
 | 9-52 | No attribute type of xs:IDREF (REF, EXT) | All XSD |
@@ -76,19 +76,19 @@ Here is a list of the rules in the NIEM 5 NDR and where those rules belong in th
 | 9-54 | No attribute type of xs:ENTITY (REF, EXT) | All XSD |
 | 9-55 | No attribute type of xs:ENTITIES (REF, EXT) | All XSD |
 | 9-56 | No attribute type of xs:anySimpleType (REF, EXT) | All XSD |
-| 9-57 | No attribute default values (REF, EXT) | All XSD (relax?) |
-| 9-58 | No fixed values for optional attributes (REF, EXT) | All XSD (relax?) |
+| 9-57 | No attribute default values (REF, EXT) | not SUB, MSG |
+| 9-58 | No fixed values for optional attributes (REF, EXT) | not SUB, MSG |
 | 9-59 | No use of element xs:notation (REF, EXT) | All XSD |
-| 9-60 | Model group does not affect meaning (EXT) | All XSD |
-| 9-61 | No xs:all (REF, EXT) | not MSG |
+| 9-60 | Model group does not affect meaning (EXT) | EXT, SUB, MSG            |
+| 9-61 | No xs:all (REF, EXT) | All XSD |
 | 9-62 | xs:sequence must be child of xs:extension (REF) | REF |
-| 9-63 | xs:sequence must be child of xs:extension or xs:restriction (EXT) | EXT |
+| 9-63 | xs:sequence must be child of xs:extension or xs:restriction (EXT) | EXT, SUB, MSG |
 | 9-64 | No xs:choice (REF) | REF |
-| 9-65 | xs:choice must be child of xs:sequence (EXT) | All XSD |
+| 9-65 | xs:choice must be child of xs:sequence (EXT) | EXT, SUB, MSG            |
 | 9-66 | Sequence has minimum cardinality 1 (REF, EXT) | All XSD |
 | 9-67 | Sequence has maximum cardinality 1 (REF, EXT) | All XSD |
-| 9-68 | Choice has minimum cardinality 1 (EXT) | All XSD |
-| 9-69 | Choice has maximum cardinality 1 (EXT) | All XSD |
+| 9-68 | Choice has minimum cardinality 1 (EXT) | EXT, SUB, MSG            |
+| 9-69 | Choice has maximum cardinality 1 (EXT) | EXT, SUB, MSG |
 | 9-70 | No use of xs:any (REF) | REF |
 | 9-71 | No use of xs:anyAttribute (REF) | REF |
 | 9-72 | No use of xs:unique (REF, EXT) | All XSD |
@@ -101,7 +101,7 @@ Here is a list of the rules in the NIEM 5 NDR and where those rules belong in th
 | 9-79 | xs:appinfo children are comments, elements, or whitespace (REF, EXT) | All XSD |
 | 9-80 | Appinfo child elements have namespaces (REF, EXT) | All XSD |
 | 9-81 | Appinfo descendants are not XML Schema elements (REF, EXT) | All XSD |
-| 9-82 | Schema has data definition (REF, EXT) | not MSG |
+| 9-82 | Schema has data definition (REF, EXT) | not SUB, MSG             |
 | 9-83 | Schema document defines target namespace (REF, EXT) | All XSD |
 | 9-84 | Target namespace is absolute URI (REF, EXT) | All XSD (plus metamodel) |
 | 9-85 | Schema has version (REF, EXT) | All XSD (plus metamodel) |
