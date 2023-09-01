@@ -2,12 +2,14 @@
 
 This paper is about a least-effort update of the NIEM 5 NDR to form the new NIEM 6 XML NDR (XNDR).  I do try to identify the rules that will eventually move to the metamodel NDR.  But the plan here is to first compose a complete NIEM 6 XNDR to support developing the NIEM 6 model represented in XSD.  The specifications and NDR for the metamodel and CMF can come later.
 
-**Open questions**
+**Questions and answers**
 
-1. Do we need a conformance target for subset schema documents?  For message schema documents?  ***YES***
-2. Do we continue to forbid `@default` and `@fixed` in all schema documents?  ***NO***
-3. Do we keep RoleOf?  ***NO***
-4. Do we keep the metadata mechanism?  ***NO***
+1. Do we need a conformance target for subset schema documents?  ***YES***  
+2. For message schema documents?  ***YES?*** (still tbd)
+3. Do we continue to forbid `@default` and `@fixed` in all schema documents?  ***NO***
+4. Do we keep RoleOf?  ***NO***
+5. Do we keep the metadata mechanism?  ***NO***
+6. Are documentation elements required in subset schema documents?  ***YES***
 
 **NDR 5 rules and proposed dispositions**
 
@@ -31,7 +33,7 @@ Here is a list of the rules in the NIEM 5 NDR and where those rules belong in th
 | 9-9 | No base type of xs:ENTITIES (REF, EXT) | All XSD |
 | 9-10 | Simple type definition is top-level (REF, EXT) | not MSG |
 | 9-11 | No simple type disallowed derivation (REF) | REF |
-| 9-12 | Simple type has data definition (REF, EXT) | not SUB, MSG |
+| 9-12 | Simple type has data definition (REF, EXT) | All XSD |
 | 9-13 | No use of fixed on simple type facets (REF) | REF |
 | 9-14 | Enumeration has data definition (REF, EXT) | not SUB, MSG |
 | 9-15 | No list item type of xs:ID (REF, EXT) | All XSD |
@@ -45,7 +47,7 @@ Here is a list of the rules in the NIEM 5 NDR and where those rules belong in th
 | 9-23 | No union member types of xs:ENTITY (REF, EXT) | All XSD |
 | 9-24 | No union member types of xs:ENTITIES (REF, EXT) | All XSD |
 | 9-25 | Complex type definition is top-level (REF, EXT) | not MSG |
-| 9-26 | Complex type has data definition (REF, EXT) | not SUB, MSG |
+| 9-26 | Complex type has data definition (REF, EXT) | All XSD                  |
 | 9-27 | No mixed content on complex type (REF, EXT) | All XSD |
 | 9-28 | No mixed content on complex content (REF, EXT) | All XSD |
 | 9-29 | Complex type content is explicitly simple or complex (REF, EXT) | All XSD |
@@ -56,7 +58,7 @@ Here is a list of the rules in the NIEM 5 NDR and where those rules belong in th
 | 9-34 | No complex type disallowed substitutions (REF) | REF |
 | 9-35 | No complex type disallowed derivation (REF) | REF |
 | 9-36 | Element declaration is top-level (REF, EXT) | All XSD |
-| 9-37 | Element declaration has data definition (REF, EXT) | not SUB, MSG |
+| 9-37 | Element declaration has data definition (REF, EXT) | All XSD                  |
 | 9-38 | Untyped element is abstract (REF, EXT) | All XSD |
 | 9-39 | Element of type xs:anySimpleType is abstract (REF, EXT) | All XSD |
 | 9-40 | Element type not in the XML Schema namespace (REF, EXT) | All XSD |
@@ -68,7 +70,7 @@ Here is a list of the rules in the NIEM 5 NDR and where those rules belong in th
 | 9-46 | No element fixed value (REF, EXT) | not SUB, MSG |
 | 9-47 | Element declaration is nillable (REF) | REF |
 | 9-48 | Attribute declaration is top-level (REF, EXT) | All XSD                  |
-| 9-49 | Attribute declaration has data definition (REF, EXT) | not SUB, MSG |
+| 9-49 | Attribute declaration has data definition (REF, EXT) | All XSD |
 | 9-50 | Attribute declaration has type (REF, EXT) | All XSD |
 | 9-51 | No attribute type of xs:ID (REF, EXT) | All XSD |
 | 9-52 | No attribute type of xs:IDREF (REF, EXT) | All XSD |
@@ -101,7 +103,7 @@ Here is a list of the rules in the NIEM 5 NDR and where those rules belong in th
 | 9-79 | xs:appinfo children are comments, elements, or whitespace (REF, EXT) | All XSD |
 | 9-80 | Appinfo child elements have namespaces (REF, EXT) | All XSD |
 | 9-81 | Appinfo descendants are not XML Schema elements (REF, EXT) | All XSD |
-| 9-82 | Schema has data definition (REF, EXT) | not SUB, MSG             |
+| 9-82 | Schema has data definition (REF, EXT) | All XSD       |
 | 9-83 | Schema document defines target namespace (REF, EXT) | All XSD |
 | 9-84 | Target namespace is absolute URI (REF, EXT) | All XSD (plus metamodel) |
 | 9-85 | Schema has version (REF, EXT) | All XSD (plus metamodel) |
@@ -123,16 +125,16 @@ Here is a list of the rules in the NIEM 5 NDR and where those rules belong in th
 | 10-4 | Only object type has RoleOf element (REF, EXT) | All XSD (keep?) |
 | 10-5 | RoleOf elements indicate the base types of a role type (REF, EXT, INS) | All XSD (keep?) |
 | 10-6 | Instance of RoleOf element indicates a role object (INS) | All XSD (keep?) |
-| 10-7 | Import of external namespace has data definition (REF, EXT) | not MSG |
+| 10-7 | Import of external namespace has data definition (REF, EXT) | All XSD |
 | 10-8 | External adapter type has indicator (REF, EXT) | All XSD |
 | 10-9 | Structure of external adapter type definition follows pattern (REF, EXT) | All XSD |
 | 10-10 | Element use from external adapter type defined by external schema documents (REF, EXT) | All XSD |
 | 10-11 | External adapter type not a base type (REF, EXT) | All XSD |
 | 10-12 | External adapter type not a base type (SET) | All XSD |
 | 10-13 | External attribute use only in external adapter type (REF) | REF |
-| 10-14 | External attribute use has data definition (REF, EXT) | not MSG |
+| 10-14 | External attribute use has data definition (REF, EXT) | All XSD |
 | 10-15 | External attribute use not an ID (SET) | All XSD |
-| 10-16 | External element use has data definition (REF, EXT) | not MSG |
+| 10-16 | External element use has data definition (REF, EXT) | All XSD |
 | 10-17 | Name of code type ends in CodeType (REF, EXT) | All XSD |
 | 10-18 | Code type corresponds to a code list (REF, EXT) | All XSD |
 | 10-19 | Element of code type has code representation term (REF, EXT) | All XSD |

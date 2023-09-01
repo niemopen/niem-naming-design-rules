@@ -1995,7 +1995,7 @@ NIEM does not support anonymous types in NIEM-conformant source and subset schem
 
 #### Rule 9-12. Simple type has data definition
 
-> **[Rule 9-12] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
+> **[Rule 9-12] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets), SUB, MSG) (Constraint)**
 >
 > ```xml
 > <sch:pattern>
@@ -2030,7 +2030,7 @@ The use of `fixed` on simple type facets violates _**[Principle 17]**, above_, s
 
 #### Rule 9-14. Enumeration has data definition
 
-> **[Rule 9-14] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
+> **[Rule 9-14] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets), SUB, MSG) (Constraint)**
 >
 > ```xml
 > <sch:pattern>
@@ -2217,7 +2217,7 @@ Note that this implies that every `xs:complexType` element has a `name` attribut
 
 #### Rule 9-26. Complex type has data definition
 
-> **[Rule 9-26] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
+> **[Rule 9-26] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets), SUB, MSG) (Constraint)**
 >
 > ```xml
 > <sch:pattern>
@@ -2422,7 +2422,7 @@ All schema components defined by NIEM-conformant schemas must be named, accessib
 
 #### Rule 9-37. Element declaration has data definition
 
-> **[Rule 9-37] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
+> **[Rule 9-37] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets), SUB, MSG) (Constraint)**
 >
 > ```xml
 > <sch:pattern>
@@ -2620,7 +2620,7 @@ All schema components defined by NIEM-conformant schemas are named, accessible f
 
 #### Rule 9-49. Attribute declaration has data definition
 
-> **[Rule 9-49] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
+> **[Rule 9-49] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets), SUB, MSG) (Constraint)**
 >
 > ```xml
 > <sch:pattern>
@@ -3146,7 +3146,7 @@ The XML Schema language defines that the document element `xs:schema` may contai
 
 ### Rule 9-82. Schema has data definition
 
-> **[Rule 9-82] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets),) (Constraint)**
+> **[Rule 9-82] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets), SUB, MSG) (Constraint)**
 >
 > ```xml
 > <sch:pattern>
