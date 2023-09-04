@@ -1,4 +1,4 @@
-## 2023-09-01
+## 2023-09-04
 
 1. Replaced niem.org URIs with oasis-open.org URIs
 2. Fixed extra blank space in many references to Appendix-A
@@ -10,6 +10,8 @@
 8. Removed rule 11-23 (NIEM 6 does not use attribute groups)
 9. Removed section 12-4 (instance metadata) and rules 12-13 thru 12-18
 10. Some section numbers added
+11. Created *Conformance targets in NIEM 6.0* working document
+12. Created *Matrix of rules and conformance targets* working document
 
 ## 2023-08-29
 
