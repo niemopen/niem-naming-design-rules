@@ -120,7 +120,7 @@ Here is a list of the rules in the NIEM 5 NDR and where those rules belong in th
 | 9-96 | Namespace referenced by attribute ref is imported (REF, EXT) | All XSD |
 | 9-97 | Namespace referenced by attribute substitutionGroup is imported (REF, EXT) | All XSD |
 | 10-1 | Complex type has a category (REF, EXT) | All XSD (revise) |
-| 10-2 | Object type with complex content is derived from structures:ObjectType (REF, EXT) | All XSD                  |
+| 10-2 | Object type with complex content is derived from structures:ObjectType (REF, EXT) | not MSG                  |
 | 10-3 | RoleOf element type is an object type (REF, EXT) | All XSD (keep?) |
 | 10-4 | Only object type has RoleOf element (REF, EXT) | All XSD (keep?) |
 | 10-5 | RoleOf elements indicate the base types of a role type (REF, EXT, INS) | All XSD (keep?) |
@@ -133,15 +133,15 @@ Here is a list of the rules in the NIEM 5 NDR and where those rules belong in th
 | 10-12 | External adapter type not a base type (SET) | All XSD |
 | 10-13 | External attribute use only in external adapter type (REF) | REF |
 | 10-14 | External attribute use has data definition (REF, EXT) | All XSD |
-| 10-15 | External attribute use not an ID (SET) | All XSD |
+| 10-15 | External attribute use not an ID (SET) | SET, MSET                |
 | 10-16 | External element use has data definition (REF, EXT) | All XSD |
 | 10-17 | Name of code type ends in CodeType (REF, EXT) | All XSD |
 | 10-18 | Code type corresponds to a code list (REF, EXT) | All XSD |
 | 10-19 | Element of code type has code representation term (REF, EXT) | All XSD |
 | 10-20 | Proxy type has designated structure (REF, EXT) | not MSG |
-| 10-21 | Association type derived from structures:AssociationType (REF, EXT) | all XSD |
-| 10-22 | Association element type is an association type (REF, EXT) | all XSD |
-| 10-23 | Augmentable type has augmentation point element (REF) | all XSD |
+| 10-21 | Association type derived from structures:AssociationType (REF, EXT) | not MSG                  |
+| 10-22 | Association element type is an association type (REF, EXT) | not MSG |
+| 10-23 | Augmentable type has augmentation point element (REF) | REF |
 | 10-24 | Augmentable type has at most one augmentation point element (REF, EXT) | all XSD |
 | 10-25 | Augmentation point element corresponds to its base type (REF, EXT) | all XSD |
 | 10-26 | An augmentation point element has no type (REF, EXT) | all XSD |
@@ -219,8 +219,8 @@ Here is a list of the rules in the NIEM 5 NDR and where those rules belong in th
 | 11-20 | Element or attribute declaration introduced only once into a type (REF, EXT) | metamodel |
 | 11-21 | Element reference defined by conformant schema (REF, EXT) | all XSD |
 | 11-22 | Referenced attribute defined by conformant schemas (REF, EXT) | all XSD |
-| 11-23 | Schema uses only known attribute groups (REF, EXT) | all XSD (remove ISM) |
-| 11-24 | Data definition does not introduce ambiguity (REF, EXT) | metamodel |
+| 11-23 | Schema uses only known attribute groups (REF, EXT) | delete |
+| 11-24 | Data definition does not introduce ambiguity (REF, EXT) | Some s |
 | 11-25 | Object class has only one meaning (REF, EXT) | metamodel |
 | 11-26 | Data definition of a part does not redefine the whole (REF, EXT) | metamodel |
 | 11-27 | Do not leak representation into data definition (REF, EXT) | metamodel |

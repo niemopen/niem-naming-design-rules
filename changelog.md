@@ -1,3 +1,16 @@
+## 2023-09-01
+
+1. Replaced niem.org URIs with oasis-open.org URIs
+2. Fixed extra blank space in many references to Appendix-A
+3. Removed metadata from 10.1 (categories)
+4. Rule 10-2:  removed MetadataType 
+5. Removed section 10.2.2 (role types and roles), including rules 10-3 through 10-6
+6. Rewrote intro to metadata section and removed the rest
+7. Removed appinfo:appliesToTypes and appliesToElements
+8. Removed rule 11-23 (NIEM 6 does not use attribute groups)
+9. Removed section 12-4 (instance metadata) and rules 12-13 thru 12-18
+10. Some section numbers added
+
 ## 2023-08-29
 
 1. Changed Table 4-1 codes representing conformance targets
