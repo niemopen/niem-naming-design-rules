@@ -1,12 +1,19 @@
 <img src="https://github.com/niemopen/oasis-open-project/blob/main/artwork/NIEM-NO-Logo-v5.png" width="200">
 
-# README
+# Naming and Design Rules
 
-This repository is part of the NIEM Open Project.
+This repository is part of the NIEM Open Project.  It contains the NIEMOpen [Naming and Design Rules](niem-ndr.md) for XML.
 
 For more information on NIEMOpen, see the project's website at [www.niemopen.org](www.niemopen.org).
 
 General questions about OASIS Open Projects may be directed to OASIS staff at project-admin@lists.oasis-open-projects.org
+
+# Status
+
+This document is being revised for NIEM 6.  In addition to the [current draft](niem-ndr.md), these documents describe the intended changes and the changes to date:
+
+* [NIEM6-XNDR](NIEM6-XNDR.md)
+* [changelog](changelog.md)
 
 # Other assets
 
