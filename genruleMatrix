@@ -1,0 +1,56 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+open(NDR, "niem-ndr.md")   or die "can't open niem-ndr: $!\n";
+open(RM, ">ruleMatrix.md") or die "can't open ruleMatrix.md: $!\n";
+
+my @lines;
+my $line;
+my $rsn;
+my $header = <<"EOS";
+| Number | Rule | REF | EXT | SUB | MSG |
+| --- | --- | :-: | :-: | :-: | :-: |
+EOS
+
+while (<NDR>) {
+  chop;
+  if (/# Rule (\d+-\d+)\. /) {
+    $rsn = $1;
+    my $rn = $1;
+    my $rt = $';
+    $rsn =~ s/^\d-/0$&/;
+    $rsn =~ s/-(\d)$/-0$1/;
+    $line = "| $rn | $rt ";
+  }
+  if ($line && /> \*\*\[Rule/) {
+    my $m = 0;
+    /REF/ && $m++;
+    /EXT/ && $m++;
+    /SUB/ && $m++;
+    /MSG/ && $m++;
+    $line .= /REF/ ? " | X" : " |  ";
+    $line .= /EXT/ ? " | X" : " |  ";
+    $line .= /SUB/ ? " | X" : " |  ";
+    $line .= /MSG/ ? " | X" : " |  ";
+    push @lines, "$m$rsn $line |" if $m > 0;
+    $line="";
+  }
+}
+my $last = 0;
+foreach $line (sort @lines) {
+  $line =~ s/^(.)......//;
+  my $m = $1;
+  next if $line =~ /^\| 4/;
+  if ($last ne $m) {
+    print RM "\n**Applicable only to reference schema documents**\n\n" if $m == 1;
+    print RM "\n**Applicable to reference and extension schema documents**\n\n" if $m == 2;
+    print RM "\n**Applicable to reference, extension, and subset schema documents**\n\n" if $m == 3;
+    print RM "\n**Applicable to all schema documents**\n\n" if $m == 4;
+    print RM $header;
+    $last = $m;
+  }
+  print RM "$line\n";
+}
+
