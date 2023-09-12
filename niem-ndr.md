@@ -508,22 +508,22 @@ Throughout the document, fragments of XML Schema or XML instances are used to cl
 </xs:complexType>
 ```
 
-# Terminology
+# 3. Terminology
 
 This document uses standard terminology from other standards to explain the principles and rules that describe NIEM. In addition, it defines terms related to these other standards. This section enumerates this externally-dependent terminology.
 
-## IETF Best Current Practice 14 terminology
+## 3.1 IETF Best Current Practice 14 terminology
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [BCP 14](#Appendix-A-References) [RFC 2119](#Appendix-A-References) [RFC 8174](#Appendix-A-References) when, and only when, they appear in all capitals, as shown here.
 
-## XML terminology
+## 3.2 XML terminology
 
 > **[Definition: XML document]**
 > The term "XML document" is as defined by [XML](#Appendix-A-References) [Section 2, _Documents_](http://www.w3.org/TR/2008/REC-xml-20081126/#dt-xml-doc), which states:
 
 >> A data object is an XML document if it is well-formed, as defined in this specification. In addition, the XML document is valid if it meets certain further constraints.
 
-## XML Information Set terminology
+## 3.3 XML Information Set terminology
 
 When discussing XML documents, this document uses terminology and language as defined by [XML Infoset](#Appendix-A-References).
 
@@ -544,7 +544,7 @@ Shorthand terms for properties of information items include:
 - owner (of an attribute): the value of the [owner element] property of an attribute information item
 - document element: the value of the [document element] property of a document information item; preferred over the term "root element".
 
-## XML Schema terminology
+## 3.4 XML Schema terminology
 
 This document uses many terms from [XML Schema Structures](#Appendix-A-References) and [XML Schema Datatypes](#Appendix-A-References) in a normative way.
 
@@ -560,7 +560,7 @@ Note that this defines an abstract concept. This is not a direct reference to el
 
 >> An **XML Schema** is a set of schema components.
 
-Note, again, that this is an abstract concept: the set of abstract _schema components_ that are put together to define a schema against which an XML document might be validated.
+In this document, the term "schema" is shorthand for "XML Schema". Note, again, that this is an abstract concept: the set of abstract _schema components_ that are put together to define a schema against which an XML document might be validated.
 
 > **[Definition: XML Schema definition language]**
 > The term "XML Schema definition language" is as defined by [XML Schema Structures](#Appendix-A-References) [subsection _Abstract_](http://www.w3.org/TR/2004/REC-xmlschema-1-20041028/#abstract), which states:
@@ -600,7 +600,7 @@ The term "instance document" is used with [XML Schema Structures](#Appendix-A-Re
 
 Schema assembly is a tricky topic that is not resolved by this document. Other specifications may express specifics about the process of turning a set of _schema documents_ into an _XML Schema_. Methods used may include use of tool-specific schema caches and mappings, use of XML catalogs and entity resolvers, use of `schemaLocation` attributes on `xs:import` elements, and `xsi:schemaLocation` attributes in XML documents, among others. The topic of schema assembly is discussed in [Section 6.2.10, _Schema locations provided in schema documents are hints_, below](#schema-locations-provided-in-schema-documents-are-hints). This specification abstracts away details of schema assembly through the use of XPath functions described by [Section 2.4.3, _Normative XPath functions_, above](#normative-xpath-functions).
 
-### Schema components
+### 3.4.1 Schema components
 
 In this document, the name of a referenced schema component may appear without the suffix "schema component" to enhance readability of the text. For example, the term "complex type definition" may be used instead of "complex type definition schema component".
 
@@ -618,7 +618,7 @@ In this document, the name of a referenced schema component may appear without t
 > **[Definition: element declaration]**
 > The term "element declaration" is as defined by [XML Schema Structures](#Appendix-A-References) [Section 2.2.2.1, _Element Declaration_](http://www.w3.org/TR/2004/REC-xmlschema-1-20041028/#Element_Declaration).
 
-### Schema information set contributions
+### 3.4.2 Schema information set contributions
 
 As described in [Section 3.3, _XML Information Set terminology_, above](#xml-information-set-terminology), the XML Information Set specification defined properties of the content of XML documents. The XML Schema specification also provides properties of the content of XML documents. These properties are called Schema information set contribution, as described by [XML Schema Structures](#Appendix-A-References) [Section 2.3, _Constraints and Validation Rules_](http://www.w3.org/TR/2004/REC-xmlschema-1-20041028/#gloss-sic), which defines them as:
 
@@ -628,11 +628,11 @@ This document uses these property terms within definitions and other text. Terms
 
 - [[type definition] (of an element)](http://www.w3.org/TR/2004/REC-xmlschema-1-20041028/#e-type_definition): The type of the element as determined at run-time. This will reflect the use of the attribute `xsi:type` in an XML document.
 
-## XML Namespaces terminology
+## 3.5 XML Namespaces terminology
 
 This document uses XML Namespaces as defined by [XML Namespaces](#Appendix-A-References).
 
-## Conformance Targets Attribute Specification terminology
+## 3.6 Conformance Targets Attribute Specification terminology
 
 [CTAS](#Appendix-A-References) defines several terms used normatively within this specification.
 
@@ -651,18 +651,21 @@ This document uses XML Namespaces as defined by [XML Namespaces](#Appendix-A-Ref
 
 >> An _effective conformance target identifier_ of a conformant document is an internationalized resource identifier reference that occurs in the document’s effective conformance targets attribute.
 
-# Conformance targets
+# 4. Conformance targets
 
-## Conformance targets defined
+## 4.1 Conformance targets defined
 
 This section defines and describes conformance targets of this specification. Each conformance target has a formal definition, along with a notional description of the characteristics and intent of each. These include:
 
 - [Section 4.1.1, _Reference schema document_](#reference-schema-document)
 - [Section 4.1.2, _Extension schema document_](#extension-schema-document)
-- [Section 4.1.3, _Schema document set_](#schema-document-set)
-- [Section 4.1.4, _Instance documents and elements_](#instance-documents-and-elements)
+- Section 4.1.3, Subset schema document
+- Section 4.1.4, Message schema document
+- [Section 4.1.5, _Source schema document set_](#schema-document-set)
+- Section 4.1.6, Message schema document set
+- [Section 4.1.7, _Instance documents and elements_](#instance-documents-and-elements)
 
-### Reference schema document
+### 4.1.1 Reference schema document
 
 > **[Definition: reference schema document]**
 > A **reference schema document** is a _schema document_ that is intended to provide the authoritative definitions of broadly reusable _schema components_. It is a _conformance target_ of this specification. A reference schema document MUST conform to all rules of this specification that apply to this conformance target. An _XML document_ with a _conformance target identifier_ of `https://docs.oasis-open.org/niemopen/ns/specification/XNDR/6.0/#ReferenceSchemaDocument` MUST be a conformant reference schema document.
@@ -672,7 +675,7 @@ A _reference schema document_ is a _schema document_ that is intended to be the 
 Some characteristics of a _reference schema document_:
 
 - It is explicitly designated as a reference schema via the conformance targets attribute, per [Rule 4-5, _Schema claims reference schema conformance target_ (REF), below](#rule-4-5-schema-claims-reference-schema-conformance-target).
-- It provides the broadest, most fundamental definitions of components in its namespace.
+- It provides the broadest, most fundamental definitions of components in its namespace, omitting cardinality and datatype constraints unless these are essential to the meaning of the component.
 - It provides the authoritative definition of business semantics for components in its namespace.
 - It is intended to serve as the basis for components in information exchanges and extension schema documents.
 - It satisfies all rules specified in the Naming and Design Rules for reference schemas.
@@ -681,35 +684,102 @@ Any schema that defines components that are intended to be incorporated into NIE
 
 The rules for reference schema documents are more stringent than are the rules for other classes of NIEM-conformant schemas. Reference schema documents are intended to support the broadest reuse. They are very uniform in their structure. As they are the primary definitions for schema components, they do not need to restrict other data definitions, and they are not allowed to use XML Schema’s restriction mechanism (e.g., [Rule 9-30, _Complex content uses extension_ (REF), below](#rule-9-30-complex-content-uses-extension)). Reference schema documents are intended to be as regular and simple as possible.
 
-Many reference schemas are **optional and over-inclusive**. Data definitions in namespaces defined by reference schemas are designed with parts that are intended to be omitted or refined as needed for a particular exchange. Many reference schemas define more complex types than any individual exchange will need and define complex types that have more properties, with broader cardinality, than an individual exchange will need. Data definitions within reference schemas are designed to be a basis that is refined and specialized for a particular exchange. Developers of information exchanges are expected to subset, profile, and extend reference schemas to construct precise data definitions to match their information exchange requirements.
+Many reference schema documents are **optional and over-inclusive**. Data definitions in namespaces defined by reference schema documents are designed with parts that are intended to be omitted or refined as needed for a particular exchange. Many reference schema documents define more complex types than any individual exchange will need and define complex types that have more properties, with broader cardinality, than an individual exchange will need. Data definitions within reference schema documents are designed to be a basis that is refined and specialized for a particular exchange. 
 
-### Extension schema document
+Developers of information exchanges are expected to subset, profile, augment, and extend reference schema documents to construct precise data definitions to match their information exchange requirements. However, a schema document thus modified is no longer the authoritative definition of components in its namespace and should not be designated as a reference schema document; it is instead a [subset schema document]() or [message schema document](). There can only be one schema document marked as a reference or extension schema document for a namespace.
+
+### 4.1.2 Extension schema document
 
 > **[Definition: extension schema document]**
-> An **extension schema document** is a _schema document_ that is intended to provide definitions of _schema components_ that are intended for reuse within a more narrow scope than those defined by a _reference schema document_. It is a _conformance target_ of this specification. An extension schema document MUST conform to all rules of this specification that apply to this conformance target. An XML document with a _conformance target identifier_ of `https://docs.oasis-open.org/niemopen/ns/specification/XNDR/6.0/#ExtensionSchemaDocument` MUST be an extension schema document.
+> An **extension schema document** is a _schema document_ that is intended to provide authoritative definitions of _schema components_ intended for reuse within a more narrow scope than those defined by a _reference schema document_. It is a _conformance target_ of this specification. An extension schema document MUST conform to all rules of this specification that apply to this conformance target. An XML document with a _conformance target identifier_ of `https://docs.oasis-open.org/niemopen/ns/specification/XNDR/6.0/#ExtensionSchemaDocument` MUST be an extension schema document.
 
 Characteristics of an _extension schema document_ include:
 
 - It is explicitly designated as an _extension schema document_ via the conformance targets attribute.
 - It provides the authoritative definition of business semantics for components in its namespace.
 - It contains components that, when appropriate, use or are derived from the components in _reference schema documents_.
-- It is intended to express the additional vocabulary required for an information exchange, above and beyond the vocabulary available from reference schemas, and to also support additional XML Schema validation requirements for an exchange.
+- It is intended to express the additional vocabulary required for one or more information exchanges, above and beyond the vocabulary available from reference schemas, and to also support additional XML Schema validation requirements for those exchanges.
 - It satisfies all rules specified in this document for _extension schema documents_.
 
-An extension schema in an information exchange specification serves several functions. First, it defines new content within a new namespace, which may be an exchange-specific namespace or a namespace shared by several exchanges. This content is NIEM-conformant but has fewer restrictions on it than do _reference schema documents_. Second, the _extension schema document_ bases its content on content from _reference schema documents_, where appropriate. Methods of deriving content include using (by reference) existing _schema components_, as well as creating extensions and restrictions of existing components.
+An extension schema serves several functions. First, it defines new content within a new namespace, which may be an exchange-specific namespace or a namespace shared by several exchanges. This content is NIEM-conformant but has fewer restrictions on it than do _reference schema documents_. Second, the _extension schema document_ bases its content on content from _reference schema documents_, where appropriate. Methods of deriving content include using (by reference) existing _schema components_, as well as creating extensions and restrictions of existing components.
 
-For example, an information exchange specification may define a type for an exchange-specific phone number and base that type on a type defined by the NIEM Core reference schema document. This exchange-specific phone number type may restrict the NIEM Core type to limit those possibilities that are permitted of the base type. Exchange extensions and restrictions must include annotations and documentation to be conformant, but they are allowed to use restriction, choice, and some other constructs that are not allowed in _reference schema documents_.
+For example, an information exchange specification may define a type for an exchange-specific phone number and base that type on a type defined by the NIEM Core reference schema document. This exchange-specific phone number type may restrict the NIEM Core type to limit those possibilities that are permitted of the base type. Exchange schema documents must include annotations and documentation to be conformant, but they are allowed to use some schema constructs that are not allowed in _reference schema documents_; these include:
+
+* `@final`, `@fixed`,  and`@block`,
+* `@blockDefault` and `@finalDefault`
+* `xs:choice`
+* `xs:any` and `@xs:anyAttribute`
+
+An extension schema document may be intended for a particular information exchange specification.  An extension schema documents may also, like reference schema documents, be optional and over-inclusive, intended for reuse in multiple information exchange specifications. As with reference schema documents, when a developer subsets, profiles, or augments an extension schema document, the result is a subset schema document or message schema document. There can only be one schema document marked as a reference or extension schema document for a namespace.
 
 Note that exchange specifications may define schemas that meet the criteria of reference schemas for those components that its developers wish to nominate for later inclusion in NIEM Core or in domains.
 
-### Schema document set
+### 4.1.3 Subset schema document
 
-A _conformant schema document set_ is a set of schema documents that are capable of validating XML documents.
+> **[Definition: subset schema document]**
+> A **subset schema document** is a _schema document_ providing a constrained selection of components that are defined in a reference or extension schema document. It is a _conformance target_ of this specification. A subset schema document MUST conform to all rules of this specification that apply to this conformance target. An XML document with a _conformance target identifier_ of `https://docs.oasis-open.org/niemopen/ns/specification/XNDR/6.0/#SubsetSchemaDocument` MUST be a subset schema document.
 
-> **[Definition: conformant schema document set]**
-> A **conformant schema document set** is a collection of _schema documents_ that together are capable of _validating_ a _conformant instance XML document_. It is a _conformance target_ of this specification. A conformant schema document set MUST conform to all rules of this specification that apply to this conformance target.
+Characteristics of a _subset schema document_ include:
 
-A _conformant schema document set_ has strong dependencies on _reference schema documents_ and _extension schema documents_. Without the guarantees provided by those conformance targets, the rules for a _conformant schema document set_ would not be helpful. Those schemas in a schema set that are marked as reference or extension schemas are required to conform to the appropriate conformance targets.
+- It is explicitly designated as an subset schema document via the conformance targets attribute.
+- It supplies but does not alter the definition of business semantics for components defined by the reference or extension schema document for its namespace. 
+- It does not provide original definitions and declarations for schema components; it contains only components defined by the reference or extension schema document for its namespace. 
+- It removes or constrains portions of the reference or extension schema document for its namespace, thereby building a profile of that schema document.
+- All content that is valid against the subset schema document is also valid against the reference or extension schema document for its namespace.
+- It satisfies all rules specified in this document for _subset schema documents_.
+
+A subset schema document is usually intended for a particular information exchange specification. Developers may also create a subset schema document for reuse in many specifications as a profile of an extension schema document that they do not control.
+
+Subset schema documents are allowed to use some schema constructs that are not allowed in _extension schema documents_; these include `@default` and `@fixed`.
+
+### 4.1.4 Message schema document
+
+> **[Definition: message schema document]**
+> A **message schema document** is a _schema document_ providing a constrained selection of components that are defined in a reference or extension schema document. It is a _conformance target_ of this specification. A message schema document MUST conform to all rules of this specification that apply to this conformance target. An XML document with a _conformance target identifier_ of `https://docs.oasis-open.org/niemopen/ns/specification/XNDR/6.0/#MessageSchemaDocument` MUST be a message schema document.
+
+Characteristics of a _message schema document_ include:
+
+- It is explicitly designated as a message schema document via the conformance targets attribute.
+- It does not conform to rules for mapping schema components into business semantics. Semantics are provided by the reference or extension schema document for its namespace.
+- It constrains the reference or extension schema document for its namespace, with more precision and granularity than is possible in a subset schema document.
+- It satisfies all rules specified in this document for _message schema documents_.
+
+A message schema document provides cardinality and datatype constraints intended to precisely define the content of a particular message format. It is not intended for extension or reuse. Message schema documents are therefore allowed to use schema constructs not allowed in subset schema documents; these include:
+
+* Local type definitions
+* Element declarations with a simple type
+
+### 4.1.5 Source schema document set
+
+A _conformant source schema document set_ is a set of schema documents that together define a complete data model suitable for reuse.
+
+> **[Definition: conformant source schema document set]**
+> A **conformant source schema document set** is a collection of _schema documents_ that together define a complete data model suitable for reuse. It is a _conformance target_ of this specification. A conformant schema document set MUST conform to all rules of this specification that apply to this conformance target.
+
+Characteristics of a source schema document set include:
+
+* It contains the definition of every schema component referenced by any component defined by the schema set. 
+* It is intended for reuse; developers may subset, profile, augment, and extend the components defined by the schema set.
+* It supports element augmentations and attribute augmentations (see [section 10.4: Augmentations]()).
+* It is not intended for validation of a conformant instance XML document.
+* It does not include message schema documents.
+
+A _conformant source schema document set_ has strong dependencies on _reference schema documents_ and _extension schema documents_. Without the guarantees provided by those conformance targets, the rules for a _conformant schema document set_ would not be helpful. Those schema documents in a schema set that are marked as reference or extension schema documents are required to conform to the appropriate conformance targets. A schema document not marked as conformant must be imported as an _external schema document_ (see [section 10.2.3: External adapter types and external components]()).
+
+### 4.1.6 Message schema document set
+
+ A *conformant message schema document set* is a set of schema documents that are capable of validating a conformant instance XML document.
+
+> **[Definition: conformant message schema document set]**
+> A **conformant message schema document set** is a collection of _schema documents_ that together are capable of _validating_ a _conformant instance XML document_. It is a _conformance target_ of this specification. A conformant schema document set MUST conform to all rules of this specification that apply to this conformance target.
+
+Characteristics of a message schema document set include:
+
+* It contains the definition of every schema component referenced by any component defined by the schema set. 
+* It is not intended for reuse.
+* It does not support attribute augmentation.
+* It is intended for validation of a conformant instance XML document.
+* It may include reference, extension, subset, and message schema documents.
 
 ### Rule 4-1. Schema marked as reference schema document must conform
 
@@ -721,17 +791,17 @@ A _conformant schema document set_ has strong dependencies on _reference schema 
 > **[Rule 4-2] ([SET](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
 > Any _schema document_ with an _effective conformance target identifier_ of `https://docs.oasis-open.org/niemopen/ns/specification/XNDR/6.0/#ExtensionSchemaDocument` MUST be an _extension schema document_.
 
-### Instance documents and elements
+### 4.1.7 Instance documents and elements
 
 This document has specific rules about how NIEM content should be used in XML documents. As well as containing rules for XML Schema documents, this NDR contains rules for NIEM-conformant XML content at a finer granularity than the XML document.
 
 > **[Definition: conformant instance XML document]**
-> A **conformant instance XML document** is an _XML document_ that is an _instance document_         _valid_ to a _conformant schema document set_. It is a _conformance target_ of this specification. A conformant instance XML document MUST conform to all rules of this specification that apply to this conformance target.
+> A **conformant instance XML document** is an _XML document_ that is an _instance document_ _valid_ to a _conformant message schema document set_. It is a _conformance target_ of this specification. A conformant instance XML document MUST conform to all rules of this specification that apply to this conformance target.
 
 Characteristics of a _conformant instance XML document_ include:
 
 - The _document element_ is locally schema-valid.
-- Each element information item within the _XML document_ that has property [namespace name] matching the target namespace of a _reference schema document_ or _extension schema document_ is a _conformant element information item_.
+- Each element information item within the _XML document_ that has property [namespace name] matching the target namespace of a _reference schema document_ or _extension schema document_ or _message schema document_ in the document set is a _conformant element information item_.
 
 Schema-validity may be assessed against a single set of schemas or against multiple sets of schemas.
 
@@ -742,81 +812,126 @@ Note that this specification does not require the _document element_ of a _confo
 > **[Definition: conformant element information item]**
 > A _conformant element information item_ is an element information item that satisfies all of the following criteria:
 
-- Its [namespace name] and [local name] matches an element declared by a _reference schema document_ or _extension schema document_.
+- Its [namespace name] and [local name] matches an element declared by a _reference schema document_ or _extension schema document_ or _message schema document_ in a _message schema document set_.
 - It occurs within a _conformant instance XML document_.
 - It is locally schema-valid.
 - It satisfies all rules specified in this document applicable to an element in a _conformant instance XML document_.
 
 Because each NIEM-conformant element information item must be locally schema-valid, each element must validate against the schema definition of the element, even if the element information item is allowed within the document because of a wildcard that the {process contents} with a value of "skip". As described by [XML Schema Structures](#Appendix-A-References) [Section 3.10.1, _The Wildcard Schema Component_](http://www.w3.org/TR/2004/REC-xmlschema-1-20041028/#process_contents), the content of an element introduced by a wildcard with {process contents} set to "skip" does not have any schema validity constraint; it is only required to be well-formed XML. Within a NIEM-conformant XML document, each element that is from a NIEM namespace conforms to its schema specification.
 
-## Applicability of rules to conformance targets
+## 4.2 Applicability of rules to conformance targets
 
 Each rule within this document is applicable to one or more of the conformance targets identified by [Section 4.1, _Conformance targets defined_, above](#conformance-targets-defined). Each rule identifies its applicability as described in [Section 2.4.1, _Rules_, above](#rules). The applicability field of each rule will contain one or more code values from _Table 4-1, _Codes representing conformance targets_, below_. A rule is applicable to the identified conformance targets.
 
 ### Table 4-1: Codes representing conformance targets
 
-| Code | Target                                                       |
-| ---- | ------------------------------------------------------------ |
-| REF  | [reference schema document]() |
-| EXT  | [extension schema document]() |
-| SUB  | conformant subset schema document                            |
-| MSG  | conformant message schema document                           |
-| SET  | [conformant source schema document set]() |
-| MSET | conformant message schema document set                       |
-| INS  | [conformant instance XML document]() |
+| Code | Target                                     |
+| ---- | ------------------------------------------ |
+| REF  | [reference schema document]()              |
+| EXT  | [extension schema document]()              |
+| SUB  | [subset schema document]()                 |
+| MSG  | [message schema document]()                |
+| SET  | [conformant source schema document set]()  |
+| MSET | [conformant message schema document set]() |
+| INS  | [conformant instance XML document]()       |
 
-## Conformance target identifiers
+## 4.3 Conformance target identifiers
 
 A conformant schema document claims to be conformant thorough the use of a set of _conformance target identifiers_.
 
-### Rule 4-3. Schema is CTAS-conformant
+### Rule 4-1. Schema marked as reference schema document must conform
 
-> **[Rule 4-3] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets), [SUB](#Applicability-of-rules-to-conformance-targets), [MSG](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
+> **[Rule 4-1] ([SET](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
+> Any _schema document_ with an _effective conformance target identifier_ of `https://docs.oasis-open.org/niemopen/ns/specification/XNDR/6.0/#ReferenceSchemaDocument` MUST be a _reference schema document_.
+
+### Rule 4-2. Schema marked as extension schema document must conform
+
+> **[Rule 4-2] ([SET](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
+> Any _schema document_ with an _effective conformance target identifier_ of `https://docs.oasis-open.org/niemopen/ns/specification/XNDR/6.0/#ExtensionSchemaDocument` MUST be an _extension schema document_.
+
+### Rule 4-3. Schema marked as subset schema document must conform
+
+> **[Rule 4-3] ([SET](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
+> Any _schema document_ with an _effective conformance target identifier_ of `https://docs.oasis-open.org/niemopen/ns/specification/XNDR/6.0/#SubsetSchemaDocument` MUST be a _subset schema document_.
+
+### Rule 4-4. Schema marked as message schema document must conform
+
+> **[Rule 4-4] ([SET](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
+> Any _schema document_ with an _effective conformance target identifier_ of `https://docs.oasis-open.org/niemopen/ns/specification/XNDR/6.0/#MessageSchemaDocument` MUST be an _message schema document_.
+
+### Rule 4-5. Schema is CTAS-conformant
+
+> **[Rule 4-5] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets), [SUB](#Applicability-of-rules-to-conformance-targets), [MSG](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
 > The schema document MUST be a conformant document as defined by the NIEM Conformance Targets Attribute Specification.
 
-The term "conformant document" is defined by [CTAS](#Appendix-A-References) [Section 3.2, _Conformance to this Specification_](http://reference.niem.gov/niem/specification/conformance-targets-attribute/3.0/NIEM-CTAS-3.0-2014-07-31.html#section_3.2).
+The term "conformant document" is defined by [CTAS](#Appendix-A-References) [Section 3.2, _Conformance to this Specification_](https://docs.oasis-open.org/niemopen/ns/specification/conformance-targets-attribute/3.0/NIEM-CTAS-3.0-2014-07-31.html#section_3.2).
 
-### Rule 4-4. Document element has attribute `ct:conformanceTargets`
+### Rule 4-6. Document element has attribute `ct:conformanceTargets`
 
-> **[Rule 4-4] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets), [SUB](#Applicability-of-rules-to-conformance-targets), [MSG](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
+> **[Rule 4-6] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets), [SUB](#Applicability-of-rules-to-conformance-targets), [MSG](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
+>
+> ```
+> <sch:pattern>
+>  <sch:rule context="*[. is nf:get-document-element(.)
+>                       or exists(@ct:conformanceTargets)]">
+>    <sch:assert test="(. is nf:get-document-element(.)) = exists(@ct:conformanceTargets)"
+>      >The [document element] of the XML document, and only the [document element], MUST own an attribute {https://docs.oasis-open.org/niemopen/ns/specification/conformanceTargets/3.0/}conformanceTargets.</sch:assert>
+>  </sch:rule>
+> </sch:pattern>
+> ```
 
-```
-<sch:pattern>
- <sch:rule context="*[. is nf:get-document-element(.)
-                      or exists(@ct:conformanceTargets)]">
-   <sch:assert test="(. is nf:get-document-element(.)) = exists(@ct:conformanceTargets)"
-     >The [document element] of the XML document, and only the [document element], MUST own an attribute {http://release.niem.gov/niem/conformanceTargets/3.0/}conformanceTargets.</sch:assert>
- </sch:rule>
-</sch:pattern>
-```
+### Rule 4-7. Schema claims reference schema conformance target
 
-### Rule 4-5. Schema claims reference schema conformance target
-
-> **[Rule 4-5] ([REF](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-
-```
-<sch:pattern>
- <sch:rule context="*[. is nf:get-document-element(.)]">
-   <sch:assert test="nf:has-effective-conformance-target-identifier(., xs:anyURI(https://docs.oasis-open.org/niemopen/ns/specification/naming-and-design-rules/6.0/#ReferenceSchemaDocument'))"
-     >The document MUST have an effective conformance target identifier of https://docs.oasis-open.org/niemopen/ns/specification/XNDR/6.0/#ReferenceSchemaDocument.</sch:assert>
- </sch:rule>
-</sch:pattern>
-```
+> **[Rule 4-7] ([REF](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
+>
+>```
+> <sch:pattern>
+>  <sch:rule context="*[. is nf:get-document-element(.)]">
+>    <sch:assert test="nf:has-effective-conformance-target-identifier(., xs:anyURI(https://docs.oasis-open.org/niemopen/ns/specification/XNDR/6.0/#ReferenceSchemaDocument'))"
+>      >The document MUST have an effective conformance target identifier of https://docs.oasis-open.org/niemopen/ns/specification/XNDR/6.0/#ReferenceSchemaDocument.</sch:assert>
+>  </sch:rule>
+> </sch:pattern>
+> ```
 This document defines the term _effective conformance target identifier_.
 
-### Rule 4-6. Schema claims extension conformance target
+### Rule 4-8. Schema claims extension conformance target
 
-> **[Rule 4-6] ([EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
+> **[Rule 4-8] ([EXT](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
+>
+> ```
+> <sch:pattern>
+>  <sch:rule context="*[. is nf:get-document-element(.)]">
+>    <sch:assert test="nf:has-effective-conformance-target-identifier(., xs:anyURI(https://docs.oasis-open.org/niemopen/ns/specification/XNDR/6.0/#ExtensionSchemaDocument'))"
+>      >The document MUST have an effective conformance target identifier of https://docs.oasis-open.org/niemopen/ns/specification/XNDR/6.0/#ExtensionSchemaDocument.</sch:assert>
+>  </sch:rule>
+> </sch:pattern>
+> ```
 
-```
-<sch:pattern>
- <sch:rule context="*[. is nf:get-document-element(.)]">
-   <sch:assert test="nf:has-effective-conformance-target-identifier(., xs:anyURI(https://docs.oasis-open.org/niemopen/ns/specification/naming-and-design-rules/6.0/#ExtensionSchemaDocument'))"
-     >The document MUST have an effective conformance target identifier of https://docs.oasis-open.org/niemopen/ns/specification/XNDR/6.0/#ExtensionSchemaDocument.</sch:assert>
- </sch:rule>
-</sch:pattern>
-```
-This document defines the term _effective conformance target identifier_.
+### Rule 4-9. Schema claims subset conformance target
+
+> **[Rule 4-9] ([SUB](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
+>
+> ```
+> <sch:pattern>
+>  <sch:rule context="*[. is nf:get-document-element(.)]">
+>    <sch:assert test="nf:has-effective-conformance-target-identifier(., xs:anyURI(https://docs.oasis-open.org/niemopen/ns/specification/XNDR/6.0/#SubsetSchemaDocument'))"
+>      >The document MUST have an effective conformance target identifier of https://docs.oasis-open.org/niemopen/ns/specification/XNDR/6.0/#SubsetSchemaDocument.</sch:assert>
+>  </sch:rule>
+> </sch:pattern>
+> ```
+
+### Rule 4-10. Schema claims message conformance target
+
+> **[Rule 4-10] ([MSG](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
+>
+> ```
+> <sch:pattern>
+>  <sch:rule context="*[. is nf:get-document-element(.)]">
+>    <sch:assert test="nf:has-effective-conformance-target-identifier(., xs:anyURI(https://docs.oasis-open.org/niemopen/ns/specification/XNDR/6.0/#MessageSchemaDocument'))"
+>      >The document MUST have an effective conformance target identifier of https://docs.oasis-open.org/niemopen/ns/specification/XNDR/6.0/#MessageSchemaDocument.</sch:assert>
+>  </sch:rule>
+> </sch:pattern>
+> ```
 
 # The NIEM conceptual model
 
@@ -1610,8 +1725,7 @@ This document establishes the term _schema document_, by reference to [XML Schem
 
 ### Rule 7-4. Document element is `xs:schema`
 
-> **[Rule 7-4] ([REF](#Applicability-of-rules-to-conformance-targets),
-> [EXT](#Applicability-of-rules-to-conformance-targets), [SUB](#Applicability-of-rules-to-conformance-targets), [MSG](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
+> **[Rule 7-4] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets), [SUB](#Applicability-of-rules-to-conformance-targets), [MSG](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
 >
 >```xml
 > <sch:pattern>
@@ -2468,10 +2582,10 @@ The type `xs:anySimpleType` does not have any concrete semantics; The use of `xs
 > ```
 
 #### Rule 9-40. Element type not in the XML Schema namespace
-
+>
 > **[Rule 9-40] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets), [SUB](#Applicability-of-rules-to-conformance-targets), [MSG](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-
-```xml
+>
+>```xml
 <sch:pattern>
  <sch:rule context="xs:element[exists(@type)]">
    <sch:assert test="for $type-qname in resolve-QName(@type, .) return
@@ -2480,7 +2594,8 @@ The type `xs:anySimpleType` does not have any concrete semantics; The use of `xs
      >An element type that is not xs:anySimpleType MUST NOT have a namespace name http://www.w3.org/2001/XMLSchema.</sch:assert>
  </sch:rule>
 </sch:pattern>
-```
+>```
+
 The prohibition of element types having the XML Schema namespace subsumes a prohibition of the type `xs:anyType`.
 
 #### Rule 9-41. Element type not in the XML namespace
@@ -4507,9 +4622,7 @@ Acronyms and abbreviations have the ability to improve readability and comprehen
 
 #### Rule 10-51. Names use common abbreviations
 
-> **[Rule 10-51]
-> ([REF](#Applicability-of-rules-to-conformance-targets),
-> [EXT](#Applicability-of-rules-to-conformance-targets), [SUB](#Applicability-of-rules-to-conformance-targets), [MSG](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
+> **[Rule 10-51] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets), [SUB](#Applicability-of-rules-to-conformance-targets), [MSG](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
 > The schema SHOULD use, in defined names, the abbreviations identified by _Table 10-1, _Abbreviations used in schema component names__, rather than their full meanings.
 
 ##### Table 10-1: Abbreviations used in schema component names
@@ -4766,7 +4879,7 @@ Deprecation can allow version management to be more consistent; versions of sche
 > **[Rule 10-69] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets), [SUB](#Applicability-of-rules-to-conformance-targets), [MSG](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
 >
 > ```
-> <sch:pattern>xml
+> <sch:pattern>
 >  <sch:rule context="*[exists(@appinfo:deprecated)]">
 >    <sch:assert test="namespace-uri-from-QName(node-name(.)) = xs:anyURI('http://www.w3.org/2001/XMLSchema')"
 >            >The attribute appinfo:deprecated MUST be owned by an element with a namespace name http://www.w3.org/2001/XMLSchema.</sch:assert>
@@ -4843,12 +4956,19 @@ NIEM provides the structures schema that contains base types for types defined i
 
 The structures namespace is a single namespace, separate from namespaces that define NIEM-conformant data. This document refers to this content via the prefix `structures`.
 
-### Rule 10-78. Use structures consistent with specification
+### Rule 10-78. Source schema uses structures consistent with specification
 
-> **[Rule 10-78] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets), [SUB](#Applicability-of-rules-to-conformance-targets), [MSG](#Applicability-of-rules-to-conformance-targets), [INS](#Applicability-of-rules-to-conformance-targets), [SET](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
-> Any schema or instance MUST use the NIEM _structures namespace_ consistent with the schema as it is defined in [Appendix B, _Structures namespace_, below](#appendix-b-structures-namespace).
+>  **[Rule 10-78] ([[SET](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
+> A source schema document set MUST use the NIEM _structures namespace_ as defined by the schema document in [Appendix B, _Structures namespace](#appendix-b-structures-namespace) without modification.
 
-This rule further enforces uniform and consistent use of the NIEM `structures` namespace, without addition. Users are not allowed to insert types, attributes, etc. that are not specified by this document. However, users may profile the structures namespace, as needed.
+This rule supports reuse of the components defined by a source schema document set. The `xs:anyAttribute` wildcard allows developers to extend the components in a reference, extension, or subset schema document via attribute augmentation.
+
+### Rule 10-79. Message schema uses structures consistent with specification
+
+> **[Rule 10-79] ([[MSET](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
+> A message schema document set MUST use a profile of the NIEM _structures namespace_ as defined by the schema document in [Appendix B,_Structures namespace](#appendix-b-structures-namespace). That profile MUST NOT contain `xs:any` or `xs:anyAttribute`.  That profile MUST NOT include any component not defined by the schema document in [Appendix B, Structures namespace]().  That profile MAY include components defined in reference, extension, or subset schema documents.
+
+This rule supports precise definition of message content by removing the `xs:anyAttribute` wildcard. (The wildcard is unnecessary in message schema document sets, which are not intended to support reuse.)  Developers may remove those attributes defined in the structures namespace that are not needed in a message specification. Developers may augment every element in a message specification by adding elements or attributes from reference, extension, or subset schema documents to the structures schema document.
 
 # 11. Rules for NIEM modeling, by XML Schema component
 
@@ -5047,7 +5167,7 @@ Both of these methods use the element `xs:extension`. Although these two methods
 >        or ends-with(local-name-from-QName($base-qname), 'SimpleType')]">
 >    <sch:assert test="xs:attributeGroup[
 >                        resolve-QName(@ref, .) = xs:QName('structures:SimpleObjectAttributeGroup')]"
->      >A complex type definition with simple content schema component with a derivation method of extension that has a base type definition that is a simple type MUST incorporate the attribute group {http://release.niem.gov/niem/structures/5.0/}SimpleObjectAttributeGroup.</sch:assert>
+>      >A complex type definition with simple content schema component with a derivation method of extension that has a base type definition that is a simple type MUST incorporate the attribute group {https://docs.oasis-open.org/niemopen/ns/model/structures/6.0/}SimpleObjectAttributeGroup.</sch:assert>
 >  </sch:rule>
 > </sch:pattern>
 > ```
@@ -5279,7 +5399,7 @@ This rule is also intended to prevent developers from creating complicated seque
 
 The term _schema document_ is a defined term.
 
-### Attribute use
+### 11.3.3 Attribute use
 
 #### Rule 11-22. Referenced attribute defined by conformant schemas
 
@@ -5287,20 +5407,38 @@ The term _schema document_ is a defined term.
 >
 > ```xml
 > <sch:pattern>
->  <sch:rule context="xs:attribute[@ref]">
->    <sch:let name="namespace" value="namespace-uri-from-QName(resolve-QName(@ref, .))"/>
->    <sch:assert test="some $namespace in namespace-uri-from-QName(resolve-QName(@ref, .)) satisfies (
+>   <sch:rule context="xs:attribute[@ref]">
+>      <sch:let name="namespace" value="namespace-uri-from-QName(resolve-QName(@ref, .))"/>
+>      <sch:assert test="some $namespace in namespace-uri-from-QName(resolve-QName(@ref, .)) satisfies (
 >                        $namespace = nf:get-target-namespace(.)
 >                        or ancestor::xs:schema[1]/xs:import[
 >                             @namespace
 >                             and $namespace = xs:anyURI(@namespace)
 >                             and empty(@appinfo:externalImportIndicator)])"
->      >An attribute {}ref MUST have the target namespace or a namespace that is imported as conformant.</sch:assert>
->  </sch:rule>
+>      >An attribute {}ref MUST have the target namespace or a namespace that is imported as conformant.     </sch:assert>
+>   </sch:rule>
 > </sch:pattern>
 > ```
 
-### Wildcard
+#### 11.3.3.1 Attribute group use
+
+#### Rule 11-23. Schema uses only known attribute groups
+
+In conformant schemas, use of attribute groups is restricted. The only attribute group defined by NIEM for use in conformant schemas is structures:SimpleObjectAttributeGroup. This attribute group provides the attributes necessary for IDs, references, metadata, and relationship metadata.
+
+> **[Rule 11-23] ([REF](#Applicability-of-rules-to-conformance-targets), [EXT](#Applicability-of-rules-to-conformance-targets), [SUB](#Applicability-of-rules-to-conformance-targets),  [MSG](#Applicability-of-rules-to-conformance-targets)) (Constraint)**
+>
+> ```xml
+> <sch:pattern>
+>   <sch:rule context="xs:attributeGroup[@ref]">
+>     <sch:assert test="some $ref in resolve-QName(@ref, .) satisfies (
+>                         $ref = xs:QName('structures:SimpleObjectAttributeGroup'))"
+>       >An attribute group reference MUST be structures:SimpleObjectAttributeGroup</sch:assert>
+>   </sch:rule>
+> </sch:pattern>
+> ```
+
+### 11.3.4 Wildcard
 
 NIEM does not define any additional features relating to wildcards. This section is present to maintain with [XML Schema Structures](#Appendix-A-References) [Section 2.2, _XML Schema Abstract Data Model_](http://www.w3.org/TR/2004/REC-xmlschema-1-20041028/#concepts-data-model), See [Section 9.3.4, _Wildcard_, above,](#wildcard) for rules related to wildcards.
 
@@ -5682,7 +5820,7 @@ These rules embody the basic philosophy behind NIEM’s use of components with n
 >                      nf:has-effective-conformance-target-identifier(., xs:anyURI(https://docs.oasis-open.org/niemopen/ns/specification/naming-and-design-rules/6.0/#ReferenceSchemaDocument'))
 >                      and exists(@namespace)
 >                      and empty(@appinfo:externalImportIndicator)
->                      and not(xs:anyURI(@namespace) = (xs:anyURI('http://release.niem.gov/niem/structures/5.0/'),
+>                      and not(xs:anyURI(@namespace) = (xs:anyURI('https://docs.oasis-open.org/niemopen/ns/model/structures/6.0/'),
 >                                                       xs:anyURI('http://www.w3.org/XML/1998/namespace')))]">
 > <sch:assert test="some $schema in nf:resolve-namespace(., @namespace) satisfies
 >                     nf:has-effective-conformance-target-identifier($schema, xs:anyURI(
@@ -6200,129 +6338,80 @@ This specification does not designate order of properties of an object where att
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema
- targetNamespace="http://release.niem.gov/niem/structures/5.0/"
- version="5.0"
- xml:lang="en-US"
- xmlns:structures="http://release.niem.gov/niem/structures/5.0/"
- xmlns:xs="http://www.w3.org/2001/XMLSchema">
-
- <xs:annotation>
-   <xs:documentation>The structures namespace provides base types and other components for definition of NIEM-conformant XML schemas.</xs:documentation>
- </xs:annotation>
-
- <xs:attribute name="id" type="xs:ID">
-   <xs:annotation>
-     <xs:documentation>A document-relative identifier for an XML element.</xs:documentation>
-   </xs:annotation>
- </xs:attribute>
-
- <xs:attribute name="ref" type="xs:IDREF">
-   <xs:annotation>
-     <xs:documentation>A document-relative reference to an XML element.</xs:documentation>
-   </xs:annotation>
- </xs:attribute>
-
- <xs:attribute name="uri" type="xs:anyURI">
-   <xs:annotation>
-     <xs:documentation>An internationalized resource identifier or uniform resource identifier for a node or object.</xs:documentation>
-   </xs:annotation>
- </xs:attribute>
-
- <xs:attribute name="metadata" type="xs:IDREFS">
-   <xs:annotation>
-     <xs:documentation>A list of metadata objects that apply to a node or object represented by an XML element.</xs:documentation>
-   </xs:annotation>
- </xs:attribute>
-
- <xs:attribute name="relationshipMetadata" type="xs:IDREFS">
-   <xs:annotation>
-     <xs:documentation>A list of metadata objects that apply to a relationship or property occurrence represented by an XML element.</xs:documentation>
-   </xs:annotation>
- </xs:attribute>
-
- <xs:attribute name="sequenceID" type="xs:positiveInteger">
-   <xs:annotation>
-     <xs:documentation>An identifier that establishes the relative order of a property occurrence among sibling properties of a node or object.</xs:documentation>
-   </xs:annotation>
- </xs:attribute>
-
- <xs:attributeGroup name="SimpleObjectAttributeGroup">
-   <xs:annotation>
-     <xs:documentation>A group of attributes that are applicable to objects, to be used when defining a complex type that is an extension of a simple type.</xs:documentation>
-   </xs:annotation>
-   <xs:attribute ref="structures:id"/>
-   <xs:attribute ref="structures:ref"/>
-   <xs:attribute ref="structures:uri"/>
-   <xs:attribute ref="structures:metadata"/>
-   <xs:attribute ref="structures:relationshipMetadata"/>
-   <xs:attribute ref="structures:sequenceID"/>
-   <xs:anyAttribute namespace="urn:us:gov:ic:ism urn:us:gov:ic:ntk" processContents="lax"/>
- </xs:attributeGroup>
-
- <xs:complexType name="ObjectType" abstract="true">
-   <xs:annotation>
-     <xs:documentation>A data type for a thing with its own lifespan that has some existence.</xs:documentation>
-   </xs:annotation>
-   <xs:sequence>
-     <xs:element ref="structures:ObjectAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
-   </xs:sequence>
-   <xs:attribute ref="structures:id"/>
-   <xs:attribute ref="structures:ref"/>
-   <xs:attribute ref="structures:uri"/>
-   <xs:attribute ref="structures:metadata"/>
-   <xs:attribute ref="structures:relationshipMetadata"/>
-   <xs:attribute ref="structures:sequenceID"/>
-   <xs:anyAttribute namespace="urn:us:gov:ic:ism urn:us:gov:ic:ntk" processContents="lax"/>
- </xs:complexType>
-
- <xs:element name="ObjectAugmentationPoint" abstract="true">
-   <xs:annotation>
-     <xs:documentation>An augmentation point for type structures:ObjectType.</xs:documentation>
-   </xs:annotation>
- </xs:element>
-
- <xs:complexType name="AssociationType" abstract="true">
-   <xs:annotation>
-     <xs:documentation>A data type for a relationship between two or more objects, including any properties of that relationship.</xs:documentation>
-   </xs:annotation>
-   <xs:sequence>
-     <xs:element ref="structures:AssociationAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
-   </xs:sequence>
-   <xs:attribute ref="structures:id"/>
-   <xs:attribute ref="structures:ref"/>
-   <xs:attribute ref="structures:uri"/>
-   <xs:attribute ref="structures:metadata"/>
-   <xs:attribute ref="structures:relationshipMetadata"/>
-   <xs:attribute ref="structures:sequenceID"/>
-   <xs:anyAttribute namespace="urn:us:gov:ic:ism urn:us:gov:ic:ntk" processContents="lax"/>
- </xs:complexType>
-
- <xs:element name="AssociationAugmentationPoint" abstract="true">
-   <xs:annotation>
-     <xs:documentation>An augmentation point for type structures:AssociationType.</xs:documentation>
-   </xs:annotation>
- </xs:element>
-
- <xs:complexType name="MetadataType" abstract="true">
-   <xs:annotation>
-     <xs:documentation>A data type for data about data.</xs:documentation>
-   </xs:annotation>
-   <xs:attribute ref="structures:id"/>
-   <xs:attribute ref="structures:ref"/>
-   <xs:attribute ref="structures:uri"/>
-   <xs:anyAttribute namespace="urn:us:gov:ic:ism urn:us:gov:ic:ntk" processContents="lax"/>
- </xs:complexType>
-
- <xs:complexType name="AugmentationType" abstract="true">
-   <xs:annotation>
-     <xs:documentation>A data type for a set of properties to be applied to a base type.</xs:documentation>
-   </xs:annotation>
-   <xs:attribute ref="structures:id"/>
-   <xs:attribute ref="structures:ref"/>
-   <xs:attribute ref="structures:uri"/>
-   <xs:anyAttribute namespace="urn:us:gov:ic:ism urn:us:gov:ic:ntk" processContents="lax"/>
- </xs:complexType>
-
+  targetNamespace="https://docs.oasis-open.org/niemopen/ns/model/structures/6.0/"
+  xmlns:structures="https://docs.oasis-open.org/niemopen/ns/model/structures/6.0/"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  version="6.0"
+  xml:lang="en-US">
+  <xs:annotation>
+    <xs:documentation>The structures namespace provides base types and other components for definition of NIEM-conformant XML schemas.</xs:documentation>
+  </xs:annotation>
+  <xs:attributeGroup name="SimpleObjectAttributeGroup">
+    <xs:attribute ref="structures:id"/>
+    <xs:attribute ref="structures:onlyRef"/>    
+    <xs:attribute ref="structures:qname"/>
+    <xs:attribute ref="structures:ref"/>
+    <xs:attribute ref="structures:uri"/>
+    <xs:anyAttribute processContents="strict" namespace="##other"/>
+  </xs:attributeGroup>
+  <xs:complexType name="AssociationType" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data type for a relationship between two or more objects, including any properties of that relationship.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element ref="structures:AssociationAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+  </xs:complexType>
+  <xs:complexType name="AugmentationType" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data type for a set of properties to be applied to a base type.</xs:documentation>
+    </xs:annotation>
+  </xs:complexType>
+  <xs:complexType name="ObjectType" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data type for a thing with its own lifespan that has some existence.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element ref="structures:ObjectAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+  </xs:complexType>
+  <xs:element name="AssociationAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for type structures:AssociationType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ObjectAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for type structures:ObjectType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:attribute name="id" type="xs:ID">
+    <xs:annotation>
+      <xs:documentation>A document-relative identifier for an XML element.</xs:documentation>
+    </xs:annotation>
+  </xs:attribute>
+  <xs:attribute name="onlyRef" type="xs:boolean">
+    <xs:annotation>
+      <xs:documentation>True if this element is not a property of its parent.</xs:documentation>
+    </xs:annotation>
+  </xs:attribute>
+  <xs:attribute name="qname" type="xs:QName">
+    <xs:annotation>
+      <xs:documentation>A uniform resource identifier for a node or object, expressed as a qualified name.</xs:documentation>
+    </xs:annotation>
+  </xs:attribute>
+  <xs:attribute name="ref" type="xs:IDREF">
+    <xs:annotation>
+      <xs:documentation>A document-relative reference to an XML element.</xs:documentation>
+    </xs:annotation>
+  </xs:attribute>
+  <xs:attribute name="uri" type="xs:anyURI">
+    <xs:annotation>
+      <xs:documentation>An internationalized resource identifier or uniform resource identifier for a node or object.</xs:documentation>
+    </xs:annotation>
+  </xs:attribute>
 </xs:schema>
 ```
 

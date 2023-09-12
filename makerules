@@ -1,0 +1,84 @@
+#!/usr/bin/perl
+
+# Create schematron rules from NDR
+
+use warnings;
+use strict;
+
+my $header = <<"EOSTRING";
+<?xml version="1.0" encoding="US-ASCII" standalone="yes"?>
+<sch:schema
+  xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform" queryBinding="xslt2">
+<sch:title>Rules for reference XML Schema documents</sch:title>
+<xsl:include href="ndr-functions.xsl"/>
+<sch:ns prefix="xs" uri="http://www.w3.org/2001/XMLSchema"/>
+<sch:ns prefix="xsl" uri="http://www.w3.org/1999/XSL/Transform"/>
+<sch:ns prefix="nf" uri="https://docs.oasis-open.org/niemopen/ns/specification/XNDR/6.0/#NDRFunctions"/>
+<sch:ns prefix="ct" uri="https://docs.oasis-open.org/niemopen/ns/specification/conformanceTargets/3.0/"/>
+<sch:ns prefix="xsi" uri="http://www.w3.org/2001/XMLSchema-instance"/>
+<sch:ns prefix="appinfo" uri="https://docs.oasis-open.org/niemopen/ns/model/appinfo/6.0/"/>
+<sch:ns prefix="structures" uri="https://docs.oasis-open.org/niemopen/ns/model/structures/6.0/"/>
+EOSTRING
+
+my $rnum   = '';
+my $title  = '';
+my $ctargs = '';
+my $rule   = '';
+
+open(NDR, "niem-ndr.md") or die "can't open niem-ndr.md: $!\n";
+open(REF, ">ndr-ct-ref.sch") or die "can't open ndr-ct-ref.sch: $!\n";
+open(EXT, ">ndr-ct-ext.sch") or die "can't open ndr-ct-ext.sch: $!\n";
+open(SUB, ">ndr-ct-sub.sch") or die "can't open ndr-ct-sub.sch: $!\n";
+open(MSG, ">ndr-ct-msg.sch") or die "can't open ndr-ct-msg.sch: $!\n";
+
+print REF $header;
+$header =~ s/reference/extension/; print EXT $header;
+$header =~ s/extension/subset/;    print SUB $header;
+$header =~ s/subset/message/;      print MSG $header;
+
+while (<NDR>) {
+  chop;
+  if (m/^#/) {
+    $title = $ctargs = $rule = '';
+  }
+  if (m/^#+ Rule (\d+-\d+)\.\s*/) {
+    $rnum = $1;
+    $title = $';
+    $title =~ tr/`//d;
+  }
+  elsif ($title && m/^> \*\*\[Rule /) {
+    $ctargs = $_;
+  }
+  elsif ($title && $ctargs && !$rule && m/^> ```/) {
+    $rule = ' ';
+  }
+  elsif ($rule && !m/^> ```/) {
+    $rule .= "\n$_";
+  }
+  elsif ($rule && m/^> ```/) {
+    dorule($title, $ctargs, $rule);
+  }
+  elsif (m/^> ```/) {
+    $title = $ctargs = $rule = '';
+  }
+}
+print REF "</sch:schema>\n";
+print EXT "</sch:schema>\n";
+print SUB "</sch:schema>\n";
+print MSG "</sch:schema>\n";
+
+
+sub dorule {
+  my ($title, $ctarg, $rule) = @_;
+  $rule =~ s/^ \n//;
+  $rule =~ s/^> //mg;
+  $rule =~ s!<sch:pattern>!<sch:pattern id="rule_$rnum"><sch:title>$title</sch:title>!;
+  $rule =~ s!>([^<]+</sch:assert>)!>Rule $rnum: $1!;
+
+  print REF $rule if $ctarg =~ m/\[REF\]/;
+  print EXT $rule if $ctarg =~ m/\[EXT\]/;
+  print SUB $rule if $ctarg =~ m/\[SUB\]/;
+  print MSG $rule if $ctarg =~ m/\[MSG\]/;
+}

@@ -1,60 +1,61 @@
-## Matrix of rules and conformance targets
-
-> This is a working document. It wil eventually vanish, merge, or something.
 
 **Applicable only to reference schema documents**
 
 | Number | Rule | REF | EXT | SUB | MSG |
 | --- | --- | :-: | :-: | :-: | :-: |
-| 9-11 | No simple type disallowed derivation  | X|  |  |   |
-| 9-13 | No use of "fixed" on simple type facets  | X|  |  |   |
-| 9-30 | Complex content uses extension  | X|  |  |   |
-| 9-33 | Simple content uses extension  | X|  |  |   |
-| 9-34 | No complex type disallowed substitutions  | X|  |  |   |
-| 9-35 | No complex type disallowed derivation  | X|  |  |   |
-| 9-43 | No element disallowed substitutions  | X|  |  |   |
-| 9-44 | No element disallowed derivation  | X|  |  |   |
-| 9-47 | Element declaration is nillable  | X|  |  |   |
-| 9-62 | `xs:sequence` must be child of `xs:extension`  | X|  |  |   |
-| 9-64 | No `xs:choice`  | X|  |  |   |
-| 9-70 | No use of `xs:any`  | X|  |  |   |
-| 9-71 | No use of `xs:anyAttribute`  | X|  |  |   |
-| 9-86 | No disallowed substitutions  | X|  |  |   |
-| 9-87 | No disallowed derivations  | X|  |  |   |
-| 10-13 | External attribute use only in external adapter type  | X|  |  |   |
-| 10-23 | Augmentable type has augmentation point element  | X|  |  |   |
-| 10-29 | Augmentation point element use is optional  | X|  |  |   |
-| 10-30 | Augmentation point element use is unbounded  | X|  |  |   |
-| 10-37 | Augmentation elements are not used directly  | X|  |  |   |
+| 9-11 | No simple type disallowed derivation  | X |   |   |   |
+| 9-13 | No use of "fixed" on simple type facets  | X |   |   |   |
+| 9-30 | Complex content uses extension  | X |   |   |   |
+| 9-33 | Simple content uses extension  | X |   |   |   |
+| 9-34 | No complex type disallowed substitutions  | X |   |   |   |
+| 9-35 | No complex type disallowed derivation  | X |   |   |   |
+| 9-43 | No element disallowed substitutions  | X |   |   |   |
+| 9-44 | No element disallowed derivation  | X |   |   |   |
+| 9-47 | Element declaration is nillable  | X |   |   |   |
+| 9-62 | `xs:sequence` must be child of `xs:extension`  | X |   |   |   |
+| 9-64 | No `xs:choice`  | X |   |   |   |
+| 9-70 | No use of `xs:any`  | X |   |   |   |
+| 9-71 | No use of `xs:anyAttribute`  | X |   |   |   |
+| 9-86 | No disallowed substitutions  | X |   |   |   |
+| 9-87 | No disallowed derivations  | X |   |   |   |
+| 10-13 | External attribute use only in external adapter type  | X |   |   |   |
+| 10-23 | Augmentable type has augmentation point element  | X |   |   |   |
+| 10-29 | Augmentation point element use is optional  | X |   |   |   |
+| 10-30 | Augmentation point element use is unbounded  | X |   |   |   |
+| 10-37 | Augmentation elements are not used directly  | X |   |   |   |
 
- **Applicable to reference and externsion schema documents**
+**Applicable to reference and extension schema documents**
+
 | Number | Rule | REF | EXT | SUB | MSG |
 | --- | --- | :-: | :-: | :-: | :-: |
-| 9-45 | No element default value  | X | X|  |   |
-| 9-46 | No element fixed value  | X | X|  |   |
-| 9-57 | No attribute default values  | X | X|  |   |
-| 9-58 | No fixed values for optional attributes  | X | X|  |   |
+| 9-45 | No element default value  | X | X |   |   |
+| 9-46 | No element fixed value  | X | X |   |   |
+| 9-57 | No attribute default values  | X | X |   |   |
+| 9-58 | No fixed values for optional attributes  | X | X |   |   |
 
 **Applicable to reference, extension, and subset schema documents**
-| Number | Rule | REF | EXT | SUB | MSG |
-| --- | --- | :-: | :-: | :-: | :-: |
-| 9-10 | Simple type definition is top-level  | X | X | X|   |
-| 9-25 | Complex type definition is top-level  | X | X | X|   |
-| 9-42 | Element type is not simple type  | X | X | X|   |
-| 10-2 | Object type with complex content is derived from `structures:ObjectType`  | X | X | X|   |
-| 10-20 | Proxy type has designated structure  | X | X | X|   |
-| 10-21 | Association type derived from `structures:AssociationType`  | X | X | X|   |
-| 10-22 | Association element type is an association type  | X | X | X|   |
-| 11-8 | Name of a code simple type ends in "CodeSimpleType"  | X | X | X|   |
-| 11-11 | Complex type with simple content has `structures:SimpleObjectAttributeGroup`  | X | X | X|   |
 
-**Applicable to reference, extension, subset, and message schema documents**
+| Number | Rule | REF | EXT | SUB | MSG |
+| :-- | :-- | :-- | :-- | :-- | :-- |
+| 9-10 | Simple type definition is top-level  | X | X | X |   |
+| 9-25 | Complex type definition is top-level  | X | X | X |   |
+| 9-42 | Element type is not simple type  | X | X | X |   |
+| 10-2 | Object type with complex content is derived from `structures:ObjectType`  | X | X | X |   |
+| 10-20 | Proxy type has designated structure  | X | X | X |   |
+| 10-21 | Association type derived from `structures:AssociationType`  | X | X | X |   |
+| 10-22 | Association element type is an association type  | X | X | X |   |
+| 11-8 | Name of a code simple type ends in "CodeSimpleType"  | X | X | X |   |
+| 11-11 | Complex type with simple content has `structures:SimpleObjectAttributeGroup`  | X | X | X |   |
+
+**Applicable to all schema documents**
+
 | Number | Rule | REF | EXT | SUB | MSG |
 | --- | --- | :-: | :-: | :-: | :-: |
-| 4-3 | Schema is CTAS-conformant  | X |  X | X  | X   |
-| 4-4 | Document element has attribute `ct:conformanceTargets`  | X | X  | X | X  |
-| 7-3 | Document is a schema document  | X | X | X  | X |
-| 7-4 | Document element is `xs:schema`  | X| X | X | X |
+| 7-1 | Document is an XML document  | X | X | X | X |
+| 7-2 | Document uses XML namespaces properly  | X | X | X | X |
+| 7-3 | Document is a schema document  | X | X | X | X |
+| 7-4 | Document element is `xs:schema`  | X | X | X | X |
+| 7-5 | Component name follows ISO 11179 Part 5 Annex A  | X | X | X | X |
 | 9-1 | No base type in the XML namespace  | X | X | X | X |
 | 9-2 | No base type of `xs:ID`  | X | X | X | X |
 | 9-3 | No base type of `xs:IDREF`  | X | X | X | X |
@@ -97,12 +98,7 @@
 | 9-55 | No attribute type of `xs:ENTITIES`  | X | X | X | X |
 | 9-56 | No attribute type of `xs:anySimpleType`  | X | X | X | X |
 | 9-59 | No use of element `xs:notation`  | X | X | X | X |
-| 9-60 | Model group does not affect meaning | * | X | X | X |
 | 9-61 | No `xs:all`  | X | X | X | X |
-| 9-63 | `xs:sequence` must be child of `xs:extension` or `xs:restriction` | * | X | X | X |
-| 9-65 | `xs:choice` must be child of `xs:sequence` | * | X | X | X |
-| 9-68 | Choice has minimum cardinality 1 | * | X | X | X |
-| 9-69 | Choice has maximum cardinality 1 | * | X | X | X |
 | 9-66 | Sequence has minimum cardinality 1  | X | X | X | X |
 | 9-67 | Sequence has maximum cardinality 1  | X | X | X | X |
 | 9-72 | No use of `xs:unique`  | X | X | X | X |
@@ -158,6 +154,7 @@
 | 10-48 | Names use camel case  | X | X | X | X |
 | 10-49 | Attribute name begins with lower case letter  | X | X | X | X |
 | 10-50 | Name of schema component other than attribute and proxy type begins with upper case letter  | X | X | X | X |
+| 10-51 | Names use common abbreviations  | X | X | X | X |
 | 10-52 | Local term declaration is local to its schema document  | X | X | X | X |
 | 10-53 | Local terminology interpretation  | X | X | X | X |
 | 10-54 | Singular form is preferred in name  | X | X | X | X |
@@ -180,7 +177,6 @@
 | 10-71 | External adapter type indicator annotates complex type  | X | X | X | X |
 | 10-76 | `appinfo:LocalTerm` annotates schema  | X | X | X | X |
 | 10-77 | `appinfo:LocalTerm` has literal or definition  | X | X | X | X |
-| 10-78 | Use structures consistent with specification  | X | X | X | X |
 | 11-1 | Name of type ends in "Type"  | X | X | X | X |
 | 11-2 | Only types have name ending in "Type" or "SimpleType"  | X | X | X | X |
 | 11-3 | Base type definition defined by conformant schema  | X | X | X | X |
@@ -200,6 +196,7 @@
 | 11-20 | Element or attribute declaration introduced only once into a type  | X | X | X | X |
 | 11-21 | Element reference defined by conformant schema  | X | X | X | X |
 | 11-22 | Referenced attribute defined by conformant schemas  | X | X | X | X |
+| 11-23 | Schema uses only known attribute groups  | X | X | X | X |
 | 11-24 | Data definition does not introduce ambiguity  | X | X | X | X |
 | 11-25 | Object class has only one meaning  | X | X | X | X |
 | 11-26 | Data definition of a part does not redefine the whole  | X | X | X | X |
@@ -229,6 +226,3 @@
 | 11-52 | Structures imported as conformant  | X | X | X | X |
 | 11-53 | XML namespace imported as conformant  | X | X | X | X |
 | 11-55 | Consistently marked namespace imports  | X | X | X | X |
- 7-1 | Document is an XML document  | X | X | X | X |
- 7-2 | Document uses XML namespaces properly  | X | X | X | X |
- 7-5 | Component name follows ISO 11179 Part 5 Annex A  | X | X | X | X |

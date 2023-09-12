@@ -1,3 +1,11 @@
+## 2023-09-10
+
+1. Revised section 4 (conformance targets)
+2. Revised section 10.10 (NIEM structural facilities)
+3. Resurrected rule 11-23 (turns out NDR is much easier to write with SimpleObjectAttributeGroup)
+4. Wrote "makerules" script to generate SCH files from niem-ndr.md
+5. Replaced appendix B (structures namespace)
+
 ## 2023-09-04
 
 1. Replaced niem.org URIs with oasis-open.org URIs
