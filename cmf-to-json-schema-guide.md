@@ -256,7 +256,7 @@ Then we define `nc:PersonMiddleName` itself as holding _an array_ of the things 
 
 ### Cardinality of 1 to unbounded
 
-For cardinality of 1 to unbounded, we add the object to the appropriate containing type, mark it as required, and define the object as holding _an array_ of instances of its contents.
+For cardinality of 1 to unbounded, we add the object to the appropriate containing type, mark it as required, and define the object as holding _an array_ of instances of its contents, snf use `minItems` to define the minimum times a set of properties can occur in the array.
 
 Here we add `nc:PersonName` to `nc:PersonType`, and _include_ it in the list of required properties:
 
@@ -277,7 +277,8 @@ Then we define `nc:Person` itself as holding _an array_ of the things it's defin
 "nc:Person": {
 	"description": "A human being.",
 	"type": "array",
-	"items": {"$ref": "#/definitions/nc:PersonType"}
+	"items": {"$ref": "#/definitions/nc:PersonType"},
+	"minItems": 1
 }
 ```
 
