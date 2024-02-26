@@ -10,10 +10,25 @@ General questions about OASIS Open Projects may be directed to OASIS staff at pr
 
 # Status
 
-This document is being revised for NIEM 6.  In addition to the [current draft](niem-ndr.md), these documents describe the intended changes and the changes to date:
+This document is being revised for NIEM 6.  At this point, the most important file is [ndr6-outline](ndr6-outline.md).  What else is in this working directory?
 
-* [NIEM6-XNDR](NIEM6-XNDR.md)
-* [changelog](changelog.md)
+* [bin](bin) – scripts to generate files in this directory
+  * [genruleMatrix](genruleMatrix) – Perl script to create [ruleMatrix.md](ruleMatrix.md)  from [NDR5+](niem-ndr.md)
+  * [makerules]() – Perl script to create schematron files from [NDR5+](niem-ndr.md)
+* [cmf-to-JsonSchema](cmf-to-json-schema-guide.md) – converting a CMF model into JSON Schema to validate NIEM JSON messages
+* [confTargets](confTargets.md) – *Conformance Targets in NIEM 6.0* –  summary of differences between reference, extension, subset, and message schema documents
+* [examples](examples)
+  * [crash-driver](examples/crash-driver)
+* [images](images) – directory of PNG files used as images in documents here
+* [NIEM6-XNDR](NIEM6-XNDR.md) – list NDR 5 XSD rules in order; state applicable NIEM 6 XSD conformance targets
+* [NDR5+](niem-ndr.md) – NDR 5 converted to markdown, with edits to XSD rules
+* [pptx](pptx) – originals of images created with Powerpo
+* [ruleMatrix](ruleMatrix.md) – list NDR 5 XSD rules, grouped by applicable NIEM 6 XSD conformance targets
+* [sch](sch) – Schematron for XSD rules in NDR 6
+  * [ndr-ct-ext.sch](ndr-ct-ext.sch) – Schematron for extension schema documents
+  * [ndr-ct-msg.sch](ndr-ct-msg.sch) – Schematron for message schema documents
+  * [ndr-ct-sub.sch](ndr-ct-sub.sch) – Schematron for subset schema documents
+  * [ndr-ct-ref.sch](ndr-ct-ref.sch) – Schematron for reference schema documents
 
 # Other assets
 
