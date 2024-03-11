@@ -190,7 +190,188 @@ Instead, the Justice domain expressed their opinon by using augmentation. Augmen
 
 ## 8. Messages
 
-### 8.1 NIEM XML
+### 8.1 NIEM XML instances
+
+This specification attempts to restrict XML instance data as little as possible while still maintaining interoperability.
+
+NIEM does not require a specific encoding or specific requirements for the XML prologue, except as specified by [XML].
+
+**Instance must be schema-valid**
+
+The XML document MUST be valid against a set of authoritative schema documents for the relevant namespaces. This does not mean that XML validation must be performed on all XML instances as they are served or consumed; only that the XML instances validate if XML validation is performed. 
+
+NIEM embraces the use of XML Schema instance attributes, including xsi:type, xsi:nil, and xsi:schemaLocatiom, as specified by [XML Schema Structures].
+
+#### 8.1.1 The meaning of NIEM data
+
+NIEM XML instances represents relationships and data primarily via a hierarchy of XML elements in an XML document. For example, consider the following fragment of an XML document:
+
+Figure XX: Example of content elements
+<nc:Person>
+  <nc:PersonName>
+    <nc:PersonFullName>John Doe</nc:PersonFullName>
+  </nc:PersonName>
+</nc:Person>
+In this instance, the XML elements describe a hierarchy of data objects as follows:
+
+Table XX: Meaning of NIEM XML
+| XML element/value	| The Meaning of the data                                                             |
+| ----------------- | ----------------------------------------------------------------------------------- |
+| nc:Person	        | The object nc:Person of type nc:PersonType exists within some unknown context.      |
+| nc:PersonName	    | The object nc:PersonName of type nc:PersonNameType exists within nc:Person.         |
+| nc:PersonFullName | The object nc:PersonFullName of type nc:PersonNameType exists within nc:PersonName. |
+| John Doe         	| The object of type nc:PersonNameTextType has a value that is the literal John Doe.  |
+
+Note, that the types of each element are defined in the NIEM reference model and are not present in the XML instance.
+
+**Empty content has no meaning**
+
+Within the instance, an element with no content has no additional meaning.
+
+#### 8.1.2 Identifiers and references
+
+Nested elements, shown above, can represent simple, hierarchical ("tree-like") data. However, some data is not "tree-like" and therefore does not lend itself to nested objects.  For instance:
+
+*Cycles*: an object has a relationship that, when followed, eventually circles back to itself. For example, suppose that Bob has a sister relationship to Sue, who has a brother relationship back to Bob.
+
+*Reuse*: multiple objects have a relationship to a common object. For example, suppose Bob and Sue both have a mother relationship to Sally. Expressed via nested elements, this would result in a duplicate representation of Sally.
+
+NIEM provides two different ways to solve this problem: 
+
+* The use of local references pointing to local identifiers, and 
+* The use of uniform resource identifiers (URIs). 
+
+These two methods are similar, and can interoperate, but have distinctions.
+
+**Element has only one resource identifying attribute** 
+
+An element MUST NOT have more than one attribute that is structures:id, structures:ref, or structures:uri.
+
+##### 8.1.2.1 Local identifiers and references
+The XML specifications define ID and IDREF attributes, which act as references in XML data. This is supported by XML Schema, and NIEM uses ID and IDREF as one way to reference data across data objects. Within a NIEM-conformant XML document, an attribute structures:ref refers to an attribute structures:id. These attributes may appear in an XML document to express that an object that is the value of an element is the same as some other object within the document. For example, in the following example, the user of the weapon (Bart) is the same person that is the subject of the arrest:
+
+Figure XX: Example of structures:id and structures:ref
+<j:Arrest>
+  <j:ArrestInvolvedWeapon>
+    <nc:WeaponUser structures:id="bart">
+      <nc:PersonName>
+        <nc:PersonGivenName>Bart</nc:PersonGivenName>
+      </nc:PersonName>
+    </nc:WeaponUser>
+  </j:ArrestInvolvedWeapon>
+  <j:ArrestSubject>
+    <nc:RoleOfPerson structures:ref="bart" xsi:nil="true"/>
+  </j:ArrestSubject>
+</j:Arrest>
+Note that rules below establish that relationships established using structures:id and structures:ref have the exact same meaning as relationships established using nested elements. An information exchange specification may constrain them differently, or prefer one over the other, but from a NIEM perspective, they have the same meaning.
+
+**Attribute structures:ref must reference structures**
+
+Within a NIEM XML document, any attribute structures:ref MUST refer to an attribute structures:id with the same value.
+
+**Referenced objects must be of the same or derived types**
+
+References using structures:ref and structures:id MUST preserve the type constraints that would apply if nested elements were used instead of a reference. That is, the type of the element pointed to by a structures:ref attribute must be of (or derived from) the type of the reference element. 
+
+For example, an element of type nc:PersonType MUST always refer to another element of type nc:PersonType, or a type derived from nc:PersonType, when using structures:ref to establish the relationship.
+
+#### 8.1.2.2 Uniform resource identifiers
+In linked data, anything may be called a resource: people, vehicles, reports, documents, relationships, ideas. Every resource may have a name, called a uniform resource identifier (URI). NIEM supports linked data through the use of uniform resource identifiers (URIs), expressed through the attribute structures:uri in XML documents. 
+
+As described above, structures:uri, structures:id, and structures:ref each denote a resource identifier. Although a structures:ref must always refer to a structures:id, and a value of structures:id must be unique within its document, a structures:uri may refer to any of structures:uri, structures:ref, or structures:id.
+
+**structures:uri denotes resource identifier**
+The value of an attribute structures:uri is a URI-reference, as defined by [RFC 3986], which denotes a resource identifier on the element holding the attribute, in accordance with evaluation consistent with [RFC 3986] and [XML Base].
+
+The following example shows a reference to an absolute URI:
+
+Figure XX: Example of structures:uri holding an absolute URI
+<example:ArrestMessage>
+  <j:Arrest xsi:nil="true"
+    structures:uri="urn:uuid:f81d4fae-7dec-11d0-a765-00a0c91e6bf6"/>
+</example:ArrestMessage>
+
+The following example shows a relative URI, using xml:base to carry the base URI for the document: 
+
+Figure XX: Example of structures:uri holding a relative URI, with an xml:base
+<example:ArrestMessage xml:base="http://state.example/scmods/">
+  <j:Arrest>
+    <j:ArrestSubject>
+      <nc:RoleOfPerson structures:uri="B263-1655-2187"/>
+    </j:ArrestSubject>
+  </j:Arrest>
+</example:ArrestMessage>
+
+The person object identified by the structures:uri attribute has the URI http://state.example/scmods/B263-1655-2187.
+
+The attributes structures:id and structures:ref each have a mapping to equivalent values of structures:uri.
+
+**structures:id and structures:ref denote resource identifier**
+
+The attributes structures:id and structures:ref are equivalent to the attribute structures:uri with the same value.
+
+For example, structures:id="hello" and structures:ref="hello" each denote the same resource identifier for an element as if it held an attribute structures:uri="#hello".
+
+**structures:uri can reference resources in other documents**
+
+Unlike structures:id and structures:ref, an attribute structures:uri can reference any resource, inside or outside the document, including structures:uri, structures:id or structures:ref in another document.
+
+#### 8.1.2.3 Reference and content elements have same meaning
+
+An important aspect of the use of nested elements, ref-to-id references, and URI references, is that they all have the same meaning. Expressing a relationship as a nested element, versus as a ref-to-id reference is merely for convenience and ease of serialization.
+
+**Nested elements and references have the same meaning**
+
+There MUST NOT be any difference in meaning between a relationship established via an element declaration instantiated by a nested element, and that element declaration instantiated via reference.
+
+For example, the following XML fragments have similar meaning. 
+
+**TODO: Update these examples to NIEM 6**
+
+Figure 12-8: Example with no reference
+<j:Witness>
+  <nc:RoleOfPerson>
+    <nc:PersonName>
+      <nc:PersonFullName>John Doe</nc:PersonFullName>
+    </nc:PersonName>
+  </nc:RoleOfPerson>
+</j:Witness>
+
+Figure 12-9: Example with a backward reference
+<nc:Person structures:id="c58">
+  <nc:PersonName>
+    <nc:PersonFullName>John Doe</nc:PersonFullName>
+  </nc:PersonName>
+</nc:Person>
+<j:Witness>
+  <nc:RoleOfPerson structures:ref="c58" xsi:nil="true"/>
+</j:Witness>
+
+Figure 12-10: Example with a forward reference
+<nc:Person structures:ref="t85" xsi:nil="true"/>
+<j:Witness>
+  <nc:RoleOfPerson structures:id="t85">
+    <nc:PersonName>
+      <nc:PersonFullName>John Doe</nc:PersonFullName>
+    </nc:PersonName>
+  </nc:RoleOfPerson>
+</j:Witness>
+
+##### 8.1.3 Order of child elements has no meaning
+
+A NIEM data object instance has a set of properties; these properties will appear in an XML instance as child elements of one or more parent elements. Order of child elements within each parent element is defined by the schema, which can specify exact element order, or can have flexible ordering (for example, elements provided via a substitution group may appear in any order). The order of parent and child elements in a document does not dictate the order of properties of an object.
+
+#### Legacy rules (to be removed)
+* Instance of RoleOf element indicates a role object 
+* Metadata applies to referring entity 
+* Referent of structures:relationshipMetadata annotates relationship 
+* Values of structures:metadata refer to values of structures:is
+* Values of structures:relationshipMetadata refer to values of structures:is
+* structures:metadata and structures:relationshipMetadata refer to metadata elements
+* Attribute structures:metadata references metadata element 
+* Attribute structures:relationshipMetadata references metadata element 
+* Metadata is applicable to element 
+* Element within instance of augmentation type modifies base (Covered in Augmentation section?)
 
 ### 8.2 NIEM JSON
 
