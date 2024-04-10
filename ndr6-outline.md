@@ -1,3 +1,7 @@
+> 2024-04-10 draft
+>
+> Includes Vamsi's text for sections 1 and 2.  The plan now is to keep filling out this outline until enough sections are complete. Then we will remove the comment stuff and apply the OASIS template.
+>
 > 2024-02-26 draft
 >
 > Attempts to be a fairly complete outline of NDR6. Includes everything I can remember from the 2024-02-22 NDR-outline telcon.  
@@ -14,29 +18,59 @@
 
 ## 1. Introduction
 
-* NIEM and NIEMOpen
-  * NIEM refers to the model and technical architecture. This document is part of the specification of the technical architecture.
-  * NIEMOpen is the OASIS Open Project
-* other intro stuff tbd – doc conventions, typography, etc.
+NIEM, formerly known as the "National Information Exchange Model,” is a framework for exchanging information between public and private sector organizations. The framework includes a [reference data model](https://docs.oasis-open.org/niemopen/niem-model/v6.0/niem-model-v6.0.html) for objects, properties, and relationships; and a set of technical specifications for using and extending the data model in information exchanges. The NIEM framework supports developer-level specifications of data that form a contract between developers. The data being specified is called a message in NIEM. While a message is usually something passed between applications, NIEM works equally well to specify an information resource published on the web, an input or output for a web service or remote procedure, and so forth, basically, any chunk of data that crosses a system or organization boundary.
+
+NIEM promotes scalability and reusability of messages between information systems, allowing organizations to share data and information more efficiently. It was launched in 2005 in response to the U.S. Homeland Security Presidential Directives to improve information sharing between agencies following 9/11.Until 2023, NIEM was updated and maintained in a collaboration between the U.S. federal government, state and local government agencies, private sector, and non-profit and international organizations, with new versions released around once per year. NIEM defines a set of common objects, the *NIEM Core*, and 17 sets of objects that are specific to certain government or industry verticals, the *NIEM Domains*.
+
+In 2023, NIEM became the NIEMOpen OASIS Open Project. NIEMOpen welcomes participation by anyone irrespective of affiliation with OASIS. Substantive contributions to NIEMOpen and feedback are invited from all parties, following the OASIS rules and the usual conventions for participation in GitHub public repository projects.
+
+NIEMOpen is the term generally used when referring to the organization such as Project Governing Board (PGB), NIEMOpen Technical Architecture Committee(NTAC), NIEMOpen Business Architecture Committee(NBAC), organization activities or processes. NIEM is the term used when directly referring to the model i.e. NIEM Domain Space, NIEM Model version.
+
+This document specifies principles and enforceable rules for NIEM data components and schemas. Schemas and components that obey the rules set forth here are conformant to specific conformance targets. These targets are defined in order that they may be leveraged for comprehensive definitions of NIEM conformance. Such definitions may include more than the level of conformance defined by this NDR, and may include specific patterns of use, additional quality criteria, and requirements to reuse NIEM release schemas.
+
+This document uses formatting and syntactic conventions to clarify meaning and avoid ambiguity. This document relies on references to many outside documents. Such references are noted by bold, bracketed inline terms. For example, a reference to RFC 3986 is shown as [RFC 3986](https://github.com/niemopen/niem-naming-design-rules/blob/dev/niem-ndr.md#Appendix-A-References). All reference documents are recorded in [Appendix A, References, below](https://github.com/niemopen/niem-naming-design-rules/blob/dev/niem-ndr.md#appendix-a-references).
+
+
 
 ## 2. How To Read This Document
 
-This document provides normative specifications for NIEM data models. It also describes the goals and principles behind those specifications. It includes examples and explanations to help people understand the goals, principles, and specifications. Different people will have the greatest interest in different sections.
+This document provides normative specifications for NIEM data models. It also describes the goals and principles behind those specifications. It includes examples and explanations to help people understand the goals, principles, and specifications. People in different roles will have the greatest interest in different sections. Figure 2-1 illustrates the relationships between these roles and NIEM.
 
-* *Business analysts and subject matter experts* – <<who are they, what sections should they read>>
-* *Message designers* – <<etc.>>
-* *Message developers*
-* *Software tool developers*
+<center>
+  <a name="fig3-1"/></a>
+  <figure>
+    <img src="images/fig3-1.png" alt="figure" style="zoom: 50%;" />
+    <figcaption><i>Figure 2-1: NIEM-based machine-to-machine data exchange</i>
+  </figure>
+</center>
 
-The relationships between these roles and NIEM are illustrated in figures [3-1](#fig3-1) and [3-2](#fig3-2), which appear in the next section: an overview of the NIEM technical architecture. This section is recommended to all readers.
+Figure 2-1 emphasizes the design and implementation of NIEM-based data exchange specifications. Figure 2-2 instead emphasizes the community agreement that forms the NIEM data model.
+
+<center>
+<figure class="image">
+    <a name="fig2-2"/></a>
+  <img src="images/fig3-2.png" style="zoom:50%"/>
+  <figcaption><i>Figure 2-2: NIEM communities and data models</i></figcaption>
+</figure>
+</center>
+>
+>Now list the roles and what sections they should read first:
+>
+>* Managers and other echelons above reality
+>
+>* Business analyst and subject matter expert
+>
+>* Message designer
+>
+>* Message developer
+
+
 
 ## 3. Overview of the NIEM Technical Architecture
 
 This overview describes NIEM's design goals and principles. It introduces key features of the architecture that will be defined in more detail later in the document.
 
 ### 3.1 Machine-to-machine data specifications
-
-> 
 
 NIEM is a framework for developer-level specifications of data. A NIEM-based data specification – which is built *using* NIEM and in *conformance* to NIEM, but is not itself a *part* of NIEM – describes data to the developers of producing and consuming systems. This data may be shared via:
 
@@ -190,188 +224,7 @@ Instead, the Justice domain expressed their opinon by using augmentation. Augmen
 
 ## 8. Messages
 
-### 8.1 NIEM XML instances
-
-This specification attempts to restrict XML instance data as little as possible while still maintaining interoperability.
-
-NIEM does not require a specific encoding or specific requirements for the XML prologue, except as specified by [XML].
-
-**Instance must be schema-valid**
-
-The XML document MUST be valid against a set of authoritative schema documents for the relevant namespaces. This does not mean that XML validation must be performed on all XML instances as they are served or consumed; only that the XML instances validate if XML validation is performed. 
-
-NIEM embraces the use of XML Schema instance attributes, including xsi:type, xsi:nil, and xsi:schemaLocatiom, as specified by [XML Schema Structures].
-
-#### 8.1.1 The meaning of NIEM data
-
-NIEM XML instances represents relationships and data primarily via a hierarchy of XML elements in an XML document. For example, consider the following fragment of an XML document:
-
-Figure XX: Example of content elements
-<nc:Person>
-  <nc:PersonName>
-    <nc:PersonFullName>John Doe</nc:PersonFullName>
-  </nc:PersonName>
-</nc:Person>
-In this instance, the XML elements describe a hierarchy of data objects as follows:
-
-Table XX: Meaning of NIEM XML
-| XML element/value	| The Meaning of the data                                                             |
-| ----------------- | ----------------------------------------------------------------------------------- |
-| nc:Person	        | The object nc:Person of type nc:PersonType exists within some unknown context.      |
-| nc:PersonName	    | The object nc:PersonName of type nc:PersonNameType exists within nc:Person.         |
-| nc:PersonFullName | The object nc:PersonFullName of type nc:PersonNameType exists within nc:PersonName. |
-| John Doe         	| The object of type nc:PersonNameTextType has a value that is the literal John Doe.  |
-
-Note, that the types of each element are defined in the NIEM reference model and are not present in the XML instance.
-
-**Empty content has no meaning**
-
-Within the instance, an element with no content has no additional meaning.
-
-#### 8.1.2 Identifiers and references
-
-Nested elements, shown above, can represent simple, hierarchical ("tree-like") data. However, some data is not "tree-like" and therefore does not lend itself to nested objects.  For instance:
-
-*Cycles*: an object has a relationship that, when followed, eventually circles back to itself. For example, suppose that Bob has a sister relationship to Sue, who has a brother relationship back to Bob.
-
-*Reuse*: multiple objects have a relationship to a common object. For example, suppose Bob and Sue both have a mother relationship to Sally. Expressed via nested elements, this would result in a duplicate representation of Sally.
-
-NIEM provides two different ways to solve this problem: 
-
-* The use of local references pointing to local identifiers, and 
-* The use of uniform resource identifiers (URIs). 
-
-These two methods are similar, and can interoperate, but have distinctions.
-
-**Element has only one resource identifying attribute** 
-
-An element MUST NOT have more than one attribute that is structures:id, structures:ref, or structures:uri.
-
-##### 8.1.2.1 Local identifiers and references
-The XML specifications define ID and IDREF attributes, which act as references in XML data. This is supported by XML Schema, and NIEM uses ID and IDREF as one way to reference data across data objects. Within a NIEM-conformant XML document, an attribute structures:ref refers to an attribute structures:id. These attributes may appear in an XML document to express that an object that is the value of an element is the same as some other object within the document. For example, in the following example, the user of the weapon (Bart) is the same person that is the subject of the arrest:
-
-Figure XX: Example of structures:id and structures:ref
-<j:Arrest>
-  <j:ArrestInvolvedWeapon>
-    <nc:WeaponUser structures:id="bart">
-      <nc:PersonName>
-        <nc:PersonGivenName>Bart</nc:PersonGivenName>
-      </nc:PersonName>
-    </nc:WeaponUser>
-  </j:ArrestInvolvedWeapon>
-  <j:ArrestSubject>
-    <nc:RoleOfPerson structures:ref="bart" xsi:nil="true"/>
-  </j:ArrestSubject>
-</j:Arrest>
-Note that rules below establish that relationships established using structures:id and structures:ref have the exact same meaning as relationships established using nested elements. An information exchange specification may constrain them differently, or prefer one over the other, but from a NIEM perspective, they have the same meaning.
-
-**Attribute structures:ref must reference structures**
-
-Within a NIEM XML document, any attribute structures:ref MUST refer to an attribute structures:id with the same value.
-
-**Referenced objects must be of the same or derived types**
-
-References using structures:ref and structures:id MUST preserve the type constraints that would apply if nested elements were used instead of a reference. That is, the type of the element pointed to by a structures:ref attribute must be of (or derived from) the type of the reference element. 
-
-For example, an element of type nc:PersonType MUST always refer to another element of type nc:PersonType, or a type derived from nc:PersonType, when using structures:ref to establish the relationship.
-
-#### 8.1.2.2 Uniform resource identifiers
-In linked data, anything may be called a resource: people, vehicles, reports, documents, relationships, ideas. Every resource may have a name, called a uniform resource identifier (URI). NIEM supports linked data through the use of uniform resource identifiers (URIs), expressed through the attribute structures:uri in XML documents. 
-
-As described above, structures:uri, structures:id, and structures:ref each denote a resource identifier. Although a structures:ref must always refer to a structures:id, and a value of structures:id must be unique within its document, a structures:uri may refer to any of structures:uri, structures:ref, or structures:id.
-
-**structures:uri denotes resource identifier**
-The value of an attribute structures:uri is a URI-reference, as defined by [RFC 3986], which denotes a resource identifier on the element holding the attribute, in accordance with evaluation consistent with [RFC 3986] and [XML Base].
-
-The following example shows a reference to an absolute URI:
-
-Figure XX: Example of structures:uri holding an absolute URI
-<example:ArrestMessage>
-  <j:Arrest xsi:nil="true"
-    structures:uri="urn:uuid:f81d4fae-7dec-11d0-a765-00a0c91e6bf6"/>
-</example:ArrestMessage>
-
-The following example shows a relative URI, using xml:base to carry the base URI for the document: 
-
-Figure XX: Example of structures:uri holding a relative URI, with an xml:base
-<example:ArrestMessage xml:base="http://state.example/scmods/">
-  <j:Arrest>
-    <j:ArrestSubject>
-      <nc:RoleOfPerson structures:uri="B263-1655-2187"/>
-    </j:ArrestSubject>
-  </j:Arrest>
-</example:ArrestMessage>
-
-The person object identified by the structures:uri attribute has the URI http://state.example/scmods/B263-1655-2187.
-
-The attributes structures:id and structures:ref each have a mapping to equivalent values of structures:uri.
-
-**structures:id and structures:ref denote resource identifier**
-
-The attributes structures:id and structures:ref are equivalent to the attribute structures:uri with the same value.
-
-For example, structures:id="hello" and structures:ref="hello" each denote the same resource identifier for an element as if it held an attribute structures:uri="#hello".
-
-**structures:uri can reference resources in other documents**
-
-Unlike structures:id and structures:ref, an attribute structures:uri can reference any resource, inside or outside the document, including structures:uri, structures:id or structures:ref in another document.
-
-#### 8.1.2.3 Reference and content elements have same meaning
-
-An important aspect of the use of nested elements, ref-to-id references, and URI references, is that they all have the same meaning. Expressing a relationship as a nested element, versus as a ref-to-id reference is merely for convenience and ease of serialization.
-
-**Nested elements and references have the same meaning**
-
-There MUST NOT be any difference in meaning between a relationship established via an element declaration instantiated by a nested element, and that element declaration instantiated via reference.
-
-For example, the following XML fragments have similar meaning. 
-
-**TODO: Update these examples to NIEM 6**
-
-Figure 12-8: Example with no reference
-<j:Witness>
-  <nc:RoleOfPerson>
-    <nc:PersonName>
-      <nc:PersonFullName>John Doe</nc:PersonFullName>
-    </nc:PersonName>
-  </nc:RoleOfPerson>
-</j:Witness>
-
-Figure 12-9: Example with a backward reference
-<nc:Person structures:id="c58">
-  <nc:PersonName>
-    <nc:PersonFullName>John Doe</nc:PersonFullName>
-  </nc:PersonName>
-</nc:Person>
-<j:Witness>
-  <nc:RoleOfPerson structures:ref="c58" xsi:nil="true"/>
-</j:Witness>
-
-Figure 12-10: Example with a forward reference
-<nc:Person structures:ref="t85" xsi:nil="true"/>
-<j:Witness>
-  <nc:RoleOfPerson structures:id="t85">
-    <nc:PersonName>
-      <nc:PersonFullName>John Doe</nc:PersonFullName>
-    </nc:PersonName>
-  </nc:RoleOfPerson>
-</j:Witness>
-
-##### 8.1.3 Order of child elements has no meaning
-
-A NIEM data object instance has a set of properties; these properties will appear in an XML instance as child elements of one or more parent elements. Order of child elements within each parent element is defined by the schema, which can specify exact element order, or can have flexible ordering (for example, elements provided via a substitution group may appear in any order). The order of parent and child elements in a document does not dictate the order of properties of an object.
-
-#### Legacy rules (to be removed)
-* Instance of RoleOf element indicates a role object 
-* Metadata applies to referring entity 
-* Referent of structures:relationshipMetadata annotates relationship 
-* Values of structures:metadata refer to values of structures:is
-* Values of structures:relationshipMetadata refer to values of structures:is
-* structures:metadata and structures:relationshipMetadata refer to metadata elements
-* Attribute structures:metadata references metadata element 
-* Attribute structures:relationshipMetadata references metadata element 
-* Metadata is applicable to element 
-* Element within instance of augmentation type modifies base (Covered in Augmentation section?)
+### 8.1 NIEM XML
 
 ### 8.2 NIEM JSON
 
