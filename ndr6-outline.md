@@ -38,7 +38,7 @@ This document uses formatting and syntactic conventions to clarify meaning and a
 
 ## 2. How To Read This Document
 
-This document provides normative specifications for NIEM data models. It also describes the goals and principles behind those specifications. It includes examples and explanations to help people understand the goals, principles, and specifications. People in different roles will have the greatest interest in different sections. Figure 2-1 illustrates the relationships between these roles and NIEM.
+This document provides normative specifications for NIEM data models. It also describes the goals and principles behind those specifications. It includes examples and explanations to help users of NIEM understand the goals, principles, and specifications. The relevant sections of this document will depend on the role of the user. Figure 2-1 illustrates the relationships between these roles and NIEM.
 
 <center>
   <figure>
@@ -58,17 +58,24 @@ Figure 2-1 emphasizes the design and implementation of NIEM-based data exchange 
   </figure>
 </center>
 
->Now list the roles and what sections they should read first:
+>This document is intended for NIEM users in the following roles:
 >
->* Managers and other echelons above reality
->
->* Business analyst and subject matter expert
->
+>* Manager (or executive)
+>* Business analyst (or subject matter expert)
 >* Message designer
->
 >* Message developer
 
+The remaining sections of this document most relevant to each of these roles are shown in the following table:
 
+|Section | Manager | Business Analyst | Message Designer | Message Developer |
+| :---- | :---: | :----: | :---: | :---: |
+| 3. Overview of NIEM technical architecture | x | x | x | x |
+| 4. Metamodel | | | x | |
+| 5. Common Model Format (CMF) models | | | x | |
+| 6. XML Schema Definition (XSD) models | | | x | |
+| 7. CMF/XSD model equivalence | | | x | |
+| 8. XML/JSON messages | | x | x | x |
+| 9. Resource Description Framework (RDF) messages | | | x | |
 
 ## 3. Overview of the NIEM Technical Architecture
 
