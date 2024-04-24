@@ -50,13 +50,13 @@ Restriction
     <coordinates>
       <x>610</x>
       <y>350</y>
-      <w>80</w>
+      <w>90</w>
       <h>230</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1=1
 m2=0..*
-resOf ^</panel_attributes>
+restricts ^</panel_attributes>
     <additional_attributes>60.0;10.0;10.0;10.0;10.0;200.0;60.0;200.0</additional_attributes>
   </element>
   <element>
@@ -112,13 +112,13 @@ Datatype
     <coordinates>
       <x>790</x>
       <y>340</y>
-      <w>260</w>
-      <h>230</h>
+      <w>240</w>
+      <h>110</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1=1..*
-&lt; listOf</panel_attributes>
-    <additional_attributes>10.0;20.0;220.0;20.0;220.0;210.0;200.0;210.0</additional_attributes>
+&lt; listType</panel_attributes>
+    <additional_attributes>10.0;20.0;220.0;20.0;220.0;90.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -130,7 +130,7 @@ m1=1..*
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1=1..*
-&lt; unionOf</panel_attributes>
+&lt; unionType</panel_attributes>
     <additional_attributes>10.0;20.0;420.0;20.0;420.0;240.0;390.0;240.0</additional_attributes>
   </element>
   <element>
@@ -206,10 +206,11 @@ WhiteSpace
       <x>1260</x>
       <y>820</y>
       <w>170</w>
-      <h>60</h>
+      <h>40</h>
     </coordinates>
     <panel_attributes>There are eleven
-Facet subclasses</panel_attributes>
+Facet subclasses
+bg=YELLOW</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -388,5 +389,41 @@ m1=1
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;30.0;10.0;30.0;160.0;60.0;160.0</additional_attributes>
+  </element>
+  <element>
+    <type>CustomElementImpl</type>
+    <coordinates>
+      <x>1000</x>
+      <y>430</y>
+      <w>51</w>
+      <h>51</h>
+    </coordinates>
+    <panel_attributes>// Modify the text below and
+// observe the element preview.
+
+Hello, World! 
+Enjoy UMLet!
+bg=WHITE
+fg=BLACK</panel_attributes>
+    <additional_attributes/>
+    <custom_code>//Modify the code below to define the element's behavior.
+//
+//Example:  Change the line
+//  y += printCenter(textline,y);
+//to
+//  y += 2*printCenter(textline,y);
+//and observe the element preview.
+drawArcOpen(0, 0, 20, 20, 270, 180);</custom_code>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>980</x>
+      <y>440</y>
+      <w>50</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;110.0;30.0;110.0;30.0;10.0</additional_attributes>
   </element>
 </diagram>
