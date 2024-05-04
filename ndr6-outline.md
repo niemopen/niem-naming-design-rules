@@ -1,7 +1,12 @@
+> 2024-05-04 draft
+>
+> Section 3: better description of message spec, type, format; new figure 3-3
+> Section 4: comments from Jim, new examples and figures; flattened outline
+>
 > 2024-04-24 draft
 >
 > New section 4.
-> Comments from Jim and Jennifer incorporated.
+> Section 3 comments from Jim and Jennifer incorporated.
 >
 > 2024-04-15 draft
 >
@@ -39,7 +44,7 @@ This document specifies principles and enforceable rules for NIEM data component
 
 This document uses formatting and syntactic conventions to clarify meaning and avoid ambiguity. This document relies on references to many outside documents. Such references are noted by bold, bracketed inline terms. For example, a reference to RFC 3986 is shown as [RFC 3986](https://github.com/niemopen/niem-naming-design-rules/blob/dev/niem-ndr.md#Appendix-A-References). All reference documents are recorded in [Appendix A, References, below](https://github.com/niemopen/niem-naming-design-rules/blob/dev/niem-ndr.md#appendix-a-references).
 
-
+<br/>
 
 # 2. How To Read This Document
 
@@ -48,27 +53,20 @@ This document provides normative specifications for NIEM data models. It also de
 <center>
   <figure>
     <a name="fig2-1"/></a>
-      <img src="images/fig2-1.png" alt="figure" style="zoom: 50%;" />
+      <img src="images/context.png" alt="figure" style="zoom: 100%;" />
     <figcaption><i>Figure 2-1: NIEM-based machine-to-machine data exchange</i>
   </figure>
 </center>
 
-Figure 2-1 emphasizes the design and implementation of NIEM-based data exchange specifications. Figure 2-2 instead emphasizes the community agreement that forms the NIEM data model.
+Figure 2-1 above emphasizes the design and implementation of NIEM-based data exchange specifications. Figure 2-2 below instead emphasizes the community agreement that forms the NIEM data model.
 
 <center>
   <figure class="image">
     <a name="fig2-2"/></a>
-    <img src="images/fig2-2.png" style="zoom:50%"/>
+    <img src="images/community.png" alt="figure" style="zoom:100%"/>
     <figcaption><i>Figure 2-2: NIEM communities and data models</i></figcaption>
   </figure>
 </center>
-
->This document is intended for NIEM users in the following roles:
->
->* Manager (or executive)
->* Business analyst (or subject matter expert)
->* Message designer
->* Message developer
 
 The remaining sections of this document most relevant to each of these roles are shown in the following table:
 
@@ -81,6 +79,8 @@ The remaining sections of this document most relevant to each of these roles are
 | 7. CMF/XSD model equivalence | | | x | |
 | 8. XML/JSON messages | | x | x | x |
 | 9. Resource Description Framework (RDF) messages | | | x | |
+
+<br/>
 
 # 3. Overview of the NIEM Technical Architecture
 
@@ -98,11 +98,19 @@ NIEM is potentially useful for any mechanism that transfers a package of data ac
 
 The primary purpose of a NIEM-based data specification is to establish a common understanding among developers, so that they can write software that correctly handles the shared data, hence "machine-to-machine". (The content of a NIEM message may also be directly presented to human consumers, and NIEM can help these consumers understand what they see, but that is not the main purpose of NIEM.)
 
-In NIEM terms, the package of data shared at runtime is a *message*. A *message format* specifies the syntax and semantics of a class of messages; it defines the mandatory and optional content of messages conforming to the format and the meaning of that content. A *message type* specifies the information content of a class of messages without prescribing a serialization. Both of these specifications are expressed in terms of a machine-readable *data model*, using either of NIEM's two *modeling formats*, CMF or XSD. A collection of related message formats and types is a *message specification.*
+In NIEM terms, the package of data shared at runtime is a *message*. A *message type* defines the mandatory and optional information content of a class messages without prescribing a particular syntax. A *message format* defines a syntax for the content of a message type. Both of these definitions are expressed in terms of a machine-readable *data model*, using either of NIEM's two *modeling formats*, CMF or XSD. A collection of related message formats and types is a *message specification.* The usual case is a message specification with one message type and one message format, but a more complex arrangements is possible, illustrated in figure 3-1 below.
+
+<center>
+  <figure class="image">
+    <a name="fig3-1"/></a>
+    <img src="images/messageSpec.png" alt="figure" style="zoom:100%"/>
+    <figcaption><i>Figure 3-1: Message specification, types, and formats</i></figcaption>
+  </figure>
+</center>
 
 > A NIEM message was originally known as an *information exchange package (IEP)*, a term that found its way into the U.S. Federal Enterprise Architecture (2005).  A message specification was originally known as an *information exchange package documentation (IEPD).*  These terms are still in widespread use within the NIEM community today, and will not go away soon (if ever). 
 
-A *message designer* creates a message format from an information requirement, so that a message at runtime will contain all the facts that need to be conveyed. Then any number of *message developers* write software to implement the specification, producing or processing messages that conform to the message format. Message designers need some understanding of NIEM, but the message developers do not. (Sometimes the message developers do not even know that NIEM exists.) [Figure 2-1](#fig2-1) above illustrates the relationships between message designers, message developers, and message formats.
+A *message designer* creates a message type and format from an information requirement, so that a message at runtime will contain all the facts that need to be conveyed. Then any number of *message developers* write software to implement the specification, producing or processing messages that conform to the message format. Message designers need some understanding of NIEM, but the message developers do not. (Sometimes the message developers do not even know that NIEM exists.) [Figure 2-1](#fig2-1) above illustrates the relationships between message designers, message developers, and message formats.
 
 NIEM supports XML and JSON message formats; support for others may be added in the future. One important feature of NIEM is that messages of the same type are convertable across serializations; for example, a NIEM XML message can be converted to NIEM JSON, and vice versa, with no bespoke programming required. 
 
@@ -127,13 +135,13 @@ One of NIEM's principles is to reuse well-known information technology standards
 
 ## 3.4 The NIEM metamodel
 
-A data model in NIEM defines the syntax and semantics of a message format, or the information content of a message type, or the agreed definitions of a community. The information required for those purposes can itself be modeled. That model is the *NIEM metamodel* -- an abstract model for NIEM data models. The metamodel is expressed in UML, and is described in detail in [section 4](). At a high level, the major components of the metamodel are classes, datatypes, properties, and namespaces.
+A data model in NIEM defines the syntax and semantics of a message format, or the information content of a message type, or the agreed definitions of a community. The information required for those purposes can itself be modeled. The model of that information is the *NIEM metamodel* -- an abstract model for NIEM data models. The metamodel is expressed in UML, and is described in detail in [section 4](). At a high level, the major components of the metamodel are classes, datatypes, properties, and namespaces.
 
 <center>
   <figure class="image">
-    <a name="fig3-1"/></a>
-    <img src="images/fig3-1.png" style="zoom:50%"/>
-    <figcaption><i>Figure 3-1: High-level view of the NIEM metamodel</i></figcaption>
+    <a name="fig3-2"/></a>
+    <img src="images/highLevel.png" style="zoom:75%"/>
+    <figcaption><i>Figure 3-2: High-level view of the NIEM metamodel</i></figcaption>
   </figure>
 </center>
 
@@ -142,15 +150,16 @@ A data model in NIEM defines the syntax and semantics of a message format, or th
 - A class has one or more *properties*. An *object property* defines a subject-predicate-value relationship between an object and another object.  A *data property* defines a relationship between an object and a literal value.
 - A *namespace* is a collection of uniquely-named components; described in more detail in section 3.4.
 
-Figure 3-2 below illustrates the relationships among metamodel components and the corresponding message objects and values.
+Figure 3-2 below illustrates the relationships among metamodel components, NIEM model components, and the corresponding message objects and values.
 
 <center>
   <figure class="image">
-    <a name="fig3-1"/></a>
-    <img src="images/fig3-2.png" style="zoom:50%"/>
-    <figcaption><i>Figure 3-2: Message object and metamodel components</i></figcaption>
+    <a name="fig3-3"/></a>
+    <img src="images/msg+meta.png" style="zoom:75%"/>
+    <figcaption><i>Figure 3-3: Message object and metamodel components</i></figcaption>
   </figure>
 </center>
+A NIEM message contains objects, properties, and values, which are defined by the Class, Property, and Datatype objects in a NIEM model. In figure 3-3, the name object is defined by the `nc:PersonNameType` Class object; the literal value is defined by the `xs:string` Datatype object, and the property relationship between the two is defined by the `nc:PersonFullName` DataProperty object.
 
 The NIEM metamodel is implemented in two concrete model formats: NIEM XSD and NIEM CMF. These are described in sections XX and XX.
 
@@ -162,17 +171,23 @@ Each namespace has an author, a person or organization that is the authoritative
 
 Each namespace must be uniquely identified by a URI. The namespace author should also be the URI's owner, as defined by [ref webarch](). Both URNs and URLs are allowed. It is helpful, but not required, for the namespace URI to be accessible, returning the definition of the namespace content in a supported model format. (See [future ref repositories]() for an alternate way to obtain namespace definitions.)
 
-Namespaces are the units of model configuration management. Once published, the components in a namespace do not change. An incompatible change to the contents requires a new namespace, with a different URI. As a result, a change by one namespace author does not force a change by any other author – the revisions may be adopted, if desired, whenever convenient; the older namespace continues to be valid regardless.
+Namespaces are the units of model configuration management. Once published, the components in a namespace may not be removed or redefined. Those changes may only be made in a new namespace with a different URI. As a result, a change by one namespace author does not force a change by any other author – the revisions may be adopted, if desired, whenever convenient; the older namespace continues to be valid regardless.
 
 ## 3.6 NIEM models in XSD
 
 XSD is a modeling format for all existing versions of NIEM.  The components of a model namespace are defined by a single NIEM XSD schema document. These schema documents are categorized according to the conformance rules they satisfy:
 
 * A *reference schema document* provides definitions that are intended for the widest possible reuse. The rules for a reference schema document (in [section XX]()) are intended to capture the meaning of the schema components while avoiding constructs that limit reuse. Every namespace in the NIEM model is authoritatively defined by a reference schema document; that is, there is only one reference schema document for a namespace.
+
 * An *extension schema document* provides authoritative definitions that are intended for reuse within a more narrow scope than those defined by a reference schema document. Often the intended scope is a particular message specification. An extension schema document expresses the additional vocabulary required for an information exchange, above and beyond the vocabulary available from the NIEM model. The rules for an extension schema document (in [section XX]()) are intended to define the semantics. There is only one extension schema document for a namespace.
-* A *subset schema document* provides a selection of components defined in a reference or extension schema document. Everything valid against the subset schema document must also be valid against the reference or extension schema for that namespace. The rules for a subset schema document (in [section XX]()) are smaller and less constraining than those for other schema documents. There can be any number of subset schema documents for a namespace.
+
+* A *subset schema document* provides a selection of components defined in a reference or extension schema document. Everything that is valid against the subset schema document must also be valid against the reference or extension schema for that namespace. The rules for a subset schema document (in [section XX]()) are smaller and less constraining than those for other schema documents. There can be any number of subset schema documents for a namespace.
+
 * A *message schema document* defines a selection of components from reference and/or extension schema documents. A message schema document provides cardinality and datatype constraints intended to precisely define the content of a particular message format. The rules for a message schema document (in [section XX]()) are much smaller and less constraining than those for the other three kinds. There can be any number of message schema documents for a namespace.
-* A *constraint schema document* provides implementation-specific guidance that supplements the rules of a message format. There are no conformance rules for a constraint schema document. There can be any number of constraint schema documents for a namespace.
+
+* An *external schema document* provides definitions for a standard that is not NIEM-based or NIEM-conforming. Attributes defined in an external schema document may be reused in a NIEM model. Other *external components* can be reused in a NIEM model when composed into an *adapter type*. (See [adapter reference]().)
+
+* A *constraint schema document* provides implementation-specific guidance that supplements the rules of a message format. It is not part of a NIEM model. There are no conformance rules for a constraint schema document. There can be any number of constraint schema documents for a namespace.
 
 These conformance rules are defined in section XX. The rules amplify and constrain the use of XML Schema, for three reasons:
 
@@ -204,7 +219,7 @@ The mapping between metamodel components and NIEM XSD components is detailed in 
 <xs:complexType>
 <xs:element name="PersonFullName" type="xs:string"/>
 ```
-<center><i>Figure 3-3: Sample model in NIEM XSD</I></center><p/>
+<center><i><a name="fig3-4"></a>Figure 3-4: Sample model in NIEM XSD</i></center><p/>
 
 ## 3.7 NIEM models in CMF
 
@@ -214,7 +229,7 @@ CMF is a NIEM-based message specification. A NIEM data model expressed in CMF is
 
 The rules for CMF model files are given in [section XX](). They are much less complex than those for XSD. 
 
-The connections between abstract metamodel components and concrete NIEM CMF components is direct; classes and attributes have the same names in the metamodel UML and the CMF model. Figure 3-4 provides an example of these connections, showing the NIEM CMF instantiation of the abstract model components in figure 3-2.
+The connections between abstract metamodel components and concrete NIEM CMF components is direct; classes and attributes have the same names in the metamodel UML and the CMF model. Figure 3-4 provides an example of these connections, showing the NIEM CMF instantiation of the abstract model components in figure 3-4.
 
 ```
 <Class structures:id="nc.PersonType">
@@ -251,13 +266,13 @@ The connections between abstract metamodel components and concrete NIEM CMF comp
 </Datatype>
 ```
 
-<center><i>Figure 3-4: Sample model in NIEM CMF</i></center><p/>
+<center><i><a name="fig3-5"></a>Figure 3-5: Sample model in NIEM CMF</i></center><p/>
 
-Because CMF is an ordinary NIEM-based message format, the CMF model has both an XSD and a CMF representation. Both of these are provided at [ref CMF specification repo]().
+Because CMF is a NIEM-based message format, the CMF model has both an XSD and a CMF representation. Both of these are provided at [ref CMF specification repo]().
 
 ## 3.8 NIEM messages in XML and JSON
 
-The content of a NIEM message format may be specified in either NIEM XSD or CMF. The content of a NIEM message may be formatted as XML or JSON-LD. Figures 3-5 and 3-6 show the NIEM XML and JSON serialzations of the information depicted in figure 3-2.
+The content of a NIEM message format may be specified as a model in either NIEM XSD or CMF. The content of a NIEM message may be formatted as XML or JSON-LD. Figures 3-6 and 3-7 show the NIEM XML and JSON serializations of the information depicted in figure 3-3.
 
 ```
 <nc:Person
@@ -268,7 +283,7 @@ The content of a NIEM message format may be specified in either NIEM XSD or CMF.
 </nc:Person>
 ```
 
-<center><i>Figure 3-5: Sample NIEM XML message</i></center><p/>
+<center><i><a name="fig3-6"></a>Figure 3-6: Sample NIEM XML message</i></center><p/>
 
 ```
 { 
@@ -281,7 +296,7 @@ The content of a NIEM message format may be specified in either NIEM XSD or CMF.
 }
 ```
 
-<center><i>Figure 3-6: Sample NIEM JSON message</i></center><p/>
+<center><i><a name="fig3-7"></a>Figure 3-7: Sample NIEM JSON message</i></center><p/>
 
 ## 3.9 NIEM Conformance
 
@@ -302,9 +317,9 @@ NIEMOpen provides free and open-source tools to support #2, #3, and #4. These ca
 
 </br>
 
-# 4. Metamodel and metamodel rules
+# 4. The NIEM metamodel and Common Model Format
 
-The NIEM metamodel is an abstract model that defines the content of a NIEM data model. It is defined by the following UML class diagram and the property tables in this section. The Common Model Format (CMF) is a message format for NIEM data models. The CMF data model is defined by the property tables in this section, which match CMF component names to the classes, attributes, and relationships in the UML class diagram.
+The NIEM metamodel is an abstract model, defined in the UML diagram below, that specifies the content of a NIEM data model. The Common Model Format (CMF) is a message type that implements the metamodel.  The tables in this section define the classes, properties, and datatypes in the metamodel and CMF.
 
 <center>
   <figure class="image">
@@ -314,20 +329,20 @@ The NIEM metamodel is an abstract model that defines the content of a NIEM data 
   </figure>
 </center>
 
-The property table format used to document classes in CMF and in the metamodel has the following columns:
+The table format used to document classes and properties in CMF and in the metamodel has the following columns:
 
 | Column | Definition |
 | ------ | ---------- |
 | UML | the name of the UML class, attribute, or relationship |
 | CMF | the name of the corresponding CMF class, property, or datatype |
-| Definition |  |
-| Card | property cardinality; how many times it may/must appear in an object |
-| Ord | true when the order of a repeatable property in an object is significant |
+| Definition | the definition of the object or property |
+| Card | the cardinality of the property (how many times it may/must appear in an object) |
+| Ord | true when the instance order of a repeatable property in an object is significant |
 | Range | the class or datatype of a property |
 
 ## 4.1 Model class
 
-A Model object represents a complete or partial NIEM model. In a complete model, there are definitions for all referenced components. A partial model must be made complete, by combining it with other partial models, before it can used to define a message format.
+A Model object represents a complete or partial NIEM model.  (A complete model has a definition for every referenced component.)
 
 <center>
   <figure class="image">
@@ -343,9 +358,9 @@ A Model object represents a complete or partial NIEM model. In a complete model,
 | comp | Component | A data concept for a component of a NIEM data model. | 0..* | - | ComponentType |
 | ns | Namespace | A namespace of a data model component | 0..* | - | NamespaceType |
 
-## 4.2 Namespace classes
+## 4.2 Namespace class
 
-Objects of these three classes represent the data vocabulary defined by the author of a namespace.
+A namespace object represents a namespace in a model. For example, the namespace with the URI `https://docs.oasis-open.org/niemopen/ns/model/niem-core/6.0/` is a namespace in the NIEM 6.0 model.
 
 <center>
   <figure class="image">
@@ -355,23 +370,19 @@ Objects of these three classes represent the data vocabulary defined by the auth
   </figure>
 </center>
 
-### 4.2.1 Namespace class
-
-A namespace object represents a namespace in a model.  Properties marked with a star pertain only to the XSD representation of a model.
-
 | UML | CMF | Definition | Card | Ord | Range |
 | --- | --- | ---------- | :--: | :-: | ----- |
-| Namespace | NamespaceType | A data type for a namespace. 
+| Namespace | NamespaceType | A data type for a namespace. ||||
 | uri | NamespaceURI | A URI for a namespace. | 1 | - | xs:anyURI |
 | prefix | NamespacePrefixText | A namespace prefix name for a namespace. | 1 | - | xs:NCName |
 | documentation | DocumentationText | A human-readable text documentation of a namespace. | 1..* | Y | TextType |
-| lang | NamespaceLanguageName | A name of a default language of the terms and documentation text in a namespace. | 1 | - | xml:lang |
+| lang | NamespaceLanguageName | A name of a default language of the terms and documentation text in a namespace. | 1 | - | xs:language |
 | version | NamespaceVersionText | A version of a namespace; for example, used to distinguish a namespace subset, bug fix, documentation change, etc. | 1 | - | xs:token |
-| kind | NamespaceKindCode | A kind of namespace in a CMF model (external, core, domain, etc.). | 1 | - | NamespaceKindCodeType |
+| kind | NamespaceKindCode | A kind of namespace in a NIEM model (external, core, domain, etc.). | 1 | - | NamespaceKindCodeType |
 | confTarg | ConformanceTargetURI | A [conformance target identifier](). | 0..* | - | xs:anyURI |
-| niemVersion* | NIEMVersionText | A NIEM version number of the builtin schema components used in a namespace; e.g. "5" or "6". | 0..1 | - | xs:token |
-| docPath* | DocumentFilePathText | A relative file path from a schema pile root directory to a schema document for this namespace. | 0..1 | - | xs:string |
-| importDoc* | ImportDocumentationText | A human-readable documentation text from the first `xs:import` element importing this nameespace in a schema document pile. | 0..1 | - | xs:string |
+| niemVersion | NIEMVersionText | A NIEM version number of the builtin schema components used in a namespace; e.g. "5" or "6". | 0..1 | - | xs:token |
+| docPath | DocumentFilePathText | A relative file path from the top schema directory to a schema document for this namespace. | 0..1 | - | xs:string |
+| importDoc | ImportDocumentationText | Human-readable documentation from the first `xs:import` element importing this namespace in a schema document pile. | 0..1 | - | xs:string |
 | aug | AugmentationRecord | An augmentation of a class with a property by a namespace. | 0..* | - | AugmentationType|
 | term | LocalTerm | A data type for the meaning of a term that may appear within the name of a model component. | 0..* | - | LocalTermType |
 
@@ -381,15 +392,17 @@ A namespace object represents a namespace in a model.  Properties marked with a 
 
 **Rule 4-2:** The prefix for a namespace MUST be unique among all the namespace prefixes in a model.
 
-**Rule 4-3:** The language name for the first instance of the *documentation* attribute in any object MUST be `en-US`. (This rule also applies to Component objects.)
+**Rule 4-3:** The language name for the first instance of the *documentation* property in any object MUST be `en-US`. (This rule also applies to Component objects.)
 
 **Rule 4-4:** The *version* attribute for a namespace MUST not be blank.
 
-### 4.2.2 Augmentation class
+## 4.3 Augmentation class
 
-*Augmentation* is the NIEM mechanism allowing the author of one namespace (the *augmenting namespace*) to add a property to a class in another namespace (the *augmented namespace*). It is an alternative to [subclassing (see section XX)](). Augmentation is used when the new author does not want to create a new kind of thing, but rather wants an additional property of an existing kind of thing -- a property that the original author does not (yet?) bothered to define -- without having to convince the original author to change his namespace and wait for the change.
+*Augmentation* is the NIEM mechanism allowing the author of one namespace (the *augmenting namespace*) to add a property to a class in another namespace (the *augmented namespace*). It is an alternative to [subclassing (see section XX)](). Augmentation is used when the author of a namespace wants to add a property to a class defined in a different namespace – without altering the augmented namespace.
 
-An augmentation object belongs to the augmenting namespace. It records the augmented class, augmenting property, and the property cardinality. A *global augmentation* does not have an augmented class; it applies to every class in the model.
+An augmentation object belongs to the augmenting namespace. It represents the augmentation, in terms of the augmented class, augmenting property, and the property cardinality. For example, the Justice domain namespace in the NIEM model has an augmentation object for `nc:PersonType`, `j:PersonIsStudentIndicator`, and cardinality 0..1. (See [section XX]() for the CMF and XSD representation of this object.)
+
+A *global augmentation* does not have an augmented class; it applies to every class in the model. (See [section XX]().)
 
 | UML | CMF | Definition | Card | Ord | Range |
 | --- | --- | ---------- | :--: | :-: | ----- |
@@ -401,11 +414,11 @@ An augmentation object belongs to the augmenting namespace. It records the augme
 | class | Class | The augmented class. | 0..1 | - | ClassType |
 | property | Property | The augmentation property . | 1 | - | PropertyType |
 
-**Rule 4-5:** The *global* attribute and the *class* attribute MUST NOT both appear in an Augmentation object.
+**Rule 4-5:** The *global* property, or the *class* property, but not both, MUST appear in an Augmentation object.
 
-### 4.2.3 LocalTerm class
+## 4.4 LocalTerm class
 
-A *local term* is a word, phrase, acronym, or other string of characters that is used in the name of a namespace component, but that is not defined in [OED](), or that has a non-OED definition in this nameespace, or has a word sense that is in some way unclear. A local term object captures the namespace author's definition of such a local term.
+A *local term* is a word, phrase, acronym, or other string of characters that is used in the name of a namespace component, but that is not defined in [OED](), or that has a non-OED definition in this nameespace, or has a word sense that is in some way unclear. A local term object captures the namespace author's definition of such a local term. For example, the Justice domain namespace in the NIEM model has a LocalTerm object defining the name "CLP" with documentation "Commercial Learners Permit". (See [section XX]() for the CMF and XSD representation of this object.)
 
 | UML | CMF | Definition | Card | Ord | Range |
 | --- | --- | ---------- | :--: | :-: | ----- |
@@ -416,21 +429,19 @@ A *local term* is a word, phrase, acronym, or other string of characters that is
 | sourceURI | SourceURI | A URI that is an identifier or locator for an originating or authoritative document defining a local term. | 0..* | - | xs:anyURI |
 | citation | SourceCitationText | A plain text citation of, reference to, or bibliographic entry for an originating or authoritative document defining a local term. | 0..* | - | xs:string |
 
-## 4.3 Components: Class and Property classes
+**Rule 4-6:** A LocalTerm object MUST have a *documentation* property, or a *literal* property, or both.
 
-Objects of these classes represent the classes and properties in a NIEM model.
+## 4.5 Component class (abstract)
+
+A model component in a namespace is either a class object, a property object, or a datatype object in a NIEM model. The component class defines the common properties.
 
 <center>
   <figure class="image">
     <a name="fig4-3"/></a>
     <img src="images/component.png" style="zoom:60%"/>
-    <figcaption><i>Figure 4-3: Classes and properties</i></figcaption>
+    <figcaption><i>Figure 4-3: Component class diagram</i></figcaption>
   </figure>
 </center>
-
-### 4.3.1 Component class (abstract)
-
-A model component in a namespace is either a class object, a property object, or a datatype object in a NIEM model. The component class defines the common properties.
 
 | UML | CMF | Definition | Card | Ord | Range |
 | --- | --- | ---------- | :--: | :-: | ----- |
@@ -441,9 +452,18 @@ A model component in a namespace is either a class object, a property object, or
 | isDeprecated | DeprecatedIndicator | True for a deprecated schema component; that is, a component that is provided, but the use of which is not recommended. | 0..1 | - | xs:boolean |
 | ns | Namespace | The namespace of a data model component. | 1 | - | NamespaceType |
 
-### 4.3.2 Class class
+## 4.6 Class class
 
 A Class object represents an object class in a NIEM model.  For example, `nc:PersonType` is a class object in the NIEM Core model.
+
+<center>
+  <figure class="image">
+    <a name="fig4-4"/></a>
+    <img src="images/class.png" style="zoom:60%"/>
+    <figcaption><i>Figure 4-4: Class and HasProperty class diagram</i></figcaption>
+  </figure>
+</center>
+
 
 | UML | CMF | Definition | Card | Ord | Range |
 | --- | --- | ---------- | :--: | :-: | ----- |
@@ -455,9 +475,9 @@ A Class object represents an object class in a NIEM model.  For example, `nc:Per
 
 **Rule 4-5:** The name of a component object MUST end in "Type" if and only if it is a Class object.
 
-### 4.3.3 HasProperty class
+## 4.7 HasProperty class
 
-A HasProperty object represents the occurrence of a property in a class. 
+A HasProperty object represents the occurrence of a property in a class. For example, the `nc:PersonType` class object in the NIEM core model has a HasProperty object for the `nc:PersonName` property.
 
 | UML | CMF | Definition | Card | Ord | Range |
 | --- | --- | ---------- | :--: | :-: | ----- |
@@ -469,57 +489,68 @@ A HasProperty object represents the occurrence of a property in a class.
 | augNamespace | AugmentingNamespace | A namespace responsible for augmenting a class with a property. | 0..1 | - | NamespaceType |
 | property | Property | The property that occurs in the class. | 1 | - | PropertyType |
 
-### 4.3.4 Property class (abstract)
+## 4.8 Property class (abstract)
 
-A Property object represents a data property or an object property in a NIEM model.  For example, `nc:PersonName` is a property of the `nc:PersonType` class object.
+A Property object represents a data property or an object property in a NIEM model. 
+
+<center>
+  <figure class="image">
+    <a name="fig4-5"/></a>
+    <img src="images/property.png" style="zoom:60%"/>
+    <figcaption><i>Figure 4-5: Property class diagram</i></figcaption>
+  </figure>
+</center>
 
 | UML | CMF | Definition | Card | Ord | Range |
 | --- | --- | ---------- | :--: | :-: | ----- |
 | Property | PropertyType | A data type for a property. |
 | isRelationship | RelationshipPropertyIndicator | True for a property that applies to the relationship between two objects (instead of to a single object). | 0..1 | - | xs:boolean |
+| subPropertyOf | SubPropertyOf | A property of which a property is a subproperty. | 0..1 | - | PropertyType |
 
-### 4.3.5 ObjectProperty class
+## 4.9 ObjectProperty class
+
+An ObjectProperty object represents a property with a range that is a class. For example, the `nc:PersonName` object in the NIEM core model is a property with a range of `nc:PersonNameType`.
 
 | UML | CMF | Definition | Card | Ord | Range |
 | --- | --- | ---------- | :--: | :-: | ----- |
 | ObjectProperty | ObjectPropertyType | A data type for an object property. |
 | referenceCode | ReferenceCode | A code describing how a property may be referenced (or must appear inline). | 0..1 | - | ReferenceCodeType |
-| class | Class | A class. | 1 | - | ClassType |
+| class | Class | The class of this object property. | 1 | - | ClassType |
 
-### 4.3.6 DataProperty class
+## 4.10 DataProperty class
+
+A DataProperty object represents a property with a range that is a datatype. For example, the `nc:PersonFullName` object in the NIEM core model is a property with a range of `xs:string`.
 
 | UML | CMF | Definition | Card | Ord | Range |
 | --- | --- | ---------- | :--: | :-: | ----- |
 | DataProperty | DataPropertyType | 
 | isAttribute* | AttributeIndicator | True for a property that is represented as attributes in XML. | 0..1 | - | xs:boolean |
 | isRefAttribute* | RefAttributeIndicator | True for a property that is an [object reference attribute](). | 0..1 | - | xs:boolean |
-| datatype | Datatype | A data type. | 1 | - | DatatypeType |
+| datatype | Datatype | The datatype of this data property. | 1 | - | DatatypeType |
 
-## 4.4 Components: Datatype classes
-
-<center>
-  <figure class="image">
-    <a name="fig4-4"/></a>
-    <img src="images/datatype.png" style="zoom:60%"/>
-    <figcaption><i>Figure 4-3: Datatype classes</i></figcaption>
-  </figure>
-</center>
-
-### 4.4.1 Datatype class
+## 4.11 Datatype class
 
 A datatype object defines the allowed values of a corresponding atomic literal value in a message. Objects for primitive data types, corresponding to the XSD data types, have only the *name*, *namespace*, and *documentation* properties inherited from the Component class. All other data types are represented by either a Restriction, List, or Union object.
 
-### 4.4.2 List class
+<center>
+  <figure class="image">
+    <a name="fig4-6"/></a>
+    <img src="images/datatype.png" style="zoom:60%"/>
+    <figcaption><i>Figure 4-6: Datatype classes</i></figcaption>
+  </figure>
+</center>
+
+## 4.12 List class
 
 A list object defines a datatype as a whitespace-separated list of atomic values.
 
 | UML | CMF | Definition | Card | Ord | Range |
 | --- | --- | ---------- | :--: | :-: | ----- |
-| List | ListType | A data type for a NIEM model datatype that is a whitespace-separated list of atomic values.
+| List | ListType | A data type for a NIEM model datatype that is a whitespace-separated list of atomic values.||||
 | isOrdered | OrderedPropertyIndicator | True if the order of a repeated property within an object is significant. | 0..1 | - | xs:boolean |
-| listType | ListOf | The NIEM model datatype of the atomic values in a list. | 1 | - | DatatypeType |
+| listType | ListOf | The datatype of the atomic values in a list. | 1 | - | DatatypeType |
 
-### 4.4.3 Union class
+## 4.13 Union class
 
 A union object defines a datatype as the union of one or more datatypes.
 
@@ -528,7 +559,7 @@ A union object defines a datatype as the union of one or more datatypes.
 | Union | UnionType | A data type for a NIEM model datatype that is a union of datatypes.
 | unionType | UnionOf | A NIEM model datatype that is a member of a union datatype. | 1..* | - | DatatypeType |
 
-### 4.4.4 Restriction class
+## 4.14 Restriction class
 
 A Restriction object defines a datatype as a restriction of a base datatype plus zero or more restricting Facet objects.
 
@@ -539,30 +570,74 @@ A Restriction object defines a datatype as a restriction of a base datatype plus
 | facet | Facet | A data concept for a facet that restricts an aspect of a data type. | 0..* | - | FacetType |
 | clb | CodeListBinding | A property for connecting atomic values defined by a data type to a a column of a code list. | 0..1 | - | CodeListBindingType |
 
-### 4.4.5 Facet class
+## 4.15 Facet class
 
-There are eleven Facet subclasses in the metamodel, corresponding to the eleven constraining facets in XML Schema. In CMF there are eleven facet properties and four facet types.
-| UML and CMF    | CMF type |
-| -------------- | --------- |
-| Enumeration    | AnyValueFacetType
-| FractionDigits | NonNegativeValueFacetType
-| Length         | NonNegativeValueFacetType
-| MaxExclusive   | AnyValueFacetType
-| MaxInclusive   | AnyValueFacetType
-| MinExclusive   | AnyValueFacetType
-| MinInclusive   | AnyValueFacetType
-| MinLength      | NonNegativeValueFacetType
-| Pattern        | PatternFacetType
-| TotalDigits    | PositiveValueFacetType
-| WhiteSpace     | WhiteSpaceFacetType
+There are eleven Facet subclasses in the metamodel, and eleven Facet properties in CMF, each with the same meaning as the corresponding eleven constraining facets in XML Schema. 
 
-## 4.5 Other classes and datatypes
+## 4.16 TextType class
 
+A TextType object combines a string property with a language property.
 
+| UML | CMF | Definition | Card | Ord | Range |
+| --- | --- | ---------- | :--: | :-: | ----- |
+| TextType | TextType | A data type for a character string with a language code.||||
+| literal | TextLiteral | A literal value of a character string. | 1 | - | xs:string |
+| lang | lang | A name of the language of a character string. | 0..1 | - | xs:language |
 
 </br>
 
-# 5. CMF and CMF rules
+# 5. NIEM XSD
+
+A NIEM model may be represented in NIEM CMF, NIEM XSD, or both. The two model formats are exactly equivalent; models can be translated without loss from one format to the other. Both formats implement the metamodel. This section describes how NIEM XSD implements the metamodel. It defines the equivalence between NIEM CMF and NIEM XSD, by relating XML Schema constructs to the equivalent CMF.
+
+## 5.1 Model object and XSD
+
+A Model object is represented in NIEM XSD by a schema document pile.  The schema documents to be assembled are specified by:
+
+* zero or more XML Catalog files mapping URIs to schema documents, and
+* one or more schema documents, and
+* the @schemaLocation attribute in the import elements in each document encountered
+
+If catalog files are specified, then a list of namespace URIs may be provided in addition to, or instead of, the initial list of schema documents. 
+
+There will be one namespace object in the model for each namespace encountered in schema assembly. The components in each namespace will be those specified by the XSD to CMF mappings in this section.
+
+**Rule 5-1**: A schema document assembled into a Model object MUST be a local resource. Retrieving a remote resource during schema assembly is not allowed.
+
+## 5.2 Namespace classes and XSD
+
+### 5.2.1 Namespace class and XSD
+
+
+
+```
+<xs:schema
+  targetNamespace="https://docs.oasis-open.org/niemopen/ns/model/niem-core/6.0/"
+  xmlns:ct="https://docs.oasis-open.org/niemopen/ns/specification/conformanceTargets/6.0/"
+  xmlns:nc="https://docs.oasis-open.org/niemopen/ns/model/niem-core/6.0/"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  ct:conformanceTargets=
+    "https://docs.oasis-open.org/niemopen/ns/specification/XNDR/6.0/#ReferenceSchemaDocument"
+  version="ps02"
+  xml:lang="en-US">
+  <xs:annotation>
+    <xs:documentation>NIEM Core.</xs:documentation>
+  </xs:annotation>    
+</xs:schema>
+-------------------------------
+<Namespace>
+  <NamespaceURI>https://docs.oasis-open.org/niemopen/ns/model/niem-core/6.0/</NamespaceURI>
+  <NamespacePrefixText>nc</NamespacePrefixText>
+  <DocumentationText>NIEM Core.</DocumentationText>
+  <ConformanceTargetURI>
+    https://docs.oasis-open.org/niemopen/ns/specification/XNDR/6.0/#ReferenceSchemaDocument
+  </ConformanceTargetURI>
+  <NamespaceVersionText>ps02</NamespaceVersionText>
+  <NamespaceLanguageName>en-US</NamespaceLanguageName>
+</Namespace>
+```
+
+
 
 # 6. XSD and XSD rules
 
