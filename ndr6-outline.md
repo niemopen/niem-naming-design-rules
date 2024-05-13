@@ -1,3 +1,7 @@
+> 2024-05-13 draft
+>
+> Partial section 5.
+>
 > 2024-05-04 draft
 >
 > Section 3: better description of message spec, type, format; new figure 3-3
@@ -315,7 +319,7 @@ Messages may be tested for conformance to their message format in the following 
 
 NIEMOpen provides free and open-source tools to support #2, #3, and #4. These can be found at [ref tools]().
 
-</br>
+<br/>
 
 # 4. The NIEM metamodel and Common Model Format
 
@@ -584,31 +588,32 @@ A TextType object combines a string property with a language property.
 | literal | TextLiteral | A literal value of a character string. | 1 | - | xs:string |
 | lang | lang | A name of the language of a character string. | 0..1 | - | xs:language |
 
-</br>
+<br/>
 
 # 5. NIEM XSD
 
 A NIEM model may be represented in NIEM CMF, NIEM XSD, or both. The two model formats are exactly equivalent; models can be translated without loss from one format to the other. Both formats implement the metamodel. This section describes how NIEM XSD implements the metamodel. It defines the equivalence between NIEM CMF and NIEM XSD, by relating XML Schema constructs to the equivalent CMF.
 
-## 5.1 Model object and XSD
+This section follows the order of section 4. The section numbers are not the same, because section 4 describes abstract classes, and section 5 describes only objects that appear in CMF and XSD models.
 
-A Model object is represented in NIEM XSD by a schema document pile.  The schema documents to be assembled are specified by:
+## 5.1 Model object
+
+A Model object is represented in NIEM XSD by a schema document pile.  The schema documents to be assembled are specified in terms of:
 
 * zero or more XML Catalog files mapping URIs to schema documents, and
 * one or more schema documents, and
 * the @schemaLocation attribute in the import elements in each document encountered
+* the @namespace attribute in the import elements, as resolved through catalog files, if provided
 
-If catalog files are specified, then a list of namespace URIs may be provided in addition to, or instead of, the initial list of schema documents. 
+If catalog files are provided, then a list of namespace URIs may be provided in addition to, or instead of, the initial list of schema documents. 
 
-There will be one namespace object in the model for each namespace encountered in schema assembly. The components in each namespace will be those specified by the XSD to CMF mappings in this section.
+There will be one namespace object in the model for each namespace encountered in schema assembly. The components in each namespace will be those specified by the XSD to CMF mappings defined in this section.
 
-**Rule 5-1**: A schema document assembled into a Model object MUST be a local resource. Retrieving a remote resource during schema assembly is not allowed.
+**Rule 5-1**: A schema document assembled into a Model object MUST be a local resource. Retrieval of a remote resource during schema assembly is not allowed.
 
-## 5.2 Namespace classes and XSD
+## 5.2 Namespace object
 
-### 5.2.1 Namespace class and XSD
-
-
+Figure 5-1 shows the representation of a Namespace object in XSD and in the corresponding CMF.
 
 ```
 <xs:schema
@@ -636,8 +641,214 @@ There will be one namespace object in the model for each namespace encountered i
   <NamespaceLanguageName>en-US</NamespaceLanguageName>
 </Namespace>
 ```
+<center><i><a name="fig5-1"></a>Figure 5-1: Sample Namespace object in XSD and CMF</i></center><p/>
+
+The following table shows the mapping between Namespace object representations in CMF and XSD.
+
+| CMF | XSD |
+| --- | --- |
+| NamespaceURI | `xs:schema/@targetNamespace` |
+| NamespacePrefixText | The prefix in the first namespace declaration of the target namespace |
+| DocumentationText | `xs:schema/xs:annotation/xs:documentation` |
+| ConformanceTargetURI | Each of the URIs in the list attribute `xs:schema/@ct:conformanceTargets` |
+| NamespaceVersionText | `xs:schema/@version` |
+| NamespaceLanguageName | `xs:schema/@xml:lang` |
+
+<br/>
+
+## 5.3 Augmentation object
+
+An Augmentation object is represented in NIEM XSD in different ways, depending on the augmenting property and the type being augmented.
+
+### 5.3.1 Augmenting complex content with an element
+
+### 5.3.2 Augmenting complex content with an attribute
+
+### 5.3.3 Augmenting simple content with an element
+
+### 5.3.4 Augmenting simple content with an attribute
 
 
+## 5.4 LocalTerm object
+
+
+## 5.5 Class object
+
+A Class object is represented in XSD as a complex type definition with complex content. Figure 5-XX shows a Class object in XSD and the corresponding CMF.
+
+<div style="font-size:90%;">
+
+```
+<xs:complexType name="ExampleType" abstract="true" appinfo:deprecated="true" appinfo:referenceCode="REF">
+  <xs:annotation> 
+    <xs:documentation>
+       A data type for a conveyance designed to carry an operator, passengers and/or cargo, over land.
+    </xs:documentation>
+  </xs:annotation>
+  <xs:complexContent>
+    <xs:extension base="nc:ConveyanceType">
+      <xs:sequence>
+        <xs:element ref="nc:ExampleDoorQuantity" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="nc:ExampleOdometerReadingMeasure" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="nc:ExampleAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:extension>
+  </xs:complexContent>
+</xs:complexType>
+----------
+<Class structures:id="nc.VehicleType">
+  <Name>VehicleType</Name>
+  <Namespace structures:ref="nc" xsi:nil="true"/>
+  <DocumentationText>
+    A data type for a conveyance designed to carry an operator, passengers and/or cargo, over land.
+  </DocumentationText>
+  <AbstractIndicator>true</AbstractIndicator>
+  <DeprecatedIndicator>true</DeprecatedIndicator>
+  <ExtensionOfClass structures:ref="nc.ConveyanceType" xsi:nil="true"/>
+  <AugmentableIndicator>true</AugmentableIndicator>
+  <ReferenceCode>REF</ReferenceCode>
+  <HasProperty>
+   <DataProperty structures:ref="nc.VehicleDoorQuantity" xsi:nil="true"/>
+   <MinOccursQuantity>0</MinOccursQuantity>
+   <MaxOccursQuantity>unbounded</MaxOccursQuantity>
+  </HasProperty>
+  <HasProperty>
+   <DataProperty structures:ref="nc.VehicleOdometerReadingMeasure" xsi:nil="true"/>
+   <MinOccursQuantity>0</MinOccursQuantity>
+   <MaxOccursQuantity>unbounded</MaxOccursQuantity>
+  </HasProperty>
+</Class>
+```
+
+</div>
+<center><i><a name="fig5-XX"></a>Figure 5-XX: A Class object in XSD and CMF</i></center><p/>
+
+The following table shows the mapping between Class object representations in CMF and XSD.
+
+| CMF | XSD |
+| --- | --- |
+| Namespace | The namespace object for the containing schema document. |
+| Name | `xs:complexType/@name` |
+| Documentation | `xs:complexType/xs:annotation/xs:documentation` |
+| AbstractIndicator | `xs:complexType/@abstract` |
+| DeprecatedIndicator | `xs:complexType/@appinfo:deprecated` |
+| ExtensionOfClass | `xs:complexType/xs:complexContent/xs:extension/@base` |
+| AugmentableIndicator | True if the last element in the sequence is an [*augmentation point*](). |
+| ReferenceCode | `xs:complexType/@appinfo:referenceCode` |
+| HasProperty | `xs:complexType/xs:complexContent/xs:extension/xs:sequence/xs:element` or `xs:complexType/xs:complexContent/xs:extension/xs:attribute` |
+
+An *augmentation point* element does not correspond to model content. It is a placeholder for augmenting a Class with one or more element properties. (See [section XX]().)
+
+A Class object is also represented in XSD by a complex type with simple content, if and only if attributes from a model namespace are included. (A complex type with simple content and no model attributes is a Datatpe object; see [section XX]().)  Figure 5-XX shows this sort of Class object in XSD and the corresponding CMF.
+
+<div style="font-size:90%;">
+
+```
+...................................................................................font size:100% V...... 90% V
+.........1.........2.........3.........4.........5.........6.........7.........8.........9.........0.........1.
+<xs:complexType name="Example2Type">
+  <xs:simpleContent>
+    <xs:extension base="xs:integer">
+      <xs:attribute ref="nc:valueEmptyReasonText"/>
+      <xs:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+    </xs:extension>
+  </xs:simpleContent>
+</xs:complexType>
+---------------
+<Class structures:id="nc.Example2Type">
+  <Name>VehicleType</Name>
+  <Namespace structures:ref="nc" xsi:nil="true"/>
+  <HasProperty>
+   <DataProperty structures:ref="nc.Example2Literal"/>
+   <MinOccursQuantity>1</MinOccursQuantity>
+   <MaxOccursQuantity>1</MaxOccursQuantity>
+  </HasProperty>
+  <HasProperty>
+   <DataProperty structures:ref="nc.valueEmptyReasonText"/>
+   <MinOccursQuantity>0</MinOccursQuantity>
+   <MaxOccursQuantity>1</MaxOccursQuantity>
+  </HasProperty>
+</Class>
+```
+
+</div>
+<center><i><a name="fig5-XX"></a>Figure 5-XX: Another Class object in XSD and CMF</i></center><p/>
+
+A complex type with simple content and model attributes also represents a Datatype object. In the above example, the complex type `Example2Type` represents the Datatype object `Example2Literal`, in addition to the Class object. (See [section XX]().)
+
+Components from the *structures* namespace and the *appinfo* namespace do not define model content and do not correspond to any model object. They are, instead, part of the structure on which the XSD model representation is built.
+
+## 5.6 HasProperty object
+
+A HasProperty object is represented in XSD as an element or attribute reference within a complex type definition. Figure 5-XX shows a HasProperty object in XSD and the corresponding CMF.
+
+<div style="font-size:90%;">
+
+```
+<xs:sequence>
+  <xs:element ref="nc:PersonMiddleName" 
+    minOccurs="0" maxOccurs="unbounded" appinfo:orderedPropertyIndicator="true">
+    <xs:annotation>
+      <xs:documentation>Refers to the relationship between the object and this property.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+</xs:sequence>
+<xs:attribute ref="ex:aProperty" use="required"/>
+---------------
+<HasProperty>
+  <ObjectProperty structures:ref="nc.PersonMiddleName"/>
+  <MinOccursQuantity>0</MinOccursQuantity>
+  <MaxOccursQuantity>unbounded</MaxOccursQuantity>
+  <DocumentationText>Refers to the relationship between the object and this property.</DocumentationText>
+  <OrderedPropertyIndicator>true</OrderedPropertyIndicator>
+</HasProperty>
+<HasProperty>
+  <DataProperty structures:ref="ex.aProperty"/>
+  <MinOccursQuantity>1</MinOccursQuantity>
+  <MaxOccursQuantity>1</MaxOccursQuantity>
+</HasProperty>
+```
+
+</div>
+<center><i><a name="fig5-XX"></a>Figure 5-XX: HasProperty object in XSD and CMF</i></center><p/>
+
+The following table shows the mapping between HasObject representations in CMF and XSD.
+
+| CMF | XSD |
+| --- | --- |
+| Property | The property object for `xs:element/@ref`. |
+| MinOccursQuantity | `xs:element/@minOccurs` |
+| MaxOccursQuantity | `xs:element/@maxOccurs` |
+| Documentation | `xs:element/xs:annotation/xs:documentation` |
+| OrderedPropertyIndicator | `xs:element/@appinfo:orderedPropertyIndicator` |
+
+## 5.7 ObjectProperty object
+
+## 5.8 DataProperty object
+
+## 5.9 Datatype object
+
+## 5.10 List object
+
+## 5.11 Union object
+
+## 5.12 Restriction object
+
+## 5.13 Facet object
+
+## 5.14 TextType object
+
+<div style="font-size:90%;">
+
+```
+...................................................................................font size:100% V...... 90% V
+.........1.........2.........3.........4.........5.........6.........7.........8.........9.........0.........1.
+```
+
+</div>
+<center><i><a name="fig5-XX"></a>Figure 5-XX: An example</i></center><p/>
+
+<br/>
 
 # 6. XSD and XSD rules
 
