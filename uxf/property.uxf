@@ -53,6 +53,7 @@ bg=LIGHT_GRAY</panel_attributes>
     <panel_attributes>--
 /Property/
 --
+-isAbstract
 -isRelationship</panel_attributes>
     <additional_attributes/>
   </element>

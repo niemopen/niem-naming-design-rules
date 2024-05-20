@@ -40,7 +40,6 @@ bg=LIGHT_GRAY</panel_attributes>
 --
 -name
 -documentation
--isAbstract
 -isDeprecated</panel_attributes>
     <additional_attributes/>
   </element>

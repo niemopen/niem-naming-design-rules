@@ -36,6 +36,7 @@ fontsize=10
     <panel_attributes>--
 Class
 --
+-isAbstract
 -isAugmentable
 -isAdapter
 -referenceCode</panel_attributes>
