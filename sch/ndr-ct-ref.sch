@@ -8,7 +8,7 @@
 <sch:ns prefix="xs" uri="http://www.w3.org/2001/XMLSchema"/>
 <sch:ns prefix="xsl" uri="http://www.w3.org/1999/XSL/Transform"/>
 <sch:ns prefix="nf" uri="https://docs.oasis-open.org/niemopen/ns/specification/XNDR/6.0/#NDRFunctions"/>
-<sch:ns prefix="ct" uri="https://docs.oasis-open.org/niemopen/ns/specification/conformanceTargets/3.0/"/>
+<sch:ns prefix="ct" uri="https://docs.oasis-open.org/niemopen/ns/specification/conformanceTargets/6.0/"/>
 <sch:ns prefix="xsi" uri="http://www.w3.org/2001/XMLSchema-instance"/>
 <sch:ns prefix="appinfo" uri="https://docs.oasis-open.org/niemopen/ns/model/appinfo/6.0/"/>
 <sch:ns prefix="structures" uri="https://docs.oasis-open.org/niemopen/ns/model/structures/6.0/"/>
@@ -16,7 +16,7 @@
  <sch:rule context="*[. is nf:get-document-element(.)
                       or exists(@ct:conformanceTargets)]">
    <sch:assert test="(. is nf:get-document-element(.)) = exists(@ct:conformanceTargets)"
-     >Rule 4-6: The [document element] of the XML document, and only the [document element], MUST own an attribute {https://docs.oasis-open.org/niemopen/ns/specification/conformanceTargets/3.0/}conformanceTargets.</sch:assert>
+     >Rule 4-6: The [document element] of the XML document, and only the [document element], MUST own an attribute {https://docs.oasis-open.org/niemopen/ns/specification/conformanceTargets/6.0/}conformanceTargets.</sch:assert>
  </sch:rule>
 </sch:pattern><sch:pattern id="rule_9-1"><sch:title>No base type in the XML namespace</sch:title>
  <sch:rule context="xs:*[exists(@base)]">

@@ -12,7 +12,8 @@
     <panel_attributes>--
 /Component/
 --
-</panel_attributes>
+
+bg=LIGHT_GRAY</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -40,7 +41,8 @@ Model
     <panel_attributes>--
 Namespace
 --
-</panel_attributes>
+
+bg=LIGHT_GRAY</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
