@@ -7,6 +7,12 @@ Pagewidth:
 
 </div>
 
+> 2024-06-10 draft
+>
+> Augmentation section is complete
+> June 4 NTAC suggestions incorporated
+> Chuck Chipman comments incorporated
+>
 > 2024-06-03 draft
 >
 > Combined section 4 and 5 into new section 4: "Data models in NIEM" -- metamodel, CMF, and XSD
@@ -52,7 +58,7 @@ Pagewidth:
 
 # 1. Introduction
 
-NIEM, formerly known as the "National Information Exchange Model,” is a framework for exchanging information between public and private sector organizations. The framework includes a [reference data model](https://docs.oasis-open.org/niemopen/niem-model/v6.0/niem-model-v6.0.html) for objects, properties, and relationships; and a set of technical specifications for using and extending the data model in information exchanges. The NIEM framework supports developer-level specifications of data that form a contract between developers. The data being specified is called a *message* in NIEM. While a message is usually something passed between applications, NIEM works equally well to specify an information resource published on the web, an input or output for a web service or remote procedure, and so forth, basically, any package of data that crosses a system or organization boundary.
+NIEM, formerly known as the "National Information Exchange Model,” is a framework for exchanging information among public and private sector organizations. The framework includes a [reference data model](https://docs.oasis-open.org/niemopen/niem-model/v6.0/niem-model-v6.0.html) for objects, properties, and relationships; and a set of technical specifications for using and extending the data model in information exchanges. The NIEM framework supports developer-level specifications of data that form a contract between developers. The data being specified is called a *message* in NIEM. While a message is usually something passed between applications, NIEM works equally well to specify an information resource published on the web, an input or output for a web service or remote procedure, and so forth, basically, any package of data that crosses a system or organization boundary.
 
 NIEM promotes scalability and reusability of messages between information systems, allowing organizations to share data and information more efficiently. It was launched in 2005 in response to the U.S. Homeland Security Presidential Directives to improve information sharing between agencies following 9/11. Until 2023, NIEM was updated and maintained in a collaboration between the U.S. federal government, state and local government agencies, private sector, and non-profit and international organizations, with new versions released around once per year. NIEM defines a set of common objects, the *NIEM Core*, and 17 sets of objects that are specific to certain government or industry verticals, the *NIEM Domains*.
 
@@ -62,13 +68,11 @@ NIEMOpen is the term generally used when referring to the organization such as P
 
 This document specifies principles and enforceable rules for NIEM data components and schemas. Schemas and components that obey the rules set forth here are conformant to specific conformance targets. Conformance targets may include more than the level of conformance defined by this NDR, and may include specific patterns of use, additional quality criteria, and requirements to reuse NIEM release schemas.
 
-This document uses formatting and syntactic conventions to clarify meaning and avoid ambiguity. This document relies on references to many outside documents. Such references are noted by bold, bracketed inline terms. For example, a reference to RFC 3986 is shown as [RFC 3986](https://github.com/niemopen/niem-naming-design-rules/blob/dev/niem-ndr.md#Appendix-A-References). All reference documents are recorded in [Appendix A, References, below](https://github.com/niemopen/niem-naming-design-rules/blob/dev/niem-ndr.md#appendix-a-references).
-
 <br/>
 
 # 2. How To Read This Document
 
-This document provides normative specifications for NIEM data models. It also describes the goals and principles behind those specifications. It includes examples and explanations to help users of NIEM understand the goals, principles, and specifications. The relevant sections of this document will depend on the role of the user. Figure 2-1 illustrates the relationships between these roles and NIEM.
+This document provides normative specifications for NIEM-conforming data models. It also describes the goals and principles behind those specifications. It includes examples and explanations to help users of NIEM understand the goals, principles, and specifications. The relevant sections of this document will depend on the role of the user. Figure 2-1 illustrates the relationships between these roles and NIEM.
 
 <center>
   <figure>
@@ -97,6 +101,8 @@ The remaining sections of this document most relevant to each of these roles are
 | 5. Modeling rules for NIEM XSD | | | x | |
 | 6. Rules for NIEM messages | | x | x | x |
 
+This document uses formatting and syntactic conventions to clarify meaning and avoid ambiguity. This document relies on references to many outside documents. Such references are noted by bold, bracketed inline terms. For example, a reference to RFC 3986 is shown as [[RFC 3986]](https://github.com/niemopen/niem-naming-design-rules/blob/dev/niem-ndr.md#Appendix-A-References). All reference documents are recorded in [Appendix A, References, below](https://github.com/niemopen/niem-naming-design-rules/blob/dev/niem-ndr.md#appendix-a-references).
+
 <br/>
 
 # 3. Overview of the NIEM Technical Architecture
@@ -115,7 +121,7 @@ NIEM is potentially useful for any mechanism that transfers a package of data ac
 
 The primary purpose of a NIEM-based data specification is to establish a common understanding among developers, so that they can write software that correctly handles the shared data, hence "machine-to-machine". (The content of a NIEM message may also be directly presented to human consumers, and NIEM can help these consumers understand what they see, but that is not the main purpose of NIEM.)
 
-In NIEM terms, the package of data shared at runtime is a *message*. A *message type* defines the mandatory and optional information content of a class messages without prescribing a particular syntax. A *message format* defines a syntax for the content of a message type. Both of these definitions are expressed in terms of a machine-readable *data model*, using either of NIEM's two *modeling formats*, CMF or XSD. A collection of related message formats and types is a *message specification.* The usual case is a message specification with one message type and one message format, but a more complex arrangements is possible, illustrated in figure 3-1 below.
+In NIEM terms, the package of data shared at runtime is a *message*. A *message type* defines the mandatory and optional information content of a class of messages without prescribing a particular syntax. A *message format* defines a syntax for the content of a message type. Both of these definitions are expressed in terms of a machine-readable *data model*, using either of NIEM's two *modeling formats*, the Common Model Format (CMF) or XML Schema (XSD). A collection of related message formats and types is a *message specification.* The usual case is a message specification with one message type and one message format, but a more complex arrangements is possible, illustrated in figure 3-1 below.
 
 <center>
   <figure class="image">
@@ -129,11 +135,11 @@ In NIEM terms, the package of data shared at runtime is a *message*. A *message 
 
 A *message designer* creates a message type and format from an information requirement, so that a message at runtime will contain all the facts that need to be conveyed. Then any number of *message developers* write software to implement the specification, producing or processing messages that conform to the message format. Message designers need some understanding of NIEM, but the message developers do not. (Sometimes the message developers do not even know that NIEM exists.) [Figure 2-1](#fig2-1) above illustrates the relationships between message designers, message developers, and message formats.
 
-NIEM supports XML and JSON message formats; support for others may be added in the future. One important feature of NIEM is that messages of the same type are convertable across serializations; for example, a NIEM XML message can be converted to NIEM JSON, and vice versa, with no bespoke programming required. 
+NIEM supports XML and JSON message formats; support for other formats may be added in the future. One important feature of NIEM is that messages of the same type are convertable across serializations; for example, a NIEM XML message can be converted to NIEM JSON, and vice versa, with no bespoke programming required. 
 
 ## 3.2 Reuse of community-agreed data models
 
-NIEM is also a framework for communities to create data models for concepts that are useful in multiple data specifications. These community models are typically not *complete* for any particular specification. Instead, they reflect the community's judgement on which defintions are *worth the trouble of agreement*. The NIEM core model contains definitions found useful by the NIEM community as a whole. NIEM domain models reuse the core, extending it with defintions found useful by the domain community. The core model plus the domain models comprise the "NIEM model". [Figure 2-2]() above illustrates the relationships between domain communities and community models.
+NIEM is also a framework for communities to create data models for concepts that are useful in multiple data specifications. These community models are typically not *complete* for any particular specification. Instead, they reflect the community's judgement on which definitions are *worth the trouble of agreement*. The NIEM core model contains definitions found useful by the NIEM community as a whole. NIEM domain models reuse the core, extending it with definitions found useful by the domain community. The core model plus the domain models comprise the "NIEM model". [Figure 2-2]() above illustrates the relationships between domain communities and community models.
 
 Message designers reuse definitions from the NIEM model, selecting a (usually small) subset of definitions that express part of their information requirement. Message designers then create model extensions, adding definitions that they require but have not (so far!) been found worthy of inclusion in the NIEM model. 
 
@@ -146,13 +152,13 @@ NIEM is built on a foundation of open standards, primarily:
 * XML and XSD – message serialization and validation; also a modeling formalism
 * JSON and JSON-LD – message serialization and linked data
 * RDF, RDFS, and OWL – formal semantics
-* ISO 11179 – data element naming conventions
+* ISO 11179 – data element conventions
 
 One of NIEM's principles is to reuse well-known information technology standards when these are supported by free and open-source software. NIEM avoids reuse of standards that effectively depend on proprietary software. When the NIEMOpen project defines a standard of its own, it also provides free and open-source software to support it.
 
 ## 3.4 The NIEM metamodel
 
-A data model in NIEM defines the syntax and semantics of a message format, or the information content of a message type, or the agreed definitions of a community. The information required for those purposes can itself be modeled. The model of that information is the *NIEM metamodel* -- an abstract model for NIEM data models. The metamodel is expressed in UML, and is described in detail in [section 4](). At a high level, the major components of the metamodel are classes, datatypes, properties, and namespaces.
+A data model in NIEM defines the syntax and semantics of a message format, or the information content of a message type, or the agreed definitions of a community. The information required for those purposes can itself be modeled. The model of that information is the *NIEM metamodel* -- an abstract model for NIEM data models. The metamodel is expressed in UML, and is described in detail in [section 4](). At a high level, the major components of the metamodel are classes, datatypes, properties, and namespaces. Figure 3-2 provides an lllustration.
 
 <center>
   <figure class="image">
@@ -165,9 +171,9 @@ A data model in NIEM defines the syntax and semantics of a message format, or th
 - A *class* defines the content of a corresponding *object* (or *resource*) in a message.
 - A *datatype* defines the allowed values of a corresponding atomic *literal value* in a message.
 - A class has one or more *properties*. An *object property* defines a subject-predicate-value relationship between an object and another object.  A *data property* defines a relationship between an object and a literal value.
-- A *namespace* is a collection of uniquely-named components, described in more detail below in section 3.5.
+- A *namespace* is a collection of uniquely-named components, described in more detail in section 3.5.
 
-Figure 3-2 below illustrates the relationships among metamodel components, NIEM model components, and the corresponding message objects and values.
+Figure 3-3 below illustrates the relationships among metamodel components, NIEM model components, and the corresponding message objects and values.
 
 <center>
   <figure class="image">
@@ -199,13 +205,13 @@ The components of a NIEM model are partitioned into *namespaces.* This prevents 
 
 Each namespace has an author, a person or organization that is the authoritative source for the namespace definitions. A namespace is the collection of model components for concepts of interest to the namespace author. Namespace cohesion is important; a namespace should be designed so that its components are consistent, may be used together, and may be updated at the same time.
 
-Each namespace must be uniquely identified by a URI. The namespace author should also be the URI's owner, as defined by [ref webarch](). Both URNs and URLs are allowed. It is helpful, but not required, for the namespace URI to be accessible, returning the definition of the namespace content in a supported model format. (See [ref repositories]() for an alternate way to obtain namespace definitions.)
+Each namespace must be uniquely identified by a URI. The namespace author should also be the URI's owner, as defined by [ref webarch](). Both URNs and URLs are allowed. It is helpful, but not required, for the namespace URI to be accessible, returning the definition of the namespace content in a supported model format. (See [ref repositories]() for an alternative way to obtain namespace definitions.)
 
 Namespaces are the units of model configuration management. Once published, the components in a namespace may not be removed or redefined. Those changes may only be made in a new namespace with a different URI. As a result, a change by one namespace author does not force a change by any other author – the revisions may be adopted, if desired, whenever convenient; the older namespace continues to be valid regardless.
 
 ## 3.7 NIEM messages in XML and JSON
 
-The content of a NIEM message may be formatted as XML or JSON. Any NIEM message may be converted from one supported format to another, without loss of information. Figures 3-6 and 3-7 show the equivalent NIEM XML and JSON serializations of the information depicted in figure 3-3.
+The content of a NIEM message may be formatted as XML or JSON. Any NIEM message may be converted from one supported format to another, without loss of information. Figures 3-4 and 3-5 show the equivalent NIEM XML and JSON serializations of the information depicted in figure 3-3.
 
 ```
 <nc:Person
@@ -216,7 +222,7 @@ The content of a NIEM message may be formatted as XML or JSON. Any NIEM message 
 </nc:Person>
 ```
 
-<center><i><a name="fig3-6"></a>Figure 3-6: Sample NIEM XML message</i></center><p/>
+<center><i><a name="fig3-4"></a>Figure 3-4: Sample NIEM XML message</i></center><p/>
 
 ```
 { 
@@ -229,7 +235,7 @@ The content of a NIEM message may be formatted as XML or JSON. Any NIEM message 
 }
 ```
 
-<center><i><a name="fig3-7"></a>Figure 3-7: Sample NIEM JSON message</i></center><p/>
+<center><i><a name="fig3-5"></a>Figure 3-5: Sample NIEM JSON message</i></center><p/>
 
 ## 3.8 NIEM Conformance
 
@@ -252,7 +258,7 @@ NIEMOpen provides free and open-source tools to support #2, #3, and #4. These ca
 
 # 4. Data models in NIEM
 
-The NIEM metamodel is an abstract model, defined in the UML diagram below, that specifies the content of a NIEM data model. The Common Model Format (CMF) is a NIEM message type that implements the metamodel. A CMF message is a representation of a NIEM data model. A NIEM data model may also be represented in NIEM XSD. This section specifies:
+The NIEM metamodel is an abstract model, defined in the UML diagram below, that specifies the content of a NIEM data model. CMF is a NIEM message type that implements the metamodel. A CMF message is a representation of a NIEM data model. A NIEM data model may also be represented in NIEM XSD. This section specifies:
 
 * the meaning of the classes, attributes, and relationships in the metamodel
 * the meaning of the classes, datatypes, and properties in CMF that implement the metamodel
@@ -283,9 +289,9 @@ A Model object represents a complete or partial NIEM model.  (A complete model h
 
 <center>
   <figure class="image">
-    <a name="fig4-1"/></a>
+    <a name="fig4-2"/></a>
     <img src="images/modelClass.png" style="zoom:60%"/>
-    <figcaption><i>Figure 4-1: Model class diagram</i></figcaption>
+    <figcaption><i>Figure 4-2: Model class diagram</i></figcaption>
   </figure>
 </center>
 
@@ -295,16 +301,9 @@ A Model object represents a complete or partial NIEM model.  (A complete model h
 | comp | Component | A data concept for a component of a NIEM data model. | 0..* | - | ComponentType |
 | ns | Namespace | A namespace of a data model component | 0..* | - | NamespaceType |
 
-A Model object is represented in NIEM XSD by a collection of XML schema documents that are assembled into a schema.  The schema documents to be assembled are specified in terms of:
+A Model object is represented in CMF as a CMF message.
 
-* zero or more XML Catalog files mapping URIs to schema documents, and
-* one or more schema documents, and
-* the @schemaLocation attribute in the import elements in each document encountered, plus
-* the @namespace attribute in the import elements, as resolved through catalog files, if provided
-
-If catalog files are provided, then a list of namespace URIs may be provided in addition to, or instead of, the initial list of schema documents. 
-
-There will be one namespace object in the model for each namespace defined in the schema documents. The components in each namespace will be those specified by the XSD to CMF mappings defined in this section.
+A Model object is represented in XSD as a set of XML schema documents. One or more schema documents are provided to begin the set. Other documents are added, according to the @schemaLocation attribute in the import elements in each document encountered. Documents may also be added according to the @namespace attribute, as resolved through XML Catalog files, if provided. There will be one namespace object in the model for each namespace defined in the schema documents. The components in each namespace will be those specified by the XSD to CMF mappings defined in this section.
 
 **Rule 4-1**: A schema document representing a Model object MUST be a local resource. Retrieval of a remote resource during schema assembly is not allowed.
 
@@ -314,9 +313,9 @@ A Namespace object represents a namespace in a model. For example, the namespace
 
 <center>
   <figure class="image">
-    <a name="fig4-2"/></a>
+    <a name="fig4-3"/></a>
     <img src="images/namespaceClass.png" style="zoom:60%"/>
-    <figcaption><i>Figure 4-2: Namespace class diagram</i></figcaption>
+    <figcaption><i>Figure 4-3: Namespace class diagram</i></figcaption>
   </figure>
 </center>
 
@@ -338,7 +337,7 @@ A Namespace object represents a namespace in a model. For example, the namespace
 
 > Note: I'm now thinking we don't need `NIEMVersionText`. We can work that out from the conformance target assertions.  And we don't need `NamespaceKindCode`. We can work that out from the namespace URI and conformance target assertions -- or if we can't show it's BUILTIN, CORE, DOMAIN, EXTENSION, OTHERNIEM, XML, or XSD, then in a conforming schema pile it must be EXTERNAL. So I think these properties will go away when I have time to fool with it.
 
-Figure 4-3 shows the representation of a Namespace object in CMF and in the corresponding XSD.
+Figure 4-4 shows the representation of a Namespace object in CMF and in the corresponding XSD.
 
 ```
 <Namespace>
@@ -366,7 +365,7 @@ Figure 4-3 shows the representation of a Namespace object in CMF and in the corr
   </xs:annotation>    
 </xs:schema>
 ```
-<center><i><a name="fig4-3"></a>Figure 4-3: Namespace object in CMF and XSD</i></center><p/>
+<center><i><a name="fig4-4"></a>Figure 4-4: Namespace object in CMF and XSD</i></center><p/>
 
 The following table shows the mapping between Namespace object representations in CMF and XSD.
 
@@ -396,7 +395,7 @@ A model component in a namespace is either a Class object, a Property object, or
   <figure class="image">
     <a name="fig4-4"/></a>
     <img src="images/component.png" style="zoom:60%"/>
-    <figcaption><i>Figure 4-4: Component class diagram</i></figcaption>
+    <figcaption><i>Figure 4-5: Component class diagram</i></figcaption>
   </figure>
 </center>
 
@@ -416,9 +415,9 @@ A Class object represents an object class in a NIEM model.  For example, `nc:Per
 
 <center>
   <figure class="image">
-    <a name="fig4-5"/></a>
+    <a name="fig4-6"/></a>
     <img src="images/class.png" style="zoom:60%"/>
-    <figcaption><i>Figure 4-5: Class and HasProperty class diagram</i></figcaption>
+    <figcaption><i>Figure 4-6: Class and HasProperty class diagram</i></figcaption>
   </figure>
 </center>
 
@@ -431,7 +430,12 @@ A Class object represents an object class in a NIEM model.  For example, `nc:Per
 | subClassOf | ExtensionOfClass | A base class of a subclass. | 0..1 | - | ClassType |  
 | hasProp | HasProperty | An occurrence of a property as content of a class. | 0..* | Y | HasPropertyType |
 
-A Class object is represented in XSD as a complex type definition with complex content. Figure 4-6 shows a Class object in XSD and the corresponding CMF.
+A Class object is represented in XSD in two ways: 
+
+* as a complex type with complex content ("CCC type"), if there are child elements
+* as a complex type with simple content ("CSC type"), if there are attributes from the model
+
+Figure 4-7 shows a Class object represented in CMF, and then in XSD as a complex type with child elements.
 
 <div style="font-size:90%;">
 
@@ -479,7 +483,7 @@ A Class object is represented in XSD as a complex type definition with complex c
 ```
 
 </div>
-<center><i><a name="fig4-6"></a>Figure 4-6: A Class object in CMF and in XSD (complex type with complex content)</i></center><p/>
+<center><i><a name="fig4-7"></a>Figure 4-7: A Class object in CMF and in XSD (CCC type)</i></center><p/>
 
 The following table shows the mapping between Class object representations in CMF and XSD.
 
@@ -495,7 +499,7 @@ The following table shows the mapping between Class object representations in CM
 | ReferenceCode | `xs:complexType/@appinfo:referenceCode` |
 | HasProperty | `xs:complexType/xs:complexContent/xs:extension/xs:sequence/xs:element` or `xs:complexType/xs:complexContent/xs:extension/xs:attribute` |
 
-A Class object is also represented in XSD by a complex type with simple content, if and only if attributes from a model namespace are included. Figure 4-7 shows this sort of Class object in CMF and the corresponding XSD.
+Figure 4-8 shows a Class object in CMF, and then in XSD as a complex type with attributes but no child elements.
 
 <div style="font-size:90%;">
 
@@ -528,11 +532,9 @@ A Class object is also represented in XSD by a complex type with simple content,
 ```
 
 </div>
-<center><i><a name="fig4-7"></a>Figure 4-7: Class object in CMF and XSD (complex type with simple content)</i></center><p/>
+<center><i><a name="fig4-8"></a>Figure 4-8: Class object in CMF and XSD (CSC type)</i></center><p/>
 
 A complex type with simple content and model attributes also represents a DataProperty object. In the above example, the complex type `Example2Type` represents the DataProperty object `Example2Literal`, in addition to the Class object. (See [section XX]().)
-
-Components from the *structures* namespace and the *appinfo* namespace do not define model content and do not correspond to any model object. They are, instead, part of the structure on which the XSD model representation is built.
 
 ## 4.5 HasProperty class
 
@@ -548,7 +550,7 @@ A HasProperty object represents the occurrence of a property in a class. For exa
 | augNamespace | AugmentingNamespace | A namespace responsible for augmenting a class with a property. | 0..1 | - | NamespaceType |
 | property | Property | The property that occurs in the class. | 1 | - | PropertyType |
 
-A HasProperty object is represented in XSD as an element or attribute reference within a complex type definition. Figure 4-8 shows two HasProperty objects in CMF and the corresponding XSD.
+A HasProperty object is represented in XSD as an element or attribute reference within a complex type definition. Figure 4-9 shows two HasProperty objects in CMF and the corresponding XSD.
 
 <div style="font-size:90%;">
 
@@ -582,7 +584,7 @@ A HasProperty object is represented in XSD as an element or attribute reference 
 ```
 
 </div>
-<center><i><a name="fig4-8"></a>Figure 4-8: HasProperty object in CMF and XSD</i></center><p/>
+<center><i><a name="fig4-9"></a>Figure 4-9: HasProperty object in CMF and XSD</i></center><p/>
 
 The following table shows the mapping between HasProperty representations in CMF and XSD.
 
@@ -600,9 +602,9 @@ A Property object represents a data property or an object property in a NIEM mod
 
 <center>
   <figure class="image">
-    <a name="fig4-9"/></a>
+    <a name="fig4-10"/></a>
     <img src="images/property.png" style="zoom:60%"/>
-    <figcaption><i>Figure 4-9: Property class diagram</i></figcaption>
+    <figcaption><i>Figure 4-10: Property class diagram</i></figcaption>
   </figure>
 </center>
 
@@ -623,7 +625,7 @@ An ObjectProperty object represents a property with a range that is a class. For
 | referenceCode | ReferenceCode | A code describing how a property may be referenced (or must appear inline). | 0..1 | - | ReferenceCodeType |
 | class | Class | The class of this object property. | 1 | - | ClassType |
 
-An ObjectProperty object is represented in XSD as an element declaration with a type that is a Class object. Figure 4-10 shows an ObjectProperty object in XSD and the corresponding CMF.
+An ObjectProperty object is represented in XSD as an element declaration with a type that is a Class object. Figure 4-11 shows an ObjectProperty object in XSD and the corresponding CMF.
 
 <div style="font-size:90%;">
 
@@ -651,7 +653,7 @@ An ObjectProperty object is represented in XSD as an element declaration with a 
 ```
 
 </div>
-<center><i><a name="fig4-10"></a>Figure 4-10: ObjectProperty object in CMF and XSD</i></center><p/>
+<center><i><a name="fig4-11"></a>Figure 4-11: ObjectProperty object in CMF and XSD</i></center><p/>
 
 The following table shows the mapping between ObjectProperty object representations in CMF and XSD.
 
@@ -678,7 +680,7 @@ A DataProperty object represents a property with a range that is a datatype. For
 | isRefAttribute* | RefAttributeIndicator | True for a property that is an [object reference attribute](). | 0..1 | - | xs:boolean |
 | datatype | Datatype | The datatype of this data property. | 1 | - | DatatypeType |
 
-A DataProperty object is represented in XSD as an attribute declaration, or as an element declaration with a type that is a Datatype object. Figure 4-11 shows the CMF and XSD representations of two DataProperty objects.
+A DataProperty object is represented in XSD as an attribute declaration, or as an element declaration with a type that is a Datatype object. Figure 4-12 shows the CMF and XSD representations of two DataProperty objects.
 
 <div style="font-size:90%;">
 
@@ -718,7 +720,7 @@ A DataProperty object is represented in XSD as an attribute declaration, or as a
 ```
 
 </div>
-<center><i><a name="fig4-11"></a>Figure 4-11: DataProperty object in CMF and XSD</i></center><p/>
+<center><i><a name="fig4-12"></a>Figure 4-12: DataProperty object in CMF and XSD</i></center><p/>
 
 The following table shows the mapping between DataProperty representations in CMF and XSD.
 
@@ -735,17 +737,20 @@ The following table shows the mapping between DataProperty representations in CM
 | AttributeIndicator | True for an attribute declaration. |
 | RefAttributeIndicator | `xs:attribute/@appinfo:referenceAttributeIndicator` |
 
+> [This paragraph moved here from Class section. Needs work.]
+> A complex type with simple content and model attributes also represents a DataProperty object. In the above example, the complex type `Example2Type` represents the DataProperty object `Example2Literal`, in addition to the Class object. (See [section XX]().)
+
 ## 4.9 Datatype class
 
 <center>
   <figure class="image">
-    <a name="fig4-11"/></a>
+    <a name="fig4-13"/></a>
     <img src="images/datatype.png" style="zoom:60%"/>
-    <figcaption><i>Figure 4-11: Datatype classes</i></figcaption>
+    <figcaption><i>Figure 4-13: Datatype classes</i></figcaption>
   </figure>
 </center>
 
-A Datatype object defines the allowed values of a corresponding atomic literal value in a message. Objects for primitive data types, corresponding to the XSD data types, have only the *name*, *namespace*, and *documentation* properties inherited from the Component class. For example, figure 4-12 shows the CMF representation of the `xs:string` primitive data type. All other datatypes are represented by either a Restriction, List, or Union object.
+A Datatype object defines the allowed values of a corresponding atomic literal value in a message. Objects for primitive data types, corresponding to the XSD data types, have only the *name*, *namespace*, and *documentation* properties inherited from the Component class. For example, figure 4-14 shows the CMF representation of the `xs:string` primitive data type. All other datatypes are represented by either a Restriction, List, or Union object.
 
 <div style="font-size:90%;">
 
@@ -757,9 +762,9 @@ A Datatype object defines the allowed values of a corresponding atomic literal v
 ```
 
 </div>
-<center><i><a name="fig4-12"></a>Figure 4-12: Plain CMF datatype object for `xs:string`</i></center><p/>
+<center><i><a name="fig4-14"></a>Figure 4-14: Plain CMF datatype object for `xs:string`</i></center><p/>
 
-## 4.9 List class
+## 4.10 List class
 
 A List object defines a datatype as a whitespace-separated list of atomic values.
 
@@ -769,7 +774,7 @@ A List object defines a datatype as a whitespace-separated list of atomic values
 | isOrdered | OrderedPropertyIndicator | True if the order of a repeated property within an object is significant. | 0..1 | - | xs:boolean |
 | listType | ListOf | The datatype of the atomic values in a list. | 1 | - | DatatypeType |
 
-A List object is represented in XSD as a complex type definition that extends a simple type definition with an `xs:list` element.  Figure 4-13 shows the CMF and XSD representation of a List object.
+A List object is represented in XSD as a complex type definition that extends a simple type definition with an `xs:list` element.  Figure 4-15 shows the CMF and XSD representation of a List object.
 
 <div style="font-size:90%;">
 
@@ -798,7 +803,7 @@ A List object is represented in XSD as a complex type definition that extends a 
 ```
 
 </div>
-<center><i><a name="fig4-13"></a>Figure 4-13: List object in CMF and XSD</i></center><p/>
+<center><i><a name="fig4-15"></a>Figure 4-15: List object in CMF and XSD</i></center><p/>
 
 The following table shows the mapping between List object representations in CMF and XSD.
 
@@ -811,7 +816,7 @@ The following table shows the mapping between List object representations in CMF
 | ListOf | `xs:simpleType/xs:list/@itemType` |
 | OrderedPropertyIndicator | `xs:complexType/@appinfo:orderedPropertyIndicator` |
 
-## 4.10 Union class
+## 4.11 Union class
 
 A Union object defines a datatype as the union of one or more datatypes.
 
@@ -820,7 +825,7 @@ A Union object defines a datatype as the union of one or more datatypes.
 | Union | UnionDatatype | A data type for a NIEM model datatype that is a union of datatypes.
 | unionType | UnionOf | A NIEM model datatype that is a member of a union datatype. | 1..* | - | DatatypeType |
 
-A Union object is represented in XSD as a complex type definition that extends a simple type definition with an `xs:union` element. Figure 4-14 shows the XSD and CMF representations of a Union object.
+A Union object is represented in XSD as a complex type definition that extends a simple type definition with an `xs:union` element. Figure 4-16 shows the XSD and CMF representations of a Union object.
 
 <div style="font-size:90%;">
 
@@ -848,7 +853,7 @@ A Union object is represented in XSD as a complex type definition that extends a
 ```
 
 </div>
-<center><i><a name="fig4-14"></a>Figure 4-14: Union object in CMF and XSD</i></center><p/>
+<center><i><a name="fig4-16"></a>Figure 4-16: Union object in CMF and XSD</i></center><p/>
 
 The following table shows the mapping between UnionDatatype object representations in CMF and XSD.
 
@@ -860,7 +865,7 @@ The following table shows the mapping between UnionDatatype object representatio
 | DeprecatedIndicator | `xs:complexType/@appinfo:deprecated` |
 | UnionOf | `xs:simpleType/xs:union/@memberTypes` |
 
-## 4.11 Restriction class
+## 4.12 Restriction class
 
 A Restriction object defines a datatype as a restriction of a base datatype plus zero or more restricting Facet objects.
 
@@ -871,7 +876,7 @@ A Restriction object defines a datatype as a restriction of a base datatype plus
 | facet | Facet | A data concept for a facet that restricts an aspect of a data type. | 0..* | - | FacetType |
 | clb | CodeListBinding | A property for connecting atomic values defined by a data type to a a column of a code list. | 0..1 | - | CodeListBindingType |
 
-A Restriction object is represented in XSD as a complex type with simple content containing an `xs:restriction` element. Figure 4-15 shows the CMF and XSD representations of a Restriction object.
+A Restriction object is represented in XSD as a complex type with simple content containing an `xs:restriction` element. Figure 4-17 shows the CMF and XSD representations of a Restriction object.
 
 <div style="font-size:90%;">
 
@@ -911,7 +916,7 @@ A Restriction object is represented in XSD as a complex type with simple content
 ```
 
 </div>
-<center><i><a name="fig4-15"></a>Figure 4-15: Restriction object in CMF and XSD</i></center><p/>
+<center><i><a name="fig4-17"></a>Figure 4-17: Restriction object in CMF and XSD</i></center><p/>
 
 The following table shows the mapping between Restriction object representations in CMF and XSD.
 
@@ -925,7 +930,7 @@ The following table shows the mapping between Restriction object representations
 | Facet | `xs:complexType/xs:simpleContent/xs:restriction/`*XSD-Facet-element* |
 | CodeListBinding | `xs:complexType/xs:annotation/xs:appinfo/clsa:SimpleCodeListBinding` |
 
-## 4.12 Facet class
+## 4.13 Facet class
 
 There are eleven Facet subclasses in the metamodel, and eleven Facet properties in CMF, each with the same meaning as the corresponding eleven constraining facets in XML Schema. 
 
@@ -950,7 +955,7 @@ The value property of each CMF facet type is represented in XSD as the `@value` 
 
 The DocumentationText property of each CMF facet type is represented in XSD as the `xs:enumeration/xs:annotation/xs:documentation`.
 
-## 4.13 CodeListBinding class
+## 4.14 CodeListBinding class
 
 A CodeListBinding object establishes a relationship between a Restriction object and a code list specification. The detailed meaning of the object properties is provided in [ref code list specification]().
 
@@ -969,45 +974,503 @@ A CodeListBinding object is represented in XSD as a `clsa:SimpleCodeListBinding`
 | CodeListColumnName | `clsa:SimpleCodeListBinding/@columnName` |
 | CodeListConstrainingIndicator | `clsa:SimpleCodeListBinding/@constrainingIndicator` |
 
-## 4.14 Augmentation class
+## 4.15 Augmentation class
 
 <center>
   <figure class="image">
-    <a name="fig4-16"/></a>
+    <a name="fig4-18"/></a>
     <img src="images/augment.png" style="zoom:60%"/>
-    <figcaption><i>Figure 4-16: Augmentation class diagram</i></figcaption>
+    <figcaption><i>Figure 4-18: Augmentation class diagram</i></figcaption>
   </figure>
 </center>
 
-*Augmentation* is the NIEM mechanism allowing the author of one namespace (the *augmenting namespace*) to add a property to a class in another namespace (the *augmented namespace*). It is an alternative to [subclassing (see section XX)](). Augmentation is used when the author of a namespace wants to add a property to a class defined in a different namespace – without altering the augmented namespace.
+Developers of domain schemas and other schemas that build on and extend the NIEM release schemas need to be able to define additional characteristics of common types. For example, the *NIEM Justice* domain, which addresses justice and public safety concerns, considers the following elements to be characteristics of a person, as defined by `nc:PersonType`:
 
-An Augmentation object belongs to the augmenting namespace. It represents the augmentation, in terms of the augmented class, augmenting property, and the property cardinality. For example, the Justice domain namespace in the NIEM model has an augmentation object for `nc:PersonType`, `j:PersonIsStudentIndicator`, and cardinality 0..1. (See [section XX]() for the CMF and XSD representation of this object.)
+* `j:PersonAdultIndicator`
+* `j:PersonForeignNationalIndicator`
 
-A *global augmentation* does not have an augmented class; it applies to every class in the model. (See [section XX]().)
+There are several approaches that could be used by a domain to add elements to a common type. One method is to have each domain create a subclass of nc:PersonType that adds elements and attributes for the needed content. Some of the problems with this approach include:
+
+* It results in numerous, domain-specific specializations of `nc:PersonType`, each with common content and extension-specific content.
+
+* There is no method for a message designer to bring these types back together into a single type that carries the desired properties. XML Schema does not support multiple inheritance, so there would be no way to join together `nc:PersonType, `j:PersonType`, and `im:PersonType`.
+
+* There is no standard or easy way for the developer to express that the various element instances of the various person types represent the same person, or which parts of those instances are required to be populated; does each person restate the name and birth-date, or is that handled by just one instance?
+
+NIEM's alternative to subclassing is *augmentation*. This is the NIEM mechanism allowing the author of one namespace (the *augmenting namespace*) to add a property to a class in another namespace (the *augmented namespace*) -- without making any change to the augmented namespace. For example:
+
+* `https://docs.oasis-open.org/niemopen/ns/model/domains/justice/6.0/` is an augmenting namespace
+* `https://docs.oasis-open.org/niemopen/ns/model/niem-core/6.0/` is an augmented namespace
+* `j:PersonAdultIndicator` is an *augmentation property*
+* `nc:PersonType` is an *augmented class*
+
+The XSD representation of an augmentation is complex, and is explained below. In CMF, an augmentation is represented as an AugmentationRecord object belonging to the augmenting namespace. In this way, each namespace object contains a complete list of all the augmentations it makes.
 
 | UML | CMF | Definition | Card | Ord | Range |
 | --- | --- | ---------- | :--: | :-: | ----- |
-| Augmentation | AugmentationType | A data type for a class that is augmented with a property by a namespace. |
-| index | AugmentationIndex | The ordinal position of an augmentation property that is part of an [augmentation type](). | 1 | - | xs:integer |
+| Augmentation | AugmentationRecordType | A data type for a class that is augmented with a property by a namespace. |
 | minOccurs | MinOccursQuantity | The minimum number of times a property may occur within an object of a class. | 1 | - | xs:integer |
 | maxOccurs | MaxOccursQuantity | The maximum number of times a property may occur within an object of a class. | 1 | - | MaxOccursType |
-| global | GlobalAugmented | A kind of component (all associations, all objects, or all atomic values) that is the target of this global augmentation. | 0..1 | - | xs:NCName |
+| index | AugmentationIndex | The ordinal position of an augmentation property that is part of an [augmentation type](). | 1 | - | xs:integer |
+| global | GlobalAugmentedCode | A kind of component (all associations, all objects, or all atomic values) that is the target of this global augmentation. | 0..1 | - | GlobalAugmentationCodeType |
 | class | Class | The augmented class. | 0..1 | - | ClassType |
 | property | Property | The augmentation property . | 1 | - | PropertyType |
 
+For example, augmentation of `nc:PersonType` with `j:PersonAdultIndicator` and `j:PersonForeignNationalIndicator` by the justice namespace results in the following CMF:
+
+<div style="font-size:90%;">
+
+```
+<Namespace>
+  <NamespaceURI>https://docs.oasis-open.org/niemopen/ns/model/domains/justice/6.0/</NamespaceURI>
+  <NamespacePrefix>j</NamespacePrefix>
+  <AugmentationRecord>
+    <Class structures:ref="nc.PersonType" xsi:nil="true"/>
+    <Property structures:ref="j.PersonAdultIndicator" xsi:nil="true"/>
+    <MinOccursQuantity>0</MinOccursQuantity>
+    <MaxOccursQuantity>unbounded</MaxOccursQuantity>
+    <AugmentationIndex>0</AugmentationIndex>
+  </AugmentationRecord>
+  <AugmentationRecord>
+    <Class structures:ref="nc.PersonType" xsi:nil="true"/>
+    <Property structures:ref="j.PersonForeignNationalIndicator" xsi:nil="true"/>
+    <MinOccursQuantity>0</MinOccursQuantity>
+    <MaxOccursQuantity>unbounded</MaxOccursQuantity>
+    <AugmentationIndex>1</AugmentationIndex>
+  </AugmentationRecord>  
+</Namespace>
+```
+
+</div>
+<center><i><a name="fig4-19"></a>Figure 4-19: Augmentation object in CMF</i></center><p/>
+
+In CMF, the augmentation property appears in the augmented Class object -- like any other property, except that the augmenting namespace is recorded. For example, augmentation of `nc:PersonType` with `j:PersonAdultIndicator` and `j:PersonForeignNationalIndicator` by the justice namespace results in the following CMF:
+
+ <div style="font-size:90%;">
+
+```
+<Class>
+  <Name>PersonType</Name>
+  <Namespace structures:ref="nc" xsi:nil="true"/>
+  <!-- documentation and other HasProperty objects omitted -->
+  <HasProperty>
+    <DataProperty structures:ref="j.PersonAdultIndicator" xsi:nil="true"/>
+    <MinOccursQuantity>0</MinOccursQuantity>
+    <MaxOccursQuantity>unbounded</MaxOccursQuantity>
+    <AugmentingNamespace>
+      https://docs.oasis-open.org/niemopen/ns/model/domains/justice/6.0/
+    </AugmentingNamespace>
+  </HasProperty>
+  <HasProperty>
+    <DataProperty structures:ref="j.PersonForeignNationalIndicator" xsi:nil="true"/>
+    <MinOccursQuantity>0</MinOccursQuantity>
+    <MaxOccursQuantity>unbounded</MaxOccursQuantity>
+    <AugmentingNamespace>
+      https://docs.oasis-open.org/niemopen/ns/model/domains/justice/6.0/
+    </AugmentingNamespace>
+  </HasProperty>  
+</Class>
+```
+
+</div>
+<center><i><a name="fig4-20"></a>Figure 4-20: AugmentingNamespace property in CMF</i></center><p/>
+
+An augmentation may also be applied globally, rather than to a particular class. In this case the AugmentationRecord will have a GlobalAugmentedCode property. The code values have the following definitions:
+
+| Code | Definition |
+| ---- | ---------- |
+| ASSOC | The augmentation applies to all association classes. |
+| OBJECT | The augmentation applies to all non-association classes with object properties. |
+| ATOMIC | The augmentation applies to all classes with no object properties. |
+
 **Rule 4-7:** The *global* property, or the *class* property, but not both, MUST appear in an Augmentation object.
 
-An Augmentation object is represented in NIEM XSD in different ways, depending on the augmenting property and the type being augmented.
+### 4.15.1 Augmentations in NIEM XSD
 
-### 4.14.1 Augmenting complex content with an element
+Augmentations are represented in NIEM XSD in four different ways, depending on the augmenting property and the augmented class:
 
-### 4.14.2 Augmenting complex content with an attribute
+* The augmenting property may be represented in XSD by an attribute or by an element.
 
-### 4.14.3 Augmenting simple content with an element
+* The augmented class may be represented in XSD by:
 
-### 4.14.4 Augmenting simple content with an attribute
+  * a type with child elements -- that is, a complex type with complex content (abbreviated "CCC type")
+  
+  * a type with an atomic value -- that is, a complex type with simple content (abbreviated "CSC type") 
 
-## 4.15 LocalTerm class
+Augmentations in NIEM XSD do not change the reference or extension schema document for the augmented namespace. They ensure that every XML document that is valid against an augmented schema will also be valid against the referennce or extension schema document.
+
+### 4.15.2 Augmenting a CCC type with an element
+
+Every CCC type in a reference or extension schema document contains an *augmentation point element*, which provides a place for any augmentation properties.
+
+ <div style="font-size:90%;">
+
+```
+<xs:complexType name="PersonType">
+  <xs:annotation>
+    <xs:documentation>A data type for a human being.</xs:documentation>
+  </xs:annotation>
+  <xs:complexContent>
+    <xs:extension base="structures:ObjectType">
+      <xs:sequence>
+        <xs:element ref="nc:PersonBirthDate" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="nc:PersonName" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="nc:PersonAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:extension>
+  </xs:complexContent>
+</xs:complexType>
+<xs:element name="PersonAugmentationPoint" abstract="true">
+  <xs:annotation>
+    <xs:documentation>An augmentation point for PersonType.<</xs:documentation>
+  </xs:annotation>
+</xs:element>
+```
+
+</div>
+<center><i><a name="fig4-21"></a>Figure 4-21: An augmentation point</i></center><p/>
+
+Note that the augmentation point element has the same namespace and name as the type, with the suffix "Type" replaced by "AugmentationPoint". The augmentation point is always defined with cardinality (minOccurs 0, maxOccurs unbounded) to ensure that it can support an arbitrary number of augmentations. The augmentation point is always last in the `xs:sequence` schema element. Because it is abstract, it cannot appear in messages -- it is a placeholder for element substitution only. The augmentation point element may be constrained in subset or message schema documents, or omitted if not needed in a particular message specification.
+
+In order to augment a CCC type with an element, a namespace defines an *augmentation type* to contain the augmenting properties. It also declares a corresponding *augmentation element* that is substitutable for the augmentation point. Figure 4-22 shows the XSD for a namespace augmenting `nc:PersonType` with two properties. (The corresponding CMF is shown in figures 4-19 and 4-20 above.)
+
+ <div style="font-size:90%;">
+
+```
+<xs:complexType name="PersonAugmentationType">
+  <xs:complexContent>
+    <xs:extension base="structures:AugmentationType">
+      <xs:sequence>
+        <xs:element ref="j:PersonAdultIndicator" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="j:PersonForeignNationalIndicator" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:extension>
+  </xs:complexContent>
+</xs:complexType>
+<xs:element name="PersonAugmentation" type="j:ExampleAugmentationType" substitutionGroup="nc:PersonAugmentationPoint"/>
+```
+
+</div>
+<center><i><a name="fig4-22"></a>Figure 4-22: Augmenting a CCC type via an augmentation element</i></center><p/>
+
+In an XML message, the augmentation element is only a container for the augmenting properties; it has no meaning of its own. Figure 4-23 shows a NIEM XML message with this augmentation.
+
+ <div style="font-size:90%;">
+
+```
+<nc:Person>
+  <nc:PersonFullName>Tommy Atkins</nc:PersonFullName>
+  <j:PersonAugmentation>
+    <j:PersonAdultIndicator>true</j:PersonAdultIndicator>
+    <j:PersonForeignNationalIndicator>true</j:PersonForeignNationalIndicator>
+  </j:PersonAugmentation>
+</nc:Person>
+```
+
+</div>
+<center><i><a name="fig4-23"></a>Figure 4-23: An XML message from a CCC type with an augmentation element</i></center><p/>
+
+There is no need for the augmentation element in a NIEM JSON message. It does not appear in the equivalent JSON message, shown in figure 4-24 below.
+
+ <div style="font-size:90%;">
+
+```
+{
+  "nc:Person": {
+    "nc:PersonFullName": "Tommy Atkins",
+    "j:PersonAdultIndicator": true,
+    "j:PersonForeignNationalIndicator": true
+  }
+}
+```
+
+</div>
+<center><i><a name="fig4-24"></a>Figure 4-24: A JSON message from a CCC type with an augmentation element</i></center><p/>
+
+The other way to augment a CCC type with an element is to substitute an ordinary element (that is, one that does not have an augmentation type) for the augmentation point. In this case there is no augmentation element in the XML message. Figure 4-25 shows the XSD from the augmenting namespace (`http://example.com/s4figs/`). It also shows the CMF for this augmentation. Figure 4-26 shows an XML message with this augmentation, and the equivalent JSON message.
+
+<div style="font-size:90%;">
+
+```
+<xs:element name="PersonFictionalIndicator" type="niem-xs:boolean"
+    substitionGroup="nc:PersonAugmentationPoint">
+  <xs:annotation>
+    <xs:documentation>True if a person is a character in a work of fiction.</xs:documentation>
+  </xs:annotation>
+</xs:element>
+----------------
+<Namespace>
+  <NamespaceURI>http://example.com/s4figs/</NamespaceURI>
+  <NamespacePrefix>ex</NamespacePrefix>
+  <DocumentationText>Example namespace for NDR6</DocumentationText>
+  <AugmentationRecord>
+    <Class structures:ref="nc.PersonType" xsi:nil="true"/>
+    <DataProperty structures:ref="ex.PersonFictionalCharacterIndicator" xsi:nil="true"/>
+    <MinOccursQuantity>0</MinOccursQuantity>
+    <MaxOccursQuantity>1</MaxOccursQuantity>
+  </AugmentationRecord>
+</Namespace>
+<Class>
+  <Name>PersonType</Name>
+  <Namespace structures:ref="nc" xsi:nil="true"/>
+  <!-- documentation and other HasProperty objects omitted -->
+  <HasProperty>
+    <DataProperty structures:ref="j.PersonFictionalIndicator" xsi:nil="true"/>
+    <MinOccursQuantity>0</MinOccursQuantity>
+    <MaxOccursQuantity>unbounded</MaxOccursQuantity>
+    <AugmentingNamespace>http://example.com/s4figs/</AugmentingNamespace>
+  </HasProperty>
+</Class>
+<DataProperty>
+  <Name>PersonFictionalIndicator</Name>
+  <Namespace>ex</Namespace>
+  <DocumentationText>True if a person is a character in a work of fiction.</DocumentationText>
+  <Datatype structures:ref="xs:boolean" xsi:nil="true"/>
+</DataProperty>
+```
+
+</div>
+<center><i><a name="fig4-25"></a>Figure 4-25: Augmenting a CCC type by substituting an ordinary element</i></center><p/>
+
+<div style="font-size:90%;">
+
+```
+<nc:Person>
+  <nc:PersonFullName>Peter Wimsey</nc:PersonFullName>
+  <ex:PersonFictionalIndicator>true</ex:PersonFictionalIndicator>
+</nc:Person>
+---------------
+{
+  "nc:Person": {
+    "nc:PersonFullName": "Peter Wimsey",
+    "ex:PersonFictionalIndicator": true
+  }
+}
+```
+
+</div>
+<center><i><a name="fig4-26"></a>Figure 4-26: Equivalent XML and JSON messages from a CCC type augmented by an ordinary element</i></center></p>
+
+### 4.15.3 Augmenting a CCC type with an attribute
+
+A CCC type is augmented with an attribute property by addding an `xs:attribute` element to the complex type definition. This must be done in a subset schema document for the augmented namespace (and not the reference or extension schema document). The `xs:attribute` element must include *appinfo* to specify the augmenting namespace. Figure 4-27 shows the XSD representation of `nc:PersonType` augmented with the attribute `ex:detectiveIndicator`, and the CMF for this augmentation. Figure 4-28 shows an XML message that includes this augmentation, and the equivalent JSON message.
+
+<div style="font-size:90%;">
+
+```
+<xs:complexType name="PersonType">
+  <xs:annotation>
+    <xs:documentation>A data type for a human being.</xs:documentation>
+  </xs:annotation>
+  <xs:complexContent>
+    <xs:extension base="structures:ObjectType">
+      <xs:sequence>
+        <xs:element ref="nc:PersonBirthDate" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="nc:PersonName" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="nc:PersonAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attribute ref="ex:detectiveIndicator 
+          appinfo:augmentingNamespace="http://example.com/s4figs"/>
+    </xs:extension>
+  </xs:complexContent>
+</xs:complexType>
+----------------
+<Class>
+  <Name>PersonType</Name>
+  <Namespace structures:ref="nc" xsi:nil="true"/>
+  <!-- documentation and other HasProperty objects omitted -->
+  <HasProperty>
+    <DataProperty structures:ref="ex:detectiveIndicator" xsi:nil="true"/>
+    <MinOccursQuantity>0</MinOccursQuantity>
+    <MaxOccursQuantity>unbounded</MaxOccursQuantity>
+    <AugmentingNamespace>http://example.com/s4figs/</AugmentingNamespace>
+  </HasProperty>
+</Class>
+```
+
+</div>
+<center><i><a name="fig4-27"></a>Figure 4-27: Augmenting a CCC type with an attribute</i></center><p/>
+
+<div style="font-size:90%;">
+
+```
+<nc:Person>
+  <nc:PersonFullName>Peter Wimsey</nc:PersonFullName>
+  <ex:detectiveIndicator>true</ex:detectiveIndicator>
+</nc:Person>
+---------------
+{
+  "nc:Person": {
+    "nc:PersonFullName": "Peter Wimsey",
+    "ex:detectiveIndicator": true
+  }
+}
+```
+
+</div>
+<center><i><a name="fig4-28"></a>Figure 4-28: Equivalent XML and JSON messages from a CCC type augmented with an attribute</i></center><p/>
+
+### 4.15.4 Augmenting a CSC type with an attribute
+
+A CSC type is also augmented with an attribute property by addding an `xs:attribute` to the complex type definition. This must be done in a subset schema document for the augmented namespace. The attribute reference must include *appinfo* to specify the augmenting namespace. Figure 4-29 shows the XSD representation of `nc:DirectionCodeType` augmented with the attribute `ex:magneticIndicator`, and the equivalent CMF.  Figure 4-30 shows part of an XML message that includes this augmentation, and the equivalent JSON message.
+
+<div style="font-size:90%;">
+
+```
+  <xs:complexType name="DirectionCodeType">
+    <xs:annotation>
+      <xs:documentation>A data type for compass directions.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="nc:DirectionCodeSimpleType">
+        <xs:attribute ref="ex:magneticIndicator"
+            appinfo:augmentingNamespace="http://example.com/s4figs/">
+        <xs:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+---------------
+<Namespace>
+  <NamespaceURI>http://example.com/s4figs/</NamespaceURI>
+  <NamespacePrefix>ex</NamespacePrefix>
+  <DocumentationText>Example namespace for NDR6</DocumentationText>
+  <AugmentationRecord>
+    <Class structures:ref="nc.DirectionCodeType" xsi:nil="true"/>
+    <DataProperty structures:ref="ex.magneticIndicator" xsi:nil="true"/>
+    <MinOccursQuantity>0</MinOccursQuantity>
+    <MaxOccursQuantity>1</MaxOccursQuantity>
+  </AugmentationRecord>
+</Namespace>
+<Class>
+  <Name>DirectionCodeType</Name>
+  <Namespace>nc</Namespace>
+  <DocumentationText>A data type for compass directions.</DocumentationText>
+  <HasProperty>
+    <DataProperty structures:ref="nc:DirectionCodeLiteral" xsi:nil="true"/>
+    <MinOccursQuantity>1</MinOccursQuantity>
+    <MaxOccursQuantity>1</MaxOccursQuantity>
+  </HasProperty>
+  <HasProperty>
+    <DataProperty structures:ref="ex:magneticIndicator">
+    <MinOccursQuantity>0</MinOccursQuantity>
+    <MaxOccursQuantity>1</MaxOccursQuantity>
+    <AugmentingNamespace>http://example.com/s4figs/</AugmentingNamespace>
+  </HasProperty>
+</Class>
+```
+
+</div>
+<center><i><a name="fig4-29"></a>Figure 4-29: Augmenting a CSC type with an attribute</i></center><p/>
+
+<div style="font-size:90%;">
+
+```
+<nc:RelativeLocationDirectionCode ex:magneticIndicator="true">E</nc:RelativeLocationDirectionCode>
+---------------
+{
+  "nc:RelativeLocationDirectionCode": {
+    "nc:DirectionCodeLiteral": "E",
+    "ex:magneticIndicator": true
+  }
+}
+```
+
+</div>
+<center><i><a name="fig4-30"></a>Figure 4-30: Equivalent XML and JSON messages from a CSC type augmented with an attribute</i></center><p/>
+
+### 4.15.5 Augmenting simple content with an element
+
+XML simple content cannot contain a child element. A CSC type is augmented with an element property by adding a *reference attribute* to the complex type definition. A reference attribute is a pointer to an element in a message. Figure 4-31 shows the XSD representation of `nc:DirectionCodeType` augmented with the element `nc:Metadata`, and the equivalent CMF.
+
+<div style="font-size:90%;">
+
+```
+  <xs:complexType name="DirectionCodeType">
+    <xs:annotation>
+      <xs:documentation>A data type for compass directions.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="nc:DirectionCodeSimpleType">
+        <xs:attribute ref="nc:metadataRef"
+            appinfo:augmentingNamespace="http://example.com/s4figs/">
+        <xs:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:attribute name="metadataRef" type="xs:IDREFS">
+    <xs:annotation>
+      <xs:documentation>
+        A list of metadata objects that apply to a node or object represented by an XML element.
+      </xs:documentation>
+    </xs:annotation>
+  </xs:attribute>  
+---------------
+<Namespace>
+  <NamespaceURI>http://example.com/s4figs/</NamespaceURI>
+  <NamespacePrefix>ex</NamespacePrefix>
+  <DocumentationText>Example namespace for NDR6</DocumentationText>
+  <AugmentationRecord>
+    <Class structures:ref="nc.DirectionCodeType" xsi:nil="true"/>
+    <DataProperty structures:ref="nc:metadataRef" xsi:nil="true"/>
+    <MinOccursQuantity>0</MinOccursQuantity>
+    <MaxOccursQuantity>1</MaxOccursQuantity>
+  </AugmentationRecord>
+</Namespace>
+<Class>
+  <Name>DirectionCodeType</Name>
+  <Namespace>nc</Namespace>
+  <DocumentationText>A data type for compass directions.</DocumentationText>
+  <HasProperty>
+    <DataProperty structures:ref="nc:DirectionCodeLiteral" xsi:nil="true"/>
+    <MinOccursQuantity>1</MinOccursQuantity>
+    <MaxOccursQuantity>1</MaxOccursQuantity>
+  </HasProperty>
+  <HasProperty>
+    <DataProperty structures:ref="nc:metadataRef">
+    <MinOccursQuantity>0</MinOccursQuantity>
+    <MaxOccursQuantity>1</MaxOccursQuantity>
+    <AugmentingNamespace>http://example.com/s4figs/</AugmentingNamespace>
+  </HasProperty>
+</Class>
+<DataProperty structures:id="nc.metadataRef">
+  <Name>privacyAssertionRef</Name>
+  <Namespace structures:ref="nc" xsi:nil="true"/>
+  <DocumentationText>
+    A list of metadata objects that apply to a node or object represented by an XML element.
+  </DocumentationText>
+  <Datatype structures:ref="xs.IDREFS" xsi:nil="true"/>
+  <AttributeIndicator>true</AttributeIndicator>
+</DataProperty>
+```
+
+</div>
+<center><i><a name="fig4-31"></a>Figure 4-31: Augmenting a CSC type with an element</i></center><p/>
+
+A property with a name ending in "Ref" is a reference attribute. It refers to an element in the same namespace with the same name, first letter in uppercase, and "Ref" deleted; for example, "nc:metadataRef" points to an "nc:Metadata" element. Figure 4-32 shows part of an XML message that includes the above augmentation, and the equivalent JSON message.
+
+<div style="font-size:90%;">
+
+```
+<nc:RelativeLocationDirectionCode nc:metadataRef="#MD01">E</nc:RelativeLocationDirectionCode>
+<nc:Metadata structures:id="#MD01">
+  <nc:Comment>Our best guess</nc:Comment>
+</nc:Metadata>
+---------------
+{
+  "nc:RelativeLocationDirectionCode": {
+    "nc:DirectionCodeLiteral": "E",
+    "nc:metadataRef": { "@id": "#MD01" }
+  },
+  "nc:Metadata": {
+    "nc:Comment": "Our best guess"
+  }
+}
+```
+
+</div>
+<center><i><a name="fig4-32"></a>Figure 4-32: Equivalent XML and JSON messages from a CSC type augmented with an attribute</i></center><p/>
+
+## 4.16 LocalTerm class
 
 A *local term* is a word, phrase, acronym, or other string of characters that is used in the name of a namespace component, but that is not defined in [OED](), or that has a non-OED definition in this nameespace, or has a word sense that is in some way unclear. A LocalTerm object captures the namespace author's definition of such a local term. For example, the Justice domain namespace in the NIEM model has a LocalTerm object defining the name "CLP" with documentation "Commercial Learners Permit". (See [section XX]() for the CMF and XSD representation of this object.)
 
@@ -1022,7 +1485,7 @@ A *local term* is a word, phrase, acronym, or other string of characters that is
 
 **Rule 4-8:** A LocalTerm object MUST have a *documentation* property, or a *literal* property, or both.
 
-A LocalTerm object is represented in XSD by a `appinfo:LocalTerm` element within `xs:appinfo` element in the `xs:schema` element. Figure 4-17 shows a LocalTerm object in XSD and the corresponding CMF.
+A LocalTerm object is represented in XSD by a `appinfo:LocalTerm` element within `xs:appinfo` element in the `xs:schema` element. Figure 4-33 shows a LocalTerm object in XSD and the corresponding CMF.
 
 <div style="font-size:90%;">
 
@@ -1054,7 +1517,7 @@ A LocalTerm object is represented in XSD by a `appinfo:LocalTerm` element within
 ```
 
 </div>
-<center><i><a name="fig4-17"></a>Figure 4-17: Example LocalTerm objects in CMF and XSD</i></center><p/>
+<center><i><a name="fig4-33"></a>Figure 4-33: Example LocalTerm objects in CMF and XSD</i></center><p/>
 
 The following table shows the mapping between LocalTerm object representations in CMF and XSD.
 
@@ -1066,7 +1529,7 @@ The following table shows the mapping between LocalTerm object representations i
 | sourceURI | SourceURI | Each URI in the `appinfo:LocalTerm/@sourceURIs` list |
 | citation | SourceCitationText | `appinfo:LocalTerm/appinfo:SourceText` |
 
-## 4.16 TextType class
+## 4.17 TextType class
 
 A TextType object combines a string property with a language property.
 
@@ -1080,8 +1543,7 @@ A TextType object combines a string property with a language property.
 
 # 5. Modeling rules for NIEM XSD
 
-This section specifies the rules for a NIEM data model in XSD. These rules amplify and constrain the use of XML Schema, for three
-reasons:
+This section specifies the rules for a NIEM data model in XSD. These rules amplify and constrain the use of XML Schema, for three reasons:
 
 1. For reuse: To permit XML schema documents created by independent communities to be composed into a single
 data exchange specification, and to forbid schema constructs that needlessly limit such reuse.

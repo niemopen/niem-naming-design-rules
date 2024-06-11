@@ -159,7 +159,6 @@ ObjectProperty
 Class
 --
 -isAbstract
--isAugmentable
 -isAdapter
 -referenceCode</panel_attributes>
     <additional_attributes/>
@@ -482,10 +481,10 @@ aug &gt;
     <panel_attributes>--
 Augmentation
 --
--index*
 -minOccurs
 -maxOccurs
--global</panel_attributes>
+-global
+-index*</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -817,7 +816,7 @@ drawArcOpen(0,0,20,20,270,180);
 </custom_code>
   </element>
   <element>
-    <type>CustomElementImpl</type>
+    <type>com.baselet.element.old.custom.CustomElementWithErrors</type>
     <coordinates>
       <x>510</x>
       <y>440</y>

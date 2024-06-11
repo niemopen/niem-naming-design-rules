@@ -27,10 +27,10 @@ bg=LIGHT_GRAY</panel_attributes>
     <panel_attributes>--
 Augmentation
 --
--index*
 -minOccurs
 -maxOccurs
--global</panel_attributes>
+-global
+-index*</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
