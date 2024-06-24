@@ -7,6 +7,9 @@ Pagewidth:
 
 </div>
 
+> 2024-06-24 draft
+> Incorporated Jim's comments on augmentation section
+>
 > 2024-06-10 draft
 >
 > Augmentation section is complete
@@ -213,6 +216,8 @@ Namespaces are the units of model configuration management. Once published, the 
 
 The content of a NIEM message may be formatted as XML or JSON. Any NIEM message may be converted from one supported format to another, without loss of information. Figures 3-4 and 3-5 show the equivalent NIEM XML and JSON serializations of the information depicted in figure 3-3.
 
+<div style="font-size:90%;">
+
 ```
 <nc:Person
   xmlns:nc="https://docs.oasis-open.org/niemopen/ns/model/niem-core/6.0/">
@@ -235,6 +240,7 @@ The content of a NIEM message may be formatted as XML or JSON. Any NIEM message 
 }
 ```
 
+</div>
 <center><i><a name="fig3-5"></a>Figure 3-5: Sample NIEM JSON message</i></center><p/>
 
 ## 3.8 NIEM Conformance
@@ -339,6 +345,8 @@ A Namespace object represents a namespace in a model. For example, the namespace
 
 Figure 4-4 shows the representation of a Namespace object in CMF and in the corresponding XSD.
 
+<div style="font-size:90%;">
+
 ```
 <Namespace>
   <NamespaceURI>https://docs.oasis-open.org/niemopen/ns/model/niem-core/6.0/</NamespaceURI>
@@ -365,6 +373,8 @@ Figure 4-4 shows the representation of a Namespace object in CMF and in the corr
   </xs:annotation>    
 </xs:schema>
 ```
+
+</div>
 <center><i><a name="fig4-4"></a>Figure 4-4: Namespace object in CMF and XSD</i></center><p/>
 
 The following table shows the mapping between Namespace object representations in CMF and XSD.
@@ -433,7 +443,7 @@ A Class object represents an object class in a NIEM model.  For example, `nc:Per
 A Class object is represented in XSD in two ways: 
 
 * as a complex type with complex content ("CCC type"), if there are child elements
-* as a complex type with simple content ("CSC type"), if there are attributes from the model
+* as a complex type with simple content ("CSC type"), if there are attributes but no children
 
 Figure 4-7 shows a Class object represented in CMF, and then in XSD as a complex type with child elements.
 
@@ -547,7 +557,7 @@ A HasProperty object represents the occurrence of a property in a class. For exa
 | maxOccurs | MaxOccursQuantity | The maximum number of times a property may occur within an object of a class. | 1 | - | MaxOccursType |
 | documentation | DocumentationText | A human-readable documentation of a property that is content of a class. | 0..* | Y | TextType |
 | isOrdered | OrderedPropertyIndicator | True if the order of a repeated property within an object is significant. | 0..1 | - | xs:boolean |
-| augNamespace | AugmentingNamespace | A namespace responsible for augmenting a class with a property. | 0..1 | - | NamespaceType |
+| augNamespace | AugmentingNamespace | A namespace responsible for augmenting a class with a property. | 0..* | - | NamespaceType |
 | property | Property | The property that occurs in the class. | 1 | - | PropertyType |
 
 A HasProperty object is represented in XSD as an element or attribute reference within a complex type definition. Figure 4-9 shows two HasProperty objects in CMF and the corresponding XSD.
@@ -872,7 +882,7 @@ A Restriction object defines a datatype as a restriction of a base datatype plus
 | UML | CMF | Definition | Card | Ord | Range |
 | --- | --- | ---------- | :--: | :-: | ----- |
 | Restriction | RestrictionType | A data type for a restriction of a data type. |
-| restricts | RestrictionOf | The NIEM model datatype that is restricted by this datatype. | 1 | - | DatatypeType |
+| restricts | RestrictionBase | The NIEM model datatype that is restricted by this datatype. | 1 | - | DatatypeType |
 | facet | Facet | A data concept for a facet that restricts an aspect of a data type. | 0..* | - | FacetType |
 | clb | CodeListBinding | A property for connecting atomic values defined by a data type to a a column of a code list. | 0..1 | - | CodeListBindingType |
 
@@ -1011,8 +1021,8 @@ The XSD representation of an augmentation is complex, and is explained below. In
 | Augmentation | AugmentationRecordType | A data type for a class that is augmented with a property by a namespace. |
 | minOccurs | MinOccursQuantity | The minimum number of times a property may occur within an object of a class. | 1 | - | xs:integer |
 | maxOccurs | MaxOccursQuantity | The maximum number of times a property may occur within an object of a class. | 1 | - | MaxOccursType |
-| index | AugmentationIndex | The ordinal position of an augmentation property that is part of an [augmentation type](). | 1 | - | xs:integer |
-| global | GlobalAugmentedCode | A kind of component (all associations, all objects, or all atomic values) that is the target of this global augmentation. | 0..1 | - | GlobalAugmentationCodeType |
+| index | AugmentationIndex | The ordinal position of an augmentation property that is part of an [augmentation type](). | 0..1 | - | xs:integer |
+| global | AugmentedGlobalComponentID | The identifer for a NIEM version and kind of component that is the target of this global augmentation. | 0..1 | - | xs:QName |
 | class | Class | The augmented class. | 0..1 | - | ClassType |
 | property | Property | The augmentation property . | 1 | - | PropertyType |
 
@@ -1075,16 +1085,6 @@ In CMF, the augmentation property appears in the augmented Class object -- like 
 </div>
 <center><i><a name="fig4-20"></a>Figure 4-20: AugmentingNamespace property in CMF</i></center><p/>
 
-An augmentation may also be applied globally, rather than to a particular class. In this case the AugmentationRecord will have a GlobalAugmentedCode property. The code values have the following definitions:
-
-| Code | Definition |
-| ---- | ---------- |
-| ASSOC | The augmentation applies to all association classes. |
-| OBJECT | The augmentation applies to all non-association classes with object properties. |
-| ATOMIC | The augmentation applies to all classes with no object properties. |
-
-**Rule 4-7:** The *global* property, or the *class* property, but not both, MUST appear in an Augmentation object.
-
 ### 4.15.1 Augmentations in NIEM XSD
 
 Augmentations are represented in NIEM XSD in four different ways, depending on the augmenting property and the augmented class:
@@ -1097,9 +1097,15 @@ Augmentations are represented in NIEM XSD in four different ways, depending on t
   
   * a type with an atomic value -- that is, a complex type with simple content (abbreviated "CSC type") 
 
-Augmentations in NIEM XSD do not change the reference or extension schema document for the augmented namespace. They ensure that every XML document that is valid against an augmented schema will also be valid against the referennce or extension schema document.
+The four combinations iare described in the following sections:
 
-### 4.15.2 Augmenting a CCC type with an element
+|     | Augmenting</br> Property | Augmenting</br> Property |
+| --- | --- | ---------- | 
+| **Augmented</br> Class** | *Element* | *Attribute* |
+| *Type with child elements</br> (CCC type)* | [Section 4.15.2](#4152-augmenting-a-ccc-type-with-an-element) and</br> [Section 4.15.3](#4153-augmenting-a-ccc-type-with-an-augmentation-element-only) | [Section 4.15.4](#4154-augmenting-a-ccc-type-with-an-attribute) |
+| *Type with an atomic value</br> (CSC type)* | [Section 4.15.5](#4155-augmenting-a-csc-type-with-an-attribute) | [Section 4.15.6](#4156-augmenting-simple-content-with-an-element) |
+
+### 4.15.2 Augmenting a CCC type with an augmentation element and type
 
 Every CCC type in a reference or extension schema document contains an *augmentation point element*, which provides a place for any augmentation properties.
 
@@ -1130,9 +1136,23 @@ Every CCC type in a reference or extension schema document contains an *augmenta
 </div>
 <center><i><a name="fig4-21"></a>Figure 4-21: An augmentation point</i></center><p/>
 
-Note that the augmentation point element has the same namespace and name as the type, with the suffix "Type" replaced by "AugmentationPoint". The augmentation point is always defined with cardinality (minOccurs 0, maxOccurs unbounded) to ensure that it can support an arbitrary number of augmentations. The augmentation point is always last in the `xs:sequence` schema element. Because it is abstract, it cannot appear in messages -- it is a placeholder for element substitution only. The augmentation point element may be constrained in subset or message schema documents, or omitted if not needed in a particular message specification.
+An augmentation point defined in a reference or extension schema must:
+ 
+- Be in the same namespace as the type
+- Have the same name as the type with "Type" replaced by "AugmentationPoint"
+- Have unlimited cardinality (minOccurs, maxOccurs unbounded) to support an arbitrary number of augmentations
+- Be the last element in the type schema
+ 
+Because an augmentation point is abstract, it cannot appear in messages - it is a placeholder for element substitution only.
+ 
+The augmentation point element may be constrained in subset or message schema documents, or omitted if not needed in a particular message specification.
 
-In order to augment a CCC type with an element, a namespace defines an *augmentation type* to contain the augmenting properties. It also declares a corresponding *augmentation element* that is substitutable for the augmentation point. Figure 4-22 shows the XSD for a namespace augmenting `nc:PersonType` with two properties. (The corresponding CMF is shown in figures 4-19 and 4-20 above.)
+One way to augment a CCC type with an element is to define:
+
+- An augmentation type to contain the augmenting properties, and
+- An augmentation element based on the augmentation type that is substitutable for the augmentation point.
+
+Figure 4-22 shows the XSD for a namespace augmenting `nc:PersonType` with two properties. (The corresponding CMF is shown in figures 4-19 and 4-20 above.)
 
  <div style="font-size:90%;">
 
@@ -1151,7 +1171,7 @@ In order to augment a CCC type with an element, a namespace defines an *augmenta
 ```
 
 </div>
-<center><i><a name="fig4-22"></a>Figure 4-22: Augmenting a CCC type via an augmentation element</i></center><p/>
+<center><i><a name="fig4-22"></a>Figure 4-22: Augmenting a CCC type via an augmentation element and type</i></center><p/>
 
 In an XML message, the augmentation element is only a container for the augmenting properties; it has no meaning of its own. Figure 4-23 shows a NIEM XML message with this augmentation.
 
@@ -1187,7 +1207,9 @@ There is no need for the augmentation element in a NIEM JSON message. It does no
 </div>
 <center><i><a name="fig4-24"></a>Figure 4-24: A JSON message from a CCC type with an augmentation element</i></center><p/>
 
-The other way to augment a CCC type with an element is to substitute an ordinary element (that is, one that does not have an augmentation type) for the augmentation point. In this case there is no augmentation element in the XML message. Figure 4-25 shows the XSD from the augmenting namespace (`http://example.com/s4figs/`). It also shows the CMF for this augmentation. Figure 4-26 shows an XML message with this augmentation, and the equivalent JSON message.
+### 4.15.3 Augmenting a CCC type with an augmentation element only
+
+Another way to augment a CCC type with an element is to substitute an ordinary element (that is, one that does not have an augmentation type) for the augmentation point. In this case there is no augmentation element in the XML message. Figure 4-25 shows the XSD from the augmenting namespace (`http://example.com/s4figs/`). It also shows the CMF for this augmentation. Figure 4-26 shows an XML message with this augmentation, and the equivalent JSON message.
 
 <div style="font-size:90%;">
 
@@ -1251,7 +1273,7 @@ The other way to augment a CCC type with an element is to substitute an ordinary
 </div>
 <center><i><a name="fig4-26"></a>Figure 4-26: Equivalent XML and JSON messages from a CCC type augmented by an ordinary element</i></center></p>
 
-### 4.15.3 Augmenting a CCC type with an attribute
+### 4.15.4 Augmenting a CCC type with an attribute
 
 A CCC type is augmented with an attribute property by addding an `xs:attribute` element to the complex type definition. This must be done in a subset schema document for the augmented namespace (and not the reference or extension schema document). The `xs:attribute` element must include *appinfo* to specify the augmenting namespace. Figure 4-27 shows the XSD representation of `nc:PersonType` augmented with the attribute `ex:detectiveIndicator`, and the CMF for this augmentation. Figure 4-28 shows an XML message that includes this augmentation, and the equivalent JSON message.
 
@@ -1310,7 +1332,7 @@ A CCC type is augmented with an attribute property by addding an `xs:attribute` 
 </div>
 <center><i><a name="fig4-28"></a>Figure 4-28: Equivalent XML and JSON messages from a CCC type augmented with an attribute</i></center><p/>
 
-### 4.15.4 Augmenting a CSC type with an attribute
+### 4.15.5 Augmenting a CSC type with an attribute
 
 A CSC type is also augmented with an attribute property by addding an `xs:attribute` to the complex type definition. This must be done in a subset schema document for the augmented namespace. The attribute reference must include *appinfo* to specify the augmenting namespace. Figure 4-29 shows the XSD representation of `nc:DirectionCodeType` augmented with the attribute `ex:magneticIndicator`, and the equivalent CMF.  Figure 4-30 shows part of an XML message that includes this augmentation, and the equivalent JSON message.
 
@@ -1378,7 +1400,7 @@ A CSC type is also augmented with an attribute property by addding an `xs:attrib
 </div>
 <center><i><a name="fig4-30"></a>Figure 4-30: Equivalent XML and JSON messages from a CSC type augmented with an attribute</i></center><p/>
 
-### 4.15.5 Augmenting simple content with an element
+### 4.15.6 Augmenting a CSC type with an ordinary element
 
 XML simple content cannot contain a child element. A CSC type is augmented with an element property by adding a *reference attribute* to the complex type definition. A reference attribute is a pointer to an element in a message. Figure 4-31 shows the XSD representation of `nc:DirectionCodeType` augmented with the element `nc:Metadata`, and the equivalent CMF.
 
@@ -1469,6 +1491,10 @@ A property with a name ending in "Ref" is a reference attribute. It refers to an
 
 </div>
 <center><i><a name="fig4-32"></a>Figure 4-32: Equivalent XML and JSON messages from a CSC type augmented with an attribute</i></center><p/>
+
+### 4.15.7 Global element augmentations
+
+### 4.15.8 Global attribute augmentations
 
 ## 4.16 LocalTerm class
 
