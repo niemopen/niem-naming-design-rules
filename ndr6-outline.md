@@ -7,6 +7,9 @@ Pagewidth:
 
 </div>
 
+> 2024-07-10 draft  
+> Naming rules (section 6) complete
+>
 > 2024-07-08 draft  
 > Conformance is a major section (new section 5)  
 > Conformance targets now apply to namespaces, not schema documents  
@@ -315,9 +318,9 @@ A Model object represents a complete or partial NIEM model.  (A complete model h
 | comp | Component | A data concept for a component of a NIEM data model. | 0..* | - | ComponentType |
 | ns | Namespace | A namespace of a data model component | 0..* | - | NamespaceType |
 
-A Model object is represented in CMF as a CMF message.
+A Model object is represented in CMF as a CMF model file; that is, a CMF message.
 
-A Model object is represented in XSD as a set of XML schema documents. One or more schema documents are provided to begin the set. Other documents are added, according to the @schemaLocation attribute in the import elements in each document encountered. Documents may also be added according to the @namespace attribute, as resolved through XML Catalog files, if provided. There will be one namespace object in the model for each namespace defined in the schema documents. The components in each namespace will be those specified by the XSD to CMF mappings defined in this section.
+A Model object is represented in XSD as a set of XML schema documents. One or more schema documents are provided to begin the set. Other documents are added, according to the @schemaLocation attribute in the import elements in each document encountered. Documents may also be added according to the @namespace attribute, as resolved through XML Catalog files, if provided. There is one namespace object in the model for each namespace defined by the schema documents. The components in each namespace are those specified by the XSD to CMF mappings defined in this section.
 
 ## 4.2 Namespace class
 
@@ -394,13 +397,6 @@ The following table shows the mapping between Namespace object representations i
 | NamespaceVersionText | `xs:schema/@version` |
 | NamespaceLanguageName | `xs:schema/@xml:lang` |
 
-
-**Rule 4-1 (CMF,XSD)(Constraint):** The URI for a namespace MUST match the production <*absolute-URI*> as defined by [[RFC 3986]](#definitions).
-
-**Rule 4-2 (CMF,XSD)(Constraint):** The prefix for a namespace MUST be unique among all the namespace prefixes in a model.
-
-**Rule 4-3 (CMF,XSD)(Constraint):** The *version* attribute for a namespace MUST NOT be blank.
-
 ## 4.3 Component class (abstract)
 
 A model component in a namespace is either a Class object, a Property object, or a Datatype object in a NIEM model. The abstract component class defines the common properties.
@@ -425,9 +421,7 @@ A model component in a namespace is either a Class object, a Property object, or
 
 ## 4.4 Class class
 
-A Class object represents an object class in a NIEM model.  For example, `nc:PersonType` is a Class object in the NIEM Core model.  
-
-A Class object also represents an association class in a NIEM model.  An association is a specific relationship between objects.   Associations are used when a simple NIEM property is insufficient to model the relationship clearly, or to model properties of the relationship itself.  An association class is distinguished by its name (ending in "AssociationType").
+A Class object represents an object class in a NIEM model.  For example, `nc:PersonType` is a Class object in the NIEM Core model.
 
 <center>
   <figure class="image">
@@ -446,12 +440,15 @@ A Class object also represents an association class in a NIEM model.  An associa
 | subClassOf | ExtensionOfClass | A base class of a subclass. | 0..1 | - | ClassType |  
 | hasProp | HasProperty | An occurrence of a property as content of a class. | 0..* | Y | HasPropertyType |
 
-A Class object is represented in XSD in two ways: 
+There are three special categories of object class:
 
-* As a complex type with complex content ("CCC type"); that is, having child elements
-* As a complex type with simple content ("CSC type") and model attributes
+* An [adapter class](#definitions) contains only properties from a single [external namespace](#definitions).  It acts as a conformance wrapper around data components defined in standards that are not NIEM conforming.  An adapter class has a name ending in "AdapterType".
 
-Figure 4-7 shows a Class object represented in CMF, and then in XSD as a complex type with child elements.
+* An [association class](#definitions) represents a specific relationship between objects.   Associations are used when a simple NIEM property is insufficient to model the relationship clearly, or to model properties of the relationship itself.  An association class has a name ending in "AssociationType".
+
+* An [atomic class](#definition) contains no object properties, one or more [attribute properties](#definitions), and exactly one data property that is not an attribute property.  An atomic class does not have a special name.
+
+Most classes are represented in XSD as a complex type with complex content ("CCC type"); that is, a type with  child elements.  [Figure 4-7](#fig4-7) below shows a Class object represented in CMF, and then in XSD as a complex type with child elements.
 
 <div style="font-size:90%;">
 
@@ -515,7 +512,7 @@ The following table shows the mapping between Class object representations in CM
 | ReferenceCode | `xs:complexType/@appinfo:referenceCode` |
 | HasProperty | `xs:complexType/xs:complexContent/xs:extension/xs:sequence/xs:element` or `xs:complexType/xs:complexContent/xs:extension/xs:attribute` |
 
-Figure 4-8 shows a Class object in CMF, and then in XSD as a complex type with attributes but no child elements.
+An atomic class is represented in XSD as a complex type with simple content ("CSC type") that has attributes.  This is illustrated in [figure 4-8](#fig4-8) below, which shows an atomic class object in CMF, and then in XSD as a complex type with attributes but no child elements.
 
 <div style="font-size:90%;">
 
@@ -550,9 +547,7 @@ Figure 4-8 shows a Class object in CMF, and then in XSD as a complex type with a
 </div>
 <center><i><a name="fig4-8"></a>Figure 4-8: Class object in CMF and XSD (CSC type)</i></center><p/>
 
-A complex type with simple content and model attributes also represents a DataProperty object. In the above example, the complex type `Example2Type` represents the DataProperty object `Example2Literal`, in addition to the Class object. (See [section XX]().)
-
-**Rule 4-5 (CMF,XSD)(Constraint):** The name of a component object MUST end in "Type" if and only if it is a Class object.
+An atomic class always has a DataProperty object named after the class, with "Type" replaced by "Literal".  In CMF these appear as two separate objects. In XSD, the representation of an atomic class also represents the DataProperty object. 
 
 ## 4.5 HasProperty class
 
@@ -698,7 +693,11 @@ A DataProperty object represents a property with a range that is a datatype. For
 | isRefAttribute* | RefAttributeIndicator | True for a property that is an [object reference attribute](). | 0..1 | - | xs:boolean |
 | datatype | Datatype | The datatype of this data property. | 1 | - | DatatypeType |
 
-A DataProperty object is represented in XSD as an attribute declaration, or as an element declaration with a type that is a Datatype object. Figure 4-12 shows the CMF and XSD representations of two DataProperty objects.
+An [attribute property](#definitions) is a data property in which `isAttribute` is true.  These are represented in XSD as an attribute declaration.
+
+A [reference property](#definitions) is an attribute property that contains a reference to an object in a message.  (Object references are described in [section ref message rules]().)
+
+DataProperty objects are represented in XSD as an attribute declaration, or as an element declaration with a type that is a Datatype object. Figure 4-12 shows the CMF and XSD representations of two DataProperty objects.
 
 <div style="font-size:90%;">
 
@@ -755,8 +754,6 @@ The following table shows the mapping between DataProperty representations in CM
 | AttributeIndicator | True for an attribute declaration. |
 | RefAttributeIndicator | `xs:attribute/@appinfo:referenceAttributeIndicator` |
 
-> [This paragraph moved here from Class section. Needs work.]
-> A complex type with simple content and model attributes also represents a DataProperty object. In the above example, the complex type `Example2Type` represents the DataProperty object `Example2Literal`, in addition to the Class object. (See [section XX]().)
 
 ## 4.9 Datatype class
 
@@ -1506,7 +1503,7 @@ A property with a name ending in "Ref" is a reference attribute. It refers to an
 
 ## 4.16 LocalTerm class
 
-A *local term* is a word, phrase, acronym, or other string of characters that is used in the name of a namespace component, but that is not defined in [OED](), or that has a non-OED definition in this nameespace, or has a word sense that is in some way unclear. A LocalTerm object captures the namespace author's definition of such a local term. For example, the Justice domain namespace in the NIEM model has a LocalTerm object defining the name "CLP" with documentation "Commercial Learners Permit". (See [section XX]() for the CMF and XSD representation of this object.)
+A [*local term*](#definitions) is a word, phrase, acronym, or other string of characters that is used in the name of a namespace component, but that is not defined in [OED](), or that has a non-OED definition in this nameespace, or has a word sense that is in some way unclear. A LocalTerm object captures the namespace author's definition of such a local term. For example, the Justice domain namespace in the NIEM model has a LocalTerm object defining the name "CLP" with documentation "Commercial Learners Permit".
 
 | UML | CMF | Definition | Card | Ord | Range |
 | --- | --- | ---------- | :--: | :-: | ----- |
@@ -1517,7 +1514,6 @@ A *local term* is a word, phrase, acronym, or other string of characters that is
 | sourceURI | SourceURI | A URI that is an identifier or locator for an originating or authoritative document defining a local term. | 0..* | - | xs:anyURI |
 | citation | SourceCitationText | A plain text citation of, reference to, or bibliographic entry for an originating or authoritative document defining a local term. | 0..* | - | xs:string |
 
-**Rule 4-8:** A LocalTerm object MUST have a *documentation* property, or a *literal* property, or both.
 
 A LocalTerm object is represented in XSD by a `appinfo:LocalTerm` element within `xs:appinfo` element in the `xs:schema` element. Figure 4-33 shows a LocalTerm object in XSD and the corresponding CMF.
 
@@ -1732,29 +1728,161 @@ NIEMOpen provides free and open-source tools to support #2, #3, and #4. These ca
 
 These rules apply to all namespaces.  In a CMF representation, they apply to the Name property of a Component object.  In an XSD representation, they apply to the `{}name` attribute of a complex type definition, element declaration, and attribute declaration.
 
-**Rule 6-0 (CMF,XSD)(Constraint):** The name of a model component MUST end in "Type" if and only if it is a Class object or Datatype object.
+## 6.1 Rrules based on kind of component
 
-**Rule 6-0 (CMF,XSD)(Constraint):** The name of a Class object MUST end in "AssociationType" if and only if it is an association class.
+**Rule 6-0 (CMF,XSD)(Constraint):** The name of a model component MUST end in "Type" if and only if it is a Class object or Datatype object. (N5R 11-1,11-2)
 
-**Rule 6-0 (CMF,XSD)(Constraint):** The name of a Class object MUST end in "AdapterType" if and only if it is an adapter class.
+**Rule 6-0 (CMF,XSD)(Constraint):** The name of a Class object MUST end in "AssociationType" if and only if it is an association class. (N5R 10-21)
 
-**Rule 6-0 (CMF,XSD)(Constraint):** The name of a Property object MUST end in "Association" if and only if its class is an association class.
+**Rule 6-0 (CMF,XSD)(Constraint):** The name of a Class object MUST end in "AdapterType" if and only if it is an adapter class. (NEW)
 
-**Rule 6-0 (CMF)(Constraint):** The name of a Property object MUST end in "Literal" if and only if it is the non-attribute property of an atomic class.
+**Rule 6-0 (CMF,XSD)(Constraint):** The name of a Property object MUST end in "Association" if and only if its class is an association class. (N5R 10-22)
 
-**Rule 6-0 (XSD)(Constraint):** The name of an element declaration or attribute declaration MUST NOT end in "Literal".
+**Rule 6-0 (CMF)(Constraint):** The name of a Property object MUST end in "Literal" if and only if it is the non-attribute property of an [atomic class](#definitions). (NEW)
 
-**Rule 6-0 (CMF,XSD)(Constraint):** The name of a Property object MUST end in "Ref" if and only if it is a reference attribute property.
+**Rule 6-0 (XSD)(Constraint):** The name of an element declaration or attribute declaration MUST NOT end in "Literal". (NEW)
 
-> NOTE:  The nameing rules in NDR 5 section 10.8 go here.
+**Rule 6-0 (CMF,XSD)(Constraint):** The name of a Property object MUST end in "Ref" if and only if it is a [reference attribute](#definitions) property. (NEW)
 
-> NOTE:  Proxy types, augmentation types, augmentation points, and augmentation elements are not model components.
+## 6.2 Rules for component names
 
-# 7. Rules for namespaces and models
+**Rule 6-0 (REF)(Constraint):** Except as otherwise provided in this document, the name of a model component MUST be composed of words from the English language, using the prevalent U.S. spelling, as provided by the Oxford English Dictionary [[OED]](#references). (N5R 10-44)
+
+**Rule 6-0 (CMF,XSD)(Constraint):** The name of a model component MUST be entirely composed of the following characters: (N5R 10-46)
+
+* Upper-case letters (A–Z)
+* Lower-case letters (a–z)
+* Digits (0–9)
+* Underscore (_)
+* Hyphen (-)
+* Period (.)
+
+**Rule 6-0 (CMF,XSD)(Constraint):** The name of a model component that is not an attribute property MUST begin with an uppercase character. (N5W 10-50)
+
+**Rule 6-0 (CMF,XSD)Constraint):** The name of an attribute property MUST begin with a lowercase character. (N5R 10-49)
+
+**Rule 6-0 (CMF,XSD)(Constraint):** The name of a model component MUST use the camel case formatting convention. (N5W 10-48)
+
+Camel case is the convention of writing compound words or phrases with no spaces and an initial lowercase or uppercase letter, with each remaining word element beginning with an uppercase letter. UpperCamelCase is written with an initial uppercase letter, and lowerCamelCase is written with an initial lowercase letter.
+
+**Rule 6-0 (CMF,XSD)(Constraint):** The characters hyphen (-), underscore (_) MUST NOT appear in a component name unless used as a separator between parts of a word, phrase, or value, which would otherwise be incomprehensible without the use of a separator. (N5R 10-47)
+
+**Rule 6-0 (CMF,XSD)(Constraint):** The character period (.) MUST NOT appear in a component name unless as a decimal within a numeric value, or unless used as a separator between parts of a word, phrase, or value, which would otherwise be incomprehensible without the use of a separator. (N5R 10-47)
+
+## 6.3 General rules from ISO 11179-5
+
+Names are a simple but incomplete means of providing semantics to data components. Data definitions, structure, and context help to fill the gap left by the limitations of naming. The goals for data component names should be syntactic consistency, semantic precision, and simplicity. In many cases, these goals conflict and it is sometimes necessary to compromise or to allow exceptions to ensure clarity and understanding. To the extent possible, NIEM applies [[ISO 11179-5]](#references) to construct NIEM data component names.
+
+**Rule 6-0 (CMF,XSD)(Constraint):** A noun used as a term in the name of an XML Schema component MUST be in singular form unless the concept itself is plural. (N5R 10-54)
+
+**Rule 6-0 (CMF,XSD)(Constraint):** A verb used as a term in the name of an XML Schema component MUST be used in the present tense unless the concept itself is past tense. (N5R 10-55)
+
+**Rule 6-0 (CMF,XSD)(Constraint):** Articles, conjunctions, and prepositions MUST NOT be used in NIEM component names except where they are required for clarity or by standard convention. (N5R 10-56)
+
+Articles (e.g., a, an, the), conjunctions (e.g., and, or, but), and prepositions (e.g., at, by, for, from, in, of, to) are all disallowed in NIEM component names, unless they are required. For example, PowerOfAttorneyCode requires the preposition. These rules constrain slight variations in word forms and types to improve consistency and reduce potentially ambiguous or confusing component names.
+
+## 6.4 Property name rules from ISO 11179-5
+
+The set of NIEM data components is a collection of data representations for real-world objects and concepts, along with their associated properties and relationships. Thus, names for these components would consist of the terms (words) for object classes or that describe object classes, their characteristic properties, subparts, and relationships.
+
+**Rule 6-0 (CMF,XSD)(Constraint):** Except as specified elsewhere in this document, the name of a property object MUST be formed by the composition of object class term, qualifier terms, property term, and representation term, as detailed in Annex A of [[ISO 11179-5]](#references). (N5R 7-5)
+
+For example, the NIEM component name `AircraftFuselageColorCode` is composed of the following:
+
+* Object class term = Aircraft
+* Qualifier term = Fuselage
+* Property term = Color
+* Representation term = Code
+
+### 6.4.1 Object-class term
+
+**Rule 6-0 (CMF,XSD)(Constraint):** The object-class term of a NIEM component MUST consist of a term identifying a category of concrete concepts or entities. (N5R 10-58)
+
+NIEM adopts an object-oriented approach to representation of data. Object classes represent what [ISO 11179-5] refers to as things of interest in a universe of discourse that may be found in a model of that universe. An object class or object term is a word that represents a class of real-world entities or concepts. An object-class term describes the applicable context for a NIEM component.
+
+The object-class term indicates the object category that this data component describes or represents. This term provides valuable context and narrows the scope of the component to an actual class of things or concepts.  An example of a conept term is Activity.  An example of an entity term is Vehicle.
+
+### 6.4.2 Property term
+
+**Rule 6-0 (CMF,XSD)(Constraint):** A property term MUST describe or represent a characteristic or subpart of an entity or concept. (N5R 10-59)
+
+Objects or concepts are usually described in terms of their characteristic properties, data attributes, or constituent subparts. Most objects can be described by several characteristics. Therefore, a property term in the name of a data component represents a characteristic or subpart of an object class and generally describes the essence of that data component.  It describes the central meaning of the component.
+
+### 6.4.3 Qualifer terms
+
+**Rule 6-0 (CMF,XSD)(Constraint):** Multiple qualifier terms MAY be used within a component name as necessary to ensure clarity and uniqueness within its namespace and usage context. (N5R 10-60)
+
+**Rule 6-0 (CMF,XSD)(Constraint):** The number of qualifier terms SHOULD be limited to the absolute minimum required to make the component name unique and understandable. (N5R 10-61)
+
+**Rule 6-0 (CMF,XSD)(Constraint):** The order of qualifiers MUST NOT be used to differentiate components. (N5R 10-62)
+
+Very large vocabularies may have many similar and closely related properties and concepts. The use of object, property, and representation terms alone is often not sufficient to construct meaningful names that can uniquely distinguish such components. Qualifier terms provide additional context to resolve these subtleties. However, swapping the order of qualifiers rarely (if ever) changes meaning; qualifier ordering is no substitute for meaningful terms.
+
+### 6.4.4 Representation term
+
+The representation terms for a property name serve several purposes in NIEM:
+
+1. It can indicate the style of component. For example, types are clearly labeled with the representation term Type.
+
+2. It helps prevent name conflicts and confusion. For example, elements and types may not be given the same name.
+ 
+3. It indicates the nature of the value carried by element. Labeling elements and attributes with a notional indicator of the content eases discovery and comprehension.
+
+The valid value set of a data element or value domain is described by the representation term. NIEM uses a standard set of representation terms in the representation portion of a NIEM-conformant component name. Table 6-1, Property representation terms, below, lists the primary representation terms and a definition for the concept associated with the use of that term. The table also lists secondary representation terms that may represent more specific uses of the concept associated with the primary representation term.
+
+| Primary</br>Representation</br>Term |Secondary</br>Representation</br>Term | Definition | 
+| --- | --- | ---------- |
+| Amount | - | A number of monetary units specified in a currency where the unit of currency is explicit or implied. |
+| BinaryObject | -| A set of finite-length sequences of binary octets. |
+| | Graphic	| A diagram, graph, mathematical curves, or similar representation |
+| | Picture	| A visual representation of a person, object, or scene | 
+| | Sound	| A representation for audio |
+| | Video	| A motion picture representation; may include audio encoded within |
+|Code	| | 	A character string (i.e., letters, figures, and symbols) that for brevity, language independence, or precision represents a definitive value of an attribute. |
+| DateTime | |	A particular point in the progression of time together with relevant supplementary information. |
+| | Date	| A continuous or recurring period of time, of a duration greater than or equal to a day. |
+| | Time	| A particular point in the progression of time within an unspecified 24-hour day.| 
+| | Duration	| An amount of time; the length of a time span. |
+| ID	| |	A character string to identify and distinguish uniquely one instance of an object in an identification scheme from all other objects in the same scheme together with relevant supplementary information. |
+| | URI	| A string of characters used to identify (or name) a resource. The main purpose of this identifier is to enable interaction with representations of the resource over a network, typically the World Wide Web, using specific protocols. A URI is either a Uniform Resource Locator (URL) or a Uniform Resource Name (URN). The specific syntax for each is defined by [[RFC 3986]](#references). |
+| Indicator | | A list of two mutually exclusive Boolean values that express the only possible states of a property. |
+| Measure	| | 	A numeric value determined by measuring an object along with the specified unit of measure. |
+| Numeric	| | 	Numeric information that is assigned or is determined by calculation, counting, or sequencing. It does not require a unit of quantity or unit of measure. |
+| | Value	| A result of a calculation. |
+| | Rate	| A relative speed of change or progress. |
+| | Percent	| A representation of a unitless ratio, expressed as parts of a hundred, with 100 percent representing a ratio of 1 to 1. |
+| Quantity	| | 	A counted number of non-monetary units possibly including fractions. |
+| Text | -	| A character string (i.e., a finite sequence of characters) generally in the form of words of a language. |
+| | Name	| A word or phrase that constitutes the distinctive designation of a person, place, thing, or concept. |
+| List | | 		A sequence of values. This representation term is used in tandem with another of the listed representation terms.| 
+| Abstract	| | 	An element that may represent a concept, rather than a concrete property. This representation term may be used in tandem with another of the listed representation terms. |
+| Representation	| | 	An element that acts as a placeholder for alternative representations of the value of a type (see Section 10.7, The Representation pattern, above). |
+
+<center><i><a name="table6-1"></a>Table 6-1: Property representation terms</i></center><p/>
+
+**Rule 6-0 (CMF,XSD)(Constraint):** If any word in the representation term is redundant with any word in the property term, one occurrence SHOULD be deleted. (N5R 10-63)
+
+This rule, carried over from 11179, is designed to prevent repeating terms unnecessarily within component names. For example, this rule allows designers to avoid naming an element PersonFirstNameName.
+
+**Rule 6-0 (CMF,XSD)(Constraint):** The name of a data property SHOULD use an appropriate representation term as found in Table 10-2, Property representation terms.
+
+**Rule 6-0 (CMF,XSD)(Constraint):** The name of an object property that corresponds to a concept listed in Table 10-2, Property representation terms, SHOULD use a representation term from that table. (N5R 10-65)
+
+**Rule 6-0 (CMF,XSD)(Constraint):** The name of an object property that does not correspond to a concept listed in Table 10-2, Property representation terms SHOULD NOT use a representation term. (N5R 10-66)
+
+## 6.5 Acronyms, abbreviations, and jargon
+
+A [LocalTerm object](#416-localterm-class) introduces an acronym, abbreviation, or jargon term into the namespace to which it belongs. These terms may be used within the name of a model component (in addition to terms defined withn [[OED]](#references)).
+
+**Rule 6-0 (CMF,XSD)(Constraint):** A local term object MUST have a *documentation* property, or a *literal* property, or both. (N5R 10-77)
+
+**Rule 6-0 (CMF,XSD)(Interpretation):** A local term object establishes the meaning of a local term only within the namespace to which it belongs. There MUST NOT be any transitive inheritance of local terminology within schema documents that import the containing schema document.
+
+</br>
+
+# 7. Rules for namespaces
 
 An extension namespace is the kind most commonly created by a NIEM message designer. This section therefore begins with those rules, then adds rules for reference namespaces, and then takes away rules not applicable to subset namespaces and message schema documents.
-
-> NOTE: For now I am following the NDR5 organization of rules. This may not make sense, given the NDR6 organization of EXT, plus REF, minus SUB and MSG.  Will look at reordering after all the rules are done.
 
 ## 7.1 Rules for extension namespaces
 
@@ -1982,7 +2110,7 @@ The term "attribute use schema component" is defined by [[XML Schema Structures]
 
 **Rule 7-0 (XSD)(Constraint):** A proxy type MUST have the designated structure. It MUST use xs:extension. It MUST NOT use xs:attribute. It MUST include exactly one xs:attributeGroup reference, which must be to structures:SimpleObjectAttributeGroup. (N5R 10-20)
 
-A [proxy type](#definitions) is a convenience complex type definition wrapper for a simple type in the XML Schema namespace; for example, `niem-xs:token` is a proxy type for `xs:token`.  Unlike other complex type definitions, proxy types have the same local name as the builtin simple type. This is done to make conformant schemas more understandable to people that are familiar with the names of the XML Schema namespace simple types.
+A [proxy type](#definitions) is not a model component. It is a convenience complex type definition wrapper for a simple type in the XML Schema namespace; for example, `niem-xs:token` is a proxy type for `xs:token`.  Unlike other complex type definitions, proxy types have the same local name as the builtin simple type. This is done to make conformant schemas more understandable to people that are familiar with the names of the XML Schema namespace simple types.
 
 **Rule 7-0 (REF,EXT,SUB)(Constraint):** The type definition for an [association class](#definitions) MUST be derived from `structures:AssociationType`. (N5R 10-21)
 
