@@ -7,6 +7,12 @@ Pagewidth:
 
 </div>
 
+> 2024-07-15 draft
+> Rules for documentation complete
+> Rules for extension schemas complete
+> Rules for models complete
+> New placeholder section 5 (data modeling patterns)
+>
 > 2024-07-10 draft  
 > Naming rules (section 6) complete
 >
@@ -1749,25 +1755,25 @@ These rules apply to all namespaces.  In a CMF representation, they apply to the
 
 **Rule 7-9 (XSD)(Constraint):** The name of a type definition MUST end in "AugmentationType" if and only if it is an [augmentation type](#definitions). (N5R 10-33)
 
-**Rule 7-0 (XSD)(Constraint):** The name of an element declaration MUST end in "Augmentation" if and only if it is an [augmentation element](#definitions). (N5R 10-36)
+**Rule 7-10 (XSD)(Constraint):** The name of an element declaration MUST end in "Augmentation" if and only if it is an [augmentation element](#definitions). (N5R 10-36)
 
-**Rule 7-0 (XSD)(Constraint):** The name of an element declaration or attribute declaration MUST NOT end in "Literal". (NEW)
+**Rule 7-11 (XSD)(Constraint):** The name of an element declaration or attribute declaration MUST NOT end in "Literal". (NEW)
 
 Literal properties only appear in CMF.
 
-**Rule 7-4 (XSD)(Constraint):** A schema component that does not define a [*proxy type*](#definitions) MUST have a name ending in "Type" if and only if it is a type definition. (N5R 11-2)
+**Rule 7-12 (XSD)(Constraint):** A schema component that does not define a [*proxy type*](#definitions) MUST have a name ending in "Type" if and only if it is a type definition. (N5R 11-2)
 
 Use of the representation term Type immediately identifies XML types in a NIEM-conformant schema and prevents naming collisions with corresponding XML elements and attributes. The exception for proxy types ensures that simple NIEM-compatible uses of base XML Schema types are familiar to people with XML Schema experience.
 
-**Rule 7-5 (XSD)(Constraint):** A schema component MUST have a name ending in "SimpleType" if and only if it is a simple type definition. (N5R 11-4)
+**Rule 7-13 (XSD)(Constraint):** A schema component MUST have a name ending in "SimpleType" if and only if it is a simple type definition. (N5R 11-4)
 
 Specific uses of type definitions have similar syntax but very different effects on data definitions. Schemas that clearly identify complex and simple type definitions are easier to understand without tool support. This rule ensures that names of simple types end in SimpleType.
 
 ## 7.2 Rules for component names
 
-**Rule 7-0 (REF)(Constraint):** Except as otherwise provided in this document, the name of a model component MUST be composed of words from the English language, using the prevalent U.S. spelling, as provided by the Oxford English Dictionary [[OED]](#references). (N5R 10-44)
+**Rule 7-14 (REF)(Constraint):** Except as otherwise provided in this document, the name of a model component MUST be composed of words from the English language, using the prevalent U.S. spelling, as provided by the Oxford English Dictionary [[OED]](#references). (N5R 10-44)
 
-**Rule 7-0 (CMF,XSD)(Constraint):** The name of a model component MUST be entirely composed of the following characters: (N5R 10-46)
+**Rule 7-15 (CMF,XSD)(Constraint):** The name of a model component MUST be entirely composed of the following characters: (N5R 10-46)
 
 * Upper-case letters (A–Z)
 * Lower-case letters (a–z)
@@ -1776,27 +1782,27 @@ Specific uses of type definitions have similar syntax but very different effects
 * Hyphen (-)
 * Period (.)
 
-**Rule 7-0 (CMF,XSD)(Constraint):** The name of a model component that is not an attribute property MUST begin with an uppercase character. (N5W 10-50)
+**Rule 7-16 (CMF,XSD)(Constraint):** The name of a model component that is not an attribute property MUST begin with an uppercase character. (N5W 10-50)
 
-**Rule 7-0 (CMF,XSD)Constraint):** The name of an attribute property MUST begin with a lowercase character. (N5R 10-49)
+**Rule 7-17 (CMF,XSD)Constraint):** The name of an attribute property MUST begin with a lowercase character. (N5R 10-49)
 
-**Rule 7-0 (CMF,XSD)(Constraint):** The name of a model component MUST use the camel case formatting convention. (N5W 10-48)
+**Rule 7-18 (CMF,XSD)(Constraint):** The name of a model component MUST use the camel case formatting convention. (N5W 10-48)
 
 Camel case is the convention of writing compound words or phrases with no spaces and an initial lowercase or uppercase letter, with each remaining word element beginning with an uppercase letter. UpperCamelCase is written with an initial uppercase letter, and lowerCamelCase is written with an initial lowercase letter.
 
-**Rule 7-0 (CMF,XSD)(Constraint):** The characters hyphen (-), underscore (_) MUST NOT appear in a component name unless used as a separator between parts of a word, phrase, or value, which would otherwise be incomprehensible without the use of a separator. (N5R 10-47)
+**Rule 7-19 (CMF,XSD)(Constraint):** The characters hyphen (-), underscore (_) MUST NOT appear in a component name unless used as a separator between parts of a word, phrase, or value, which would otherwise be incomprehensible without the use of a separator. (N5R 10-47)
 
-**Rule 7-0 (CMF,XSD)(Constraint):** The character period (.) MUST NOT appear in a component name unless as a decimal within a numeric value, or unless used as a separator between parts of a word, phrase, or value, which would otherwise be incomprehensible without the use of a separator. (N5R 10-47)
+**Rule 7-20 (CMF,XSD)(Constraint):** The character period (.) MUST NOT appear in a component name unless as a decimal within a numeric value, or unless used as a separator between parts of a word, phrase, or value, which would otherwise be incomprehensible without the use of a separator. (N5R 10-47)
 
 ## 7.3 General rules from ISO 11179-5
 
 Names are a simple but incomplete means of providing semantics to data components. Data definitions, structure, and context help to fill the gap left by the limitations of naming. The goals for data component names should be syntactic consistency, semantic precision, and simplicity. In many cases, these goals conflict and it is sometimes necessary to compromise or to allow exceptions to ensure clarity and understanding. To the extent possible, NIEM applies [[ISO 11179-5]](#references) to construct NIEM data component names.
 
-**Rule 7-0 (CMF,XSD)(Constraint):** A noun used as a term in the name of an XML Schema component MUST be in singular form unless the concept itself is plural. (N5R 10-54)
+**Rule 7-21 (CMF,XSD)(Constraint):** A noun used as a term in the name of an XML Schema component MUST be in singular form unless the concept itself is plural. (N5R 10-54)
 
-**Rule 7-0 (CMF,XSD)(Constraint):** A verb used as a term in the name of an XML Schema component MUST be used in the present tense unless the concept itself is past tense. (N5R 10-55)
+**Rule 7-22 (CMF,XSD)(Constraint):** A verb used as a term in the name of an XML Schema component MUST be used in the present tense unless the concept itself is past tense. (N5R 10-55)
 
-**Rule 7-0 (CMF,XSD)(Constraint):** Articles, conjunctions, and prepositions MUST NOT be used in NIEM component names except where they are required for clarity or by standard convention. (N5R 10-56)
+**Rule 7-23 (CMF,XSD)(Constraint):** Articles, conjunctions, and prepositions MUST NOT be used in NIEM component names except where they are required for clarity or by standard convention. (N5R 10-56)
 
 Articles (e.g., a, an, the), conjunctions (e.g., and, or, but), and prepositions (e.g., at, by, for, from, in, of, to) are all disallowed in NIEM component names, unless they are required. For example, PowerOfAttorneyCode requires the preposition. These rules constrain slight variations in word forms and types to improve consistency and reduce potentially ambiguous or confusing component names.
 
@@ -1804,7 +1810,7 @@ Articles (e.g., a, an, the), conjunctions (e.g., and, or, but), and prepositions
 
 The set of NIEM data components is a collection of data representations for real-world objects and concepts, along with their associated properties and relationships. Thus, names for these components would consist of the terms (words) for object classes or that describe object classes, their characteristic properties, subparts, and relationships.
 
-**Rule 7-0 (CMF,XSD)(Constraint):** Except as specified elsewhere in this document, the name of a property object MUST be formed by the composition of object class term, qualifier terms, property term, and representation term, as detailed in Annex A of [[ISO 11179-5]](#references). (N5R 7-5)
+**Rule 7-24 (CMF,XSD)(Constraint):** Except as specified elsewhere in this document, the name of a property object MUST be formed by the composition of object class term, qualifier terms, property term, and representation term, as detailed in Annex A of [[ISO 11179-5]](#references). (N5R 7-5)
 
 For example, the NIEM component name `AircraftFuselageColorCode` is composed of the following:
 
@@ -1815,7 +1821,7 @@ For example, the NIEM component name `AircraftFuselageColorCode` is composed of 
 
 ### 7.4.1 Object-class term
 
-**Rule 7-0 (CMF,XSD)(Constraint):** The object-class term of a NIEM component MUST consist of a term identifying a category of concepts or entities. (N5R 10-58)
+**Rule 7-25 (CMF,XSD)(Constraint):** The object-class term of a NIEM component MUST consist of a term identifying a category of concepts or entities. (N5R 10-58)
 
 NIEM adopts an object-oriented approach to representation of data. Object classes represent what [ISO 11179-5] refers to as things of interest in a universe of discourse that may be found in a model of that universe. An object class or object term is a word that represents a class of real-world entities or concepts. An object-class term describes the applicable context for a NIEM component.
 
@@ -1823,17 +1829,17 @@ The object-class term indicates the object category that this data component des
 
 ### 7.4.2 Property term
 
-**Rule 7-0 (CMF,XSD)(Constraint):** A property term MUST describe or represent a characteristic or subpart of an entity or concept. (N5R 10-59)
+**Rule 7-26 (CMF,XSD)(Constraint):** A property term MUST describe or represent a characteristic or subpart of an entity or concept. (N5R 10-59)
 
 Objects or concepts are usually described in terms of their characteristic properties, data attributes, or constituent subparts. Most objects can be described by several characteristics. Therefore, a property term in the name of a data component represents a characteristic or subpart of an object class and generally describes the essence of that data component.  It describes the central meaning of the component.
 
 ### 7.4.3 Qualifer terms
 
-**Rule 7-0 (CMF,XSD)(Constraint):** Multiple qualifier terms MAY be used within a component name as necessary to ensure clarity and uniqueness within its namespace and usage context. (N5R 10-60)
+**Rule 7-27 (CMF,XSD)(Constraint):** Multiple qualifier terms MAY be used within a component name as necessary to ensure clarity and uniqueness within its namespace and usage context. (N5R 10-60)
 
-**Rule 7-0 (CMF,XSD)(Constraint):** The number of qualifier terms SHOULD be limited to the absolute minimum required to make the component name unique and understandable. (N5R 10-61)
+**Rule 7-28 (CMF,XSD)(Constraint):** The number of qualifier terms SHOULD be limited to the absolute minimum required to make the component name unique and understandable. (N5R 10-61)
 
-**Rule 7-0 (CMF,XSD)(Constraint):** The order of qualifiers MUST NOT be used to differentiate components. (N5R 10-62)
+**Rule 7-29 (CMF,XSD)(Constraint):** The order of qualifiers MUST NOT be used to differentiate components. (N5R 10-62)
 
 Very large vocabularies may have many similar and closely related properties and concepts. The use of object, property, and representation terms alone is often not sufficient to construct meaningful names that can uniquely distinguish such components. Qualifier terms provide additional context to resolve these subtleties. However, swapping the order of qualifiers rarely (if ever) changes meaning; qualifier ordering is no substitute for meaningful terms.
 
@@ -1879,23 +1885,23 @@ The valid value set of a data element or value domain is described by the repres
 
 <center><i><a name="tab6-1"></a>Table 6-1: Property representation terms</i></center><p/>
 
-**Rule 7-0 (CMF,XSD)(Constraint):** If any word in the representation term is redundant with any word in the property term, one occurrence SHOULD be deleted. (N5R 10-63)
+**Rule 7-30 (CMF,XSD)(Constraint):** If any word in the representation term is redundant with any word in the property term, one occurrence SHOULD be deleted. (N5R 10-63)
 
 This rule, carried over from 11179, is designed to prevent repeating terms unnecessarily within component names. For example, this rule allows designers to avoid naming an element PersonFirstNameName.
 
-**Rule 7-0 (CMF,XSD)(Constraint):** The name of a data property SHOULD use an appropriate representation term as found in table 6-1, Property representation terms.
+**Rule 7-31 (CMF,XSD)(Constraint):** The name of a data property SHOULD use an appropriate representation term as found in table 6-1, Property representation terms.
 
-**Rule 7-0 (CMF,XSD)(Constraint):** The name of an object property that corresponds to a concept listed in table 6-1, Property representation terms, SHOULD use a representation term from that table. (N5R 10-65)
+**Rule 7-32 (CMF,XSD)(Constraint):** The name of an object property that corresponds to a concept listed in table 6-1, Property representation terms, SHOULD use a representation term from that table. (N5R 10-65)
 
-**Rule 7-0 (CMF,XSD)(Constraint):** The name of an object property that does not correspond to a concept listed in table 6-1, Property representation terms SHOULD NOT use a representation term. (N5R 10-66)
+**Rule 7-33 (CMF,XSD)(Constraint):** The name of an object property that does not correspond to a concept listed in table 6-1, Property representation terms SHOULD NOT use a representation term. (N5R 10-66)
 
 ## 7.5 Acronyms, abbreviations, and jargon
 
 A [LocalTerm object](#416-localterm-class) introduces an acronym, abbreviation, or jargon term into the namespace to which it belongs. These terms may be used within the name of a model component (in addition to terms defined withn [[OED]](#references)).
 
-**Rule 7-0 (CMF,XSD)(Constraint):** In CMF, a LocalTerm object MUST have a DocumentationText property, or a TermLiteralText property, or both. In XSD, a LocalTerm element MUST have a `@definition` attribute, or a `@literal` attribute, or both. (N5R 10-77)
+**Rule 7-34 (CMF,XSD)(Constraint):** In CMF, a LocalTerm object MUST have a DocumentationText property, or a TermLiteralText property, or both. In XSD, a LocalTerm element MUST have a `@definition` attribute, or a `@literal` attribute, or both. (N5R 10-77)
 
-**Rule 7-0 (CMF,XSD)(Interpretation):** A local term object establishes the meaning of a local term only within the namespace to which it belongs. There MUST NOT be any transitive inheritance of local terminology within schema documents that import the containing schema document.
+**Rule 7-35 (CMF,XSD)(Interpretation):** A local term object establishes the meaning of a local term only within the namespace to which it belongs. There MUST NOT be any transitive inheritance of local terminology within schema documents that import the containing schema document.
 
 </br>
 
@@ -1915,29 +1921,29 @@ A [documented component](#defined) is a CMF object or XSD schema component that 
 
 ## 8.1 Rules for documented components
 
-**Rule 8-0 (REF,EXT,SUB)(Constraint):** In CMF, a Namespace object MUST be a documented component. In XSD, the `xs:schema` element in a reference, extension, or subset namespace MUST be a documented component. (N5R 9-82)
+**Rule 8-1 (REF,EXT,SUB)(Constraint):** In CMF, a Namespace object MUST be a documented component. In XSD, the `xs:schema` element in a reference, extension, or subset namespace MUST be a documented component. (N5R 9-82)
 
-**Rule 8-6 (REF,EXT,SUB)(Constraint):** In CMF, a Component object MUST be a documented component.  In XSD, a type definition, element declaration, and attribute declaration MUST be a documented component (N5R 9-12,9-26,9-37,9-49)
+**Rule 8-2 (REF,EXT,SUB)(Constraint):** In CMF, a Component object MUST be a documented component.  In XSD, a type definition, element declaration, and attribute declaration MUST be a documented component (N5R 9-12,9-26,9-37,9-49)
 
-**Rule 8-8 (REF,EXT,SUB)(Constraint):** In CMF, a `Facet` object MUST be a documented component. In XSD, an enumeration facet MUST be a documented component. (N5R 9-14)
+**Rule 8-3 (REF,EXT,SUB)(Constraint):** In CMF, a `Facet` object MUST be a documented component. In XSD, an enumeration facet MUST be a documented component. (N5R 9-14)
 
-**Rule 8-0 (SUB,MSG)(Constraint):** The data definition of a component, if it exists, MUST NOT be different than the data definition of the component in its reference or extension namespace. (NEW)
+**Rule 8-4 (SUB,MSG)(Constraint):** The data definition of a component, if it exists, MUST NOT be different than the data definition of the component in its reference or extension namespace. (NEW)
 
 A subset namespace must not change the text definition of the components it selects from its reference or extension namespace.  A message schema document is not required to contain data definitions, but if it does, these also must be unchanged from the reference or extension namespace.
 
-**Rule 8-4 (CMF,XSD)(Constraint):** The language name for the first instance of the *documentation* property in any Namespace or Component object MUST be `en-US`.
+**Rule 8-5 (CMF,XSD)(Constraint):** The language name for the first instance of the *documentation* property in any Namespace or Component object MUST be `en-US`.
 
 ## 8.2 Rules for data definitions
 
-**Rule 8-0 (REF,EXT)(Constraint):** Words or synonyms for the words within a data definition MUST NOT be reused as terms in the corresponding component name if those words dilute the semantics and understanding of, or impart ambiguity to, the entity or concept that the component represents. (N5R 11-24)
+**Rule 8-6 (REF,EXT)(Constraint):** Words or synonyms for the words within a data definition MUST NOT be reused as terms in the corresponding component name if those words dilute the semantics and understanding of, or impart ambiguity to, the entity or concept that the component represents. (N5R 11-24)
 
-**Rule 8-0 (REF,EXT)(Constraint):** An object class MUST have one and only one associated semantic meaning (i.e., a single word sense) as described in the definition of the component that represents that object class. (N5R 11-25)
+**Rule 8-7 (REF,EXT)(Constraint):** An object class MUST have one and only one associated semantic meaning (i.e., a single word sense) as described in the definition of the component that represents that object class. (N5R 11-25)
 
-**Rule 8-0 (REF,EXT)(Constraint):** An object class MUST NOT be redefined within the definitions of the components that represent properties or subparts of that entity or class. (N5R 11-26)
+**Rule 8-8 (REF,EXT)(Constraint):** An object class MUST NOT be redefined within the definitions of the components that represent properties or subparts of that entity or class. (N5R 11-26)
 
 Data definitions should be concise, precise, and unambiguous without embedding additional definitions of data elements that have already been defined once elsewhere (such as object classes). [ISO 11179-4] says that definitions should not be nested inside other definitions. Furthermore, a data dictionary is not a language dictionary. It is acceptable to reuse terms (object class, property term, and qualifier terms) from a component name within its corresponding definition to enhance clarity, as long as the requirements and recommendations of [ISO 11179-4] are not violated. This further enhances brevity and precision.
 
-**Rule 8-0 (REF,EXT)(Constraint):** A data definition SHOULD NOT contain explicit representational or data typing information such as number of characters, classes of characters, range of mathematical values, etc., unless the very nature of the component can be described only by such information. (N5R 11-27)
+**Rule 8-9 (REF,EXT)(Constraint):** A data definition SHOULD NOT contain explicit representational or data typing information such as number of characters, classes of characters, range of mathematical values, etc., unless the very nature of the component can be described only by such information. (N5R 11-27)
 
 A component definition is intended to describe semantic meaning only, not representation or structure. How a component with simple content is represented is indicated through the representation term, but the primary source of representational information should come from the XML Schema definition of the types themselves. A developer should try to keep a component’s data definition decoupled from its representation.
 
@@ -1946,7 +1952,7 @@ A component definition is intended to describe semantic meaning only, not repres
 These rules are adopted from [[ISO 11179-4]](#references), *Information technology — Metadata
 registries: Formulation of data definitions*
 
-**Rule 8-0 (REF,EXT)(Constraint):** Each data definition MUST conform to the requirements for data definitions provided by [ISO 11179-4] Section 5.2, *Requirements*; namely, a data definition MUST: (N5R 11-28)
+**Rule 8-10 (REF,EXT)(Constraint):** Each data definition MUST conform to the requirements for data definitions provided by [ISO 11179-4] Section 5.2, *Requirements*; namely, a data definition MUST: (N5R 11-28)
 
 * be stated in the singular
 * state what the concept is, not only what it is not
@@ -1954,7 +1960,7 @@ registries: Formulation of data definitions*
 * contain only commonly understood abbreviations
 * be expressed without embedding definitions of other data or underlying concepts
 
-**Rule 8-0 (REF,EXT)(Constraint):** Each data definition SHOULD conform to the recommendations for data definitions provided by [ISO 11179-4] Section 5.2, *Recommendations*; namely, a data definition SHOULD: (N5R 11-29)
+**Rule 8-11 (REF,EXT)(Constraint):** Each data definition SHOULD conform to the recommendations for data definitions provided by [ISO 11179-4] Section 5.2, *Recommendations*; namely, a data definition SHOULD: (N5R 11-29)
 
 * state the essential meaning of the concept
 * be precise and unambiguous
@@ -1973,39 +1979,39 @@ In order to provide a more consistent voice across NIEM, a model built from requ
 
 These rules apply to Property objects in CMF, and to element and attribute declarations in XSD.
 
-**Rule 8-0 (REF,EXT)(Constraint):** The data definition for an abstract property SHOULD begin with the standard opening phrase "A data concept...". (N5R 11-35)
+**Rule 8-12 (REF,EXT)(Constraint):** The data definition for an abstract property SHOULD begin with the standard opening phrase "A data concept...". (N5R 11-35)
 
-**Rule 8-0 (REF,EXT)(Constraint):** The data definition for a property that has an association type and is not abstract SHOULD begin with the standard opening phrase "An (optional adjectives) (relationship|association)...". (N5R 11-34)
+**Rule 8-13 (REF,EXT)(Constraint):** The data definition for a property that has an association type and is not abstract SHOULD begin with the standard opening phrase "An (optional adjectives) (relationship|association)...". (N5R 11-34)
 
-**Rule 8-0 (REF,EXT)(Constraint):** The data definition for a property with a date representation term SHOULD begin with the standard opening phrase "(A|An) (optional adjectives) (date|month|year)...". (N5R 11-36)
+**Rule 8-14 (REF,EXT)(Constraint):** The data definition for a property with a date representation term SHOULD begin with the standard opening phrase "(A|An) (optional adjectives) (date|month|year)...". (N5R 11-36)
 
-**Rule 8-0 (REF,EXT)(Constraint):** The data definition for a property with a quantity representation term SHOULD begin with the standard opening phrase "An (optional adjectives) (count|number)...". (N5R 11-37)
+**Rule 8-15 (REF,EXT)(Constraint):** The data definition for a property with a quantity representation term SHOULD begin with the standard opening phrase "An (optional adjectives) (count|number)...". (N5R 11-37)
 
-**Rule 8-0 (REF,EXT)(Constraint):** The data definition for a property with a picture representation term SHOULD begin with the standard opening phrase "An (optional adjectives) (image|picture|photograph)". (N5R 11-38)
+**Rule 8-16 (REF,EXT)(Constraint):** The data definition for a property with a picture representation term SHOULD begin with the standard opening phrase "An (optional adjectives) (image|picture|photograph)". (N5R 11-38)
 
-**Rule 8-0 (REF,EXT)(Constraint):** The data definition for a property with an indicator representation term SHOULD begin with the standard opening phrase "True if ...; false (otherwise|if)...". (N5R 11-39)
+**Rule 8-17 (REF,EXT)(Constraint):** The data definition for a property with an indicator representation term SHOULD begin with the standard opening phrase "True if ...; false (otherwise|if)...". (N5R 11-39)
 
-**Rule 8-0 (REF,EXT)(Constraint):** The data definition for a property with an identification representation term SHOULD begin with the standard opening phrase "(A|An) (optional adjectives) identification...". (N5R 11-40)
+**Rule 8-18 (REF,EXT)(Constraint):** The data definition for a property with an identification representation term SHOULD begin with the standard opening phrase "(A|An) (optional adjectives) identification...". (N5R 11-40)
 
-**Rule 8-0 (REF,EXT)(Constraint):** The data definition for a property with a name representation term SHOULD begin with the standard opening phrase "(A|An) (optional adjectives) name...". (N5R 11-41)
+**Rule 8-19 (REF,EXT)(Constraint):** The data definition for a property with a name representation term SHOULD begin with the standard opening phrase "(A|An) (optional adjectives) name...". (N5R 11-41)
 
-**Rule 8-0 (REF,EXT)(Constraint):** The data definition for a property SHOULD begin with the standard opening phrase "(A|An)". (N5R 11-42)
+**Rule 8-20 (REF,EXT)(Constraint):** The data definition for a property SHOULD begin with the standard opening phrase "(A|An)". (N5R 11-42)
 
 ### 8.4.2 Opening phrases for classes
 
 These rules apply to Class objects in CMF, and to complex type definitions in XSD.
 
-**Rule 8-0 (REF,EXT)(Constraint):** The data definition for an association class SHOULD begin with the standard opening phrase "A data type for (a relationship|an association)...". (N5R 11-43)
+**Rule 8-21 (REF,EXT)(Constraint):** The data definition for an association class SHOULD begin with the standard opening phrase "A data type for (a relationship|an association)...". (N5R 11-43)
 
-**Rule 8-0 (REF,EXT)(Constraint):** The data definition for a class SHOULD begin with the standard opening phrase "A data type..." (N5R 11-44)
+**Rule 8-22 (REF,EXT)(Constraint):** The data definition for a class SHOULD begin with the standard opening phrase "A data type..." (N5R 11-44)
 
 ### 8.4.3 Opening phrases for XSD definitions and declarations
 
-**Rule 8-0 (XSD)(Constraint):** The data definition for an augmentation point element SHOULD begin with standard opening phrase "An augmentation point...". (N5R 11-31)
+**Rule 8-23 (XSD)(Constraint):** The data definition for an augmentation point element SHOULD begin with standard opening phrase "An augmentation point...". (N5R 11-31)
 
-**Rule 8-0 (XSD)(Constraint):** The data definition for an augmentation element SHOULD begin with the standard opening phrase "Supplements..." or "Additional information about...". (N5R 11-32)
+**Rule 8-24 (XSD)(Constraint):** The data definition for an augmentation element SHOULD begin with the standard opening phrase "Supplements..." or "Additional information about...". (N5R 11-32)
 
-**Rule 8-0 (XSD)(Constraint):** The data definition for an augmentation type SHOULD begin with the standard opening phrase "A data type (that supplements|for additional information about)...". (N5R 11-44) 
+**Rule 8-25 (XSD)(Constraint):** The data definition for an augmentation type SHOULD begin with the standard opening phrase "A data type (that supplements|for additional information about)...". (N5R 11-44) 
 
 </br>
 
@@ -2023,7 +2029,7 @@ Note that external schema documents (i.e., non-NIEM-conformant schema documents)
 
 > NOTE: Do we still need this rule?
 
-**Rule 9-7 (XSD)(Constraint):** Prohibited base types: A schema component MUST NOT have any of the following base types:  (N5R 9-2 thru 9-9)
+**Rule 9-3 (XSD)(Constraint):** Prohibited base types: A schema component MUST NOT have any of the following base types:  (N5R 9-2 thru 9-9)
 - `xs:ID`
 - 'xs:IDREF`
 - `xs:IDREFS`
@@ -2034,14 +2040,14 @@ Note that external schema documents (i.e., non-NIEM-conformant schema documents)
 - `xs:ENTITES`
 - any type in the XML namespace `http://www.w3.org/XML/1998/namespace`
 
-**Rule 9-9 (XSD)(Constraint):** Prohibited list item types: A schema component MUST NOT have an attribute `{}itemType` with any of the following values: (N5R 9-15,9-16,9-17,9-18)
+**Rule 9-4 (XSD)(Constraint):** Prohibited list item types: A schema component MUST NOT have an attribute `{}itemType` with any of the following values: (N5R 9-15,9-16,9-17,9-18)
 
 * `xs:ID`
 * `xs:IDREF`
 * `xs:anySimpleType`
 * `xs:ENTITY`
 
-**Rule 9-10 (XSD)(Constraint):** Prohibited union item types: A schema component MUST NOT have an attribute `{}memberTypes` with any of the following values: (N5R 9-19,9-20,9-21,9-22,9-23,9-24)
+**Rule 9-5 (XSD)(Constraint):** Prohibited union item types: A schema component MUST NOT have an attribute `{}memberTypes` with any of the following values: (N5R 9-19,9-20,9-21,9-22,9-23,9-24)
 
 * `xs:ID`
 * `xs:IDREF`
@@ -2050,29 +2056,29 @@ Note that external schema documents (i.e., non-NIEM-conformant schema documents)
 * `xs:ENTITY`
 * `xs:ENTITIES`
 
-**Rule 9-11 (XSD)(Constraint):** No mixed content on complex type or complex content. (N5R 9-27,9-28)
+**Rule 9-6 (XSD)(Constraint):** No mixed content on complex type or complex content. (N5R 9-27,9-28)
 
 Mixed content allows the mixing of data tags with text. Languages such as XHTML use this syntax for markup of text. NIEM-conformant schemas define XML that is for data exchange, not text markup. Mixed content creates complexity in processing, defining, and constraining content. Well-defined markup languages exist outside NIEM and may be used with NIEM data, and so [*external schema documents*](#definitions) may include mixed content and may be used with NIEM. 
 
-**Rule 9-12 (XSD)(Constraint):** A complex type definition MUST have a `xs:complexContent` or a `xs:simpleContent` child element (N5R 9-29)
+**Rule 9-7 (XSD)(Constraint):** A complex type definition MUST have a `xs:complexContent` or a `xs:simpleContent` child element (N5R 9-29)
 
 XML Schema provides shorthand to defining complex content of a complex type, which is to define the complex type with immediate children that specify elements, or other groups, and attributes. In the desire to normalize schema representation of types and to be explicit, NIEM forbids the use of that shorthand.
 
-**Rule 9-13 (SET)(Constraint):** The base type of a complex type with complex content MUST have complex content. (N5R 9-31,9-32)
+**Rule 9-8 (SET)(Constraint):** The base type of a complex type with complex content MUST have complex content. (N5R 9-31,9-32)
 
 This rule addresses a peculiarity of the XML Schema definition language, which allows a complex type to be constructed using xs:complexContent, and yet is derived from a complex type that uses xs:simpleContent. These rules ensure that each type has the content style indicated by the schema.
 
-**Rule 9-14 (XSD)(Constraint):** An untyped elememt or an element of type `xs:anySimpleType` MUST be abstract. (N5R 9-38,9-39)
+**Rule 9-9 (XSD)(Constraint):** An untyped elememt or an element of type `xs:anySimpleType` MUST be abstract. (N5R 9-38,9-39)
 
 Untyped element declarations act as wildcards that may carry arbitrary data. By declaring such types abstract, NIEM allows the creation of type independent semantics without allowing arbitrary content to appear in XML instances.
 
-**Rule 9-15 (XSD)(Constraint):** An element type MUST NOT be in the XML Schema namespace or the XML namespace. (N5R 9-40,9-41)
+**Rule 9-10 (XSD)(Constraint):** An element type MUST NOT be in the XML Schema namespace or the XML namespace. (N5R 9-40,9-41)
 
-**Rule 9-16 (REF,EXT,SUB)(Constraint):** An element type that is not `xs:anySimpleType` MUST NOT be a simple type. (NSR 9-42)
+**Rule 9-11 (REF,EXT,SUB)(Constraint):** An element type that is not `xs:anySimpleType` MUST NOT be a simple type. (NSR 9-42)
 
-**Rule 9-17 (XSD)(Constraint):** An attribute declaration MUST have a type. (N5R 9-50)
+**Rule 9-12 (XSD)(Constraint):** An attribute declaration MUST have a type. (N5R 9-50)
 
-**Rule 9-18 (XSD)(Constrant):** Prohibited attribute types: A schema component MUST NOT have an attribute `{}type` with any of the following types: (N5R 9-51,9-52,9-53,9-54,9-55,9-56)
+**Rule 9-13 (XSD)(Constrant):** Prohibited attribute types: A schema component MUST NOT have an attribute `{}type` with any of the following types: (N5R 9-51,9-52,9-53,9-54,9-55,9-56)
 
 * `xs:ID`
 * `xs:IDREF`
@@ -2081,7 +2087,7 @@ Untyped element declarations act as wildcards that may carry arbitrary data. By 
 * `xs:ENTITIES`
 * `xs:anySimpleType`
 
-**Rule 9-18 (XSD)(Constraint):** Prohibited schema components: A schema document MUST NOT contain any of the following elements:(N5R 9-59,9-61,9-72,9-73,9-74,9-75,9-76)
+**Rule 9-14 (XSD)(Constraint):** Prohibited schema components: A schema document MUST NOT contain any of the following elements:(N5R 9-59,9-61,9-72,9-73,9-74,9-75,9-76)
 
 * `xs:notation`
 * `xs:all`
@@ -2093,25 +2099,25 @@ Untyped element declarations act as wildcards that may carry arbitrary data. By 
 * `xs:redefine`
 * `xs:include`
 
-**Rule 9-19 (EXT,SUB)(Constraint):** An element `xs:sequence` MUST be a child of `xs:extension` or `xs:restriction`. (N5R 9-63)
+**Rule 9-15 (EXT,SUB)(Constraint):** An element `xs:sequence` MUST be a child of `xs:extension` or `xs:restriction`. (N5R 9-63)
 
-**Rule 9-20 (XSD)(Constraint):** An element `xs:sequence` MUST have a `minOccurs` and `maxOccurs` of 1. (N5R 9-66,9-67)
+**Rule 9-16 (XSD)(Constraint):** An element `xs:sequence` MUST have a `minOccurs` and `maxOccurs` of 1. (N5R 9-66,9-67)
 
-**Rule 9-21 (XSD)(Constraint):** An element `xs:choice` MUST have a `minOccurs` and `maxOccurs` of 1. (N5R 9-68,9-69)
+**Rule 9-17 (XSD)(Constraint):** An element `xs:choice` MUST have a `minOccurs` and `maxOccurs` of 1. (N5R 9-68,9-69)
 
-**Rule 9-22 (XSD)(Constraint):** An XML comment SHOULD NOT appear in the schema. (NSR 9-77)
+**Rule 9-18 (XSD)(Constraint):** An XML comment SHOULD NOT appear in the schema. (NSR 9-77)
 
 Since XML comments are not associated with any specific XML Schema construct, there is no standard way to interpret comments. XML Schema annotations should be preferred for meaningful information about components. NIEM specifically defines how information should be encapsulated in NIEM-conformant schemas via xs:annotation elements. Comments do not correspond to any metamodel object.
 
-**Rule 9-23 (XSD)(Constraint):** A child of element `xs:documentation` MUST be text or an XML comment. (N5R 9-78)
+**Rule 9-19 (XSD)(Constraint):** A child of element `xs:documentation` MUST be text or an XML comment. (N5R 9-78)
 
-**Rule 9-24 (XSD)(Constraint):** A child of element `xs:appinfo` MUST be an element, a comment, or whitespace text. (N5R 9-79)
+**Rule 9-20 (XSD)(Constraint):** A child of element `xs:appinfo` MUST be an element, a comment, or whitespace text. (N5R 9-79)
 
 > NOTE: These 3 rules could move to an appinfo section?
 
-**Rule 9-25 (XSD)(Constraint):** An element that is a child of `xs:appinfo` MUST have a namespace name. (N5R 9-80)
+**Rule 9-21 (XSD)(Constraint):** An element that is a child of `xs:appinfo` MUST have a namespace name. (N5R 9-80)
 
-**Rule 9-26 (XSD)(Constraint):** An element that is a descendent of `xs:appinfo` MUST NOT have the XML Schema namespace. (NSR 9-81)
+**Rule 9-22 (XSD)(Constraint):** An element that is a descendent of `xs:appinfo` MUST NOT have the XML Schema namespace. (NSR 9-81)
 
 # 10. Rules for extension namespaces
 
@@ -2119,23 +2125,23 @@ An extension namespace is the kind most commonly created by a NIEM message desig
 
 ## 10.1 Rules for the namespace as a whole
 
-**Rule 10-0 (CMF,XSD)(Constraint):** A namespace MUST assert conformance with the `EXT` conformance target if and only if it is an extension namespace. (N5R 4-2)
+**Rule 10-1 (CMF,XSD)(Constraint):** A namespace MUST assert conformance with the `EXT` conformance target if and only if it is an extension namespace. (N5R 4-2)
 
-**Rule 10-28 (CMF,XSD)(Constraint):** The value of the NamespaceURI property in a Namespace object, and the value of the attribute `{}targetNamespace` in an XSD document, MUST match the production <*absolute-URI*> as defined by [[RFC 3986]](#references). (N5R 9-84)
+**Rule 10-2 (CMF,XSD)(Constraint):** The value of the NamespaceURI property in a Namespace object, and the value of the attribute `{}targetNamespace` in an XSD document, MUST match the production <*absolute-URI*> as defined by [[RFC 3986]](#references). (N5R 9-84)
 
-**Rule 10-27 (XSD)(Constraint):** A schema document MUST declare a target namespace. (N5R 9-83)
+**Rule 10-3 (XSD)(Constraint):** A schema document MUST declare a target namespace. (N5R 9-83)
 
-**Rule 10-29 (XSD)(Constraint):** A schema document MUST declare a prefix for the target namespace URI. (NEW)
+**Rule 10-4 (XSD)(Constraint):** A schema document MUST declare a prefix for the target namespace URI. (NEW)
 
-**Rule 10-31 (CMF,XSD)(Constraint):** The value of the NamespaceVersionText property in a Namespace object MUST NOT be empty.  An `xs:schema` element MUST have an attribute `{}version`, which MUST NOT be empty. (N5R 9-85)
+**Rule 10-5 (CMF,XSD)(Constraint):** The value of the NamespaceVersionText property in a Namespace object MUST NOT be empty.  An `xs:schema` element MUST have an attribute `{}version`, which MUST NOT be empty. (N5R 9-85)
 
 ## 10.2 Rules for type definitions
 
-**Rule 10-3 (REF,EXT,SUB)(Constraint):** A type definition MUST be top-level. (N5R 9-10,9-25)
+**Rule 10-6 (REF,EXT,SUB)(Constraint):** A type definition MUST be top-level. (N5R 9-10,9-25)
 
 All XML Schema top-level types (children of the document element) are required by XML Schema to be named. By requiring these components to be top level, they are forced to be named and are globally reusable.  This rule does not apply to message schema documents, which are not intended for reuse.
 
-**Rule 10-36 (XSD)(Constraint):** A complex type definition must be an object type, an association type, an adapter type, or an augmentation type. (N5R 10-1)
+**Rule 10-7 (XSD)(Constraint):** A complex type definition must be an object type, an association type, an adapter type, or an augmentation type. (N5R 10-1)
 
 The rules in this document use the name of a type as the key indicator of the type’s category. This makes the rules much simpler than doing a deep examination of each type (and its base types) to identify its category. For complex types, the names follow a pattern:
 
@@ -2144,47 +2150,47 @@ The rules in this document use the name of a type as the key indicator of the ty
 * Name ends with AugmentationType → type is an [augmentation type](#definitions). ([Rule 6-9]())
 * Otherwise → type is the XSD representation of an [object class](#definitions). ([Rule 6-1]())
 
-**Rule 10-37 (REF,EXT,SUB)(Constraint):** A type with complex content that is not an [adapter type](#definitions), an [augmentation type](#definitions), or the XSD representation of an [association class](#definitions)  MUST be derived from structures:ObjectType or from another object type. (N5R 10-2)
+**Rule 10-8 (REF,EXT,SUB)(Constraint):** A type with complex content that is not an [adapter type](#definitions), an [augmentation type](#definitions), or the XSD representation of an [association class](#definitions)  MUST be derived from structures:ObjectType or from another object type. (N5R 10-2)
 
-**Rule 10-0 (REF,EXT,SUB)(Constraint):** A type definition MUST be derived from `structures:AdapterType` if and only if it represents an [adapter class](#definitions). (NEW)
+**Rule 10-9 (REF,EXT,SUB)(Constraint):** A type definition MUST be derived from `structures:AdapterType` if and only if it represents an [adapter class](#definitions). (NEW)
 
-**Rule 10-0 (REF,EXT,SUB)(Constraint):** A type definition MUST be derinved from `structures:AssociationType` if and only if it represents an [association class](#definitions). (N5R 10-21)
+**Rule 10-10 (REF,EXT,SUB)(Constraint):** A type definition MUST be derinved from `structures:AssociationType` if and only if it represents an [association class](#definitions). (N5R 10-21)
 
-**Rule 10-0 (REF,EXT,SUB)(Constraint):** A type definition MUST be derived from `structures:AugmentationType` if and only if it is an [augmentation type](#definitions) (N5R 10-35)
+**Rule 10-11 (REF,EXT,SUB)(Constraint):** A type definition MUST be derived from `structures:AugmentationType` if and only if it is an [augmentation type](#definitions) (N5R 10-35)
 
-**Rule 10-0 (XSD)(Constraint):** A complex type definition with simple content MUST include `structures:SimpleObjectAttributeGroup`. (N5R 11-11)
+**Rule 10-12 (XSD)(Constraint):** A complex type definition with simple content MUST include `structures:SimpleObjectAttributeGroup`. (N5R 11-11)
 
-**Rule 10-0 (XSD)(Constraint):** The base type definition of a type definition MUST have the target namespace or the XML Schema namespace or a conforming namespace that is imported. (N5R 11-3)
+**Rule 10-13 (XSD)(Constraint):** The base type definition of a type definition MUST have the target namespace or the XML Schema namespace or a conforming namespace that is imported. (N5R 11-3)
 
-**Rule 10-0 (XSD)(Constraint):** An element reference MUST be to a component that has a namespace that is either the target namespace of the schema document in which it appears, or which is imported as conformant by that schema document. (N5R 11-21)
+**Rule 10-14 (XSD)(Constraint):** An element reference MUST be to a component that has a namespace that is either the target namespace of the schema document in which it appears, or which is imported as conformant by that schema document. (N5R 11-21)
 
-**Rule 10-0 (XSD)(Constraint):** An attribute reference MUST have the target namespace or a namespace that is imported as conformant. (N5R 11-22)
+**Rule 10-15 (XSD)(Constraint):** An attribute reference MUST have the target namespace or a namespace that is imported as conformant. (N5R 11-22)
 
-**Rule 10-0 (XSD)(Constraint):** An attribute group reference MUST be `structures:SimpleObjectAttributeGroup`. (N5R 11-23)
+**Rule 10-16 (XSD)(Constraint):** An attribute group reference MUST be `structures:SimpleObjectAttributeGroup`. (N5R 11-23)
 
-**Rule 10-0 (XSD)(Constraint):** A complex type definition MUST NOT have an element use of an augmentation element declaration, or an element declaration that is in the substitition group of an augmentation point element declaration. (N5R 10-37)
+**Rule 10-17 (XSD)(Constraint):** A complex type definition MUST NOT have an element use of an augmentation element declaration, or an element declaration that is in the substitition group of an augmentation point element declaration. (N5R 10-37)
 
 Augmentation elements do not correspond to a model component, and must not be used as a property in any class.
 
 ## 10.3 Rules for simple type definitions
 
-**Rule 10-0 (XSD)(Constraint):** The item type of a list simple type definition MUST have a target namespace equal to the target namespace of the XML Schema document within which it is defined, or a namespace that is imported as conformant by the schema document within which it is defined. (N5R 11-6)
+**Rule 10-18 (XSD)(Constraint):** The item type of a list simple type definition MUST have a target namespace equal to the target namespace of the XML Schema document within which it is defined, or a namespace that is imported as conformant by the schema document within which it is defined. (N5R 11-6)
 
-**Rule 10-0 (XSD)(Constraint):** Every member type of a union simple type definition MUST have a target namespace that is equal to either the target namespace of the XML Schema document within which it is defined or a namespace that is imported as conformant by the schema document within which it is defined. (N5R 11-7)
+**Rule 10-19 (XSD)(Constraint):** Every member type of a union simple type definition MUST have a target namespace that is equal to either the target namespace of the XML Schema document within which it is defined or a namespace that is imported as conformant by the schema document within which it is defined. (N5R 11-7)
 
 ## 10.4 Rules for attribute and element declarations
 
-**Rule 10-3 (REF,EXT,SUB)(Constraint):** An attribute declaration or element declaration MUST be top-level. (N5R 9-36,9-48)
+**Rule 10-20 (REF,EXT,SUB)(Constraint):** An attribute declaration or element declaration MUST be top-level. (N5R 9-36,9-48)
 
-**Rule 10-0 (REF,EXT,SUB)(Constraint):** An element declaration MUST NOT have a simple type. (N5R 11-12)
+**Rule 10-21 (REF,EXT,SUB)(Constraint):** An element declaration MUST NOT have a simple type. (N5R 11-12)
 
-**Rule 10-0 (XSD)(Constraint):** The name of an element declaration MUST have a representation term. (N5R 11-15,11-16)
+**Rule 10-22 (XSD)(Constraint):** The name of an element declaration MUST have a representation term. (N5R 11-15,11-16)
 
-**Rule 10-0 (XSD)(Constraint):** The type definition of an element declaration MUST have a target namespace that is the target namespace, or a conforming namespace that is importedt. (N5R 11-13)
+**Rule 10-23 (XSD)(Constraint):** The type definition of an element declaration MUST have a target namespace that is the target namespace, or a conforming namespace that is importedt. (N5R 11-13)
 
 ### 10.5 Rules for adapters and external components
 
-**Rule 10-0 (XSD)(Constraint):** An `xs:import` element importing an external schema document MUST own the attribute `appinfo:externalImportIndicator` with a value of `true`. (NEW)
+**Rule 10-24 (XSD)(Constraint):** An `xs:import` element importing an external schema document MUST own the attribute `appinfo:externalImportIndicator` with a value of `true`. (NEW)
 
 An [external schema document](#definitions) is any schema document that is not 
 
@@ -2202,11 +2208,11 @@ A schema component defined by an external schema document may be called an exter
 
 * A type that is not an external adapter type, and which is defined by an extension, subset, or message schema document, may incorporate externally-defined attribute
 
-**Rule 10-0 (REF,EXT)(Constraint):** An `xs:import` element importing an external schema document MUST be a documented component. (N5R 10-7)
+**Rule 10-25 (REF,EXT)(Constraint):** An `xs:import` element importing an external schema document MUST be a documented component. (N5R 10-7)
 
 A NIEM-conformant schema has well-known documentation points. Therefore, a schema that imports a NIEM-conformant namespace need not provide additional documentation for the imported namespace. However, when an external schema document is imported, appropriate documentation must be provided on the xs:import element. This ensures that documentation for all external schema documents will be both available and accessible in a consistent manner.
 
-**Rule 10-0 (XSD)(Constraint):** A type definition MUST have a name ending in "AdapterType" if and only if it is an adapter type. (N5R 10-8)
+**Rule 10-26 (XSD)(Constraint):** A type definition MUST have a name ending in "AdapterType" if and only if it is an adapter type. (N5R 10-8)
 
 An external adapter type is a NIEM-conformant type that adapts external components for use within NIEM. An external adapter type creates a new class of object that embodies a single concept composed of external components. A NIEM-conformant schema defines an external adapter type.
 
@@ -2216,49 +2222,49 @@ In the case of an external expression that is in the form of model groups, attri
 
 In normal (conformant) type definition, a reference to an attribute or element is a reference to a documented component. Within an external adapter type, the references to the attributes and elements being adapted are references to undocumented components. These components must be documented to provide comprehensibility and interoperability. Since documentation made available by nonconformant schemas is undefined and variable, documentation of these components is required at their point of use, within the conformant schema.
 
-**Rule 10-0 (XSD)(Constraint):** An external adapter type definition MUST be a complex type definition with complex content that extends structures:ObjectType, and that uses xs:sequence as its top-level compositor. (N5R 10-9)
+**Rule 10-27 (XSD)(Constraint):** An external adapter type definition MUST be a complex type definition with complex content that extends structures:ObjectType, and that uses xs:sequence as its top-level compositor. (N5R 10-9)
 
-**Rule 10-0 (XSD)(Constraint):** An element reference that appears within an external adapter type MUST have a target namespace that is imported as external. (N5R 10-10)
+**Rule 10-28 (XSD)(Constraint):** An element reference that appears within an external adapter type MUST have a target namespace that is imported as external. (N5R 10-10)
 
-**Rule 10-0 (XSD)(Constraint):** An external adapter type definition MUST NOT be a base type definition. (N5R 10-11, 10-12)
+**Rule 10-29 (XSD)(Constraint):** An external adapter type definition MUST NOT be a base type definition. (N5R 10-11, 10-12)
 
-**Rule 10-0 (REF,EXT)(Constraint):** An external attribute use MUST be a documented component with a non-empty data definition. (N5R 10-14)
+**Rule 10-30 (REF,EXT)(Constraint):** An external attribute use MUST be a documented component with a non-empty data definition. (N5R 10-14)
 
-**Rule 10-0 (XSD)(Constraint):** An attribute use schema component MUST NOT have an {attribute declaration} with an ID type. (N5R 10-15)
+**Rule 10-31 (XSD)(Constraint):** An attribute use schema component MUST NOT have an {attribute declaration} with an ID type. (N5R 10-15)
 
 NIEM schemas use structures:id to enable references between components. Each NIEM-defined complex type in a reference or extension schema document must incorporate a definition for structures:id. [XML] Section 3.3.1, Attribute Types entails that a complex type may have no more than one ID attribute. This means that an external attribute use must not be an ID attribute.
 
 The term "attribute use schema component" is defined by [[XML Schema Structures]](#references) Section 3.5.1, The Attribute Use Schema Component. Attribute type ID is defined by[[XML]](#references) Section 3.3.1, Attribute Types.
 
-**Rule 10-0 (REF,EXT)(Constraint):** An external attribute use MUST be a documented component with a non-empty data definition. (N5R 10-16)
+**Rule 10-32 (REF,EXT)(Constraint):** An external attribute use MUST be a documented component with a non-empty data definition. (N5R 10-16)
 
 ### 10.6 Rules for proxy types
 
-**Rule 10-0 (XSD)(Constraint):** A proxy type MUST have the designated structure. It MUST use xs:extension. It MUST NOT use xs:attribute. It MUST include exactly one xs:attributeGroup reference, which must be to structures:SimpleObjectAttributeGroup. (N5R 10-20)
+**Rule 10-33 (XSD)(Constraint):** A proxy type MUST have the designated structure. It MUST use xs:extension. It MUST NOT use xs:attribute. It MUST include exactly one xs:attributeGroup reference, which must be to structures:SimpleObjectAttributeGroup. (N5R 10-20)
 
 A [proxy type](#definitions) is not a model component. It is a convenience complex type definition wrapper for a simple type in the XML Schema namespace; for example, `niem-xs:token` is a proxy type for `xs:token`.  Unlike other complex type definitions, proxy types have the same local name as the builtin simple type. This is done to make conformant schemas more understandable to people that are familiar with the names of the XML Schema namespace simple types.
 
 ### 10.7 Rules for augmentations
 
-**Rule 10-0 (XSD)(Constraint):** The type definition for an [augmentable class](#definitions) MUST contain exactly one element use of its corresponding augmentation point element. (N5R 10-23,10-24)
+**Rule 10-34 (XSD)(Constraint):** The type definition for an [augmentable class](#definitions) MUST contain exactly one element use of its corresponding augmentation point element. (N5R 10-23,10-24)
 
 The augmentation point element for an augmentable type has the name created by replacing the final "Type" in the augmentable type name with "AugmentationPoint". For example, the augmentation point element for `nc:PersonType` is `nc:PersonAugmentationPoint`.
 
-**Rule 10-0 (XSD)(Constraint):** A schema document containing an element declaration for an [augmentation point element](#definitions) MUST also contain a type definition for its augmented base type. (N5R 10-25)
+**Rule 10-35 (XSD)(Constraint):** A schema document containing an element declaration for an [augmentation point element](#definitions) MUST also contain a type definition for its augmented base type. (N5R 10-25)
 
 For example, a schema document with an element declaration for `FooAugmentationPoint` must also contain a type definition for `FooType`.
 
-**Rule 10-0 (XSD)(Constraint):** An augmentation point element MUST have no type. (N5R 10-26)
+**Rule 10-36 (XSD)(Constraint):** An augmentation point element MUST have no type. (N5R 10-26)
 
-**Rule 10-0 (XSD)(Constraint):** An augmentation point element MUST have no substitution group. (N5R 10-27)
+**Rule 10-37 (XSD)(Constraint):** An augmentation point element MUST have no substitution group. (N5R 10-27)
 
-**Rule 10-0 (XSD)(Constraint):** An augmentation point element MUST only be referenced by its base type. (N5R 10-28)
+**Rule 10-38 (XSD)(Constraint):** An augmentation point element MUST only be referenced by its base type. (N5R 10-28)
 
 For example, the `FooAugmentationPoint` element must not be included in any type other than `FooType`.
 
-**Rule 10-0 (XSD)(Constraint):** An augmentation point element particle MUST have attribute minOccurs equal to 0 and attribute maxOccurs set to unbounded. (N5R 10-29,10-30)
+**Rule 10-39 (XSD)(Constraint):** An augmentation point element particle MUST have attribute minOccurs equal to 0 and attribute maxOccurs set to unbounded. (N5R 10-29,10-30)
 
-**Rule 10-0 (XSD)(Constraint):** An augmentation point element particle MUST be the last element occurrence in the content model of its augmentable type. (N5R 10-31)
+**Rule 10-40 (XSD)(Constraint):** An augmentation point element particle MUST be the last element occurrence in the content model of its augmentable type. (N5R 10-31)
 
 <br/>
 
@@ -2274,7 +2280,7 @@ For example, the `FooAugmentationPoint` element must not be included in any type
 
 # 12. Rules for models
 
-**Rule 12-30 (SET)(Constraint):** There MUST be a one-to-one match between namespace prefix and namespace URI among all schema documents in the set. (NEW)
+**Rule 12-1 (SET)(Constraint):** There MUST be a one-to-one match between namespace prefix and namespace URI among all schema documents in the set. (NEW)
 
 XML Schema permits a schema document set to contain
 
@@ -2284,21 +2290,21 @@ XML Schema permits a schema document set to contain
 
 However, these conflicting namespace bindings are not allowed in CMF, and are therefore forbidden in NIEM XSD.
 
-**Rule 12-32 (XSD)(Constraint):** An element `xs:import` MUST have an attribute `{}namespace`. (N5R 9-90)
+**Rule 12-2 (XSD)(Constraint):** An element `xs:import` MUST have an attribute `{}namespace`. (N5R 9-90)
 
-**Rule 12-33 (XSD)(Constraint):** An `xs:import` element MUST must specify a schema document which MUST be a local resource. (NEW)
+**Rule 12-3 (XSD)(Constraint):** An `xs:import` element MUST must specify a schema document which MUST be a local resource. (NEW)
 
 The schema document may be specified by a `{}schemaLocation` attribute in the `xs:import` element, or by XML Catalog resolution of the `{}namespace` attribute, or both. Requiring a local resource ensures that the component definitions are known and fixed.
 
-**Rule 12-34 (SET)(Constraint):** The schema document set MUST NOT contain two `xs:import` elements with the same `{}namespace` attribute that specify different schema documents. (NEW)
+**Rule 12-4 (SET)(Constraint):** The schema document set MUST NOT contain two `xs:import` elements with the same `{}namespace` attribute that specify different schema documents. (NEW)
 
 XML Schema permits conflicting imports, but the result is underspecified, and often causes errors that are very hard to detect and diagnose.
 
-**Rule 12-34 (SET)(Constraint):** A schema document set must be complete. (N5R 9-91)
+**Rule 12-5 (SET)(Constraint):** A schema document set must be complete. (N5R 9-91)
 
 An XML Schema document set defines an XML Schema that may be used to validate an XML document. This rule ensures that a schema document set under consideration contains definitions for everything that it references; it has everything necessary to do a complete validation of XML documents, without any unresolved references. Note that some tools may allow validation of documents using partial schemas, when components that are not present are not exercised by the XML document under validation. Such a schema does not meet qualify as a conformant schema document set.
 
-**Rule 12-35 (XSD)(Constraint):** The namespace of a type referenced by any of the following schema attributes MUST be the target namespace, the XML Schma namespace, or imported: (N5R 9-92,9-93,9-94,9-95,9-96,9-97)
+**Rule 12-6 (XSD)(Constraint):** The namespace of a type referenced by any of the following schema attributes MUST be the target namespace, the XML Schma namespace, or imported: (N5R 9-92,9-93,9-94,9-95,9-96,9-97)
 
 * `type`
 * `base`
@@ -2311,11 +2317,11 @@ The XML Schema definition language requires that, when a schema document referen
 
 Some tools do not enforce this constraint; one such tool carries imports from a schema document into schema documents that it imports. This has the potential to introduce incompatibility into schema documents and schema document sets that exercise this bug. To maintain compatibility across tool sets, this requirement is an explicit rule for NIEM-conformant schemas.
 
-# 8. Rules for NIEM messages
+# 13. Rules for NIEM messages
 
-## 8.1 NIEM XML
+## 13.1 NIEM XML
 
-## 8.2 NIEM JSON
+## 13.2 NIEM JSON
 
 # Definitions
 
