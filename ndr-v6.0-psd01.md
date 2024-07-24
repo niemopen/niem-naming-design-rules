@@ -44,7 +44,7 @@ https://docs.oasis-open.org/niemopen/ndr/v6.0/ndr-v6.0.pdf
 Katherine Escobar (katherine.b.escobar.civ@mail.mil), [Joint Staff J6](https://www.jcs.mil/Directorates/J6-C4-Cyber/)
 
 #### NTAC Technical Steering Committee Chairs:
-Jim Cabral (jim.cabral@infotrack.com), [InfoTrack US](https://www.infotrack.com/) \
+Jim Cabral (jim@cabral.org), Individual \
 Scott Renner (sar@mitre.org), [MITRE](https://mitre.org/)
 
 #### Editor:
