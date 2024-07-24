@@ -1,0 +1,95 @@
+﻿Term,Definition,First use in Section
+Abstract class,"A class that is a base for extension, and must be specialized to be used directly",3.4
+Adapter class,Contains only properties from a single external namespace,4.4
+Artifact,,2.3
+Association class,Represents a specific relationship between objects,4.4
+Atomic class,"Contains no object properties, one or more attribute properties, and exactly one data property that is not an attribute property.  Does not have a special name.",4.4
+Attribute,,2.2
+Attribute declaration,,4.8
+Attribute property,A data property in which `isAttribute` is true,4.4
+Augmentable class,A class that can be augmented with additional properties,4.4
+Augmentation class/type,Oontain the augmenting properties,4.15
+Augmentation element,Element based on an augmentation type that is substitutable for the augmentation point element in the augmented type.,4.15
+Augmentation point element,An abstract element declaration that provides a place for any augmtation properties.,4.15.2
+Cardinality,How many times a property may/must appear in an object,4.4
+Class,Defines the content of a corresponding object (or resource) in a message.,3.1
+Code datatype,A restriction in which each value that is valid for the datatype corresponds to a code value in a code list.,4.12
+Code list,"A list of distinct conceptual entities, each represented by a code value that has a known meaning beyond its text representation.  These codes may be meaningful text or may be a string of alphanumeric identifiers that represent abbreviations for literals.",4.12
+Common Model Format (CMF),A NIEM representation of the matamodel.,3.1
+Complete model,A model including a definition for every referenced component.,4.1
+Complex content,A object or type with  child elements.,4.4
+Complex type,,4.4
+Component,,1
+Conformance target,"A class of artifact, such as an interface, protocol, document, platform, process or service, that is the subject of conformance clauses and normative statements.",1
+Constraint,,
+Constraint rule,A requirement on an artifact with respect to its conformance to a conformance target.,6.1
+Data definition,"A text definition of each component, describing what the component means.",7.1
+Data property,Defines a relationship between an object and a literal value.,3.4
+Datatype,Defines the allowed values of a corresponding atomic literal value in a message,3.4
+Deprecated,"A component that is provided, but the use of which is not recommended.",4.3
+Document element,,9
+Documentation,A human-readable text documentation of a component.,4.2
+Documented component,A CMF object or XSD schema component that has an associated data definition.,8
+Element,,2.2
+Element declaration,,4.7
+Enumeration,,4.12
+Extension,,3.2
+Extension namespace,"Expresses the additional vocabulary required for an information exchange, above and beyond the vocabulary available from the NIEM model",6.2.2
+Extension schema document,,3.6
+External adapter type,A set of data that embodies a single concept from an external standard.,9
+External components,A schema component defined by an external schema document.,9
+External schema documents,Non-NIEM-conformant schema documents.,9
+Facet,A data concept for a facet that restricts an aspect of a data type.,8.1
+Imported namespace,,10.4
+Informative,"Material that appears as supporting text, description, and rationales for the normative material.",6
+Interpretation rule,"Defines a methodology, pattern, or procedure for understanding some aspect of an instance of a conformance target.",6.1
+List,An object that defines a datatype as a whitespace-separated list of atomic values.,4.9
+Literal,,3.4
+Local term,"A word, phrase, acronym, or other string of characters that is used in the name of a namespace component, but that is not defined in OED, or that has a non-OED definition in this nameespace, or has a word sense that is in some way unclear.",4.16
+Local type,,11.3
+Message,The data in an information exchange,1
+Message designer,"A person that creates a message type and format from an information requirement, so that a message at runtime will contain all the facts that need to be conveyed.",3.1
+Message developer,"A person that writes software to implement a message specification, producing or processing messages that conform to the message format.",3.1
+Message schema document,A XSD representation of a message namespace,6.2.4
+Message specification,A collection of related message formats and types,3.1
+Metadata,,8.11
+Mixed content,The mixing of data tags with text,9
+Model object,Represents a complete or partial NIEM model.,4.1
+Namespace,A collection of uniquely-named components.,3.4
+Namespace author,,3.6
+Namespace prefix,,2.2
+Namespace URI,A unique URI for a namespace.,2.2
+NIEM,A framework for exchanging information among public and private sector organizations.,1
+NIEM Core,A set of common objects.,1
+NIEM Domain,A set of objects that are specific to certain government or industry vertical,1
+NIEM metamodel,An abstract model for NIEM data models.,3.4
+NIEMOpen Business Architecture Committee (NBAC),,1
+NIEMOpen Project Governing Board (PGB),,1
+NIEMOpen Technical Architecture Committee (NTAC),,1
+Normative,Required for conformance (e.g. rules).,2
+Object class,Represents a class of objects defined by a NIEM model,4.4
+Object class term,,7.4.1
+Object property,Defines a subject-predicate-value relationship between an object and another object.,3.4
+Ordered/Ordinality,,
+Particle,,10.7
+Property term,Describes or represents a characteristic or subpart of an entity or concept.,7.4.2
+Proxy type,A complex type definition wrapper for a simple type in the XML Schema namespace.,7.1
+Qualifier term,Provide additional context to resolve subtleties between properties of objects.,7.4.3
+Range,The class or datatype of a property.,4
+Reference attribute,A pointer to an element in a message.,4.15.6
+Reference data model,"A model of objects, properties, and relationships",1
+Reference namespace,Namespaces that include all components in the NIEM model.,6.2.1
+Reference property,An attribute property that contains a reference to an object in a message. ,4.8
+Reference schema document,,3.6
+Representation term,"Indicate the style of component, prevents name conflicts or indicates the nature of the value.",7.4.4
+Restriction object,Defines a datatype as a restriction of a base datatype plus zero or more restricting Facet objects.,4.12
+Simple content,"An object or type that has only attributes, not elements.",4.4
+Simple type,,4.1
+Subset,A collection of NIEM components required for an information exchange.,3.2
+Subset namespace,A subset of the components in a reference or extension namespace.,6.2.3
+Subset schema document,,4.15.3
+Target namespace,,4.2
+Type definition,,4.4
+Union,Defines a datatype as the union of one or more datatypes.,4.11
+XML catalog,,4.1
+XML schema document set,Defines an XML Schema that may be used to validate an XML document,12
