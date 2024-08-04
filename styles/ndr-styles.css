@@ -1,0 +1,6 @@
+  a { text-decoration: none; color: #000; background-color: #FFF; } 
+  a[href]:hover { color: #000; background-color: #F9FAD4; } 
+  a.url { font-family: "Courier New", Courier, monospace; font-size: 80%; } 
+  a.ref, span.ref { font-weight: bold; }
+  span.termRef::before { font-weight: bold; content: "·"; } 
+  span.termRef::after { font-weight:bold; content: "·"; } 

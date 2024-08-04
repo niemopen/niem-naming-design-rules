@@ -108,7 +108,7 @@ For complete copyright information please see the Notices section in the Appendi
 <!--
 Here is a customized command line which will generate HTML from this markdown file (named ndr-v6.0-psd01.md), if needed:
 
-pandoc -f gfm -t html ndr-v6.0-psd01.md -c styles/markdown-styles-v1.7.3a.css --toc --toc-depth=5 -s -o ndr-v6.0-psd01.html --metadata title="NIEM Naming and Design Rules (NDR) Version 6.0"
+r
 
 NOTES:
 - The two .css files included in the "styles" directory are also online:
@@ -147,7 +147,7 @@ This optional section provides a description of significant differences from pre
 | Term | Definition |
 | :---- | :--- |
 |Abstract class|A class that is a base for extension, and must be specialized to be used directly|
-|Adapter class|Contains only properties from a single external namespace|
+|Adapter class|A class that contains only properties from a single external namespace|
 |Artifact||
 |Association class|Represents a specific relationship between objects|
 |Atomic class|Contains no object properties, one or more attribute properties, and exactly one data property that is not an attribute property.  Does not have a special name.|
@@ -155,9 +155,9 @@ This optional section provides a description of significant differences from pre
 |Attribute declaration||
 |Attribute property|A data property in which `isAttribute` is true|
 |Augmentable class|A class that can be augmented with additional properties|
-|Augmentation class/type|Oontain the augmenting properties|
 |Augmentation element|Element based on an augmentation type that is substitutable for the augmentation point element in the augmented type.|
 |Augmentation point element|An abstract element declaration that provides a place for any augmtation properties.|
+|Augmentation type|Contains the augmenting properties|
 |Cardinality|How many times a property may/must appear in an object|
 |Class|Defines the content of a corresponding object (or resource) in a message.|
 |Code datatype|A restriction in which each value that is valid for the datatype corresponds to a code value in a code list.|
@@ -168,6 +168,8 @@ This optional section provides a description of significant differences from pre
 |Complex type||
 |Component||
 |Conformance target|A class of artifact, such as an interface, protocol, document, platform, process or service, that is the subject of conformance clauses and normative statements.|
+|Conformance target identifier||
+|Conforming namespace||
 |Constraint||
 |Constraint rule|A requirement on an artifact with respect to its conformance to a conformance target.|
 |Data definition|A text definition of each component, describing what the component means.|
@@ -185,7 +187,8 @@ This optional section provides a description of significant differences from pre
 |Extension schema document||
 |External adapter type|A set of data that embodies a single concept from an external standard.|
 |External components|A schema component defined by an external schema document.|
-|External schema documents|Non-NIEM-conformant schema documents.|
+|External namespace||
+|External schema document|Non-NIEM-conformant schema documents.|
 |Facet|A data concept for a facet that restricts an aspect of a data type.|
 |Imported namespace||
 |Informative|Material that appears as supporting text, description, and rationales for the normative material.|
@@ -230,6 +233,7 @@ This optional section provides a description of significant differences from pre
 |Reference schema document||
 |Representation term|Indicate the style of component, prevents name conflicts or indicates the nature of the value.|
 |Restriction object|Defines a datatype as a restriction of a base datatype plus zero or more restricting Facet objects.|
+|Schema document||
 |Simple content|An object or type that has only attributes, not elements.|
 |Simple type||
 |Subset|A collection of NIEM components required for an information exchange.|
@@ -411,13 +415,12 @@ Each namespace has an author, a person or organization that is the authoritative
 
 Each namespace must be uniquely identified by a URI. The namespace author should also be the URI's owner, as defined by [ref webarch](). Both URNs and URLs are allowed. It is helpful, but not required, for the namespace URI to be accessible, returning the definition of the namespace content in a supported model format. (See [ref repositories]() for an alternative way to obtain namespace definitions.)
 
-Namespaces are the units of model configuration management. A namespace has one canonical representation in XSD: a [*reference schema document*](#definitions) or [*extension schema document*](#definitions).  A namespace has one canonical representation in CMF: a CMF message, also known as a [*CMF model file*](#definitions). Once published, the components in a namespace may not be removed or redefined. Those changes may only be made in a new namespace with a different URI. As a result, a change by one namespace author does not force a change by any other author – the revisions may be adopted, if desired, whenever convenient; the older namespace continues to be valid regardless.
+Namespaces are the units of model configuration management. A namespace has one canonical representation in XSD: a [*reference schema document*](#def) or [*extension schema document*](#def).  A namespace has one canonical representation in CMF: a CMF message, also known as a *CMF model file*. Once published, the components in a namespace may not be removed or redefined. Those changes may only be made in a new namespace with a different URI. As a result, a change by one namespace author does not force a change by any other author – the revisions may be adopted, if desired, whenever convenient; the older namespace continues to be valid regardless.
 
 ## 3.7 NIEM messages in XML and JSON
 
 The content of a NIEM message may be formatted as XML or JSON. Any NIEM message may be converted from one supported format to another, without loss of information. Figures 3-4 and 3-5 show the equivalent NIEM XML and JSON serializations of the information depicted in figure 3-3.
 
-<div style="font-size:90%;">
 
 ```
 <nc:Person
@@ -427,7 +430,6 @@ The content of a NIEM message may be formatted as XML or JSON. Any NIEM message 
   </nc:PersonName>
 </nc:Person>
 ```
-
 <center><i><a name="fig3-4"></a>Figure 3-4: Sample NIEM XML message</i></center><p/>
 
 ```
@@ -440,8 +442,6 @@ The content of a NIEM message may be formatted as XML or JSON. Any NIEM message 
   "@context": { "nc": "https://docs.oasis-open.org/niemopen/ns/model/niem-core/6.0/" }
 }
 ```
-
-</div>
 <center><i><a name="fig3-5"></a>Figure 3-5: Sample NIEM JSON message</i></center><p/>
 
 -------
@@ -516,7 +516,7 @@ A Namespace object represents a namespace in a model. For example, the namespace
 | lang | NamespaceLanguageName | A name of a default language of the terms and documentation text in a namespace. | 1 | - | xs:language |
 | version | NamespaceVersionText | A version of a namespace; for example, used to distinguish a namespace subset, bug fix, documentation change, etc. | 1 | - | xs:token |
 | kind | NamespaceKindCode | A kind of namespace in a NIEM model (external, core, domain, etc.). | 1 | - | NamespaceKindCodeType |
-| confTarg | ConformanceTargetURI | A [conformance target identifier](#definitions). | 0..* | - | xs:anyURI |
+| confTarg | ConformanceTargetURI | A [conformance target identifier](#def). | 0..* | - | xs:anyURI |
 | niemVersion | NIEMVersionText | A NIEM version number of the builtin schema components used in a namespace; e.g. "5" or "6". | 0..1 | - | xs:token |
 | docPath | DocumentFilePathText | A relative file path from the top schema directory to a schema document for this namespace. | 0..1 | - | xs:string |
 | importDoc | ImportDocumentationText | Human-readable documentation from the first `xs:import` element importing this namespace. | 0..1 | - | xs:string |
@@ -527,7 +527,6 @@ A Namespace object represents a namespace in a model. For example, the namespace
 
 Figure 4-4 shows the representation of a Namespace object in CMF and in the corresponding XSD.
 
-<div style="font-size:90%;">
 
 ```
 <Namespace>
@@ -555,8 +554,6 @@ Figure 4-4 shows the representation of a Namespace object in CMF and in the corr
   </xs:annotation>    
 </xs:schema>
 ```
-
-</div>
 <center><i><a name="fig4-4"></a>Figure 4-4: Namespace object in CMF and XSD</i></center><p/>
 
 The following table shows the mapping between Namespace object representations in CMF and XSD.
@@ -592,7 +589,7 @@ A model component in a namespace is either a Class object, a Property object, or
 
 ## 4.4 Class class
 
-A Class object represents a class of objects defined by a NIEM model; that is, an [object class](#defined).  For example, `nc:PersonType` is a Class object in the NIEM Core model.
+A Class object represents a class of objects defined by a NIEM model; that is, an [object class](#def).  For example, `nc:PersonType` is a Class object in the NIEM Core model.
 
 <center>
   <figure class="image">
@@ -606,22 +603,20 @@ A Class object represents a class of objects defined by a NIEM model; that is, a
 | --- | --- | ---------- | :--: | :-: | ----- |
 | Class | ClassType | A data type for a class. |
 | isAbstract | AbstractIndicator | True if a class is a base for extension, and must be specialized to be used directly; false if a class may be used directly. | 0..1 | - | xs:boolean |
-| isAugmentable | AugmentableIndicator | True for an [augmentable class](#definitions); that is, if a class can be augmented with additional properties. | 0..1 | - | xs:boolean |
+| isAugmentable | AugmentableIndicator | True for an [augmentable class](#def); that is, if a class can be augmented with additional properties. | 0..1 | - | xs:boolean |
 | referenceCode | ReferenceCode | A code describing how a property may be referenced (or must appear inline). | 0..1 | - | ReferenceCodeType |
 | subClassOf | ExtensionOfClass | A base class of a subclass. | 0..1 | - | ClassType |  
 | hasProp | HasProperty | An occurrence of a property as content of a class. | 0..* | Y | HasPropertyType |
 
-There are three special categories of [object class](#definition):
+There are three special categories of [object class](#def):
 
-* An [adapter class](#definitions) contains only properties from a single [external namespace](#definitions).  It acts as a conformance wrapper around data components defined in standards that are not NIEM conforming.  An adapter class has a name ending in "AdapterType".
+* An [adapter class](#def) contains only properties from a single [external namespace](#def).  It acts as a conformance wrapper around data components defined in standards that are not NIEM conforming.  An [adapter class](#def) has a name ending in "AdapterType".
 
-* An [association class](#definitions) represents a specific relationship between objects.   Associations are used when a simple NIEM property is insufficient to model the relationship clearly, or to model properties of the relationship itself.  An association class has a name ending in "AssociationType".
+* An [association class](#def) represents a specific relationship between objects.   Associations are used when a simple NIEM property is insufficient to model the relationship clearly, or to model properties of the relationship itself.  An [association class](#def) has a name ending in "AssociationType".
 
-* An [atomic class](#definition) contains no object properties, one or more [attribute properties](#definitions), and exactly one data property that is not an attribute property.  An atomic class does not have a special name.
+* An [atomic class](#def) contains no object properties, at least one [attribute property](#def), and exactly one data property that is not an attribute property.  An [atomic class](#def) does not have a special name.
 
 Most classes are represented in XSD as a complex type with complex content ("CCC type"); that is, a type with  child elements.  [Figure 4-7](#fig4-7) below shows a Class object represented in CMF, and then in XSD as a complex type with child elements.
-
-<div style="font-size:90%;">
 
 ```
 <Class structures:id="ex.ExampleType">
@@ -665,8 +660,6 @@ Most classes are represented in XSD as a complex type with complex content ("CCC
 </xs:complexType>
 
 ```
-
-</div>
 <center><i><a name="fig4-7"></a>Figure 4-7: A Class object in CMF and in XSD (CCC type)</i></center><p/>
 
 The following table shows the mapping between Class object representations in CMF and XSD.
@@ -683,9 +676,7 @@ The following table shows the mapping between Class object representations in CM
 | ReferenceCode | `xs:complexType/@appinfo:referenceCode` |
 | HasProperty | `xs:complexType/xs:complexContent/xs:extension/xs:sequence/xs:element` or `xs:complexType/xs:complexContent/xs:extension/xs:attribute` |
 
-An atomic class is represented in XSD as a complex type with simple content ("CSC type") that has attributes.  This is illustrated in [figure 4-8](#fig4-8) below, which shows an atomic class object in CMF, and then in XSD as a complex type with attributes but no child elements.
-
-<div style="font-size:90%;">
+An [atomic class](#def) is represented in XSD as a complex type with simple content ("CSC type") that has attributes.  This is illustrated in [figure 4-8](#fig4-8) below, which shows an [atomic class](#def) object in CMF, and then in XSD as a complex type with attributes but no child elements.
 
 ```
 ---------------
@@ -714,11 +705,9 @@ An atomic class is represented in XSD as a complex type with simple content ("CS
   </xs:simpleContent>
 </xs:complexType>
 ```
-
-</div>
 <center><i><a name="fig4-8"></a>Figure 4-8: Class object in CMF and XSD (CSC type)</i></center><p/>
 
-An atomic class always has a DataProperty object named after the class, with "Type" replaced by "Literal".  In CMF these appear as two separate objects. In XSD, the representation of an atomic class also represents the DataProperty object. 
+An [atomic class](#def) always has a DataProperty object named after the class, with "Type" replaced by "Literal".  In CMF these appear as two separate objects. In XSD, the representation of an [atomic class](#def) also represents the DataProperty object. 
 
 ## 4.5 HasProperty class
 
@@ -735,8 +724,6 @@ A HasProperty object represents the occurrence of a property in a class. For exa
 | property | Property | The property that occurs in the class. | 1 | - | PropertyType |
 
 A HasProperty object is represented in XSD as an element or attribute reference within a complex type definition. Figure 4-9 shows two HasProperty objects in CMF and the corresponding XSD.
-
-<div style="font-size:90%;">
 
 ```
 <HasProperty>
@@ -766,8 +753,6 @@ A HasProperty object is represented in XSD as an element or attribute reference 
 </xs:sequence>
 <xs:attribute ref="ex:aProperty" use="required"/>
 ```
-
-</div>
 <center><i><a name="fig4-9"></a>Figure 4-9: HasProperty object in CMF and XSD</i></center><p/>
 
 The following table shows the mapping between HasProperty representations in CMF and XSD.
@@ -812,8 +797,6 @@ An ObjectProperty object represents a property with a range that is a class. For
 
 An ObjectProperty object is represented in XSD as an element declaration with a type that is a Class object. Figure 4-11 shows an ObjectProperty object in XSD and the corresponding CMF.
 
-<div style="font-size:90%;">
-
 ```
 <ObjectProperty structures:id="ex.ExampleProperty">
   <Name>ExampleProperty</Name>
@@ -836,8 +819,6 @@ An ObjectProperty object is represented in XSD as an element declaration with a 
   </xs:annotation>
 </xs:element>
 ```
-
-</div>
 <center><i><a name="fig4-11"></a>Figure 4-11: ObjectProperty object in CMF and XSD</i></center><p/>
 
 The following table shows the mapping between ObjectProperty object representations in CMF and XSD.
@@ -865,13 +846,11 @@ A DataProperty object represents a property with a range that is a datatype. For
 | isRefAttribute* | RefAttributeIndicator | True for a property that is an [object reference attribute](). | 0..1 | - | xs:boolean |
 | datatype | Datatype | The datatype of this data property. | 1 | - | DatatypeType |
 
-An [attribute property](#definitions) is a data property in which `isAttribute` is true.  These are represented in XSD as an attribute declaration.
+An [attribute property](#def) is a data property in which `isAttribute` is true.  These are represented in XSD as an attribute declaration.
 
-A [reference property](#definitions) is an attribute property that contains a reference to an object in a message.  (Object references are described in [section ref message rules]().)
+A [reference property](#def) is an attribute property that contains a reference to an object in a message.  (Object references are described in [section ref message rules]().)
 
 DataProperty objects are represented in XSD as an attribute declaration, or as an element declaration with a type that is a Datatype object. Figure 4-12 shows the CMF and XSD representations of two DataProperty objects.
-
-<div style="font-size:90%;">
 
 ```
 <DataProperty structures:id="ex.ExampleProperty">
@@ -907,8 +886,6 @@ DataProperty objects are represented in XSD as an attribute declaration, or as a
   </xs:annotation>
 </xs:attribute> 
 ```
-
-</div>
 <center><i><a name="fig4-12"></a>Figure 4-12: DataProperty object in CMF and XSD</i></center><p/>
 
 The following table shows the mapping between DataProperty representations in CMF and XSD.
@@ -939,16 +916,12 @@ The following table shows the mapping between DataProperty representations in CM
 
 A Datatype object defines the allowed values of a corresponding atomic literal value in a message. Objects for primitive data types, corresponding to the XSD data types, have only the *name*, *namespace*, and *documentation* properties inherited from the Component class. For example, figure 4-14 shows the CMF representation of the `xs:string` primitive data type. All other datatypes are represented by either a Restriction, List, or Union object.
 
-<div style="font-size:90%;">
-
 ```
 <Datatype>
   <Name>string</Name>
   <Namespace structures:ref="xs" xsi:nil="true"/>
 </Datatype>
 ```
-
-</div>
 <center><i><a name="fig4-14"></a>Figure 4-14: Plain CMF datatype object for `xs:string`</i></center><p/>
 
 ## 4.10 List class
@@ -963,7 +936,6 @@ A List object defines a datatype as a whitespace-separated list of atomic values
 
 A List object is represented in XSD as a complex type definition that extends a simple type definition with an `xs:list` element.  Figure 4-15 shows the CMF and XSD representation of a List object.
 
-<div style="font-size:90%;">
 
 ```
 <ListDatatype structures:id="ex.ExListType">
@@ -988,8 +960,6 @@ A List object is represented in XSD as a complex type definition that extends a 
   </xs:simpleContent>
 </xs:complexType>
 ```
-
-</div>
 <center><i><a name="fig4-15"></a>Figure 4-15: List object in CMF and XSD</i></center><p/>
 
 The following table shows the mapping between List object representations in CMF and XSD.
@@ -1014,8 +984,6 @@ A Union object defines a datatype as the union of one or more datatypes.
 
 A Union object is represented in XSD as a complex type definition that extends a simple type definition with an `xs:union` element. Figure 4-16 shows the XSD and CMF representations of a Union object.
 
-<div style="font-size:90%;">
-
 ```
 <UnionDatatype structures:id="ex.UnionType">
   <Name>UnionType</Name>
@@ -1038,8 +1006,6 @@ A Union object is represented in XSD as a complex type definition that extends a
   </xs:simpleContent>
 </xs:complexType>
 ```
-
-</div>
 <center><i><a name="fig4-16"></a>Figure 4-16: Union object in CMF and XSD</i></center><p/>
 
 The following table shows the mapping between UnionDatatype object representations in CMF and XSD.
@@ -1064,8 +1030,6 @@ A Restriction object defines a datatype as a restriction of a base datatype plus
 | clb | CodeListBinding | A property for connecting atomic values defined by a data type to a a column of a code list. | 0..1 | - | CodeListBindingType |
 
 A Restriction object is represented in XSD as a complex type with simple content containing an `xs:restriction` element. Figure 4-17 shows the CMF and XSD representations of a Restriction object.
-
-<div style="font-size:90%;">
 
 ```
 <RestrictionDatatype structures:id="test.RestrictionType">
@@ -1101,8 +1065,6 @@ A Restriction object is represented in XSD as a complex type with simple content
   </xs:simpleContent>
 </xs:complexType>
 ```
-
-</div>
 <center><i><a name="fig4-17"></a>Figure 4-17: Restriction object in CMF and XSD</i></center><p/>
 
 The following table shows the mapping between Restriction object representations in CMF and XSD.
@@ -1117,9 +1079,9 @@ The following table shows the mapping between Restriction object representations
 | Facet | `xs:complexType/xs:simpleContent/xs:restriction/`*XSD-Facet-element* |
 | CodeListBinding | `xs:complexType/xs:annotation/xs:appinfo/clsa:SimpleCodeListBinding` |
 
-A [code list](#defined) is a list of distinct conceptual entities, each represented by a code value that has a known meaning beyond its text representation.  These codes may be meaningful text or may be a string of alphanumeric identifiers that represent abbreviations for literals.
+A [code list](#def) is a list of distinct conceptual entities, each represented by a code value that has a known meaning beyond its text representation.  These codes may be meaningful text or may be a string of alphanumeric identifiers that represent abbreviations for literals.
 
-A [code datatype](#defined) is a Restriction in which each value that is valid for the datatype corresponds to a code value in a code list.
+A [code datatype](#def) is a Restriction in which each value that is valid for the datatype corresponds to a code value in a code list.
 
 Many code datatypes have simple content composed of xs:enumeration values. Code types may also be constructed using the NIEM Code Lists Specification [[Code Lists]](#references), which supports code lists defined using a variety of methods, including CSV spreadsheets; these are represented by a [CodeListBinding](#414-codelistbinding-class) object, described below.
 
@@ -1211,8 +1173,6 @@ The XSD representation of an augmentation is complex, and is explained below. In
 
 For example, augmentation of `nc:PersonType` with `j:PersonAdultIndicator` and `j:PersonForeignNationalIndicator` by the justice namespace results in the following CMF:
 
-<div style="font-size:90%;">
-
 ```
 <Namespace>
   <NamespaceURI>https://docs.oasis-open.org/niemopen/ns/model/domains/justice/6.0/</NamespaceURI>
@@ -1233,13 +1193,9 @@ For example, augmentation of `nc:PersonType` with `j:PersonAdultIndicator` and `
   </AugmentationRecord>  
 </Namespace>
 ```
-
-</div>
 <center><i><a name="fig4-19"></a>Figure 4-19: Augmentation object in CMF</i></center><p/>
 
 In CMF, the augmentation property appears in the augmented Class object -- like any other property, except that the augmenting namespace is recorded. For example, augmentation of `nc:PersonType` with `j:PersonAdultIndicator` and `j:PersonForeignNationalIndicator` by the justice namespace results in the following CMF:
-
- <div style="font-size:90%;">
 
 ```
 <Class>
@@ -1264,8 +1220,6 @@ In CMF, the augmentation property appears in the augmented Class object -- like 
   </HasProperty>  
 </Class>
 ```
-
-</div>
 <center><i><a name="fig4-20"></a>Figure 4-20: AugmentingNamespace property in CMF</i></center><p/>
 
 ### 4.15.1 Augmentations in NIEM XSD
@@ -1290,9 +1244,7 @@ The four combinations iare described in the following sections:
 
 ### 4.15.2 Augmenting a CCC type with an augmentation element and type
 
-Every CCC type in a reference or extension schema document contains an [*augmentation point element*](#definitions), which provides a place for any augmentation properties.
-
- <div style="font-size:90%;">
+Every CCC type in a reference or extension schema document contains an [*augmentation point element*](#def), which provides a place for any augmentation properties.
 
 ```
 <xs:complexType name="PersonType">
@@ -1315,11 +1267,9 @@ Every CCC type in a reference or extension schema document contains an [*augment
   </xs:annotation>
 </xs:element>
 ```
-
-</div>
 <center><i><a name="fig4-21"></a>Figure 4-21: An augmentation point element</i></center><p/>
 
-An [augmentation point element](#defined) is an abstract element declaration having the same name as its augmented base type, with the final "Type" replaced with "AugmentationPoint", and in the same namespace.
+An [augmentation point element](#def) is an abstract element declaration having the same name as its augmented base type, with the final "Type" replaced with "AugmentationPoint", and in the same namespace.
 
 For example, `nc:PersonAugmentationPoint` is the augmentation point element for the augmentation base type `nc:PersonType`.
  
@@ -1329,12 +1279,10 @@ The augmentation point element may be constrained in subset or message schema do
 
 One way to augment a CCC type with an element is to define:
 
-- An [augmentation type](#definitions) to contain the augmenting properties, and
-- An [augmentation element](#definitions) having the augmentation type, and substitutable for the augmentation point element in the augmented type.
+- An [augmentation type](#def) to contain the augmenting properties, and
+- An [augmentation element](#def) having the augmentation type, and substitutable for the augmentation point element in the augmented type.
 
 Figure 4-22 shows the XSD for a namespace augmenting `nc:PersonType` with two properties. (The corresponding CMF is shown in figures 4-19 and 4-20 above.)
-
- <div style="font-size:90%;">
 
 ```
 <xs:complexType name="PersonAugmentationType">
@@ -1349,13 +1297,9 @@ Figure 4-22 shows the XSD for a namespace augmenting `nc:PersonType` with two pr
 </xs:complexType>
 <xs:element name="PersonAugmentation" type="j:ExampleAugmentationType" substitutionGroup="nc:PersonAugmentationPoint"/>
 ```
-
-</div>
 <center><i><a name="fig4-22"></a>Figure 4-22: Augmenting a CCC type via an augmentation element and type</i></center><p/>
 
 In an XML message, the augmentation element is only a container for the augmenting properties; it has no meaning of its own. Figure 4-23 shows a NIEM XML message with this augmentation.
-
- <div style="font-size:90%;">
 
 ```
 <nc:Person>
@@ -1366,13 +1310,9 @@ In an XML message, the augmentation element is only a container for the augmenti
   </j:PersonAugmentation>
 </nc:Person>
 ```
-
-</div>
 <center><i><a name="fig4-23"></a>Figure 4-23: An XML message from a CCC type with an augmentation element</i></center><p/>
 
 There is no need for the augmentation element in a NIEM JSON message. It does not appear in the equivalent JSON message, shown in figure 4-24 below.
-
- <div style="font-size:90%;">
 
 ```
 {
@@ -1383,15 +1323,11 @@ There is no need for the augmentation element in a NIEM JSON message. It does no
   }
 }
 ```
-
-</div>
 <center><i><a name="fig4-24"></a>Figure 4-24: A JSON message from a CCC type with an augmentation element</i></center><p/>
 
 ### 4.15.3 Augmenting a CCC type with an ordinary element
 
 Another way to augment a CCC type with an element is to substitute an ordinary element (that is, one that does not have an augmentation type) for the augmentation point. In this case there is no augmentation element in the XML message. Figure 4-25 shows the XSD from the augmenting namespace (`http://example.com/s4figs/`). It also shows the CMF for this augmentation. Figure 4-26 shows an XML message with this augmentation, and the equivalent JSON message.
-
-<div style="font-size:90%;">
 
 ```
 <xs:element name="PersonFictionalIndicator" type="niem-xs:boolean"
@@ -1430,11 +1366,7 @@ Another way to augment a CCC type with an element is to substitute an ordinary e
   <Datatype structures:ref="xs:boolean" xsi:nil="true"/>
 </DataProperty>
 ```
-
-</div>
 <center><i><a name="fig4-25"></a>Figure 4-25: Augmenting a CCC type by substituting an ordinary element</i></center><p/>
-
-<div style="font-size:90%;">
 
 ```
 <nc:Person>
@@ -1449,15 +1381,11 @@ Another way to augment a CCC type with an element is to substitute an ordinary e
   }
 }
 ```
-
-</div>
 <center><i><a name="fig4-26"></a>Figure 4-26: Equivalent XML and JSON messages from a CCC type augmented by an ordinary element</i></center></p>
 
 ### 4.15.4 Augmenting a CCC type with an attribute
 
 A CCC type is augmented with an attribute property by addding an `xs:attribute` element to the complex type definition. This must be done in a subset schema document for the augmented namespace (and not the reference or extension schema document). The `xs:attribute` element must include *appinfo* to specify the augmenting namespace. Figure 4-27 shows the XSD representation of `nc:PersonType` augmented with the attribute `ex:detectiveIndicator`, and the CMF for this augmentation. Figure 4-28 shows an XML message that includes this augmentation, and the equivalent JSON message.
-
-<div style="font-size:90%;">
 
 ```
 <xs:complexType name="PersonType">
@@ -1489,11 +1417,7 @@ A CCC type is augmented with an attribute property by addding an `xs:attribute` 
   </HasProperty>
 </Class>
 ```
-
-</div>
 <center><i><a name="fig4-27"></a>Figure 4-27: Augmenting a CCC type with an attribute</i></center><p/>
-
-<div style="font-size:90%;">
 
 ```
 <nc:Person>
@@ -1508,15 +1432,11 @@ A CCC type is augmented with an attribute property by addding an `xs:attribute` 
   }
 }
 ```
-
-</div>
 <center><i><a name="fig4-28"></a>Figure 4-28: Equivalent XML and JSON messages from a CCC type augmented with an attribute</i></center><p/>
 
 ### 4.15.5 Augmenting a CSC type with an attribute
 
 A CSC type is also augmented with an attribute property by addding an `xs:attribute` to the complex type definition. This must be done in a subset schema document for the augmented namespace. The attribute reference must include *appinfo* to specify the augmenting namespace. Figure 4-29 shows the XSD representation of `nc:DirectionCodeType` augmented with the attribute `ex:magneticIndicator`, and the equivalent CMF.  Figure 4-30 shows part of an XML message that includes this augmentation, and the equivalent JSON message.
-
-<div style="font-size:90%;">
 
 ```
   <xs:complexType name="DirectionCodeType">
@@ -1560,11 +1480,7 @@ A CSC type is also augmented with an attribute property by addding an `xs:attrib
   </HasProperty>
 </Class>
 ```
-
-</div>
 <center><i><a name="fig4-29"></a>Figure 4-29: Augmenting a CSC type with an attribute</i></center><p/>
-
-<div style="font-size:90%;">
 
 ```
 <nc:RelativeLocationDirectionCode ex:magneticIndicator="true">E</nc:RelativeLocationDirectionCode>
@@ -1576,15 +1492,11 @@ A CSC type is also augmented with an attribute property by addding an `xs:attrib
   }
 }
 ```
-
-</div>
 <center><i><a name="fig4-30"></a>Figure 4-30: Equivalent XML and JSON messages from a CSC type augmented with an attribute</i></center><p/>
 
 ### 4.15.6 Augmenting a CSC type with an ordinary element
 
 XML simple content cannot contain a child element. A CSC type is augmented with an element property by adding a *reference attribute* to the complex type definition. A reference attribute is a pointer to an element in a message. Figure 4-31 shows the XSD representation of `nc:DirectionCodeType` augmented with the element `nc:Metadata`, and the equivalent CMF.
-
-<div style="font-size:90%;">
 
 ```
   <xs:complexType name="DirectionCodeType">
@@ -1644,13 +1556,9 @@ XML simple content cannot contain a child element. A CSC type is augmented with 
   <AttributeIndicator>true</AttributeIndicator>
 </DataProperty>
 ```
-
-</div>
 <center><i><a name="fig4-31"></a>Figure 4-31: Augmenting a CSC type with an element</i></center><p/>
 
 A property with a name ending in "Ref" is a reference attribute. It refers to an element in the same namespace with the same name, first letter in uppercase, and "Ref" deleted; for example, "nc:metadataRef" points to an "nc:Metadata" element. Figure 4-32 shows part of an XML message that includes the above augmentation, and the equivalent JSON message.
-
-<div style="font-size:90%;">
 
 ```
 <nc:RelativeLocationDirectionCode nc:metadataRef="#MD01">E</nc:RelativeLocationDirectionCode>
@@ -1668,8 +1576,6 @@ A property with a name ending in "Ref" is a reference attribute. It refers to an
   }
 }
 ```
-
-</div>
 <center><i><a name="fig4-32"></a>Figure 4-32: Equivalent XML and JSON messages from a CSC type augmented with an attribute</i></center><p/>
 
 ### 4.15.7 Global element augmentations
@@ -1678,7 +1584,7 @@ A property with a name ending in "Ref" is a reference attribute. It refers to an
 
 ## 4.16 LocalTerm class
 
-A [*local term*](#definitions) is a word, phrase, acronym, or other string of characters that is used in the name of a namespace component, but that is not defined in [OED](), or that has a non-OED definition in this nameespace, or has a word sense that is in some way unclear. A LocalTerm object captures the namespace author's definition of such a local term. For example, the Justice domain namespace in the NIEM model has a LocalTerm object defining the name "CLP" with documentation "Commercial Learners Permit".
+A [*local term*](#def) is a word, phrase, acronym, or other string of characters that is used in the name of a namespace component, but that is not defined in [OED](), or that has a non-OED definition in this nameespace, or has a word sense that is in some way unclear. A LocalTerm object captures the namespace author's definition of such a local term. For example, the Justice domain namespace in the NIEM model has a LocalTerm object defining the name "CLP" with documentation "Commercial Learners Permit".
 
 | UML | CMF | Definition | Card | Ord | Range |
 | --- | --- | ---------- | :--: | :-: | ----- |
@@ -1691,8 +1597,6 @@ A [*local term*](#definitions) is a word, phrase, acronym, or other string of ch
 
 
 A LocalTerm object is represented in XSD by a `appinfo:LocalTerm` element within `xs:appinfo` element in the `xs:schema` element. Figure 4-33 shows a LocalTerm object in XSD and the corresponding CMF.
-
-<div style="font-size:90%;">
 
 ```
 <LocalTerm>
@@ -1720,8 +1624,6 @@ A LocalTerm object is represented in XSD by a `appinfo:LocalTerm` element within
   </appinfo:LocalTerm>
 </xs:appinfo>
 ```
-
-</div>
 <center><i><a name="fig4-33"></a>Figure 4-33: Example LocalTerm objects in CMF and XSD</i></center><p/>
 
 The following table shows the mapping between LocalTerm object representations in CMF and XSD.
@@ -1762,7 +1664,7 @@ The rules in this document are designed to be used with or without the definitio
 
 ## 6.1 Rules
 
-Some content of this document is [normative](#definitions), while other content is [informative](#definitions). In general, the informative material appears as supporting text, description, and rationales for the normative material.
+Some content of this document is [normative](#def), while other content is [informative](#def). In general, the informative material appears as supporting text, description, and rationales for the normative material.
 
 Rules are normative. In this document, rules appear as follows:
 > <b>Rule</b> <i>section <b>-</b> number</i> <b>(</b><i>applicability</i><b>) (</b><i>classification</i><b>)</b>
@@ -1771,9 +1673,9 @@ Rules are normative. In this document, rules appear as follows:
 
 * *classification*: The kind of rule; one of:
 
-  * **Constraint**: A [constraint rule](#definitions) is a requirement on an artifact with respect to its conformance to a conformance target.
+  * **Constraint**: A [constraint rule](#def) is a requirement on an artifact with respect to its conformance to a conformance target.
 
-  * **Interpretation**: An [interpretation rule](#definitions) defines a methodology, pattern, or procedure for understanding some aspect of an instance of a conformance target.
+  * **Interpretation**: An [interpretation rule](#def) defines a methodology, pattern, or procedure for understanding some aspect of an instance of a conformance target.
   
 * *applicability*: Identifies the conformance targets to which the rule applies. These are defined in [section 5.2](#52) below.
 
@@ -1791,7 +1693,7 @@ There is no comparable need for rules applying to CMF model files.  Rules applic
 
 ## 6.2 Conformance targets
 
-The rules in this document are organized into several [*conformance targets*](#definitions). That term is defined by [[CTAS]](#references), as follows:
+The rules in this document are organized into several [*conformance targets*](#def). That term is defined by [[CTAS]](#references), as follows:
 
 > A conformance target is a class of artifact, such as an interface, protocol, document, platform, process or service, that is the subject of conformance clauses and normative statements. There may be several conformance targets defined within a specification, and these targets may be diverse so as to reflect different aspects of a specification. For example, a protocol message and a protocol engine may be different conformance targets.
 
@@ -1838,7 +1740,7 @@ A "subset namespace" is a subset of the components in a reference or extension n
 
 * Provide the cardinality and datatype constraints that precisely define the content of one or more message types. (Those constraints are omitted from reference and extension namespaces to provide more opportunity for reuse.) 
 
-* [Augment](#4154) a reference or extension namespace with [attribute properties](#definitions).
+* [Augment](#4154) a reference or extension namespace with at least one [attribute property](#def).
 
 All message content that is valid for a subset namespace must also be valid for the reference or extension namespace with the same URI.  Widening the range of a component is not allowed.  With the exception of attribute augmentations, adding components is not allowed.
 
@@ -1848,7 +1750,7 @@ There may be any number of XSD or CMF representations of a subset namespace.
 
 A message namespace is a representation of a subset namespace intended for validating the content of an XML message format, and/or for use with schema binding tools (for example, [[JAXB]](#references)).
 
-The XSD representation of a message namespace is a [message schema document](#definitions).  It may omit certain schema constructs (e.g. subsitution groups) that are not needed by message developers.  
+The XSD representation of a message namespace is a [message schema document](#def).  It may omit certain schema constructs (e.g. subsitution groups) that are not needed by message developers.  
 
 The equivalent of a message namespace for a JSON message format is a JSON Schema document.  Unlike the XSD for validaing XML message formats, the JSON Schema is not divided into a separate document for each namespace. 
 
@@ -1872,8 +1774,6 @@ The documents in a schema document set are capable of validating an XML document
 
 It is often helpful for an artifact to contain an assertion of the kind of thing it is supposed to be.  These assertions can inform both people and tools.  Every NIEM namespace representation contains an assertion of the conformance targets it (allegedly) satisfies.  CMF representations assert conformance through the `ConformanceTargetURI` property in each namespace object.  XSD representations assert conformance through the `ct:conformanceTargets` attribute, as defined in [[CTAS]] (#references).  Figure 5-1 shows the CMF and XSD representations of a namespace asserting conformance with the reference namespace conformance target (REF).
 
-<div style="font-size:90%;">
-
 ```
 <Namespace structures:id="nc">
   <NamespaceURI>https://docs.oasis-open.org/niemopen/ns/model/niem-core/6.0/</NamespaceURI>
@@ -1894,11 +1794,9 @@ It is often helpful for an artifact to contain an assertion of the kind of thing
   version="1"
   xml:lang="en-US">
 ```
-
-</div>
 <center><i><a name="fig5-1"></a>Figure 5-1: Conformance target assertions in CMF and XSD</i></center><p/>
 
-A [conforming namespace](#defined) is a namespace that satisfies all of the rules for all of the conformance targets it asserts.
+A [conforming namespace](#def) is a namespace that satisfies all of the rules for all of the conformance targets it asserts.
 
 ## 6.4 Testing conformance
 
@@ -1921,41 +1819,41 @@ These rules apply to all namespaces.  In a CMF representation, they apply to the
 
 **Rule 7-1 (CMF,XSD)(Constraint):** The name of a model component MUST end in "Type" if and only if it is a Class object or Datatype object in CMF. (N5R 11-1,11-2)
 
-**Rule 7-2 (CMF,XSD)(Constraint):** The name of a Class object MUST end in "AdapterType" if and only if it is an [adapter class](#definitions). (NEW)
+**Rule 7-2 (CMF,XSD)(Constraint):** The name of a Class object MUST end in "AdapterType" if and only if it is an [adapter class](#def). (NEW)
 
-**Rule 7-3 (CMF,XSD)(Constraint):** The name of a Class object MUST end in "AssociationType" if and only if it is an [association class](#definitions). (N5R 10-21)
+**Rule 7-3 (CMF,XSD)(Constraint):** The name of a Class object MUST end in "AssociationType" if and only if it is an [association class](#def). (N5R 10-21)
 
 **Rule 7-4 (CMF,XSD)(Constraint):** The name of a Property object MUST end in "Association" if and only if its class is an association class. (N5R 10-22)
 
-**Rule 7-5 (CMF,XSD)(Constraint):** The name of a Class object MUST end in "CodeType" if and only if it is an atomic class with a literal property that has a [code datatype](#definitions). (N5R 10-17,10-18)
+**Rule 7-5 (CMF,XSD)(Constraint):** The name of a Class object MUST end in "CodeType" if and only if it is an [atomic class](#def) with a literal property that has a [code datatype](#def). (N5R 10-17,10-18)
 
-**Rule 7-6 (CMF,XSD)(Constraint):** The name of a Datatype object that ends in "CodeType" MUST be a [code datatype](#defined). (N5R 10-17,10-18)
+**Rule 7-6 (CMF,XSD)(Constraint):** The name of a Datatype object that ends in "CodeType" MUST be a [code datatype](#def). (N5R 10-17,10-18)
 
-**Rule 7-7 (CMF,XSD)(Constraint):** The name of a Datatype object that ends in "CodeSimpleType" MUST be a [code datatype](#defined). (N5R 11-8,11-9)
+**Rule 7-7 (CMF,XSD)(Constraint):** The name of a Datatype object that ends in "CodeSimpleType" MUST be a [code datatype](#def). (N5R 11-8,11-9)
 
-The component representing a [code list](#definitions) is usually a Datatype.  However, when the XSD represenation of a code list includes attributes, it is a Class.
+The component representing a [code list](#def) is usually a Datatype.  However, when the XSD represenation of a code list includes attributes, it is a Class.
 
-**Rule 7-8 (CMF,XSD)(Constraint):** The name of a Property object must end in "Code" if and only if it has a Class or Datatype that represents a [code list](#definitions). (N5R 10-19,11-10)
+**Rule 7-8 (CMF,XSD)(Constraint):** The name of a Property object must end in "Code" if and only if it has a Class or Datatype that represents a [code list](#def). (N5R 10-19,11-10)
 
-**Rule 7-9 (CMF)(Constraint):** The name of a Property object MUST end in "Literal" if and only if it is the non-attribute property of an [atomic class](#definitions). (NEW)
+**Rule 7-9 (CMF)(Constraint):** The name of a Property object MUST end in "Literal" if and only if it is the non-attribute property of an [atomic class](#def). (NEW)
 
 **Rule 7-10 (CMF,XSD)(Constraint):** A Property object with a name that ends in "Abstract" MUST have an `isAbstract` property with the value `true`. (N5R 11-14)
 
 **Rule 7-11 (CMF,XSD)(Constraint):** A Property object with a name that ends in "Representation" MUST have an `isAbstract` property with the value `true`. (N5R 10-42)
 
-**Rule 7-12 (CMF,XSD)(Constraint):** The name of a Property object MUST end in "Ref" if and only if it is a [reference attribute](#definitions) property. (NEW)
+**Rule 7-12 (CMF,XSD)(Constraint):** The name of a Property object MUST end in "Ref" if and only if it is a [reference attribute](#def) property. (NEW)
 
-**Rule 7-13 (XSD)(Constraint):** The name of an element declaration MUST end in "AugmentationPoint" if and only if it is an [augmentation point element](#definitions). (NEW)
+**Rule 7-13 (XSD)(Constraint):** The name of an element declaration MUST end in "AugmentationPoint" if and only if it is an [augmentation point element](#def). (NEW)
 
-**Rule 7-14 (XSD)(Constraint):** The name of a type definition MUST end in "AugmentationType" if and only if it is an [augmentation type](#definitions). (N5R 10-33,10-34)
+**Rule 7-14 (XSD)(Constraint):** The name of a type definition MUST end in "AugmentationType" if and only if it is an [augmentation type](#def). (N5R 10-33,10-34)
 
-**Rule 7-15 (XSD)(Constraint):** The name of an element declaration MUST end in "Augmentation" if and only if it is an [augmentation element](#definitions). (N5R 10-36)
+**Rule 7-15 (XSD)(Constraint):** The name of an element declaration MUST end in "Augmentation" if and only if it is an [augmentation element](#def). (N5R 10-36)
 
 **Rule 7-16 (XSD)(Constraint):** The name of an element declaration or attribute declaration MUST NOT end in "Literal". (NEW)
 
 Literal properties only appear in CMF.
 
-**Rule 7-17 (XSD)(Constraint):** A schema component that does not define a [*proxy type*](#definitions) MUST have a name ending in "Type" if and only if it is a type definition. (N5R 11-2)
+**Rule 7-17 (XSD)(Constraint):** A schema component that does not define a [*proxy type*](#def) MUST have a name ending in "Type" if and only if it is a type definition. (N5R 11-2)
 
 Use of the representation term Type immediately identifies XML types in a NIEM-conformant schema and prevents naming collisions with corresponding XML elements and attributes. The exception for proxy types ensures that simple NIEM-compatible uses of base XML Schema types are familiar to people with XML Schema experience.
 
@@ -2118,9 +2016,9 @@ Reference and extension namespaces provide the authoritative definition of the c
 
 2. A text definition of each component, describing what the component means.  The term used in this specification for such a text definition is *data definition*.
 
-A [data definition](#defined) is the DocumentText property of a CMF object, or the content of the first occurrence of the element xs:documentation that is an immediate child of an occurrence of an element xs:annotation that is an immediate child of an XSD schema component.
+A [data definition](#def) is the DocumentText property of a CMF object, or the content of the first occurrence of the element xs:documentation that is an immediate child of an occurrence of an element xs:annotation that is an immediate child of an XSD schema component.
 
-A [documented component](#defined) is a CMF object or XSD schema component that has an associated data definition.
+A [documented component](#def) is a CMF object or XSD schema component that has an associated data definition.
 
 ## 8.1 Rules for documented components
 
@@ -2226,9 +2124,9 @@ This section establishes a profile of XML Schema for NIEM-conformant schemas. Be
 
 Note that external schema documents (i.e., non-NIEM-conformant schema documents) do not need to obey the rules set forth in this section. So long as schema components from external schema documents are adapted for use with NIEM according to the modeling rules in Section 10.2.3, External adapter types and external components, below, they may be used as they appear in the external standard, even if the schema components themselves violate the rules for NIEM-conformant schemas.
 
-**Rule 9-1 (XSD)(Constraint):** The XSD representation of a namespace must be a [schema document](#definitions), as defined in [[XML Schema Structures]](). (N5R 7-1,7-2,7-3)
+**Rule 9-1 (XSD)(Constraint):** The XSD representation of a namespace must be a [schema document](#def), as defined in [[XML Schema Structures]](). (N5R 7-1,7-2,7-3)
 
-**Rule 9-2 (XSD)(Constraint):** The [document element](#definitions) of the XSD representation of a namespace must be `xs:schema`. (N5R 7-4)
+**Rule 9-2 (XSD)(Constraint):** The [document element](#def) of the XSD representation of a namespace must be `xs:schema`. (N5R 7-4)
 
 > NOTE: Do we still need this rule?  Isn't it part of 9-1?
 
@@ -2261,7 +2159,7 @@ Note that external schema documents (i.e., non-NIEM-conformant schema documents)
 
 **Rule 9-6 (XSD)(Constraint):** No mixed content on complex type or complex content. (N5R 9-27,9-28)
 
-Mixed content allows the mixing of data tags with text. Languages such as XHTML use this syntax for markup of text. NIEM-conformant schemas define XML that is for data exchange, not text markup. Mixed content creates complexity in processing, defining, and constraining content. Well-defined markup languages exist outside NIEM and may be used with NIEM data, and so [*external schema documents*](#definitions) may include mixed content and may be used with NIEM. 
+Mixed content allows the mixing of data tags with text. Languages such as XHTML use this syntax for markup of text. NIEM-conformant schemas define XML that is for data exchange, not text markup. Mixed content creates complexity in processing, defining, and constraining content. Well-defined markup languages exist outside NIEM and may be used with NIEM data, and so [*external schema documents*](#def) may include mixed content and may be used with NIEM. 
 
 **Rule 9-7 (XSD)(Constraint):** A complex type definition MUST have a `xs:complexContent` or a `xs:simpleContent` child element (N5R 9-29)
 
@@ -2360,18 +2258,18 @@ All XML Schema top-level types (children of the document element) are required b
 
 The rules in this document use the name of a type as the key indicator of the type’s category. This makes the rules much simpler than doing a deep examination of each type (and its base types) to identify its category. For complex types, the names follow a pattern:
 
-* Name ends with AdapterType → type represents an [adapter class](#definitions). ([Rule 6-2]())
-* Name ends with AssociationType → type represents an [association class](#definitions). ([Rule 6-3]())
-* Name ends with AugmentationType → type is an [augmentation type](#definitions). ([Rule 6-9]())
-* Otherwise → type is the XSD representation of an [object class](#definitions). ([Rule 6-1]())
+* Name ends with AdapterType → type represents an [adapter class](#def). ([Rule 6-2]())
+* Name ends with AssociationType → type represents an [association class](#def). ([Rule 6-3]())
+* Name ends with AugmentationType → type is an [augmentation type](#def). ([Rule 6-9]())
+* Otherwise → type is the XSD representation of an [object class](#def). ([Rule 6-1]())
 
-**Rule 10-11 (REF,EXT,SUB)(Constraint):** A type with complex content that is not an [adapter type](#definitions), an [augmentation type](#definitions), or the XSD representation of an [association class](#definitions)  MUST be derived from structures:ObjectType or from another object type. (N5R 10-2)
+**Rule 10-11 (REF,EXT,SUB)(Constraint):** A type with complex content that is not an [adapter class](#def), an [augmentation type](#def), or the XSD representation of an [association class](#def)  MUST be derived from structures:ObjectType or from another object type. (N5R 10-2)
 
-**Rule 10-12 (REF,EXT,SUB)(Constraint):** A type definition MUST be derived from `structures:AdapterType` if and only if it represents an [adapter class](#definitions). (NEW)
+**Rule 10-12 (REF,EXT,SUB)(Constraint):** A type definition MUST be derived from `structures:AdapterType` if and only if it represents an [adapter class](#def). (NEW)
 
-**Rule 10-13 (REF,EXT,SUB)(Constraint):** A type definition MUST be derinved from `structures:AssociationType` if and only if it represents an [association class](#definitions). (N5R 10-21)
+**Rule 10-13 (REF,EXT,SUB)(Constraint):** A type definition MUST be derinved from `structures:AssociationType` if and only if it represents an [association class](#def). (N5R 10-21)
 
-**Rule 10-14 (REF,EXT,SUB)(Constraint):** A type definition MUST be derived from `structures:AugmentationType` if and only if it is an [augmentation type](#definitions) (N5R 10-35)
+**Rule 10-14 (REF,EXT,SUB)(Constraint):** A type definition MUST be derived from `structures:AugmentationType` if and only if it is an [augmentation type](#def) (N5R 10-35)
 
 **Rule 10-15 (XSD)(Constraint):** A complex type definition with simple content MUST include `structures:SimpleObjectAttributeGroup`. (N5R 11-11)
 
@@ -2418,7 +2316,7 @@ Properties in a reference or extension namespace. are always referencable, in or
 
 **Rule 10-31 (XSD)(Constraint):** An `xs:import` element importing an external schema document MUST own the attribute `appinfo:externalImportIndicator` with a value of `true`. (NEW)
 
-An [external schema document](#definitions) is any schema document that is not 
+An [external schema document](#def) is any schema document that is not 
 
 * a reference schema document,
 * an extension schema document, 
@@ -2430,7 +2328,7 @@ There are a variety of commonly used standards that are represented in XML Schem
 
 A schema component defined by an external schema document may be called an external component. A NIEM-conformant type may use external components in its definition. There are two ways to integrate external components into a NIEM-conformant schema:
 
-* An [external adapter](#definitions) type may be constructed from externally-defined elements and attributes. A goal of this method is to represent, as a single unit, a set of data that embodies a single concept from an external standard.
+* An [adapter class](#def) may be constructed from externally-defined elements and attributes. A goal of this method is to represent, as a single unit, a set of data that embodies a single concept from an external standard.
 
 * A type that is not an external adapter type, and which is defined by an extension, subset, or message schema document, may incorporate externally-defined attribute
 
@@ -2468,15 +2366,16 @@ The term "attribute use schema component" is defined by [[XML Schema Structures]
 
 **Rule 10-40 (XSD)(Constraint):** A proxy type MUST have the designated structure. It MUST use xs:extension. It MUST NOT use xs:attribute. It MUST include exactly one xs:attributeGroup reference, which must be to structures:SimpleObjectAttributeGroup. (N5R 10-20)
 
-A [proxy type](#definitions) is not a model component. It is a convenience complex type definition wrapper for a simple type in the XML Schema namespace; for example, `niem-xs:token` is a proxy type for `xs:token`.  Unlike other complex type definitions, proxy types have the same local name as the builtin simple type. This is done to make conformant schemas more understandable to people that are familiar with the names of the XML Schema namespace simple types.
+A [proxy type](#def) is not a model component. It is a convenience complex type definition wrapper for a simple type in the XML Schema namespace; for example, `niem-xs:token` is a proxy type for `xs:token`.  Unlike other complex type definitions, proxy types have the same local name as the builtin simple type. This is done to make conformant schemas more understandable to people that are familiar with the names of the XML Schema namespace simple types.
 
 ## 10.7 Rules for augmentations
 
-**Rule 10-41 (XSD)(Constraint):** The type definition for an [augmentable class](#definitions) MUST contain exactly one element use of its corresponding augmentation point element. (N5R 10-23,10-24)
+**Rule 10-41 (XSD)(Constraint):** The type definition for an [augmentable class](#def) MUST contain exactly one element use of its corresponding augmentation point element. (N5R 10-23,10-24)
 
 The augmentation point element for an augmentable type has the name created by replacing the final "Type" in the augmentable type name with "AugmentationPoint". For example, the augmentation point element for `nc:PersonType` is `nc:PersonAugmentationPoint`.
 
-**Rule 10-42 (XSD)(Constraint):** A schema document containing an element declaration for an [augmentation point element](#definitions) MUST also contain a type definition for its augmented base type. (N5R 10-25)
+**Rule 10-42 (XSD)(Constraint):** A schema document containing an
+element declaration for an [augmentation point element](#def) MUST also contain a type definition for its augmented base type. (N5R 10-25)
 
 For example, a schema document with an element declaration for `FooAugmentationPoint` must also contain a type definition for `FooType`.
 
@@ -2592,11 +2491,288 @@ The XML Schema definition language requires that, when a schema document referen
 
 Some tools do not enforce this constraint; one such tool carries imports from a schema document into schema documents that it imports. This has the potential to introduce incompatibility into schema documents and schema document sets that exercise this bug. To maintain compatibility across tool sets, this requirement is an explicit rule for NIEM-conformant schemas.
 
+**Rule 12-7 (REF,EXT,SUB)(Constraint):** A schema MUST use the NIEM structures namespace consistent with how it is defined in Appendix B, *Structures namespace*, below. (N5R 10-78)
+
+**Rule 12-8 (MSG)(Constraint):** The XSD representation of a message namespace MUST use a subset of the NIEM structures namespace, in which `xs:anyAttribute` elements have been removed, and otherwise consistent with how it is defined in Appendix B, *Structures namespace*, below. (NEW) 
+
+The *structures namespace* is the namespace represented by the URI `https://docs.oasis-open.org/niemopen/ns/model/structures/6.0/`.  The structures namespace for models contains `xs:anyAttribute` elements in support of attribute augmentation.  Those attribute wildcards do not appear in the structures namespace for messages.
+
 # 13. Rules for NIEM messages
 
-## 13.1 NIEM XML
+**Rule 13-1 (XML)(Constraint):** A message in XML format MUST be schema-valid, as assessed against a conformant schema document set, composed of reference and/or extension namespace representations. (N5R 12-1)
 
-## 13.2 NIEM JSON
+The schemas that define the exchange must be authoritative. Each is the reference schema or extension schema for the namespace it defines. Application developers may use other schemas for various purposes, but for the purposes of determining conformance, the authoritative schemas are relevant.
+
+This rule should not be construed to mean that XML validation must be performed on all XML instances as they are served or consumed; only that the XML instances validate if XML validation is performed. The XML Schema component definitions specify XML documents and element information items, and the instances should follow the rules given by the schemas, even when validation is not performed.)
+
+## 13.1 The meaning of NIEM XML data
+
+The main way that NIEM XML data represents relationships and values is via the hierarchy of XML elements in an XML document. For example, the following fragment of an XML document:
+
+```
+<nc:Person>
+  <nc:PersonName>
+    <nc:PersonFullName>Clark Kent</nc:PersonFullName>
+  </nc:PersonName>
+</nc:Person>
+```
+<center><i><a name="fig13-1"></a>Figure 13-1: Example of content elements</i></center><p/>
+
+In this instance, the XML elements describe relationships between data objects:
+
+
+| XML description	| The Meaning of the data |
+| --------------- | ----------------------- |
+| The top element occurs within some context, about which we do not know anything. | There is some object, representing whatever is outside the outer element.|
+|The top element is `nc:Person`. The NIEM reference schema defines the type of the element as `nc:PersonType`. | There is a relationship, called nc:Person, between the unknown context object and an object of type `nc:PersonType`. |
+| The next element is `nc:PersonName`. The schema indicates that element is of type `nc:PersonNameType`. | There is a relationship called `nc:PersonName` between the object of type `nc:PersonType` and an object of type `nc:PersonNameType`. |
+| The next element is `nc:PersonFullName`. The schema shows that the element is of type `nc:PersonNameTextType`. | There is a relationship, called `nc:PersonFullName` from the object of type `nc:PersonNameType` and an object of type `nc:PersonNameTextType`. |
+| Within that element is the simple value John Doe. The schema tells us the content of that element is of simple type `xs:string`. |The object of type `nc:PersonNameTextType` has a value that is the literal "Clark Kent". |
+
+<center><i><a name="tab13-2"></a>Table 13-2: Meaning of NIEM XML</i></center>
+
+To summarize:
+
+1. Data objects and literal values are expressed in XML as the values of elements and attributes.
+
+2. The names of the XML elements and attributes identify and describe the relationships between the objects and literals.
+
+3. The names of the XML Schema complex types and simple types describe the data objects.
+
+NIEM is designed so that NIEM XML data is a form of RDF data. The RDF equivalent of the XML in figure 13-1 is illustrated in the diagram in figure 13-3, and shown in figure 13-4.
+
+<center>
+  <figure class="image">
+    <a name="fig13-3"/></a>
+    <img src="images/xml-meaning.png" alt="figure" style="zoom:100%"/>
+    <figcaption><i>Figure 13-3: Diagram showing the meaning of XML data</i></figcaption>
+  </figure>
+</center>
+
+```
+@prefix nc: <https://docs.oasis-open.org/niemopen/ns/model/niem-core/6.0/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+_:n0 nc:Person _:n1 .
+_:n1 rdf:type nc:PersonType .
+_:n1 nc:PersonName _:n2 .
+_:n2 rdf:type nc:PersonNameType .
+_:n2 nc:PersonFullName "Clark Kent".
+```
+<center><i><a name="fig13-4"></a>Figure 13-4: RDF equivalent of XML data</i></center><p/>
+
+**Rule 13-2 (XML)(Interpretation):** Within the instance, the meaning of an element with no content is that additional properties are not asserted. There MUST NOT be additional meaning interpreted for an element with no content. (N5R 12-2)
+
+Elements without content only show a lack of asserted information. That is, all that is asserted is what is explicitly stated, through a combination of XML instance data and its schema. Data that is not present makes no claims. It may be absent due to lack of availability, lack of knowledge, or deliberate withholding of information. These cases should be modeled explicitly, if they are required.
+
+## 13.2 Identifiers and references
+
+Nested elements, shown above, are sufficient to represent simple data that takes the form of a tree. However, the use of nested elements has limitations; expression of all relationships via nested elements is not always possible. Situations that cause problems include:
+
+* Cycles: some object has a relationship that, when followed, eventually circles back to itself. For example, suppose that Bob has a sister relationship to Sue, who has a brother relationship back to Bob. This is not a tree, and so needs some representation other than just nested elements.
+
+* Reuse: multiple objects have a relationship to a common object. For example, suppose Bob and Sue both have a mother relationship to Sally. Expressed via nested elements, this would result in a duplicate representation of Sally.
+
+NIEM provides two different ways to solve this problem: the use of local references pointing to local identifiers, and the use of uniform resource identifiers (URIs). These two methods are similar, and can interoperate, but have distinctions, as described by Section XX Differentiating reference-to-identifier links and use of URIs, below.
+
+**Rule 13-3 (XML)(Constraint):** An element MUST NOT have more than one attribute that is `structures:id`, `structures:ref`, or `structures:uri`. (N5R 12-3)
+
+### 13.2.1 Local identifiers and references
+
+The XML specifications define ID and IDREF attributes, which act as references in XML data. This is supported by XML Schema, and NIEM uses ID and IDREF as one way to reference data across data objects. Under this framework:
+
+* Within an XML document, each value of any attribute of type `xs:ID` must be unique. For example, if an element has an attribute of type `xs:ID` with the value of Bob, then there may not be any other attribute in the document that is of type `xs:ID` that also has the value Bob. NIEM provides attribute `structures:id` of type `xs:ID` to act as a standard local identifier.
+
+* Within an XML document, the value of any attribute of type `xs:IDREF` must appear somewhere within the document as the value of some attribute of type `xs:ID`. For example, if an attribute of type `xs:IDREF` has the value Bob, then somewhere within that XML document there must be an attribute of type `xs:ID` with the value Bob. NIEM provides attribute `structures:ref` of type `xs:IDREF` as a standard local reference.
+
+* These constraints, that IDs must be unique, and that IDREFs must refer to IDs, are XML constraints, not unique to NIEM.
+
+* There are additional constraints placed on XML documents and XML schemas regarding the use of ID and IDREF attributes. For example, an element may not have two attributes of type ID.
+
+In short, within a NIEM-conformant XML document, an attribute `structures:ref` refers to an attribute `structures:id`. These attributes may appear in an XML document to express that an object that is the value of an element is the same as some other object within the document. For example, in the following example, the user of the weapon (Bart) is the same person that is the subject of the arrest:
+
+```
+<j:Arrest>
+  <j:ArrestInvolvedWeapon>
+    <nc:WeaponUser structures:id="bart">
+      <nc:PersonName>
+        <nc:PersonGivenName>Bart</nc:PersonGivenName>
+      </nc:PersonName>
+    </nc:WeaponUser>
+  </j:ArrestInvolvedWeapon>
+  <j:ArrestSubject>
+    <nc:EntityPerson structures:ref="bart" xsi:nil="true"/>
+  </j:ArrestSubject>
+</j:Arrest>
+```
+<center><i><a name="fig13-5"></a>Figure 13-5: Example of `structures:id` and `structures:ref`<i></center><p/>
+
+Note that rules below establish that relationships established using `structures:id` and `structures:ref` have the exact same meaning as relationships established using nested elements. An information exchange specification may constrain them differently, or prefer one over the other, but from a NIEM perspective, they have the same meaning.
+
+**Rule 13-4 (XML)(Constraint):** The value of an attribute `structures:ref` MUST match the value of an attribute `structures:id` of some element in the XML document. (N5R 12-4)
+
+Although many attributes with ID and IDREF semantics are defined by many vocabularies, for consistency, within a NIEM XML document any attribute `structures:ref` must refer to an attribute `structures:id`, and not any other attribute.
+
+**Rule 13-5 (XML)(Constraint):** Every element that has an attribute `structures:ref` MUST have a referencing element validation root that is equal to the referenced element validation root. (N5R 12-5)
+
+The term "validation root" is defined by [[XML Schema Structures]](#references) *Section 5.2, Assessing Schema-Validity*. It is established as a part of validity assessment of an XML document.
+
+NIEM supports type-safe references: references using `structures:ref` and `structures:id` must preserve the type constraints that would apply if nested elements were used instead of a reference. For example, an element of type `nc:PersonType` must always refer to another element of type `nc:PersonType`, or a type derived from `nc:PersonType`, when using `structures:ref` to establish the relationship.
+
+**Rule 13-6 (XML)(Constraint):** Every element that has an attribute `structures:ref` MUST have a referenced element type definition that is validly derived from the referencing element type definition. (N5R 12-6)
+
+The term "validly derived" is as established by [[XML Schema Structures]](#references), subsection *Schema Component Constraint: Type Derivation OK (Complex)* within Section 3.4.6, *Constraints on Complex Type Definition Schema Components*.
+
+This rule requires that the type of the element pointed to by a `structures:ref` attribute must be of (or derived from) the type of the reference element.
+
+### 13.2.2 Uniform resource identifiers in NIEM XML
+
+NIEM supports linked data through the use of uniform resource identifiers (URIs), expressed through the attribute structures:uri in XML documents . This attribute works much like `structures:ref` and `structures:id`, and overlaps somewhat. Linked data introduces key terminology:
+
+* Anything modeled or addressed by an information system may be called a *resource*: people, vehicles, reports, documents, relationships, ideas: anything that is talked about and modeled in an information system is a resource.
+
+* Every resource may have a name, called a uniform resource identifier (URI).
+
+As described in Section 5.4, Unique identification of data objects, above, `structures:uri`, `structures:id`, and `structures:ref` each denote a resource identifier. Although a `structures:ref` must always refer to a `structures:id`, and a value of `structures:id` must be unique within its document, a `structures:uri` may refer to any of `structures:uri`, `structures:ref`, or `structures:id`.
+
+**Rule 13-7 (XML)(Interpretation):** The value of an attribute `structures:uri` is a URI-reference, as defined by [[RFC 3986]](#references), which denotes a resource identifier on the element holding the attribute, in accordance with evaluation consistent with [[RFC 3986]](#references) and [[XML Base]](#references). (N5R 12-7)
+
+**Rule 13-8 (XML)(Constraint):** The value of an attribute `structures:uri` that is an *absolute URI* according to [[RFC 3986]](#references) MUST be valid according to the rules for its scheme. (NEW)
+
+Validating parsers do not always test whether an absolute URI follows the rules for its scheme, and so a 
+A successful validation match against the type `xs:anyURI` is necessary but not sufficient.
+
+The following example shows a reference to an absolute URI, using the URN namespace for UUIDs:
+
+```
+<example:ArrestMessage>
+  <j:Arrest xsi:nil="true"
+    structures:uri="urn:uuid:f81d4fae-7dec-11d0-a765-00a0c91e6bf6"/>
+</example:ArrestMessage>
+```
+<center><i><a name="fig13-6"></a>Figure 13-6: Example of `structures:uri` holding an absolute URI<i></center><p/>
+
+The following example shows a relative URI, using xml:base to carry the base URI for the document. The person object identified by the structures:uri attribute has the URI http://state.example/scmods/B263-1655-2187.
+
+```
+<example:ArrestMessage xml:base="http://state.example/scmods/">
+  <j:Arrest>
+    <j:ArrestSubject>
+      <nc:EntityPerson structures:uri="B263-1655-2187"/>
+    </j:ArrestSubject>
+  </j:Arrest>
+</example:ArrestMessage>
+```
+<center><i><a name="fig13-7"></a>Figure 13-7: Example of `structures:uri` holding an relative URI, with an `xml:base`<i></center><p/>
+
+**Rule 13-9 (XML)(Interpretation):** The value of an attribute `structures:id` with a value of *val*, or an attribute `structures:ref` with a value of *val*, denotes a resource identifier on the element holding the attribute, as would be denoted by an attribute `structures:uri` with a value of *#val*. (N5R 12-8)
+
+For example, `structures:id="hello"` and `structures:ref="hello"` each denote the same resource identifier for an element as if it held an attribute `structures:uri="#hello"`.
+
+A set of elements that each have the same resource identifier denote the same object, which has that given identifier. This means that, in an XML representation, the properties of an object may be spread across a set of elements that share an identifier.
+
+The following example contains four references to the same object, which has the identifier `https://state.example/98723987/results.xml#delta`.
+
+```
+<example:ArrestMessage xml:base="https://state.example/98723987/results.xml">
+  <j:Arrest>
+    <j:ArrestSubject>
+      <nc:EntityPerson structures:id="delta"/>
+    </j:ArrestSubject>
+  </j:Arrest>
+  <j:Arrest>
+    <j:ArrestSubject>
+      <nc:EntityPerson structures:ref="delta"/>
+    </j:ArrestSubject>
+  </j:Arrest>
+  <j:Arrest>
+    <j:ArrestSubject>
+      <nc:EntityPerson structures:uri="#delta"/>
+    </j:ArrestSubject>
+  </j:Arrest>
+  <j:Arrest>
+    <j:ArrestSubject>
+      <nc:EmtotuPerson structures:uri="https://state.example/98723987/results.xml#delta"/>
+    </j:ArrestSubject>
+  </j:Arrest>
+</example:ArrestMessage>
+```
+<center><i><a name="fig13-8"></a>Figure 13-8: Example of `structures:id`, `structures:ref`, and `structures:uri` identifying the same object<i></center><p/>
+
+### 13.2.3 Differentiating reference-to-identifier links and use of URIs
+
+These two methods are similar, and can interoperate, but have distinctions:
+
+* With ref-to-id links, both structures:ref and structures:id are required to be within the same document.
+
+* With ref-to-id links, both structures:id and structures:ref are required to be validated against the same schema.
+
+* Ref-to-id links provide and require type safety, in that the type of an object pointed to by structures:ref must be consistent with the referencing element’s type declaration.
+
+* The value of structures:id must be unique for IDs within the document.
+
+* The value of structures:ref must appear within the document as the value of an attribute structures:id.
+
+* An attribute structures:uri is a URI-reference that can reference any resource, inside or outside the document.
+
+* A structures:uri can reference any structures:id within the same document, or in another conformant document.
+
+* A structures:uri can reference any structures:ref within the same document, or in another conformant document.
+
+* Any structures:uri may reference any other structures:uri, within the same document, or in another conformant document.
+
+### 13.2.4 Reference and content elements have the same meaning
+
+An important aspect of the use of nested elements, ref-to-id references, and URI references, is that they all have the same meaning. Expressing a relationship as a nested element, versus as a ref-to-id reference is merely for convenience and ease of serialization. There is no change in meaning or semantics between relationships expressed by sub-elements versus relationships expressed by structures:ref or structures:uri.
+
+Any claim that nested elements represent composition, while references represent aggregation is incorrect. No life cycle dependency is implied by either method. Similarly, any claim that included data is intrinsic (i.e., a property inherent to an object), while referenced data is extrinsic (i.e., a property derived from a relationship to other things), is false. A property represented as a nested element has the exact same meaning as that property represented by a reference.
+
+**Rule 13-10 (XML)(Interpretation):** There MUST NOT be any difference in meaning between a relationship established via an element declaration instantiated by a nested element, and that element declaration instantiated via reference. (N5R 12-9)
+
+There is no difference in meaning between relationships established by sub-elements and those established by references. They are simply two mechanisms for expressing connections between objects. Neither mechanism implies that properties are intrinsic or extrinsic; such characteristics must be explicitly stated in property definitions.
+
+Being of type `xs:ID` and `xs:IDREF`, validating schema parsers will perform certain checks on the values of structures:id and structures:ref. Specifically, no two IDs may have the same value. This includes structures:id and other IDs that may be used within an XML document. Also, any value of `structures:ref` must also appear as the value of an ID.
+
+By this rule, the following three XML fragments have a very similar meaning. The first example, with no reference, shows a witness that is a role of a person.
+
+```
+<j:Witness>
+  <nc:RoleOfPerson>
+    <nc:PersonName>
+      <nc:PersonFullName>John Doe</nc:PersonFullName>
+    </nc:PersonName>
+  </nc:RoleOfPerson>
+</j:Witness>
+```
+<center><i><a name="fig13-9"></a>Figure 13-9: Example with no reference<i></center><p/>
+
+The next example, with a backward reference, also expresses a witness object that is a role of a person. It first expresses the person object, then the witness object as a role of a that person, expressed as a reference back to the person.
+
+```
+<nc:Person structures:id="c58">
+  <nc:PersonName>
+    <nc:PersonFullName>John Doe</nc:PersonFullName>
+  </nc:PersonName>
+</nc:Person>
+<j:Witness>
+  <nc:EntityPerson structures:ref="c58" xsi:nil="true"/>
+</j:Witness>
+```
+<center><i><a name="fig13-10"></a>Figure 13-10: Example with a backward reference<i></center><p/>
+
+The final example, with a forward reference shows a witness as a role of a person, with a separate person object expressed as a forward reference to the person object that is expressed later, within the definition of the witness.
+
+```
+<nc:Person structures:ref="t85" xsi:nil="true"/>
+<j:Witness>
+  <nc:EntityPerson structures:id="t85">
+    <nc:PersonName>
+      <nc:PersonFullName>John Doe</nc:PersonFullName>
+    </nc:PersonName>
+  </nc:RoleOfP
+```
+<center><i><a name="fig13-11"></a>Figure 13-11: Example with a forward reference<i></center><p/>
+
+NIEM-conformant data instances may use either representation as needed, to represent the meaning of the fundamental data. There is no difference in meaning between reference and content data representations. The two different methods are available for ease of representation. No difference in meaning should be implied by the use of one method or the other.
 
 -------
 
@@ -2822,7 +2998,7 @@ Remove this note before submitting for publication.)
 
 -------
 
-# Appendix B. References
+# Appendix B. References <a name="#references"></a>
 
 This appendix contains the normative and informative references that are used in this document. Any normative work cited in the body of the text as needed to implement the work product must be listed in the Normative References section below. Each reference to a separate document or artifact in this work must be listed here and must be identified as either a Normative or an Informative Reference. Normative references are specific (identified by date of publication and/or edition number or version number) and Informative references are either specific or non-specific.
 

@@ -8,27 +8,48 @@ For more information on NIEMOpen, see the project's website at [www.niemopen.org
 
 General questions about OASIS Open Projects may be directed to OASIS staff at project-admin@lists.oasis-open-projects.org
 
-# Status
+## Status
 
-This document is being revised for NIEM 6.  At this point, the most important file is [ndr6-outline](ndr6-outline.md).  What else is in this working directory?
+NDR 6.0 will be a complete rewrite of the previous NDR 5.0.  This rewrite is partially complete in the current draft, which is available for review as:
+
+* HTML:  [ndr-v6.0-psd01.html](ndr-v6.0-psd01.html)
+* PDF:  [ndr-v6.0-psd01](ndr-v6.0-psd01.pdf) *not working yet*
+
+## Generating NDR6
+
+* NDR 6.0 is written in Markdown.  The source file edited by people is [ndr6src.md](ndr6src.md).
+* An intermediate Markdown version is generated via Perl scripts, which
+  * Transform defined terms in the text into links to definitions in the Glossary
+  * [some appendix generation tbd]
+* HTML is generated from the intermediate Markdown with [**pandoc**](https://pandoc.org)
+* PDF is generated from the HTML with [**wkhtmltopdf**](https://wkhtmltopdf.org)
+* This build automation is controlled by a [Makefile](Makefile).
+
+## What's in this directory
 
 * [bin](bin) – scripts to generate files in this directory
   * [genruleMatrix](genruleMatrix) – Perl script to create [ruleMatrix.md](ruleMatrix.md)  from [NDR5+](niem-ndr.md)
+  * [linkdefs](bin/linkdefs) – Perl script to generate intermediate Markdown with definition links from the source
   * [makerules]() – Perl script to create schematron files from [NDR5+](niem-ndr.md)
-* [cmf-to-JsonSchema](cmf-to-json-schema-guide.md) – converting a CMF model into JSON Schema to validate NIEM JSON messages
-* [confTargets](confTargets.md) – *Conformance Targets in NIEM 6.0* –  summary of differences between reference, extension, subset, and message schema documents
-* [examples](examples)
-  * [crash-driver](examples/crash-driver)
-* [images](images) – directory of PNG files used as images in documents here
-* [NIEM6-XNDR](NIEM6-XNDR.md) – list NDR 5 XSD rules in order; state applicable NIEM 6 XSD conformance targets
-* [NDR5+](niem-ndr.md) – NDR 5 converted to markdown, with edits to XSD rules
-* [pptx](pptx) – originals of images created with Powerpo
-* [ruleMatrix](ruleMatrix.md) – list NDR 5 XSD rules, grouped by applicable NIEM 6 XSD conformance targets
+  * [numberRules](bin/numberRules) – Perl script to update rule numbers in the Markdown source
+* [doc](doc) – background documentation
+  * [cmf-to-JsonSchema](doc/cmf-to-json-schema-guide.md) – converting a CMF model into JSON Schema to validate NIEM JSON messages
+  * [confTargets](doc/confTargets.md) – *Conformance Targets in NIEM 6.0* –  summary of differences between reference, extension, subset, and message schema documents
+  * [NIEM6-XNDR](doc/NIEM6-XNDR.md) – list of NDR 5 XSD rules in order; state applicable NIEM 6 XSD conformance targets
+  * [ruleMatrix](doc/ruleMatrix.md) – list NDR 5 XSD rules, grouped by applicable NIEM 6 XSD conformance targets
+
+* [examples](examples) – the [crash-driver](examples/crash-driver) message specification
+* [images](images) – directory of PNG files used as images in NDR6
+* [old](old) – NDR5 stuff
+* [niem5ndr.md](niem5ndr.md) – NDR 5 converted to markdown, with edits to XSD rules
+* [pptx](pptx) – originals of images created with Powerpoint
 * [sch](sch) – Schematron for XSD rules in NDR 6
   * [ndr-ct-ext.sch](ndr-ct-ext.sch) – Schematron for extension schema documents
   * [ndr-ct-msg.sch](ndr-ct-msg.sch) – Schematron for message schema documents
   * [ndr-ct-sub.sch](ndr-ct-sub.sch) – Schematron for subset schema documents
   * [ndr-ct-ref.sch](ndr-ct-ref.sch) – Schematron for reference schema documents
+* [styles](styles) – CSS files used to generate OASIS HTML from Markdown
+* [uxf](uxf) – originals of UML diagrams in NDR6
 
 # Other assets
 
