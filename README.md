@@ -12,7 +12,7 @@ General questions about OASIS Open Projects may be directed to OASIS staff at pr
 
 NDR 6.0 will be a complete rewrite of the previous NDR 5.0.  This rewrite is partially complete in the current draft, which is available for review as:
 
-* HTML:  [ndr-v6.0-psd01.html](htmlpreview.github.io/?https://github.com/niemopen/niem-naming-design-rules/blob/dev/ndr-v6.0-psd01.html)
+* HTML:  [ndr-v6.0-psd01.html](https://htmlpreview.github.io/?https://github.com/niemopen/niem-naming-design-rules/blob/dev/ndr-v6.0-psd01.html)
 * PDF:  [ndr-v6.0-psd01](ndr-v6.0-psd01.pdf) *not working yet*
 
 ## Generating NDR6
