@@ -44,12 +44,12 @@ https://docs.oasis-open.org/niemopen/ndr/v6.0/ndr-v6.0.pdf
 Katherine Escobar (katherine.b.escobar.civ@mail.mil), [Joint Staff J6](https://www.jcs.mil/Directorates/J6-C4-Cyber/)
 
 #### NTAC Technical Steering Committee Chairs:
-James Cabral (jim@cabral.org), Individual \
-Scott Renner (sar@mitre.org), [MITRE](https://mitre.org/)
+Scott Renner (sar@mitre.org), [MITRE](https://mitre.org/) \
+James Cabral (jim@cabral.org), Individual
 
 #### Editors:
-James Cabral (jim@cabral.org), Individual \
 Scott Renner (sar@mitre.org), [MITRE](https://mitre.org/) \
+James Cabral (jim@cabral.org), Individual \
 Tom Carlson (Thomas.Carlson@gtri.gatech.edu), [Georgia Tech Research Institute](https://gtri.gatech.edu/)
 
 #### Additional artifacts:
@@ -193,6 +193,12 @@ This optional section provides a description of significant differences from pre
 |Imported namespace||
 |Informative|Material that appears as supporting text, description, and rationales for the normative material.|
 |Interpretation rule|Defines a methodology, pattern, or procedure for understanding some aspect of an instance of a conformance target.|
+|JSON ||
+|JSON document ||
+|JSON schema ||
+|JSON text ||
+|JSON-LD ||
+
 |List|An object that defines a datatype as a whitespace-separated list of atomic values.|
 |Literal||
 |Local term|A word, phrase, acronym, or other string of characters that is used in the name of a namespace component, but that is not defined in OED, or that has a non-OED definition in this nameespace, or has a word sense that is in some way unclear.|
@@ -283,8 +289,20 @@ The remaining sections of this document most relevant to each of these roles are
 | :---- | :---: | :----: | :---: | :---: |
 | 3. Overview of NIEM technical architecture | x | x | x | x |
 | 4. Data models in NIEM | | | x | |
-| 5. Modeling rules for NIEM XSD | | | x | |
-| 6. Rules for NIEM messages | | x | x | x |
+| 5. Data modeling patterns | | | x | |
+| 6. Conformance | | x | x | x |
+| 7. Rules for names of components | | x | x | |
+| 8. Rules for documentation | | x | x |  |
+| 9. Rules for the NIEM profile of XSD | | | x | |
+| 10. Rules for extension namespaces in XSD | |  | x |  |
+| 11. Rules for other namespaces in XSD | |  | x |  |
+| 12. Rules for models in XSD | |  | x |  |
+| 13. Rules for NIEM messages in XML | |  | x | x |
+| 14. Rules for the NIEM profile of JSON-LD | | | x | |
+| 15. Rules for extension namespaces in JSON-LD | |  | x |  |
+| 16. Rules for other namespaces in JSON-LD | |  | x |  |
+| 17. Rules for models in JSON-LD | |  | x |  |
+| 18. Rules for NIEM messages in JSON| |  | x | x |
 
 ## 2.1 Document references
 
@@ -1648,13 +1666,22 @@ A TextType object combines a string property with a language property.
 
 -------
 
-# 5. Data modeling patters
+# 5. Data modeling patterns
 
 > NOTE: I think the sections on container objects and representation terms belong here, along with any other modeling patterns we want to describe.  NDR 5 buries these things in section 10, "Rules for NIEM modeling", but I don't think that makes sense in the NDR 6 organization.
 
 -------
 
 # 6. Conformance
+
+(Note: The [OASIS TC Process](https://www.oasis-open.org/policies-guidelines/tc-process-2017-05-26/#wpComponentsConfClause) requires that a specification approved by the OP for public review, or for publication at the Project Specification or OASIS Standard level must include a separate section, listing a set of numbered conformance clauses, to which any implementation of the specification must adhere in order to claim conformance to the specification (or any optional portion thereof). This is done by listing the conformance clauses here.
+
+For the definition of "conformance clause," see [OASIS Defined Terms](https://www.oasis-open.org/policies-guidelines/oasis-defined-terms-2018-05-22/#dConformanceClause).
+
+See "Guidelines to Writing Conformance Clauses":  
+http://docs.oasis-open.org/templates/TCHandbook/ConformanceGuidelines.html.
+
+Remove this note before submitting for publication.)
 
 NIEM defines *conformance* with the rules in this document. NIEM does not define *compliance*. Compliance is assessed by an authority who can compel change or withhold approval. That sort of authoritative assessment is out of scope for NIEMOpen.
 
@@ -1713,6 +1740,11 @@ The conformance targets in this document are defined in the sections below.  Eac
 * `CMF  -- https://docs.oasis-open.org/niemopen/ns/specification/XNDR/6.0/#Model`
 * `XML  -- https://docs.oasis-open.org/niemopen/ns/specification/XNDR/6.0/#XMLMessage`
 * `JSON -- https://docs.oasis-open.org/niemopen/ns/specification/XNDR/6.0/#JSONMessage`
+* `JSON-LAX -- https://docs.oasis-open.org/niemopen/ns/specification/XNDR/6.0/#JSONMessage-LAX`
+
+The `JSON` and `JSON-LAX` conformance targets are intended for JSON messages with `strict` and `lax` conformance to a schema, respectively, as follows:
+- **Strict conformance** establishes that the JSON instance follows all rules of the schema or message specification. An instance that strictly conforms to a message specification will contain all content that is required by the message specification, will contain only content allowed by the message specification, and will reflect the parent-child structure and cardinality constraints defined by the message specification. This enables NIEM JSON to satisfy exchange requirements similar to traditional NIEM XML use cases.
+- **Lax conformance** enables the use of vocabularies that are defined by NIEM schemas or message specifications via linked data and linked open data methods. It establishes that exchanges with NIEM-conformant vocabularies use those vocabularies properly; this allows data to be more flexible, and to combine terms from NIEM-conformant vocabularies with terms from other vocabularies.
 
 For historical reasons, the URIs for the namespace conformance targets end in "SchemaDocument" instead of "Namespace".
 
@@ -2226,7 +2258,7 @@ Since XML comments are not associated with any specific XML Schema construct, th
 
 -------
 
-# 10. Rules for extension namespaces
+# 10. Rules for extension namespaces in XSD
 
 An extension namespace is the kind most commonly created by a NIEM message designer. This specification therefore begins with those rules.  The following section then adds rules for other namespaces, and  takes away rules not applicable to message schema documents.
 
@@ -2393,7 +2425,7 @@ For example, the `FooAugmentationPoint` element must not be included in any type
 
 -------
 
-# 11. Rules for other namespaces
+# 11. Rules for other namespaces in XSD
 
 ## 11.1 Additional rules for reference namespaces
 
@@ -2452,7 +2484,7 @@ A complex type that is defined by a reference schema document is permitted to co
 
 -------
 
-# 12. Rules for models
+# 12. Rules for modelsin XSD
 
 **Rule 12-1 (SET)(Constraint):** There MUST be a one-to-one match between namespace prefix and namespace URI among all schema documents in the set. (NEW)
 
@@ -2497,7 +2529,7 @@ Some tools do not enforce this constraint; one such tool carries imports from a 
 
 The *structures namespace* is the namespace represented by the URI `https://docs.oasis-open.org/niemopen/ns/model/structures/6.0/`.  The structures namespace for models contains `xs:anyAttribute` elements in support of attribute augmentation.  Those attribute wildcards do not appear in the structures namespace for messages.
 
-# 13. Rules for NIEM messages
+# 13. Rules for NIEM messages in XML
 
 **Rule 13-1 (XML)(Constraint):** A message in XML format MUST be schema-valid, as assessed against a conformant schema document set, composed of reference and/or extension namespace representations. (N5R 12-1)
 
@@ -2775,16 +2807,15 @@ The final example, with a forward reference shows a witness as a role of a perso
 NIEM-conformant data instances may use either representation as needed, to represent the meaning of the fundamental data. There is no difference in meaning between reference and content data representations. The two different methods are available for ease of representation. No difference in meaning should be implied by the use of one method or the other.
 
 -------
+# 14. Rules for the NIEM profile of JSON-LD
 
-# 14 Conformance
-(Note: The [OASIS TC Process](https://www.oasis-open.org/policies-guidelines/tc-process-2017-05-26/#wpComponentsConfClause) requires that a specification approved by the OP for public review, or for publication at the Project Specification or OASIS Standard level must include a separate section, listing a set of numbered conformance clauses, to which any implementation of the specification must adhere in order to claim conformance to the specification (or any optional portion thereof). This is done by listing the conformance clauses here.
+# 15. Rules for extension namespaces in JSON-LD
 
-For the definition of "conformance clause," see [OASIS Defined Terms](https://www.oasis-open.org/policies-guidelines/oasis-defined-terms-2018-05-22/#dConformanceClause).
+# 16. Rules for other namespaces in JSON-LD
 
-See "Guidelines to Writing Conformance Clauses":  
-http://docs.oasis-open.org/templates/TCHandbook/ConformanceGuidelines.html.
+# 17. Rules for models in JSON-LD
 
-Remove this note before submitting for publication.)
+# 18. Rules for NIEM messages in JSON
 
 -------
 # Appendix A.  Mapping NIEM 5 rules to NIEM 6
