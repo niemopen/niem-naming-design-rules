@@ -5,16 +5,15 @@ NDRHTML = $(NDR).html
 NDRPDF  = $(NDR).pdf
 NDRSRC  = ndr6src.md
 
-NDRCSS      = styles/ndr-styles.css
+NDR_CSS     = styles/ndr-styles.css
 OASIS_CSS   = styles/markdown-styles-v1.7.3a.css
+STYLES      = -c $(OASIS_CSS) -c $(NDR_CSS)
 METADATA    = --metadata title="NIEM Naming and Design Rules (NDR) Version 6.0"
-PANDOC_ARGS = -f gfm -t html --toc --toc-depth=5 -s -c $(OASIS_CSS) -c $(NDRCSS) $(METADATA)
+PANDOC_ARGS = -f gfm -t html --toc --toc-depth=5 -s $(STYLES) $(METADATA)
 
 all : html pdf
 
 html: $(NDRHTML)
-
-pdf: $(NDRPDF)
 
 $(NDRHTML) : $(NDRSRC)
 	bin/linkdefs $(NDRSRC) | pandoc $(PANDOC_ARGS) -o $(NDRHTML)

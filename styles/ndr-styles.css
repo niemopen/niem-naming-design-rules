@@ -4,3 +4,4 @@
   a.ref, span.ref { font-weight: bold; }
   span.termRef::before { font-weight: bold; content: "·"; } 
   span.termRef::after { font-weight:bold; content: "·"; } 
+  code { font-size: 16px; }

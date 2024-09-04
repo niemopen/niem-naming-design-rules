@@ -20,7 +20,7 @@
 
 ## Project Specification Draft 01
 
-## 24 July 2024
+## 4 September 2024 draft
 
 &nbsp;
 
@@ -355,9 +355,9 @@ The following namespace prefixes are used consistently within this specification
 
 * `xs`: The namespace for the XML Schema definition language as defined by [XML Schema Structures] and [XML Schema Datatypes], http://www.w3.org/2001/XMLSchema.
 * `xsi`: The XML Schema instance namespace, defined by [XML Schema Structures] Section 2.6, Schema-Related Markup in Documents Being Validated, for use in XML documents, http://www.w3.org/2001/XMLSchema-instance.
-* `ct`: The namespace defined by [CTAS] for the conformanceTargets attribute, </br>https://docs.oasis-open.org/niemopen/ns/specification/conformanceTargets/6.0/.
+* `ct`: The namespace defined by [CTAS] for the conformanceTargets attribute, https://docs.oasis-open.org/niemopen/ns/specification/conformanceTargets/6.0/.
 * `appinfo`: The namespace for the appinfo namespace, https://docs.oasis-open.org/niemopen/ns/model/appinfo/6.0/.
-* `structures`: The namespace for the structures namespace, </br>https://docs.oasis-open.org/niemopen/ns/model/structures/6.0/.
+* `structures`: The namespace for the structures namespace, https://docs.oasis-open.org/niemopen/ns/model/structures/6.0/.
 * `cmf`: The namespace for the CMF model representation, https://docs.oasis-open.org/niemopen/ns/specification/cmf/1.0/.
 
 -------
@@ -426,9 +426,12 @@ A data model in NIEM defines the syntax and semantics of a message format, or th
 </center>
 
 - A *class* defines the content of a corresponding *object* (or *resource*) in a message.
+
 - A *datatype* defines the allowed values of a corresponding atomic *literal value* in a message.
+
 - A class has one or more *properties*. An *object property* defines a subject-predicate-value relationship between an object and another object.  A *data property* defines a relationship between an object and a literal value.
-- A *namespace* is a collection of uniquely-named components, described in more detail in section 3.5.
+
+- A *namespace* is a collection of uniquely-named components defined by an authority.
 
 Figure 3-3 below illustrates the relationships among metamodel components, NIEM model components, and the corresponding message objects and values.
 
@@ -440,21 +443,25 @@ Figure 3-3 below illustrates the relationships among metamodel components, NIEM 
   </figure>
 </center>
 
-A NIEM message contains objects, properties, and values, which are defined by the Class, Property, and Datatype objects in a NIEM model. In figure 3-3, the name object is defined by the `nc:PersonNameType` Class object; the literal value is defined by the `xs:string` Datatype object, and the property relationship between the two is defined by the `nc:PersonFullName` DataProperty object.
+A NIEM message contains objects, properties, and literal values. These are specified by the Class, Property, and Datatype objects in a NIEM data model, which defines the content of a conforming message and the meaning of that content. In figure 3-3, the name object is defined by the `nc:PersonNameType` Class object; the literal value is defined by the `xs:string` Datatype object, and the property relationship between the two is defined by the `nc:PersonFullName` DataProperty object.
 
 ## 3.5 NIEM model representations: XSD and CMF
 
-The abstract metamodel has two concrete representations:  NIEM XSD and NIEM CMF.
+The abstract metamodel has two concrete representations:  NIEM XSD and NIEM CMF. These are equivalent representations and may be converted from one to the other without loss.
 
-XML Schema (XSD) is a NIEM model representation for all versions of NIEM. A NIEM model can be represented as a schema assembled from a collection of schema documents. Every aspect of the metamodel is represented in some way by a schema component. [Section 4](#4-data-models-in-niem) defines the mapping between the metamodel and XSD. [Section 5](#5-modeling-rules-for-niem-xsd) specifies additional rules for the NIEM profile of XSD.
+Every version of NIEM uses a profile of XML Schema (XSD) as a NIEM model representation. In XSD, a NIEM model is represented as a schema assembled from a collection of schema documents. Every aspect of the metamodel is represented in some way by a schema component.
 
-XSD as a model representation supports conformance testing of NIEM XML messages through schema validation. However, JSON developers (and developers working with other formats) cannot use XSD to validate their messages. Nor do they want to read XSD specifications of message content. 
+XSD as a model representation directly supports conformance testing of NIEM XML messages through schema validation. However, JSON developers (and developers working with other formats) cannot use XSD to validate their messages. Nor do they want to read XSD specifications of message content.
 
-The Common Model Format (CMF) is a second NIEM model representation that supports all developers. CMF is the result of applying the NIEM framework to the information requirements in the metamodel. CMF is a NIEM-based message specification. A CMF model file is a NIEM-based message that represents a NIEM model. [Section 4](#4-data-models-in-niem) defines the mapping between the metamodel and CMF.
+NIEM 6 introduces the Common Model Format (CMF), a NIEM model representation intended to support all developers. CMF is itself a NIEM-based message type, the result of applying the NIEM framework to the information requirements in the metamodel.  A CMF message represents a NIEM data model, which is an instance of the NIEM metamodel. CMF is a technology-neutral model representation, because:
 
-Because CMF is a NIEM-based message specification, it can define both an XML format and a JSON format.  CMF examples in this document appear as XML, but can be converted to JSON without loss, and vice versa. 
+* A CMF model that specifies a message type also specifies the corresponding XML and JSON message formats. 
 
-Because CMF and NIEM XSD are equivalent model representations, NIEM models can be converted from XSD to CMF without loss, and vice versa. 
+* A CMF model can be transformed into XSD for conformance testing of XML messages, and into JSON Schema for conformance testing of JSON messages.
+
+* A CMF model can itself be represented in XML or JSON, according to developer preference.
+
+[Section 4](#4-data-models-in-niem) defines the mappings between the metamodel, NIEM XSD, and CMF.
 
 ## 3.6 Namespaces
 
@@ -462,14 +469,13 @@ The components of a NIEM model are partitioned into *namespaces.* This prevents 
 
 Each namespace has an author, a person or organization that is the authoritative source for the namespace definitions. A namespace is the collection of model components for concepts of interest to the namespace author. Namespace cohesion is important; a namespace should be designed so that its components are consistent, may be used together, and may be updated at the same time.
 
-Each namespace must be uniquely identified by a URI. The namespace author should also be the URI's owner, as defined by [ref webarch](). Both URNs and URLs are allowed. It is helpful, but not required, for the namespace URI to be accessible, returning the definition of the namespace content in a supported model format. (See [ref repositories]() for an alternative way to obtain namespace definitions.)
+Each namespace must be uniquely identified by a URI. The namespace author should also be the URI's owner, as defined by [webarch](#ref). Both URNs and URLs are allowed. It is helpful, but not required, for the namespace URI to be accessible, returning the definition of the namespace content in a supported model format. (See [ref repositories?](#ref) for an alternative way to obtain namespace definitions.)
 
-Namespaces are the units of model configuration management. A namespace has one canonical representation in XSD: a [*reference schema document*](#def) or [*extension schema document*](#def).  A namespace has one canonical representation in CMF: a CMF message, also known as a *CMF model file*. Once published, the components in a namespace may not be removed or redefined. Those changes may only be made in a new namespace with a different URI. As a result, a change by one namespace author does not force a change by any other author – the revisions may be adopted, if desired, whenever convenient; the older namespace continues to be valid regardless.
+Namespaces are the units of model configuration management. Once published, the components in a namespace may not be removed or changed in meaning. Those changes may only be made in a new namespace with a different URI. As a result, a change by one namespace author does not force a change by any other author – the revisions may be adopted, if desired, whenever convenient; the older namespace continues to be valid regardless.
 
 ## 3.7 NIEM messages in XML and JSON
 
 The content of a NIEM message may be formatted as XML or JSON. Any NIEM message may be converted from one supported format to another, without loss of information. Figures 3-4 and 3-5 show the equivalent NIEM XML and JSON serializations of the information depicted in figure 3-3.
-
 
 ```
 <nc:Person
@@ -519,8 +525,9 @@ The table format used to document classes, attributes, relationships, and proper
 | CMF | the name of the corresponding CMF class or property |
 | Definition | the definition of the object or property |
 | Card | the cardinality of the property (how many times it may/must appear in an object) |
-| Ord | true when the instance order of a repeatable property in an object is significant |
+| Ord | true when the order of the instances of a repeatable property in an object is significant |
 | Range | the class or datatype of a property |
+</br>
 
 ## 4.1 Model class
 
@@ -529,7 +536,7 @@ A Model object represents a complete or partial NIEM model.  (A complete model h
 <center>
   <figure class="image">
     <a name="fig4-2"/></a>
-    <img src="images/modelClass.png" style="zoom:60%"/>
+    <img src="images/modelClass.png" style="zoom:100%"/>
     <figcaption><i>Figure 4-2: Model class diagram</i></figcaption>
   </figure>
 </center>
@@ -551,7 +558,7 @@ A Namespace object represents a namespace in a model. For example, the namespace
 <center>
   <figure class="image">
     <a name="fig4-3"/></a>
-    <img src="images/namespaceClass.png" style="zoom:60%"/>
+    <img src="images/namespaceClass.png" style="zoom:100%"/>
     <figcaption><i>Figure 4-3: Namespace class diagram</i></figcaption>
   </figure>
 </center>
@@ -594,8 +601,7 @@ Figure 4-4 shows the representation of a Namespace object in CMF and in the corr
   xmlns:ct="https://docs.oasis-open.org/niemopen/ns/specification/conformanceTargets/6.0/"
   xmlns:nc="https://docs.oasis-open.org/niemopen/ns/model/niem-core/6.0/"
   xmlns:xs="http://www.w3.org/2001/XMLSchema"
-  ct:conformanceTargets=
-    "https://docs.oasis-open.org/niemopen/ns/specification/XNDR/6.0/#ReferenceSchemaDocument"
+  ct:conformanceTargets="https://docs.oasis-open.org/niemopen/ns/specification/XNDR/6.0/#ReferenceSchemaDocument"
   version="ps02"
   xml:lang="en-US">
   <xs:annotation>
@@ -615,6 +621,7 @@ The following table shows the mapping between Namespace object representations i
 | ConformanceTargetURI | Each of the URIs in the list attribute `xs:schema/@ct:conformanceTargets` |
 | NamespaceVersionText | `xs:schema/@version` |
 | NamespaceLanguageName | `xs:schema/@xml:lang` |
+</br>
 
 ## 4.3 Component class (abstract)
 
@@ -623,7 +630,7 @@ A model component in a namespace is either a Class object, a Property object, or
 <center>
   <figure class="image">
     <a name="fig4-4"/></a>
-    <img src="images/component.png" style="zoom:60%"/>
+    <img src="images/component.png" style="zoom:100%"/>
     <figcaption><i>Figure 4-5: Component class diagram</i></figcaption>
   </figure>
 </center>
@@ -635,6 +642,7 @@ A model component in a namespace is either a Class object, a Property object, or
 | documentation | DocumentationText | A human-readable text definition of a data model component. | 0..* | Y | TextType |
 | isDeprecated | DeprecatedIndicator | True for a deprecated schema component; that is, a component that is provided, but the use of which is not recommended. | 0..1 | - | xs:boolean |
 | ns | Namespace | The namespace of a data model component. | 1 | - | NamespaceType |
+</br>
 
 ## 4.4 Class class
 
@@ -643,7 +651,7 @@ A Class object represents a class of objects defined by a NIEM model; that is, a
 <center>
   <figure class="image">
     <a name="fig4-6"/></a>
-    <img src="images/class.png" style="zoom:60%"/>
+    <img src="images/class.png" style="zoom:100%"/>
     <figcaption><i>Figure 4-6: Class and HasProperty class diagram</i></figcaption>
   </figure>
 </center>
@@ -814,6 +822,7 @@ The following table shows the mapping between HasProperty representations in CMF
 | DocumentationText | `xs:element/xs:annotation/xs:documentation` |
 | OrderedPropertyIndicator | `xs:element/@appinfo:orderedPropertyIndicator` |
 | AugmentingNamespace | `xs:element/@appinfo:augmentingNamespace` |
+</br>
 
 ## 4.6 Property class (abstract)
 
@@ -822,7 +831,7 @@ A Property object represents a data property or an object property in a NIEM mod
 <center>
   <figure class="image">
     <a name="fig4-10"/></a>
-    <img src="images/property.png" style="zoom:60%"/>
+    <img src="images/property.png" style="zoom:100%"/>
     <figcaption><i>Figure 4-10: Property class diagram</i></figcaption>
   </figure>
 </center>
@@ -833,6 +842,7 @@ A Property object represents a data property or an object property in a NIEM mod
 | isAbstract | AbstractIndicator | True if a property must be specialized; false if a property may be used directly. | 0..1 | - | xs:boolean |
 | isRelationship | RelationshipPropertyIndicator | True for a property that applies to the relationship between two objects (instead of to a single object). | 0..1 | - | xs:boolean |
 | subPropertyOf | SubPropertyOf | A property of which a property is a subproperty. | 0..1 | - | PropertyType |
+</br>
 
 ## 4.7 ObjectProperty class
 
@@ -883,6 +893,7 @@ The following table shows the mapping between ObjectProperty object representati
 | RelationshipPropertyIndicator | `xs:element/@appinfo:relationshipPropertyIndicator`
 | Class | The class object for `xs:element/@type` |
 | ReferenceCode | `xs:complexType/@appinfo:referenceCode` |
+</br>
 
 ## 4.8 DataProperty class
 
@@ -951,14 +962,14 @@ The following table shows the mapping between DataProperty representations in CM
 | Datatype | The datatype object for `xs:element/@type` |
 | AttributeIndicator | True for an attribute declaration. |
 | RefAttributeIndicator | `xs:attribute/@appinfo:referenceAttributeIndicator` |
-
+</br>
 
 ## 4.9 Datatype class
 
 <center>
   <figure class="image">
     <a name="fig4-13"/></a>
-    <img src="images/datatype.png" style="zoom:60%"/>
+    <img src="images/datatype.png" style="zoom:100%"/>
     <figcaption><i>Figure 4-13: Datatype classes</i></figcaption>
   </figure>
 </center>
@@ -984,7 +995,6 @@ A List object defines a datatype as a whitespace-separated list of atomic values
 | listType | ListOf | The datatype of the atomic values in a list. | 1 | - | DatatypeType |
 
 A List object is represented in XSD as a complex type definition that extends a simple type definition with an `xs:list` element.  Figure 4-15 shows the CMF and XSD representation of a List object.
-
 
 ```
 <ListDatatype structures:id="ex.ExListType">
@@ -1021,6 +1031,7 @@ The following table shows the mapping between List object representations in CMF
 | DeprecatedIndicator | `xs:complexType/@appinfo:deprecated` |
 | ListOf | `xs:simpleType/xs:list/@itemType` |
 | OrderedPropertyIndicator | `xs:complexType/@appinfo:orderedPropertyIndicator` |
+</br>
 
 ## 4.11 Union class
 
@@ -1066,6 +1077,7 @@ The following table shows the mapping between UnionDatatype object representatio
 | DocumentationText | `xs:complexType/xs:annotation/xs:documentation` |
 | DeprecatedIndicator | `xs:complexType/@appinfo:deprecated` |
 | UnionOf | `xs:simpleType/xs:union/@memberTypes` |
+</br>
 
 ## 4.12 Restriction class
 
@@ -1132,7 +1144,7 @@ A [code list](#def) is a list of distinct conceptual entities, each represented 
 
 A [code datatype](#def) is a Restriction in which each value that is valid for the datatype corresponds to a code value in a code list.
 
-Many code datatypes have simple content composed of xs:enumeration values. Code types may also be constructed using the NIEM Code Lists Specification [[Code Lists]](#references), which supports code lists defined using a variety of methods, including CSV spreadsheets; these are represented by a [CodeListBinding](#414-codelistbinding-class) object, described below.
+Many code datatypes have simple content composed of xs:enumeration values. Code types may also be  constructed using the NIEM Code Lists Specification [[Code Lists]](#ref), which supports code lists defined using a variety of methods, including CSV spreadsheets; these are represented by a [CodeListBinding](#414-codelistbinding-class) object, described below.
 
 ## 4.13 Facet class
 
@@ -1177,13 +1189,14 @@ A CodeListBinding object is represented in XSD as a `clsa:SimpleCodeListBinding`
 | CodeListURI | `clsa:SimpleCodeListBinding/@codeListURI` |
 | CodeListColumnName | `clsa:SimpleCodeListBinding/@columnName` |
 | CodeListConstrainingIndicator | `clsa:SimpleCodeListBinding/@constrainingIndicator` |
+</br>
 
 ## 4.15 Augmentation class
 
 <center>
   <figure class="image">
     <a name="fig4-18"/></a>
-    <img src="images/augment.png" style="zoom:60%"/>
+    <img src="images/augment.png" style="zoom:100%"/>
     <figcaption><i>Figure 4-18: Augmentation class diagram</i></figcaption>
   </figure>
 </center>
@@ -1290,6 +1303,7 @@ The four combinations iare described in the following sections:
 | **Augmented</br> Class** | *Element* | *Attribute* |
 | *Type with child elements</br> (CCC type)* | [Section 4.15.2](#4152-augmenting-a-ccc-type-with-an-element) and</br> [Section 4.15.3](#4153-augmenting-a-ccc-type-with-an-augmentation-element-only) | [Section 4.15.4](#4154-augmenting-a-ccc-type-with-an-attribute) |
 | *Type with an atomic value</br> (CSC type)* | [Section 4.15.5](#4155-augmenting-a-csc-type-with-an-attribute) | [Section 4.15.6](#4156-augmenting-simple-content-with-an-element) |
+</br>
 
 ### 4.15.2 Augmenting a CCC type with an augmentation element and type
 
@@ -1644,7 +1658,6 @@ A [*local term*](#def) is a word, phrase, acronym, or other string of characters
 | sourceURI | SourceURI | A URI that is an identifier or locator for an originating or authoritative document defining a local term. | 0..* | - | xs:anyURI |
 | citation | SourceCitationText | A plain text citation of, reference to, or bibliographic entry for an originating or authoritative document defining a local term. | 0..* | - | xs:string |
 
-
 A LocalTerm object is represented in XSD by a `appinfo:LocalTerm` element within `xs:appinfo` element in the `xs:schema` element. Figure 4-33 shows a LocalTerm object in XSD and the corresponding CMF.
 
 ```
@@ -1684,6 +1697,7 @@ The following table shows the mapping between LocalTerm object representations i
 | TermLiteralText | `appinfo:LocalTerm/@literal` |
 | SourceURI | Each URI in the `appinfo:LocalTerm/@sourceURIs` list |
 | SourceCitationText | `appinfo:LocalTerm/appinfo:SourceText` |
+</br>
 
 ## 4.17 TextType class
 
@@ -1694,31 +1708,32 @@ A TextType object combines a string property with a language property.
 | TextType | TextType | A data type for a character string with a language code.||||
 | literal | TextLiteral | A literal value of a character string. | 1 | - | xs:string |
 | lang | lang | A name of the language of a character string. | 0..1 | - | xs:language |
+</br>
 
 -------
 
 # 5. Data modeling patterns
 
-> NOTE: I think the sections on container objects and representation terms belong here, along with any other modeling patterns we want to describe.  NDR 5 buries these things in section 10, "Rules for NIEM modeling", but I don't think that makes sense in the NDR 6 organization.
+> NOTE: I think the sections on container objects and representation terms belong here, along with any other modeling patterns we want to describe.  NDR 5 buries these things in section 10, "Rules for NIEM modeling", but I don't think that makes sense in the NDR 6 organization.  This might also be a good place to talk about metadata in NIEM 6.
 
 -------
 
 # 6. Conformance
 
-(Note: The [OASIS TC Process](https://www.oasis-open.org/policies-guidelines/tc-process-2017-05-26/#wpComponentsConfClause) requires that a specification approved by the OP for public review, or for publication at the Project Specification or OASIS Standard level must include a separate section, listing a set of numbered conformance clauses, to which any implementation of the specification must adhere in order to claim conformance to the specification (or any optional portion thereof). This is done by listing the conformance clauses here.
-
-For the definition of "conformance clause," see [OASIS Defined Terms](https://www.oasis-open.org/policies-guidelines/oasis-defined-terms-2018-05-22/#dConformanceClause).
-
-See "Guidelines to Writing Conformance Clauses":  
+> (Note: The [OASIS TC Process](https://www.oasis-open.org/policies-guidelines/tc-process-2017-05-26/#wpComponentsConfClause) requires that a specification approved by the OP for public review, or for publication at the Project Specification or OASIS Standard level must include a separate section, listing a set of numbered conformance clauses, to which any implementation of the specification must adhere in order to claim conformance to the specification (or any optional portion thereof). This is done by listing the conformance clauses here.
+>
+> For the definition of "conformance clause," see [OASIS Defined Terms](https://www.oasis-open.org/policies-guidelines/oasis-defined-terms-2018-05-22/#dConformanceClause).
+> 
+> See "Guidelines to Writing Conformance Clauses":  
 http://docs.oasis-open.org/templates/TCHandbook/ConformanceGuidelines.html.
+>
+> Remove this note before submitting for publication.)
 
-Remove this note before submitting for publication.)
+NIEM defines *conformance* with the rules in this document. NIEM does not define *compliance*. Anyone may assess conformance. Compliance is assessed by an authority who can compel change or withhold approval. That sort of authoritative assessment is out of scope for NIEMOpen.
 
-NIEM defines *conformance* with the rules in this document. NIEM does not define *compliance*. Compliance is assessed by an authority who can compel change or withhold approval. That sort of authoritative assessment is out of scope for NIEMOpen.
+This document defines conformance for models and messages. It does not define conformance for applications, systems, databases, or tools. It is therefore impossible for any of these to properly claim "NIEM conformance".  However, they *may* properly claim to generate conforming messages or to employ conforming models.
 
-This document defines conformance for namespaces, models, and messages. It does not define conformance for applications, systems, databases, or tools. It is therefore impossible for any of these to properly claim "NIEM conformance".  However, they *may* properly claim to generate conforming messages or to employ conforming models.
-
-The rules in this document are designed to be used with or without the definitions in the NIEM model.  They define conformance to the *NIEM architecture*.  Conformance to the *NIEM model* is a separate thing, a matter of reusing components from that model, instead of needlessly duplicating the components therein.  (NIEM model conformance is further described in [[some document]](#references).)
+The rules in this document are designed to be used with or without the component definitions in the NIEM model.  These rules define conformance to the *NIEM architecture*.  Conformance to the *NIEM model* is a separate thing, and is not specified by this document.
 
 ## 6.1 Rules
 
@@ -1735,105 +1750,99 @@ Rules are normative. In this document, rules appear as follows:
 
   * **Interpretation**: An [interpretation rule](#def) defines a methodology, pattern, or procedure for understanding some aspect of an instance of a conformance target.
   
-* *applicability*: Identifies the conformance targets to which the rule applies. These are defined in [section 5.2](#52) below.
+* *applicability*: Identifies the conformance targets to which the rule applies. These conformance targets are described in [section 6.2](#62) below.
 
 For example, **Rule 8-1 (XSD)(Constraint):** The document MUST be an XML Schema document.
 
-Most of the rules in this document apply only to XML Schema documents. These rules amplify and constrain the use of XML Schema, for three reasons:
+## 6.2 Conformance targets
 
-1. For reuse: To permit XML schema documents created by independent communities to be composed into a single data exchange specification, and to forbid schema constructs that needlessly limit such reuse.
+Each rule in this document applies to at least one [*conformance target*](#def). That term is defined by [[CTAS]](#ref), as follows:
+
+> A conformance target is a class of artifact, such as an interface, protocol, document, platform, process or service, that is the subject of conformance clauses and normative statements. There may be several conformance targets defined within a specification, and these targets may be diverse so as to reflect different aspects of a specification. For example, a protocol message and a protocol engine may be different conformance targets.
+
+A NIEM namespace, model, or message conforms to the NIEM architecture when it follows all of the rules for all applicable conformance targets.
+
+The conformance targets in this document are defined in the subsections below.  Each conformance target has a  code and a URI, as follows:
+
+* `REF  -- https://docs.oasis-open.org/niemopen/ns/specification/XNDR/6.0/#ReferenceSchemaDocument`
+* `EXT  -- https://docs.oasis-open.org/niemopen/ns/specification/XNDR/6.0/#ExtensionSchemaDocument`
+* `SUB  -- https://docs.oasis-open.org/niemopen/ns/specification/XNDR/6.0/#SubsetSchemaDocument`
+* `SET  -- https://docs.oasis-open.org/niemopen/ns/specification/XNDR/6.0/#SchemaDocumentSet`
+* `CMF  -- https://docs.oasis-open.org/niemopen/ns/specification/XNDR/6.0/#CMFModel`
+* `XML  -- https://docs.oasis-open.org/niemopen/ns/specification/XNDR/6.0/#XMLMessage`
+* `JSON -- https://docs.oasis-open.org/niemopen/ns/specification/XNDR/6.0/#JSONMessage`
+
+The code is used to specify the applicability of rules; for example, a rule with an applicability of `REF,EXT` applies to reference and extension schema documents.
+
+### 6.2.1 Reference schema document (REF)
+
+The components in a reference namespace are intended for the widest possible reuse. They provide names and definitions for concepts, and relations among them. These namespaces are characterized by "optionality and over-inclusiveness". That is, they define more concepts than needed for any particular data exchange specification, without cardinality constraints, so it is easy to select the concepts that are needed and omit the rest. They also omit unnecessary range or length constraints on property datatypes. A reference namespace is intended to capture the meaning of its components. It is not intended for a complete definition of any particular message type or format. Message designers are expected to subset, profile, and extend the components in reference namespaces as needed to match their information exchange requirements.
+
+A reference schema document is the XSD representation of a reference namespace. The rules for a reference schema document amplify and constrain the use of XML Schema, for three reasons:
+
+1. For reuse: To permit XML schema documents created by independent communities to be composed into a single data exchange specification, and to forbid schema constructs that limit such reuse.  The rules for this conformance target are intended to maximize reuse, at some expense to message designer and developer convenience. These rules are more stringent than the rules for other classes of NIEM-conformant schemas.
 
 2. For semantics: To impose meaning on the definitions and declarations in a NIEM XML schema document, and on the elements and attributes in a NIEM XML message; and also to forbid those XSD constructs which do not have a useful NIEM interpretation.
 
 3. For developer convenience: To forbid, where consistent with #1 and #2, constructs in XSD that cause difficulties with COTS XML tooling.
 
-There is no comparable need for rules applying to CMF model files.  Rules applicable to CMF are therefore fewer in number.
+A reference schema document is authoritative for its components. Once published, those components may not be removed or changed in meaning. Therefore there can be only one reference schema document for a namespace. 
 
-## 6.2 Conformance targets
+All of the components in the NIEM model are defined according to the rules in this conformance target; that is, within reference namespaces.  A data modeler defining an extension to the NIEM model (or an alternative to the NIEM model) may also choose to follow these rules, in order to maximize reusability.
 
-The rules in this document are organized into several [*conformance targets*](#def). That term is defined by [[CTAS]](#references), as follows:
+### 6.2.2 Extension schema document (EXT)
 
-> A conformance target is a class of artifact, such as an interface, protocol, document, platform, process or service, that is the subject of conformance clauses and normative statements. There may be several conformance targets defined within a specification, and these targets may be diverse so as to reflect different aspects of a specification. For example, a protocol message and a protocol engine may be different conformance targets.
+The components in an extension namespace are intended for reuse within a more narrow scope than those defined in a reference namespace. These components express the additional vocabulary required for an information exchange, above and beyond the vocabulary available from the NIEM model.  The intended scope is often a particular message specification. Sometimes a community or organization will define an extension namespace for components to be reused in several related message specifications. Message designers are  also encouraged to subset, profile, and extend the components in extension namespaces created by another author.
 
-A NIEM namespace, model, or message conforms to the NIEM architecture when it follows all of the rules in the applicable conformance target.
+An extension schema document is the XSD representation of an extension namespace.  Several rules applicable to reference schema documents are relaxed for extension schema documents in order to provide more designer and developer convenience at the expense of some reusability.
 
-* Targets for *namespaces* apply to each namespace object in a CMF model file, or to a single XSD document
-* Targets for *models* apply to an entire CMF model file, or to a set of XSD documents
-* Targets for *messages* apply to a NIEM message
+The representation of an extension namespace is authoritative for its components. Once published, those components may not be removed or changed in meaning. Therefore there can be only one extension schema document for an extension namespace.
 
-The conformance targets in this document are defined in the sections below.  Each conformance target has a three-letter code and a URI, as follows:
+### 6.2.3 Subset schema document (SUB)
 
-* `REF  -- https://docs.oasis-open.org/niemopen/ns/specification/XNDR/6.0/#ReferenceSchemaDocument`
-* `EXT  -- https://docs.oasis-open.org/niemopen/ns/specification/XNDR/6.0/#ExtensionSchemaDocument`
-* `SUB  -- https://docs.oasis-open.org/niemopen/ns/specification/XNDR/6.0/#SubsetSchemaDocument`
-* `MSG  -- https://docs.oasis-open.org/niemopen/ns/specification/XNDR/6.0/#MessageSchemaDocument`
-* `SET  -- https://docs.oasis-open.org/niemopen/ns/specification/XNDR/6.0/#Schema`
-* `CMF  -- https://docs.oasis-open.org/niemopen/ns/specification/XNDR/6.0/#Model`
-* `XML  -- https://docs.oasis-open.org/niemopen/ns/specification/XNDR/6.0/#XMLMessage`
-* `JSON -- https://docs.oasis-open.org/niemopen/ns/specification/XNDR/6.0/#JSONMessage`
+A subset schema document specifies a subset of the content defined by a reference or extension schema document. A subset schema document provides components for reuse, while enabling message designers and developers to:
 
+* Omit optional components in a reference or extension namespace that they do not need.
 
-For historical reasons, the URIs for the namespace conformance targets end in "SchemaDocument" instead of "Namespace".
+* Provide cardinality and datatype constraints that precisely define the content of one or more message types. (Those constraints are typically omitted from reference and extension namespaces to provide more opportunity for reuse.) 
 
-### 6.2.1 Reference namespace conformance target (REF)
+* [Augment](#4154) a reference or extension namespace with an [attribute property](#def).
 
-All of the components in the NIEM model are defined according to the rules in this conformance target; that is, within reference namespaces. 
+All message content that is valid for a subset namespace must also be valid for the reference or extension namespace with the same URI.  Widening the range of a component is not allowed. With the exception of attribute augmentations, adding components is not allowed.
 
-The components in a reference namespace are intended for the widest possible reuse. They provide names and definitions for concepts, and relations among them. These namespaces are characterized by "optionality and over-inclusiveness". That is, they define more concepts than needed for any particular data exchange specification, without cardinality constraints, so it is easy to select the concepts that are needed and omit the rest. They also omit unnecessary range or length constraints on property datatypes. A reference namespace is intended to capture the meaning of its components. It is not intended for a complete definition of any particular message type or format.
+A subset schema document is the XSD representation of a subset namespace. Several rules applicable to reference and extension schema documents are relaxed for subset schema documents in order to provide more designer and developer convenience at the expense of some reusability. 
 
-The representation of a reference namespace is authoritative for its components. Once published, those components may not be removed or modified. Therefore there can be only one XSD and one CMF representation of a reference namespace. 
+There may be any number of subset schema documents for a reference or extension namespace. 
 
-AA data modeler defining an extension to the NIEM model (or an alternative to the NIEM model) may also choose to follow these rules, in order to maximize reusability.
+### 6.2.4 XML schema document (XSD)
 
-### 6.2.2 Extension namespace conformance target (EXT)
+The rules in this conformance target apply to the XSD representation of a reference, extension, or subset schema document. Effectively it is a shorthand for (REF,EXT,SUB).
 
-The components in an extension namespace are intended for reuse within a more narrow scope than those defined in a reference namespace. An extension namespace expresses the additional vocabulary required for an information exchange, above and beyond the vocabulary available from the NIEM model. Often the intended scope is a particular message specification.
+### 6.2.5 Schema document set (SET)
 
-The representation of an extension namespace is authoritative for its components. Once published, those components may not be removed or modified. Therefore there can be only one XSD and one CMF representation of an extension namespace. 
+The documents in a schema document set are capable of validating an XML document; that is, they can be assembled into a complete schema according to the rules of [[XML Schema]](#ref). The rules in this conformance target are tests for conditions that cannot be evaluated on the basis of a single schema document, but instead apply to the document set as a whole.
 
-### 6.2.3 Subset namespace conformance target (SUB)
+### 6.2.6 CMF model (CMF)
 
-A "subset namespace" is a subset of the components in a reference or extension namespace.  Subset namespaces enable message designers and developers to:
+A [CMF model](#def) is a NIEM-based message conforming to the CMF message specification. It may represent any of:
 
-* Omit the components in a reference or extension namespace that they do not need
+* A single reference namespace. This is a [reference namespace file](#def), a unit of configuration management equivalent to a reference schema document. There can be only one reference namespace file for a reference namespace.
 
-* Provide the cardinality and datatype constraints that precisely define the content of one or more message types. (Those constraints are omitted from reference and extension namespaces to provide more opportunity for reuse.) 
+* A single extension namespace. This is an [extension namespace file](#def), a unit of configuration management equivalent to an extension schema document. There can be only one extension namespace file for an extension namespace.
 
-* [Augment](#4154) a reference or extension namespace with at least one [attribute property](#def).
+* A collection of reference, extension, and/or subset namespaces. This is a [model file](#def). A model file that contains a definition of every referenced component is a [complete model](#def), and is equivalent to a schema document set.
 
-All message content that is valid for a subset namespace must also be valid for the reference or extension namespace with the same URI.  Widening the range of a component is not allowed.  With the exception of attribute augmentations, adding components is not allowed.
+The components belonging to a namespace object in a CMF model have an equivalent XSD representation as a schema document. Each namespace object in a CMF model has a `ConformanceTargetURI` property to indicate the conformance target applicable to that schema document.
 
-There may be any number of XSD or CMF representations of a subset namespace.
+### 6.2.7 XML message (XML)
 
-### 6.2.4 Message namespace conformance target (MSG)
+### 6.2.8 JSON message (JSON)
 
-A message namespace is a representation of a subset namespace intended for validating the content of an XML message format, and/or for use with schema binding tools (for example, [[JAXB]](#references)).
-
-The XSD representation of a message namespace is a [message schema document](#def).  It may omit certain schema constructs (e.g. subsitution groups) that are not needed by message developers.  
-
-The equivalent of a message namespace for a JSON message format is a JSON Schema document.  Unlike the XSD for validaing XML message formats, the JSON Schema is not divided into a separate document for each namespace. 
-
-NIEMOpen provides free and open-source software to generate XSD and JSON Schema from the CMF or XSD representation of a subset namespace.  
-
-### 6.2.5 Schema document conformance target (XSD)
-
-The rules in this conformance target apply to the XSD representation of a reference, extension, subset, or message namespace. Effectively it is a shorthand for (REF,EXT,SUB,MSG).
-
-### 6.2.6 Schema document set conformance target (SET)
-
-The documents in a schema document set are capable of validating an XML document; that is, they can be assembled into a schema according to the rules of [[XML Schema]](#references). The rules in this conformance target are tests for conditions that cannot be evaluated on the basis of a single schema document, but instead apply to the document set as a whole.
-
-### 6.2.7 CMF model file conformance target (CMF)
-
-### 6.2.8 XML message conformance target (XML)
-
-### 6.2.9 JSON message conformance target (JSON)
-
-The `JSON` conformance target is intended for JSON messages with `strict` conformance to a schema.  That is, the JSON instance follows all rules of the schema or message specification. An instance that strictly conforms to a message specification will contain all content that is required by the message specification, will contain only content allowed by the message specification, and will reflect the parent-child structure and cardinality constraints defined by the message specification. This enables NIEM JSON to satisfy exchange requirements similar to traditional NIEM XML use cases.
+> NOTE:  Formerly I believed we needed a conformance target for message schema documents and message namespaces.  
 
 ## 6.3 Conformance target assertions
 
-It is often helpful for an artifact to contain an assertion of the kind of thing it is supposed to be.  These assertions can inform both people and tools.  Every NIEM namespace representation contains an assertion of the conformance targets it (allegedly) satisfies.  CMF representations assert conformance through the `ConformanceTargetURI` property in each namespace object.  XSD representations assert conformance through the `ct:conformanceTargets` attribute, as defined in [[CTAS]] (#references).  Figure 5-1 shows the CMF and XSD representations of a namespace asserting conformance with the reference namespace conformance target (REF).
+It is often helpful for an artifact to contain an assertion of the kind of thing it is supposed to be.  These assertions can inform both people and tools.  Every NIEM namespace representation contains an assertion of the conformance targets it (allegedly) satisfies.  CMF representations assert conformance through the `ConformanceTargetURI` property in each namespace object.  XSD representations assert conformance through the `ct:conformanceTargets` attribute, as defined in [[CTAS]](#ref).  Figure 5-1 shows the CMF and XSD representations of a namespace asserting conformance with the reference namespace conformance target (REF).
 
 ```
 <Namespace structures:id="nc">
@@ -1841,7 +1850,8 @@ It is often helpful for an artifact to contain an assertion of the kind of thing
   <NamespacePrefixText>nc</NamespacePrefixText>
   <DocumentationText>NIEM Core.</DocumentationText>
   <ConformanceTargetURI>
-    https://docs.oasis-open.org/niemopen/ns/specification/XNDR/6.0/#ReferenceNamespace</ConformanceTargetURI>
+    https://docs.oasis-open.org/niemopen/ns/specification/XNDR/6.0/#SubsetSchemaDocument
+  </ConformanceTargetURI>
   <NIEMVersionText>6</NIEMVersionText>
   <NamespaceVersionText>1</NamespaceVersionText>
   <NamespaceLanguageName>en-US</NamespaceLanguageName>
@@ -1924,7 +1934,7 @@ Specific uses of type definitions have similar syntax but very different effects
 
 ## 7.2 Rules for component names
 
-**Rule 7-19 (REF)(Constraint):** Except as otherwise provided in this document, the name of a model component MUST be composed of words from the English language, using the prevalent U.S. spelling, as provided by the Oxford English Dictionary [[OED]](#references). (N5R 10-44)
+**Rule 7-19 (REF)(Constraint):** Except as otherwise provided in this document, the name of a model component MUST be composed of words from the English language, using the prevalent U.S. spelling, as provided by the Oxford English Dictionary [[OED]](#ref). (N5R 10-44)
 
 **Rule 7-20 (CMF,XSD)(Constraint):** The name of a model component MUST be entirely composed of the following characters: (N5R 10-46)
 
@@ -1949,7 +1959,7 @@ Camel case is the convention of writing compound words or phrases with no spaces
 
 ## 7.3 General rules from ISO 11179-5
 
-Names are a simple but incomplete means of providing semantics to data components. Data definitions, structure, and context help to fill the gap left by the limitations of naming. The goals for data component names should be syntactic consistency, semantic precision, and simplicity. In many cases, these goals conflict and it is sometimes necessary to compromise or to allow exceptions to ensure clarity and understanding. To the extent possible, NIEM applies [[ISO 11179-5]](#references) to construct NIEM data component names.
+Names are a simple but incomplete means of providing semantics to data components. Data definitions, structure, and context help to fill the gap left by the limitations of naming. The goals for data component names should be syntactic consistency, semantic precision, and simplicity. In many cases, these goals conflict and it is sometimes necessary to compromise or to allow exceptions to ensure clarity and understanding. To the extent possible, NIEM applies [[ISO 11179-5]](#ref) to construct NIEM data component names.
 
 **Rule 7-26 (CMF,XSD)(Constraint):** A noun used as a term in the name of an XML Schema component MUST be in singular form unless the concept itself is plural. (N5R 10-54)
 
@@ -1963,7 +1973,7 @@ Articles (e.g., a, an, the), conjunctions (e.g., and, or, but), and prepositions
 
 The set of NIEM data components is a collection of data representations for real-world objects and concepts, along with their associated properties and relationships. Thus, names for these components would consist of the terms (words) for object classes or that describe object classes, their characteristic properties, subparts, and relationships.
 
-**Rule 7-29 (CMF,XSD)(Constraint):** Except as specified elsewhere in this document, the name of a property object MUST be formed by the composition of object class qualifier terms, object class term, proprety qualifier terms, property term, representation qualifier terms, and representation term, as detailed in Annex A of [[ISO 11179-5]](#references). (N5R 7-5,10-57)
+**Rule 7-29 (CMF,XSD)(Constraint):** Except as specified elsewhere in this document, the name of a property object MUST be formed by the composition of object class qualifier terms, object class term, proprety qualifier terms, property term, representation qualifier terms, and representation term, as detailed in Annex A of [[ISO 11179-5]](#ref). (N5R 7-5,10-57)
 
 For example, the NIEM component name `AircraftFuselageColorCode` is composed of the following:
 
@@ -2022,7 +2032,7 @@ The valid value set of a data element or value domain is described by the repres
 | | Time	| A particular point in the progression of time within an unspecified 24-hour day.| 
 | | Duration	| An amount of time; the length of a time span. |
 | ID	| |	A character string to identify and distinguish uniquely one instance of an object in an identification scheme from all other objects in the same scheme together with relevant supplementary information. |
-| | URI	| A string of characters used to identify (or name) a resource. The main purpose of this identifier is to enable interaction with representations of the resource over a network, typically the World Wide Web, using specific protocols. A URI is either a Uniform Resource Locator (URL) or a Uniform Resource Name (URN). The specific syntax for each is defined by [[RFC 3986]](#references). |
+| | URI	| A string of characters used to identify (or name) a resource. The main purpose of this identifier is to enable interaction with representations of the resource over a network, typically the World Wide Web, using specific protocols. A URI is either a Uniform Resource Locator (URL) or a Uniform Resource Name (URN). The specific syntax for each is defined by [[RFC 3986]](#ref). |
 | Indicator | | A list of two mutually exclusive Boolean values that express the only possible states of a property. |
 | Measure	| | 	A numeric value determined by measuring an object along with the specified unit of measure. |
 | Numeric	| | 	Numeric information that is assigned or is determined by calculation, counting, or sequencing. It does not require a unit of quantity or unit of measure. |
@@ -2057,7 +2067,7 @@ This rule, carried over from 11179, is designed to prevent repeating terms unnec
 | ID | Identifier |
 | URI | Uniform Resource Identifier |
 
-A [LocalTerm object](#416-localterm-class) introduces an acronym, abbreviation, or jargon term into the namespace to which it belongs. These terms may be used within the name of a model component (in addition to terms defined withn [[OED]](#references)).
+A [LocalTerm object](#416-localterm-class) introduces an acronym, abbreviation, or jargon term into the namespace to which it belongs. These terms may be used within the name of a model component (in addition to terms defined withn [[OED]](#ref)).
 
 **Rule 7-40 (CMF,XSD)(Constraint):** In CMF, a LocalTerm object MUST have a DocumentationText property, or a TermLiteralText property, or both. In XSD, a LocalTerm element MUST have a `@definition` attribute, or a `@literal` attribute, or both. (N5R 10-77)
 
@@ -2111,7 +2121,7 @@ A component definition is intended to describe semantic meaning only, not repres
 
 ## 8.3 Rules from ISO 11179-4
 
-These rules are adopted from [[ISO 11179-4]](#references), *Information technology — Metadata
+These rules are adopted from [[ISO 11179-4]](#ref), *Information technology — Metadata
 registries: Formulation of data definitions*
 
 **Rule 8-10 (REF,EXT)(Constraint):** Each data definition MUST conform to the requirements for data definitions provided by [ISO 11179-4] Section 5.2, *Requirements*; namely, a data definition MUST: (N5R 11-28)
@@ -2297,11 +2307,11 @@ An extension namespace is the kind most commonly created by a NIEM message desig
 
 **Rule 9-25 (CMF,XSD)(Constraint):** A namespace MUST assert conformance with the `EXT` conformance target if and only if it is an extension namespace. (N5R 4-2,4-6)
 
-**Rule 9-26 (XSD)(Constraint):** A schema document MUST be a conformant document as defined by the NIEM Conformance Targets Attribute Specification [[CTAS]](#references). (N5R 4-3)
+**Rule 9-26 (XSD)(Constraint):** A schema document MUST be a conformant document as defined by the NIEM Conformance Targets Attribute Specification [[CTAS]](#ref). (N5R 4-3)
 
 **Rule 9-27 (XSD)(Constraint):** The [document element] of the XML document, and only the [document element], MUST own an attribute `{https://docs.oasis-open.org/niemopen/ns/specification/conformanceTargets/6.0/}conformanceTargets` (N5R 4-4)
 
-**Rule 9-28 (CMF,XSD)(Constraint):** The value of the NamespaceURI property in a Namespace object, and the value of the attribute `{}targetNamespace` in an XSD document, MUST match the production <*absolute-URI*> as defined by [[RFC 3986]](#references). (N5R 9-84)
+**Rule 9-28 (CMF,XSD)(Constraint):** The value of the NamespaceURI property in a Namespace object, and the value of the attribute `{}targetNamespace` in an XSD document, MUST match the production <*absolute-URI*> as defined by [[RFC 3986]](#ref). (N5R 9-84)
 
 **Rule 9-29 (XSD)(Constraint):** A schema document MUST declare a target namespace. (N5R 9-83)
 
@@ -2421,7 +2431,7 @@ In normal (conformant) type definition, a reference to an attribute or element i
 
 NIEM schemas use structures:id to enable references between components. Each NIEM-defined complex type in a reference or extension schema document must incorporate a definition for structures:id. [XML] Section 3.3.1, Attribute Types entails that a complex type may have no more than one ID attribute. This means that an external attribute use must not be an ID attribute.
 
-The term "attribute use schema component" is defined by [[XML Schema Structures]](#references) Section 3.5.1, The Attribute Use Schema Component. Attribute type ID is defined by[[XML]](#references) Section 3.3.1, Attribute Types.
+The term "attribute use schema component" is defined by [[XML Schema Structures]](#ref) Section 3.5.1, The Attribute Use Schema Component. Attribute type ID is defined by[[XML]](#ref) Section 3.3.1, Attribute Types.
 
 **Rule 9-63 (REF,EXT)(Constraint):** An external attribute use MUST be a documented component with a non-empty data definition. (N5R 10-16)
 
@@ -2533,7 +2543,7 @@ However, these conflicting namespace bindings are not allowed in CMF, and are th
 
 The schema document may be specified by a `{}schemaLocation` attribute in the `xs:import` element, or by XML Catalog resolution of the `{}namespace` attribute, or both. Requiring a local resource ensures that the component definitions are known and fixed.
 
-**Rule 10-4 (SET)(Constraint):** The schema document set MUST NOT contain two `xs:import` elements with the same `{}namespace` attribute that specify different schema documents. (NEW)
+**Rule 10-4 (SET)(Constraint):** The schema document set MUST NOT contain two `xs:import` elements that have the same `{}namespace` attribute but specify different schema documents. (NEW)
 
 XML Schema permits conflicting imports, but the result is underspecified, and often causes errors that are very hard to detect and diagnose.
 
@@ -2550,7 +2560,7 @@ An XML Schema document set defines an XML Schema that may be used to validate an
 * `ref`
 * `substitutionGroup`
 
-The XML Schema definition language requires that, when a schema document references a component in some other namespace, it must use `xs:import` to import the namespace of the referenced component. The use of `xs:import` is described by [[XML Schema Structures]](#references) Section 4.2.3, References to schema components across namespaces.
+The XML Schema definition language requires that, when a schema document references a component in some other namespace, it must use `xs:import` to import the namespace of the referenced component. The use of `xs:import` is described by [[XML Schema Structures]](#ref) Section 4.2.3, References to schema components across namespaces.
 
 Some tools do not enforce this constraint; one such tool carries imports from a schema document into schema documents that it imports. This has the potential to introduce incompatibility into schema documents and schema document sets that exercise this bug. To maintain compatibility across tool sets, this requirement is an explicit rule for NIEM-conformant schemas.
 
@@ -2559,6 +2569,8 @@ Some tools do not enforce this constraint; one such tool carries imports from a 
 **Rule 10-8 (MSG)(Constraint):** The XSD representation of a message namespace MUST use a subset of the NIEM structures namespace, in which `xs:anyAttribute` elements have been removed, and otherwise consistent with how it is defined in Appendix B, *Structures namespace*, below. (NEW) 
 
 The *structures namespace* is the namespace represented by the URI `https://docs.oasis-open.org/niemopen/ns/model/structures/6.0/`.  The structures namespace for models contains `xs:anyAttribute` elements in support of attribute augmentation.  Those attribute wildcards do not appear in the structures namespace for messages.
+
+-------
 
 # 11. Rules for NIEM messages in XML
 
@@ -2667,7 +2679,7 @@ In short, within a NIEM-conformant XML document, an attribute `structures:ref` r
   </j:ArrestSubject>
 </j:Arrest>
 ```
-<center><i><a name="fig13-5"></a>Figure 11-5: Example of `structures:id` and `structures:ref`<i></center><p/>
+<center><i><a name="fig13-5"></a>Figure 11-5: Example of `structures:id` and `structures:ref`</i></center><p/>
 
 Note that rules below establish that relationships established using `structures:id` and `structures:ref` have the exact same meaning as relationships established using nested elements. An information exchange specification may constrain them differently, or prefer one over the other, but from a NIEM perspective, they have the same meaning.
 
@@ -2677,13 +2689,13 @@ Although many attributes with ID and IDREF semantics are defined by many vocabul
 
 **Rule 11-5 (XML)(Constraint):** Every element that has an attribute `structures:ref` MUST have a referencing element validation root that is equal to the referenced element validation root. (N5R 12-5)
 
-The term "validation root" is defined by [[XML Schema Structures]](#references) *Section 5.2, Assessing Schema-Validity*. It is established as a part of validity assessment of an XML document.
+The term "validation root" is defined by [[XML Schema Structures]](#ref) *Section 5.2, Assessing Schema-Validity*. It is established as a part of validity assessment of an XML document.
 
-NIEM supports type-safe references: references using `structures:ref` and `structures:id` must preserve the type constraints that would apply if nested elements were used instead of a reference. For example, an element of type `nc:PersonType` must always refer to another element of type `nc:PersonType`, or a type derived from `nc:PersonType`, when using `structures:ref` to establish the relationship.
+NIEM supports type-safe references; that is, references using `structures:ref` and `structures:id` must preserve the type constraints that would apply if nested elements were used instead of a reference. For example, an element of type `nc:PersonType` must always refer to another element of type `nc:PersonType`, or a type derived from `nc:PersonType`, when using `structures:ref` to establish the relationship.
 
 **Rule 11-6 (XML)(Constraint):** Every element that has an attribute `structures:ref` MUST have a referenced element type definition that is validly derived from the referencing element type definition. (N5R 12-6)
 
-The term "validly derived" is as established by [[XML Schema Structures]](#references), subsection *Schema Component Constraint: Type Derivation OK (Complex)* within Section 3.4.6, *Constraints on Complex Type Definition Schema Components*.
+The term "validly derived" is as established by [[XML Schema Structures]](#ref), subsection *Schema Component Constraint: Type Derivation OK (Complex)* within Section 3.4.6, *Constraints on Complex Type Definition Schema Components*.
 
 This rule requires that the type of the element pointed to by a `structures:ref` attribute must be of (or derived from) the type of the reference element.
 
@@ -2697,9 +2709,9 @@ NIEM supports linked data through the use of uniform resource identifiers (URIs)
 
 As described in Section 5.4, Unique identification of data objects, above, `structures:uri`, `structures:id`, and `structures:ref` each denote a resource identifier. Although a `structures:ref` must always refer to a `structures:id`, and a value of `structures:id` must be unique within its document, a `structures:uri` may refer to any of `structures:uri`, `structures:ref`, or `structures:id`.
 
-**Rule 11-7 (XML)(Interpretation):** The value of an attribute `structures:uri` is a URI-reference, as defined by [[RFC 3986]](#references), which denotes a resource identifier on the element holding the attribute, in accordance with evaluation consistent with [[RFC 3986]](#references) and [[XML Base]](#references). (N5R 12-7)
+**Rule 11-7 (XML)(Interpretation):** The value of an attribute `structures:uri` is a URI-reference, as defined by [[RFC 3986]](#ref), which denotes a resource identifier on the element holding the attribute, in accordance with evaluation consistent with [[RFC 3986]](#ref) and [[XML Base]](#ref). (N5R 12-7)
 
-**Rule 11-8 (XML)(Constraint):** The value of an attribute `structures:uri` that is an *absolute URI* according to [[RFC 3986]](#references) MUST be valid according to the rules for its scheme. (NEW)
+**Rule 11-8 (XML)(Constraint):** The value of an attribute `structures:uri` that is an *absolute URI* according to [[RFC 3986]](#ref) MUST be valid according to the rules for its scheme. (NEW)
 
 Validating parsers do not always test whether an absolute URI follows the rules for its scheme, and so a 
 A successful validation match against the type `xs:anyURI` is necessary but not sufficient.
@@ -2712,7 +2724,7 @@ The following example shows a reference to an absolute URI, using the URN namesp
     structures:uri="urn:uuid:f81d4fae-7dec-11d0-a765-00a0c91e6bf6"/>
 </example:ArrestMessage>
 ```
-<center><i><a name="fig13-6"></a>Figure 11-6: Example of `structures:uri` holding an absolute URI<i></center><p/>
+<center><i><a name="fig13-6"></a>Figure 11-6: Example of `structures:uri` holding an absolute URI</i></center><p/>
 
 The following example shows a relative URI, using xml:base to carry the base URI for the document. The person object identified by the structures:uri attribute has the URI http://state.example/scmods/B263-1655-2187.
 
@@ -2725,7 +2737,7 @@ The following example shows a relative URI, using xml:base to carry the base URI
   </j:Arrest>
 </example:ArrestMessage>
 ```
-<center><i><a name="fig13-7"></a>Figure 11-7: Example of `structures:uri` holding an relative URI, with an `xml:base`<i></center><p/>
+<center><i><a name="fig13-7"></a>Figure 11-7: Example of `structures:uri` holding an relative URI, with an `xml:base`</i></center><p/>
 
 **Rule 11-9 (XML)(Interpretation):** The value of an attribute `structures:id` with a value of *val*, or an attribute `structures:ref` with a value of *val*, denotes a resource identifier on the element holding the attribute, as would be denoted by an attribute `structures:uri` with a value of *#val*. (N5R 12-8)
 
@@ -2759,7 +2771,7 @@ The following example contains four references to the same object, which has the
   </j:Arrest>
 </example:ArrestMessage>
 ```
-<center><i><a name="fig13-8"></a>Figure 11-8: Example of `structures:id`, `structures:ref`, and `structures:uri` identifying the same object<i></center><p/>
+<center><i><a name="fig13-8"></a>Figure 11-8: Example of `structures:id`, `structures:ref`, and `structures:uri` identifying the same object</i></center><p/>
 
 ### 11.2.3 Differentiating reference-to-identifier links and use of URIs
 
@@ -2806,7 +2818,7 @@ By this rule, the following three XML fragments have a very similar meaning. The
   </nc:RoleOfPerson>
 </j:Witness>
 ```
-<center><i><a name="fig13-9"></a>Figure 11-9: Example with no reference<i></center><p/>
+<center><i><a name="fig13-9"></a>Figure 11-9: Example with no reference</i></center><p/>
 
 The next example, with a backward reference, also expresses a witness object that is a role of a person. It first expresses the person object, then the witness object as a role of a that person, expressed as a reference back to the person.
 
@@ -2820,7 +2832,7 @@ The next example, with a backward reference, also expresses a witness object tha
   <nc:EntityPerson structures:ref="c58" xsi:nil="true"/>
 </j:Witness>
 ```
-<center><i><a name="fig13-10"></a>Figure 11-10: Example with a backward reference<i></center><p/>
+<center><i><a name="fig13-10"></a>Figure 11-10: Example with a backward reference</i></center><p/>
 
 The final example, with a forward reference shows a witness as a role of a person, with a separate person object expressed as a forward reference to the person object that is expressed later, within the definition of the witness.
 
@@ -2833,7 +2845,7 @@ The final example, with a forward reference shows a witness as a role of a perso
     </nc:PersonName>
   </nc:RoleOfP
 ```
-<center><i><a name="fig13-11"></a>Figure 11-11: Example with a forward reference<i></center><p/>
+<center><i><a name="fig13-11"></a>Figure 11-11: Example with a forward reference</i></center><p/>
 
 NIEM-conformant data instances may use either representation as needed, to represent the meaning of the fundamental data. There is no difference in meaning between reference and content data representations. The two different methods are available for ease of representation. No difference in meaning should be implied by the use of one method or the other.
 
@@ -2843,7 +2855,126 @@ NIEM-conformant data instances may use either representation as needed, to repre
 # 13. Rules for NIEM messages in JSON
 
 -------
-# Appendix A.  Mapping NIEM 5 rules to NIEM 6
+
+# Appendix A. References
+
+This appendix contains the normative and informative references that are used in this document. Any normative work cited in the body of the text as needed to implement the work product must be listed in the Normative References section below. Each reference to a separate document or artifact in this work must be listed here and must be identified as either a Normative or an Informative Reference. Normative references are specific (identified by date of publication and/or edition number or version number) and Informative references are either specific or non-specific.
+
+While any hyperlinks included in this appendix were valid at the time of publication, OASIS cannot guarantee their long-term validity.
+
+## A.1 Normative References
+
+The following documents are referenced in such a way that some or all of their content constitutes requirements of this document.
+
+###### [RFC2119]
+Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997, http://www.rfc-editor.org/info/rfc2119.
+###### [RFC8174]
+Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017, http://www.rfc-editor.org/info/rfc8174.
+
+## A.2 Informative References
+
+###### [RFC3552]
+Rescorla, E. and B. Korver, "Guidelines for Writing RFC Text on Security Considerations", BCP 72, RFC 3552, DOI 10.17487/RFC3552, July 2003, https://www.rfc-editor.org/info/rfc3552.
+
+-------
+
+# Appendix B.  Structures namespace
+
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+  targetNamespace="https://docs.oasis-open.org/niemopen/ns/model/structures/6.0/"
+  xmlns:structures="https://docs.oasis-open.org/niemopen/ns/model/structures/6.0/"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  version="ps02"
+  xml:lang="en-US">
+  <xs:annotation>
+    <xs:documentation>The structures namespace provides base types and other components for definition of NIEM-conformant XML schemas.</xs:documentation>
+  </xs:annotation>
+  <xs:attributeGroup name="SimpleObjectAttributeGroup">
+    <xs:attribute ref="structures:id"/>
+    <xs:attribute ref="structures:ref"/>
+    <xs:attribute ref="structures:uri"/>
+    <xs:anyAttribute processContents="strict" namespace="##other"/>
+  </xs:attributeGroup>
+  <xs:complexType name="AdapterType" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data type for a type that contains a single non-conformant property from an external standard for use in NIEM.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element ref="structures:ObjectAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute ref="structures:appliesToParent"/>
+    <xs:attribute ref="structures:id"/>
+    <xs:attribute ref="structures:ref"/>
+    <xs:attribute ref="structures:uri"/>
+    <xs:anyAttribute processContents="strict" namespace="##other"/>
+  </xs:complexType>
+  <xs:complexType name="AssociationType" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data type for a relationship between two or more objects, including any properties of that relationship.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element ref="structures:AssociationAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute ref="structures:appliesToParent"/>
+    <xs:attribute ref="structures:id"/>
+    <xs:attribute ref="structures:ref"/>
+    <xs:attribute ref="structures:uri"/>
+    <xs:anyAttribute processContents="strict" namespace="##other"/>
+  </xs:complexType>
+  <xs:complexType name="AugmentationType" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data type for a set of properties to be applied to a base type.</xs:documentation>
+    </xs:annotation>
+  </xs:complexType>
+  <xs:complexType name="ObjectType" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data type for a thing with its own lifespan that has some existence.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element ref="structures:ObjectAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute ref="structures:appliesToParent"/>
+    <xs:attribute ref="structures:id"/>
+    <xs:attribute ref="structures:ref"/>
+    <xs:attribute ref="structures:uri"/>
+    <xs:anyAttribute processContents="strict" namespace="##other"/>
+  </xs:complexType>
+  <xs:element name="AssociationAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for type structures:AssociationType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ObjectAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for type structures:ObjectType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:attribute name="appliesToParent" type="xs:boolean" default="true">
+    <xs:annotation>
+      <xs:documentation>True if this element is a property of its parent; false if it appears only to support referencing.</xs:documentation>
+    </xs:annotation>
+  </xs:attribute>
+  <xs:attribute name="id" type="xs:ID">
+    <xs:annotation>
+      <xs:documentation>A document-relative identifier for an XML element.</xs:documentation>
+    </xs:annotation>
+  </xs:attribute>
+  <xs:attribute name="ref" type="xs:IDREF">
+    <xs:annotation>
+      <xs:documentation>A document-relative reference to an XML element.</xs:documentation>
+    </xs:annotation>
+  </xs:attribute>
+  <xs:attribute name="uri" type="xs:anyURI">
+    <xs:annotation>
+      <xs:documentation>An internationalized resource identifier or uniform resource identifier for a node or object.</xs:documentation>
+    </xs:annotation>
+  </xs:attribute>
+</xs:schema>
+
+-------
+
+# Appendix V.  Mapping NIEM 5 rules to NIEM 6
 
 | NIEM 6 Rules | NIEM 5 Rule |
 | ------------ | ----------- |
@@ -3054,29 +3185,7 @@ NIEM-conformant data instances may use either representation as needed, to repre
 
 -------
 
-# Appendix B. References <a name="#references"></a>
-
-This appendix contains the normative and informative references that are used in this document. Any normative work cited in the body of the text as needed to implement the work product must be listed in the Normative References section below. Each reference to a separate document or artifact in this work must be listed here and must be identified as either a Normative or an Informative Reference. Normative references are specific (identified by date of publication and/or edition number or version number) and Informative references are either specific or non-specific.
-
-While any hyperlinks included in this appendix were valid at the time of publication, OASIS cannot guarantee their long-term validity.
-
-## B.1 Normative References
-
-The following documents are referenced in such a way that some or all of their content constitutes requirements of this document.
-
-###### [RFC2119]
-Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997, http://www.rfc-editor.org/info/rfc2119.
-###### [RFC8174]
-Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017, http://www.rfc-editor.org/info/rfc8174.
-
-## B.2 Informative References
-
-###### [RFC3552]
-Rescorla, E. and B. Korver, "Guidelines for Writing RFC Text on Security Considerations", BCP 72, RFC 3552, DOI 10.17487/RFC3552, July 2003, https://www.rfc-editor.org/info/rfc3552.
-
--------
-
-# Appendix C. Safety, Security and Privacy Considerations
+# Appendix W. Safety, Security and Privacy Considerations
 
 (Note: OASIS strongly recommends that Open Projects consider issues that might affect safety, security, privacy, and/or data protection in implementations of their specification and document them for implementers and adopters. For some purposes, you may find it required, e.g. if you apply for IANA registration.
 
@@ -3090,8 +3199,7 @@ Remove this note before submitting for publication.)
 
 -------
 
-
-# Appendix D. Acknowledgments
+# Appendix X. Acknowledgments
 
 `(Note: A Work Product approved by the OP should include a list of people who participated in the development of the Work Product. This is generally done by collecting the list of names in this appendix. This list should be initially compiled by the Chair, and any Member of the OP may add or remove their names from the list by request. Remove this note before submitting for publication.)`
 
@@ -3141,7 +3249,7 @@ The following individuals have participated in the creation of this specificatio
 
 -------
 
-# Appendix E. Revision History
+# Appendix Y. Revision History
 
 Revisions made since the initial stage of this numbered Version of this document may be tracked here.
 
@@ -3165,15 +3273,7 @@ If revision tracking is handled in another system like github, provide a link to
 
 -------
 
-# Appendix F. Example Appendix with subsections
-
-## F.1 Subsection title
-
-### F.1.1 Sub-subsection
-
--------
-
-# Appendix G. Notices
+# Appendix Z. Notices
 
 (This required section should not be altered, except to modify the license information in the second paragraph if needed.)
 
