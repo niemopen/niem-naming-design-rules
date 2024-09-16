@@ -1,0 +1,185 @@
+#!/usr/bin/perl
+
+# Run this to correct the rule numbers in the markdown source.
+# Also corrects the text and anchor in rule links.
+# Also refreshes the index of rules and the NIEM 5 to 6 map in
+# the appendices.
+#
+# Syntax of a rule in the markdown source is:
+#
+# **Rule 1-1 (CMF,XSD)(Constraint):** rule name || rule text. (N5R 1-1)
+
+use warnings;
+use strict;
+
+my $lnum  = 0;                  # line number of last source line read
+my @lines;                      # remember source lines for 2nd pass
+my %ruleCt;                     # last rule number seen, by section
+my %ruleMap;                    # map of old rule tags to new tags
+my %ruleName;                   # map of new rule tag to rule name
+my %ruleTarg;                   # map of new rule tag to rule targets
+my %n5Map;                      # map of NIEM 5 rule to new rule tag
+my @rules;                      # ordered list of new rule tags
+my @newRules;                   # rule tags w/o corresponding NIEM 5 rule
+
+# First pass through source
+# Renumber rules, and remember what you did (for second pass)
+
+while (<>) {
+  $lnum++;
+
+  # Handle rule lines in source
+  if (m/^\*\*Rule /) {
+    if (!m/^\*\*Rule (\d+)-(\d+)\s+(\([^)]+\))(\([^)]+\)):\*\*\s*/) {
+      print STDERR "Bad rule syntax at line $lnum\n";
+    }
+    else {
+      my $rest  = $';           # rest of current line
+      my $sect  = $1;           # section number
+      my $onum  = $2;           # current rule number in section
+      my $targs = $3;           # conformance targets eg. (REF,EXT)
+      my $kind  = $4;           # rule kind eg. (Constraint)
+      my $otag  = "$1-$2";      # rule tag eg. 7-1
+      my $nnum  = ++$ruleCt{$sect}; # new rule number
+      my $ntag  = "$sect-$nnum";    # new rule tag
+      $ruleMap{$otag}  = $ntag;
+      $ruleTarg{$ntag} = $targs;
+      $ruleName{$ntag} = "";
+      push(@rules,$ntag);
+
+      if ($rest =~ m/^([^|]+)\|\|\s*/) {
+        my $rname = $1;         # rule name
+        $rest = $';             # rest of line after rule name
+        $rname =~ s/\s+$//;
+        $ruleName{$ntag} = $rname;
+      }
+      else {
+        print STDERR "Rule with no name at line $lnum\n";
+      }
+
+      if ($rest =~ m/\(N5R ([^)]+)\)\s*$/) {
+        my @n5rs = split(/,\s*/,$1);
+        foreach my $n5r (@n5rs) {
+          $n5Map{$n5r} .= ",$ntag" if defined $n5Map{$n5r};
+          $n5Map{$n5r}  = $ntag    unless defined $n5Map{$n5r};
+        }
+      }
+      elsif ($rest =~ m/\(NEW\)\s*$/) {
+        push(@newRules,$ntag);
+      }
+      else {
+        print STDERR "Rule with no NIEM 5 mapping at line $lnum\n";
+      }
+      # Fix the tag in this rule line
+      s/^\*\*Rule \d+-\d+/**Rule $ntag/;
+    }
+  }
+  push(@lines,$_);
+}
+
+# Second pass through source to fix references.
+# Quit when Appendix C (index of rules) is reached.
+
+while (@lines) {
+  my $line  = shift(@lines);
+  my $nline = $line;
+
+  # Find every rule reference on current line
+  while ($line =~ m/\[([^]]+)\]\(#([^)]+)\)/g) {
+    # print "matched: $&\n";
+    my $rlink = $1;             # link text; eg. "Rule 7-5"
+    my $ankr  = $2;             # link anchor name; eg. "rule-7-5"
+    my @beg   = @-;
+    my @end   = @+;
+    next unless $ankr =~ /^rule/;
+    # print "rlink=$rlink\n";
+    # print "ankr=$ankr\n";
+
+    # Set anchor from link if missing; eg. "[Rule 7-5](#rule)"
+    if ($ankr eq "rule" && $rlink =~ m/^Rule\s+(\d+-\d+)$/) {
+      # print "\nset anchor\n";
+      my $rltag = $1;
+      substr($nline,$beg[2],length $ankr) = "rule-$rltag";
+      $ankr = "rule-$rltag";
+      # print "rltag=$rltag\n";
+      # print "otag=$1\n";
+      # print $nline;
+    }
+    # Replace old tag in link text; eg. "Rule 7-5" becomes "Rule 7-1"
+    if ($rlink =~ m/^Rule (\d+-\d+)$/) {
+      # print "\nreplace old link text\n";
+      my $ntag = $ruleMap{$1};
+      substr($nline,$beg[1],length $rlink) = "Rule $ntag";
+      # print "ntag=$ntag\n";
+      # print "otag=$1\n";
+      # print $nline;
+    }
+    # Replace old tag in link anchor; eg. "#rule-7-5" becomes "#rule-7-1"
+    if ($ankr =~ m/^rule-(\d+-\d+)$/) {
+      # print "\nreplace old link anchor\n";
+      my $nank = $ruleMap{$1};
+      substr($nline,$beg[2],length $ankr) = "rule-$nank";
+      # print "nank=$nank\n";
+      # print $nline;
+    }
+  }
+
+  # Done fixing references on this line.
+  print $nline;
+  last if $nline =~ m/^# Appendix C\./;
+}
+
+# Remove old Appendix C; generate new rule index
+
+my $line;
+while (@lines) {
+  $line = shift(@lines);
+  last if $line =~ /^# Appendix/;
+}
+print "\n";
+foreach my $rtag (@rules) {
+  my $rname = $ruleName{$rtag} || "NO NAME YET";
+  my $targ  = $ruleTarg{$rtag};
+  print "* [Rule $rtag: $rname $targ](#rule-$rtag).\n";
+}
+print "\n-------\n\n$line";
+
+# Remove old Appendix D; generate new NIEM5 -> NIEM6 map
+
+my $niem5uri = 'https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_';
+
+while (@lines) {
+  $line = shift(@lines);
+  last if $line =~ /^# Appendix/;
+}
+print "\n| NIEM 5 Rule | NIEM 6 Rules |\n| :--- | :--- |\n";
+open(N5R, "<n5rules.txt");
+while (<N5R>) {
+  chop;
+  tr/\r//d;
+  m/(\d+-\d+)/;
+  my $n5rule = $1;
+  print "| [Rule $_]($niem5uri$n5rule) | ";
+
+  my $n5maps = $n5Map{$n5rule};
+  if (defined $n5maps) {
+    my $sep = "";
+    my @n6rules = split(m/,\s*/, $n5maps);
+    foreach my $n6r (@n6rules) {
+      print "$sep","[$n6r](#rule-$n6r)";
+      $sep=", ";
+    }
+  }
+  else {
+    print "*no matching NIEM6 rule*";
+  }
+  print " |\n";
+}
+print "\n-------\n\n$line";
+
+# Write out the rest of the source
+
+foreach $line (@lines) { print $line; }
+
+
+

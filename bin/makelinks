@@ -1,0 +1,106 @@
+#!/usr/bin/perl
+
+# Produces an intermediate markdown stream from the markdown input with
+# defined terms in the text linked to entries in the glossary, and with
+# anchors inserted for rules.
+#
+# (The intermediate file is ugly, don't edit it, just pass it to the
+# next process in the pipeline.)
+#
+# A defined term in the source looks like this:
+#
+#    [Defined term](#def)
+#    [defined term](#def)
+#
+# In the intermediate form, it looks like this:
+#
+#    <span class="termRef"><a name="def-defined-term">Defined term </a></span>
+#    <span class="termRef"><a name="def-defined-term">defined term </a></span>
+#
+# The <span> element is there to put the dots around the defined term.
+# Isn't that ugly? Yes, it is. But nobody has to look at it.
+#
+# The source document is always structured so that the glossary comes before
+# the first defined term in the text. A definition in the source is found
+# in the first table in the glossary section ; it looks like this:
+#
+#    [Defined term|Definition|
+#
+# In the intermediate form, it looks like this
+#
+#    |<a href="def-defined-term></a>Defined term|Definition|
+
+use warnings;
+use strict;
+
+my $line = 0;
+my %terms;
+
+# Copy everything up to the start of the glossary section
+while (<>) {
+  $line++;
+  print;
+  last if m/^#+ .*Glossary/;
+}
+# Now skip to the glossary definitions table header: | :--- | :--- |
+while (<>) {
+  $line++;
+  print;
+  last if m/^\|\s*[:-]+\s*\|\s*[:-]+\s*\|/;
+}
+# Process each line in the glossary definitions table
+while (<>) {
+  $line++;
+  print, last  if /^#/;        # found next section; all done
+  print, next if /^\s*$/;      # blank line
+  if (m/^\|([^|]*)\|([^|]*)\|/) {
+    my $def  = $2;
+    my $term = lc $1;
+    my $href = lc $1;
+    $href =~ s/ +/-/g;
+    $href = "def-$href";
+    printf "| <a name=\"%s\"></a>%s | %s |\n", $href, $term, $def;
+    $terms{$term} = $href;
+  }
+  else {
+    print STDERR "bad glossary format at line $line\n";
+    print;
+  }
+}
+# Process the rest of the markdown source
+while (<>) {
+  $line++;
+
+  # Replace each defined term reference in the current line;
+  # for example: [atomic class](#def)
+  while (m/\[([^]]+)\]\(#def\)/g) {
+    my $si    = $-[0];        # beginning index of defined term ref
+    my $ei    = $+[0];        # ending index of defined term ref
+    my $mlen  = $ei - $si;    # length of defined term ref
+    my $ttxt  = $1;           # text of defined term; eg. "atomic class"
+    my $term  = lc $1;        # defined term, all lowercase
+    $term =~ s/[^\s\w]//g;    # remove everything but spaces and word chars
+
+    my $href = $terms{$term}; # look up href for this term
+    if (!defined $href) {
+      $term =~ s/s$//;        # can't find "documents"? try "document"
+      $href = $terms{$term};
+    }
+    if (defined $href) {
+      my $rep = "[<span class=\"termRef\">$ttxt</span>](#$href)";
+      substr($_, $si, $mlen) = $rep;
+    }
+    else {
+      printf STDERR "no definition for %s at line %d\n", $term, $line;
+    }
+  }
+  # Add anchor to rules; remove rule name and (N5R) crossref
+  if (m/^\*\*Rule (\d+-\d+)\s+/) {
+    my $anchor = sprintf('<a name="rule-%s"></a>',$1);
+    s/^/$anchor/;
+    s/:\*\*\s*.*\|\|\s*/:** /;
+    s/\s*\(NEW\)\s*$/\n/;
+    s/\s*\(N5R [^)]+\)\s*$/\n/;
+  }
+  print;
+}

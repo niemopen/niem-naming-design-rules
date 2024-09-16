@@ -16,7 +16,7 @@ all : html pdf
 html: $(NDRHTML)
 
 $(NDRHTML) : $(NDRSRC)
-	bin/linkdefs $(NDRSRC) | pandoc $(PANDOC_ARGS) -o $(NDRHTML)
+	bin/makelinks $(NDRSRC) | pandoc $(PANDOC_ARGS) -o $(NDRHTML)
 
 VMARG   = --margin-top 16mm --margin-bottom 16mm
 HMARG   = --margin-left 10mm --margin-right 10mm
