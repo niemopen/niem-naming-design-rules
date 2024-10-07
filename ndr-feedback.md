@@ -212,7 +212,7 @@ Reuse line from the Introduction?
 
 ## 3.1 Machine-to-machine data specifications
 
-- [ ] Add messages to the outline?
+- [x] Add messages to the outline?
 
   - Rename the section to something like "Messages" or "Messages in NIEM" or break up the message information into its own section or subsection?
   - Would like to have messages show up explicitly in the TOC / Outline
@@ -221,11 +221,11 @@ Reuse line from the Introduction?
 
   - Add message, message type, message format, and message specification to the Glossary's Definition of Terms and add definition formatting / links to their usage here.
 
-- [ ] More information about message terms
+- [x] More information about message terms
 
   - Break message terms up into their own paragraphs, with more descriptive information.
 
-- [ ] Message type vs Message format
+- [x] Message type vs Message format
 
   - Not sure exactly what a message type is / can be:
     - UML
@@ -236,14 +236,14 @@ Reuse line from the Introduction?
     - Is it conceptual? Is an artifact required?  Can you go straight to XML Schema or CMF and skip this?
   - Is Message format XML Schema vs CMF, or XML Schema vs JSON Schema?
 
-- [ ] Syntax
+- [x] Syntax
 
   - Add explicit term(s) for syntax?
   - Message type syntax?  UML, XML Schema, CMF?
   - Message format syntax?  XML Schema, JSON Schema?
   - Message syntax?  XML, JSON
 
-- [ ] Figure 3-1: Message specification, types and formats
+- [x] Figure 3-1: Message specification, types and formats
 
   - Two different paths based on whether the message format syntax is XSD or CMF
     - Message format XSD -> XML syntax messages (*)
@@ -253,13 +253,13 @@ Reuse line from the Introduction?
 
 ## 3.2 Reuse of community-agreed data models
 
-- [ ] Wording
+- [x] Wording
 
   > adding definitions that they require but have not (so far!) been found worthy of inclusion in the NIEM model.
 
   Rephrase as "adding components that do not yet exist in NIEM."?  Most of them come from requirements we haven't seen, not ones we've rejected.
 
-- [ ] Could also add a following sentence: "Local extensions that could be useful to others in the community beyond the scope of the original message can be submitted for potential adoption by NIEM (https://github.com/niemopen/niem-model/issues)."
+- [x] Could also add a following sentence: "Local extensions that could be useful to others in the community beyond the scope of the original message can be submitted for potential adoption by NIEM (https://github.com/niemopen/niem-model/issues)."
 
 ## 3.3 Reuse of open standards
 
@@ -268,7 +268,7 @@ Reuse line from the Introduction?
 
 ## 3.4 The NIEM metamodel
 
-- [ ] Descriptions of class, datatype, properties
+- [x] Descriptions of class, datatype, properties
 
   - Start with a definition of property.  A concept, idea, or thing.  Appears as a field in a message and can contain subfields (for objects / object properties) or a value (for literals / data properties).
   - Properties define semantics, types define structures
@@ -276,21 +276,22 @@ Reuse line from the Introduction?
       - Many different kinds of people in the model (properties) that share the same nc:PersonType structure
     - One nc:TextType type
       - Many different kinds of text elements in the model (properties) that share the same nc:TextType structure
-  - No conceptual Type class as the parent of Class and Datatype?
+
+- [ ] No conceptual Type class as the parent of Class and Datatype?
 
 - [ ] Figure 3-3
 
   - Add person as a top-level object?
 
-- [ ] objects, properties, and literal values
+- [x] objects, properties, and literal values
 
   > A NIEM message contains objects, properties, and literal values.  These are specified by the Class, Property, and Datatype objects in a NIEM data model...
 
-- [ ] Mixing different levels of detail?  A NIEM message contains properties, which can be either objects or literal values.
+- [x] Mixing different levels of detail?  A NIEM message contains properties, which can be either objects or literal values.
 
 ## 3.5 NIEM model representations: XSD and CMF
 
-- [ ] Conformance testing...
+- [x] Conformance testing...
 
   > A CMF model can be transformed into XSD for conformance testing of XML messages, and into JSON Schema for conformance testing of JSON messages.
 
@@ -306,7 +307,7 @@ Reuse line from the Introduction?
 
 ## 3.7 NIEM messages in XML and JSON
 
-- [ ] Move after or under 3.1?  Exemplifies some of the message information in that section.
+- [x] Move after or under 3.1?  Exemplifies some of the message information in that section.
 
 ## 4. Data models in NIEM
 
