@@ -381,7 +381,11 @@ In NIEM terms, the package of data shared at runtime is a *message*. For example
 
 A *message type* defines the mandatory and optional information content of a class of messages without prescribing a particular syntax. For example, a logical structure (e.g. in CMF or XSD syntax) that describes all possible incident report messages.
 
+A message type MUST have a message model that precisely defines the information content of a message of that type. That message model MUST appropriately constrain cardinalities and datatypes. It may be represented in CMF, XSD, or both. Those representations must conform.
+
 A *message format* defines a syntax for the content of a message type. For example, a real-world representation of all possible incident report messages.  If the message type is in CMF syntax, then the message format may be either XSD or JSON schema.  If the message type is in XSD syntax, then the message format must be XSD.
+
+A message format MUST have a schema capable of validating a message in that format -- JSON Schema for JSON formats, XSD for XML formats. Those schemas can be generated from the message model or hand-coded. The schema for XML formats MAY be the message model in XSD. There are no conformance targets for these schemas, and so they do not have to conform.
 
 All of these definitions are expressed in terms of a machine-readable *data model*, using either of NIEM's two *modeling formats*, the Common Model Format (CMF) or XML Schema (XSD). 
 
@@ -394,6 +398,8 @@ A collection of related message formats and types is a *message specification*. 
     <figcaption><i>Figure 3-1: Message specification, types, and formats</i></figcaption>
   </figure>
 </center>
+
+A *message specification* MAY have a reuse model that defines all of the components used in all of the *message types*. That reuse model SHOULD NOT constrain cardinalities or datatypes. It may be represented in CMF, XSD, or both. Those representations must conform.
 
 > A NIEM message was originally known as an *information exchange package (IEP)*, a term that found its way into the U.S. Federal Enterprise Architecture (2005).  A message specification was originally known as an *information exchange package documentation (IEPD).*  These terms are still in widespread use within the NIEM community today, and will not go away soon (if ever). 
 
