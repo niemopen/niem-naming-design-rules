@@ -20,7 +20,7 @@
 
 ## Project Specification Draft 01
 
-## 30 September 2024 draft
+## 9 October 2024 draft
 
 &nbsp;
 
@@ -308,15 +308,13 @@ This document provides normative specifications for NIEM-conforming data models.
   </figure>
 </center>
 
-Figure 2-1 above emphasizes the design and implementation of NIEM-based data exchange specifications. Figure 2-2 below instead emphasizes the community agreement that forms the NIEM data model.
+The user roles in the above figure are:
 
-<center>
-  <figure class="image">
-    <a name="fig2-2"/></a>
-    <img src="images/community.png" alt="figure" style="zoom:100%"/>
-    <figcaption><i>Figure 2-2: NIEM communities and data models</i></figcaption>
-  </figure>
-</center>
+* *Business analysts* and *subject matter experts*, who provide the requirements for information transfer. These requirements might describe an information resource available to all comers. They could describe an information exchange as part of a business process. They need not be tied to known producers and consumers.
+
+* *Message designers*, who express those requirements in the form of a developer-level data model, and create at least one message format that specifies the syntax and semantics of the data that will convey the required information at runtime.
+
+* *Message developers*, who write software for producer systems that will construct messages containing the required information and following the defined syntax, or software for consumer systems that will parse and process such messages.
 
 The remaining sections of this document most relevant to each of these roles are shown in the following table:
 
@@ -437,7 +435,15 @@ The content of a NIEM message may be formatted as XML or JSON. Any NIEM message 
 
 ## 3.3 Reuse of community-agreed data models
 
-NIEM is also a framework for communities to create data models for concepts that are useful in multiple data specifications. These community models are typically not *complete* for any particular specification. Instead, they reflect the community's judgement on which definitions are *worth the trouble of agreement*. The NIEM core model contains definitions found useful by the NIEM community as a whole. NIEM domain models reuse the core, extending it with definitions found useful by the domain community. The core model plus the domain models comprise the "NIEM model". [Figure 2-2]() above illustrates the relationships between domain communities and community models.
+NIEM is also a framework for communities to create data models for concepts that are useful in multiple data specifications. These community models are typically not *complete* for any particular specification. Instead, they reflect the community's judgement on which definitions are *worth the trouble of agreement*. The NIEM core model contains definitions found useful by the NIEM community as a whole. NIEM domain models reuse the core, extending it with definitions found useful by the domain community. The core model plus the domain models comprise the "NIEM model". Figure 3-6 below illustrates the relationships between domain communities and community models.
+
+<center>
+  <figure class="image">
+    <a name="fig3-6"/></a>
+    <img src="images/community.png" alt="figure" style="zoom:100%"/>
+    <figcaption><i>Figure 3-6: NIEM communities and data models</i></figcaption>
+  </figure>
+</center>
 
 Message designers reuse definitions from the NIEM model, selecting a (usually small) subset of definitions that express part of their information requirement. Message designers then create model extensions, adding components that do not yet exist in NIEM. Local extensions that could be useful to others in the community beyond the scope of the original message can be submitted for potential adoption by NIEM (https://github.com/niemopen/niem-model/issues).
 

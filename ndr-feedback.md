@@ -432,6 +432,10 @@ Changing this wouldn't have to mean a big rework of the CMF Tool. First step aft
 
 This is similar to what we do for change request spreadsheets and augmentation point elements.  We handle all augmentation point elements internally in code because it's so error prone and unnecessary to do the extra work by hand since it all follows the same pattern.  Write the code to deal with it once and it's easier on everyone else who uses it forever.
 
+> [!NOTE]
+>
+> Dr. Scott: The proposed <Literal> tag in CMF is indeed simpler, but does not help with the problem, which is XSD weirdness imposed on JSON developers, RDF developers, and probably every other kind of developer in the future. I wrote [*Literal properties and atomic classes in NIEM 6*](https://github.com/niemopen/ntac-admin/blob/main/documents/docs/Literals-241009.md) to explain the problem and our choices.  RDF-star is about attaching properties and values to triples, which I think doesn't help us here.
+
 ## 4.5 HasProperty class
 
 - [ ] Rename as ChildProperty?
@@ -442,6 +446,11 @@ This is similar to what we do for change request spreadsheets and augmentation p
   - Type (nc:PersonType) has a child property (nc:PersonName)
   - Property (nc:PersonName) has a / belongs to a container type (nc:PersonType)?
 - [ ] Wasn't CMF switching to `structures:uri` instead of `structures:ref` so we can use references like `ex:PersonMiddleName` instead of `ex.PersonMiddleName`?
+
+> [!NOTE]
+>
+> Dr. Scott: CMF needs `structures:uri` to handle partial models.  But you won't see references like `structures:uri="ex:PersonMiddleName"`, because that's a QName, not a URI.  You'll see `structures:uri="http://example.com/Some/Namespace/URI/PersonMiddleName"` instead.  I think that's ugly, which is why I propsed adding a `qname` attribute to *structures.xsd*.  I believe we decided not to do that.
+
 - [ ] Figure 4-9: HasProperty object in CMF and XSD
   - HasProperty doesn't exist independently.  Might be helpful to show the examples in context under the containing type.
   - Use nameInitialIndicator for the example attribute?
