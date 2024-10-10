@@ -22,6 +22,11 @@ my %n5Map;                      # map of NIEM 5 rule to new rule tag
 my @rules;                      # ordered list of new rule tags
 my @newRules;                   # rule tags w/o corresponding NIEM 5 rule
 
+my %figCt;                      # last figure number seen, by section
+my %figMap;                     # map of old figure tags to new tags
+my %figCap;                     # map of new figure tag to caption
+my @figList;                    # list of new figure tags in order
+
 # First pass through source
 # Renumber rules, and remember what you did (for second pass)
 
@@ -74,17 +79,42 @@ while (<>) {
       s/^\*\*Rule \d+-\d+/**Rule $ntag/;
     }
   }
+  # Handle figure caption lines in source
+  if (m/<figcaption>/) {
+    if (!m!<figcaption>(<a name="[^"]*">)Figure (\d+)-(\d+):\s*(.*)</a></figcaption>!) {
+      print STDERR "Bad figure caption at line $lnum\n";
+    }
+    else {
+      my $anch = $1;
+      my $sect = $2;
+      my $fnum = $3;
+      my $cap  = $4;
+      my $nnum = ++$figCt{$sect};
+      my $otag = "$sect-$fnum";
+      my $ntag = "$sect-$nnum";
+      $figCap{$ntag} = $cap;
+      push(@figList,$ntag);
+      if ($otag ne $ntag) {
+        print STDERR "Replacing figure $otag with $ntag at $lnum\n";
+        $figMap{$otag} = $ntag;
+        s/Figure \d+-\d+:\s*/Figure $sect-$nnum: /;
+        s/<a name="[^"]*">/<a name="fig$ntag">/ if m/<a name="[^"]*">/;
+      }
+    }
+  }
   push(@lines,$_);
 }
 
-# Second pass through source to fix references.
+# Second pass through source to fix links
 # Quit when Appendix C (index of rules) is reached.
 
+$lnum = 0;
 while (@lines) {
+  $lnum++;
   my $line  = shift(@lines);
   my $nline = $line;
 
-  # Find every rule reference on current line
+  # Find and fix every rule reference on current line
   while ($line =~ m/\[([^]]+)\]\(#([^)]+)\)/g) {
     # print "matched: $&\n";
     my $rlink = $1;             # link text; eg. "Rule 7-5"
@@ -124,9 +154,24 @@ while (@lines) {
     }
   }
 
+  # Find and fix every figure reference on current line
+  while ($nline =~ m/\[([Ff]igure\s+)(\d+-\d+)\]\(#fig([^)]+)\)/g) {
+    my $fig   = $1;             # link text; eg "Figure "
+    my $rlink = $2;             # link text; eg. "2-5"
+    my $ankr  = $3;             # link anchor; eg. "2-5"
+    my @beg   = @-;
+    my @end   = @+;
+    my $ntag  = $figMap{$ankr};
+    if (defined $ntag) {
+      print STDERR "Fixed link to figure $ntag (was $ankr} at line $lnum\n";
+      my $rep  = "[$fig$ntag](#fig$ntag)";
+      substr($nline,$beg[0],$end[0]-$beg[0]) = $rep;
+    }
+  }
+
   # Done fixing references on this line.
   print $nline;
-  last if $nline =~ m/^# Appendix C\./;
+  last if $nline =~ m/^# Appendix C/;
 }
 
 # Remove old Appendix C; generate new rule index
@@ -177,9 +222,18 @@ while (<N5R>) {
 }
 print "\n-------\n\n$line";
 
+# Remove old Appendix E; generate new index of figures
+
+while (@lines) {
+  $line = shift(@lines);
+  last if $line =~ /^# Appendix/;
+}
+print "\n";
+foreach my $ftag (@figList) {
+  print "* [Figure $ftag](#fig$ftag): $figCap{$ftag}\n";
+}
+print "\n-------\n\n$line";
+
 # Write out the rest of the source
 
 foreach $line (@lines) { print $line; }
-
-
-

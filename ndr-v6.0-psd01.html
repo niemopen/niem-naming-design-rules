@@ -385,15 +385,18 @@ id="toc-appendix-c-index-of-rules">Appendix C. Index of rules</a></li>
 <li><a href="#appendix-d-mapping-niem-5-rules-to-niem-6"
 id="toc-appendix-d-mapping-niem-5-rules-to-niem-6">Appendix D. Mapping
 NIEM 5 rules to NIEM 6</a></li>
+<li><a href="#appendix-e-index-of-figures"
+id="toc-appendix-e-index-of-figures">Appendix E. Index of
+figures</a></li>
 <li><a href="#appendix-w-safety-security-and-privacy-considerations"
 id="toc-appendix-w-safety-security-and-privacy-considerations">Appendix
 W. Safety, Security and Privacy Considerations</a></li>
 <li><a href="#appendix-x-acknowledgments"
 id="toc-appendix-x-acknowledgments">Appendix X. Acknowledgments</a>
 <ul>
-<li><a href="#d1-special-thanks" id="toc-d1-special-thanks">D.1 Special
+<li><a href="#x1-special-thanks" id="toc-x1-special-thanks">X.1 Special
 Thanks</a></li>
-<li><a href="#d2-participants" id="toc-d2-participants">D.2
+<li><a href="#x2-participants" id="toc-x2-participants">x.2
 Participants</a></li>
 </ul></li>
 <li><a href="#appendix-y-revision-history"
@@ -1395,15 +1398,13 @@ target</td>
 data models. It also describes the goals and principles behind those
 specifications. It includes examples and explanations to help users of
 NIEM understand the goals, principles, and specifications. The relevant
-sections of this document will depend on the role of the user. Figure
-2-1 illustrates the relationships between these roles and NIEM.</p>
-<center>
-  <figure>
-    <a name="fig2-1"/></a>
-      <img src="images/context.png" alt="figure" style="zoom: 100%;" />
-    <figcaption><i>Figure 2-1: NIEM-based machine-to-machine data exchange</i>
-  </figure>
-</center>
+sections of this document will depend on the role of the user. <a
+href="#fig2-1">Figure 2-1</a> illustrates the relationships between
+these roles and NIEM.</p>
+<figure>
+  <img src="images/context.png" style="zoom: 100%;" />
+  <figcaption><a name="fig2-1">Figure 2-1: NIEM-based machine-to-machine data exchange</a></figcaption>
+</figure>
 
 <p>The user roles in the above figure are:</p>
 <ul>
@@ -1628,14 +1629,11 @@ formats</em>, the Common Model Format (CMF) or XML Schema (XSD).</p>
 <p>A collection of related message formats and types is a <em>message
 specification</em>. The usual case is a message specification with one
 message type and one message format, but a more complex arrangements is
-possible, illustrated in figure 3-1 below.</p>
-<center>
-  <figure class="image">
-    <a name="fig3-1"/></a>
-    <img src="images/messageSpec.png" alt="figure" style="zoom:100%"/>
-    <figcaption><i>Figure 3-1: Message specification, types, and formats</i></figcaption>
-  </figure>
-</center>
+possible, illustrated in <a href="#fig3-1">figure 3-1</a> below.</p>
+<figure>
+  <img src="images/messageSpec.png" alt="figure" style="zoom:100%"/>
+  <figcaption><a name="fig3-1">Figure 3-1: Message specification, types, and formats</a></figcaption>
+</figure>
 
 <p>A <em>message specification</em> MAY have a reuse model that defines
 all of the components used in all of the <em>message types</em>. That
@@ -1678,7 +1676,7 @@ NIEM XML and JSON serializations of the information depicted in figure
     &lt;nc:PersonFullName&gt;Clark Kent&lt;/nc:PersonFullName&gt;
   &lt;/nc:PersonName&gt;
 &lt;/nc:Person&gt;</code></pre>
-<center><i><a name="fig3-4"></a>Figure 3-4: Sample NIEM XML message</i></center><p/>
+<figcaption><a name="fig3-2">Figure 3-2: Sample NIEM XML message</a></figcaption>
 
 <pre><code>{ 
   &quot;nc:Person&quot;: {
@@ -1688,7 +1686,7 @@ NIEM XML and JSON serializations of the information depicted in figure
   },
   &quot;@context&quot;: { &quot;nc&quot;: &quot;https://docs.oasis-open.org/niemopen/ns/model/niem-core/6.0/&quot; }
 }</code></pre>
-<center><i><a name="fig3-5"></a>Figure 3-5: Sample NIEM JSON message</i></center><p/>
+<figcaption><a name="fig3-3">Figure 3-3: Sample NIEM JSON message</a></figcaption>
 
 <hr />
 <h2 id="33-reuse-of-community-agreed-data-models">3.3 Reuse of
@@ -1701,15 +1699,13 @@ definitions are <em>worth the trouble of agreement</em>. The NIEM core
 model contains definitions found useful by the NIEM community as a
 whole. NIEM domain models reuse the core, extending it with definitions
 found useful by the domain community. The core model plus the domain
-models comprise the "NIEM model". Figure 3-6 below illustrates the
-relationships between domain communities and community models.</p>
-<center>
-  <figure class="image">
-    <a name="fig3-6"/></a>
-    <img src="images/community.png" alt="figure" style="zoom:100%"/>
-    <figcaption><i>Figure 3-6: NIEM communities and data models</i></figcaption>
-  </figure>
-</center>
+models comprise the "NIEM model". <a href="#fig3-4">Figure 3-4</a> below
+illustrates the relationships between domain communities and community
+models.</p>
+<figure>
+  <img src="images/community.png" alt="figure" style="zoom:100%"/>
+  <figcaption><a name="fig3-4">Figure 3-4: NIEM communities and data models</a></figcaption>
+</figure>
 
 <p>Message designers reuse definitions from the NIEM model, selecting a
 (usually small) subset of definitions that express part of their
@@ -1746,15 +1742,13 @@ can itself be modeled. The model of that information is the <em>NIEM
 metamodel</em> -- an abstract model for NIEM data models. The metamodel
 is expressed in UML, and is described in detail in <a href="">section
 4</a>. At a high level, the major components of the metamodel are
-classes, datatypes, properties, and namespaces. Figure 3-2 provides an
-lllustration.</p>
-<center>
-  <figure class="image">
-    <a name="fig3-2"/></a>
-    <img src="images/highLevel.png" style="zoom:75%"/>
-    <figcaption><i>Figure 3-2: High-level view of the NIEM metamodel</i></figcaption>
-  </figure>
-</center>
+classes, datatypes, properties, and namespaces. <a href="#fig3-5">Figure
+3-5</a> provides an lllustration.</p>
+<figure class="image">
+  <a name="fig3-2"/></a>
+  <img src="images/highLevel.png" style="zoom:75%"/>
+  <figcaption><a name="fig3-5">Figure 3-5: High-level view of the NIEM metamodel</a></figcaption>
+</figure>
 
 <ul>
 <li><p>A <em>property</em> is a concept, idea, or thing. It often
@@ -1773,24 +1767,23 @@ object and a literal value.</p></li>
 <li><p>A <em>namespace</em> is a collection of uniquely-named components
 defined by an authority.</p></li>
 </ul>
-<p>Figure 3-3 below illustrates the relationships among metamodel
-components, NIEM model components, and the corresponding message objects
-and values.</p>
-<center>
-  <figure class="image">
-    <a name="fig3-3"/></a>
-    <img src="images/msg+meta.png" style="zoom:100%"/>
-    <figcaption><i>Figure 3-3: Message object and metamodel components</i></figcaption>
-  </figure>
-</center>
+<p><a href="#fig3-6">Figure 3-6</a> below illustrates the relationships
+among metamodel components, NIEM model components, and the corresponding
+message objects and values.</p>
+<figure class="image">
+  <a name="fig3-3"/></a>
+  <img src="images/msg+meta.png" style="zoom:100%"/>
+  <figcaption><a name="fig3-6">Figure 3-6: Message object and metamodel components</a></figcaption>
+</figure>
 
 <p>A NIEM message contains properties which are based on objects or
 literal values. These are specified by the Class, Property, and Datatype
 objects in a NIEM data model, which defines the content of a conforming
-message and the meaning of that content. In figure 3-3, the name object
-is defined by the <code>nc:PersonNameType</code> Class object; the
-literal value is defined by the <code>xs:string</code> Datatype object,
-and the property relationship between the two is defined by the
+message and the meaning of that content. In <a href="#fig3-6">figure
+3-6</a>, the name object is defined by the
+<code>nc:PersonNameType</code> Class object; the literal value is
+defined by the <code>xs:string</code> Datatype object, and the property
+relationship between the two is defined by the
 <code>nc:PersonFullName</code> DataProperty object.</p>
 <h2 id="36-niem-model-representations-xsd-and-cmf">3.6 NIEM model
 representations: XSD and CMF</h2>
@@ -1861,13 +1854,11 @@ implement the metamodel</li>
 <li>the XSD constructs that correspond to CMF classes, datatypes, and
 properties</li>
 </ul>
-<center>
-  <figure class="image">
-    <a name="fig4-1"/></a>
-    <img src="images/metamodel.png" style="zoom:60%"/>
-    <figcaption><i>Figure 4-1:The NIEM metamodel </i></figcaption>
-  </figure>
-</center>
+<figure>
+  <a name="fig4-1"/></a>
+  <img src="images/metamodel.png" style="zoom:60%"/>
+  <figcaption><a name="fig4-1">Figure 4-1:The NIEM metamodel</a></figcaption>
+</figure>
 
 <p>The table format used to document classes, attributes, relationships,
 and properties in the metamodel and in CMF has the following
@@ -1913,13 +1904,11 @@ object is significant</td>
 <h2 id="41-model-class">4.1 Model class</h2>
 <p>A Model object represents a complete or partial NIEM model. (A
 complete model has a definition for every referenced component.)</p>
-<center>
-  <figure class="image">
-    <a name="fig4-2"/></a>
-    <img src="images/modelClass.png" style="zoom:100%"/>
-    <figcaption><i>Figure 4-2: Model class diagram</i></figcaption>
-  </figure>
-</center>
+<figure>
+  <a name="fig4-2"/></a>
+  <img src="images/modelClass.png" style="zoom:100%"/>
+  <figcaption><a name="fig4-2">Figure 4-2: Model class diagram</a></figcaption>
+</figure>
 
 <table>
 <thead>
@@ -1975,13 +1964,11 @@ this section.</p>
 the namespace with the URI
 <code>https://docs.oasis-open.org/niemopen/ns/model/niem-core/6.0/</code>
 is a namespace in the NIEM 6.0 model.</p>
-<center>
-  <figure class="image">
-    <a name="fig4-3"/></a>
-    <img src="images/namespaceClass.png" style="zoom:100%"/>
-    <figcaption><i>Figure 4-3: Namespace class diagram</i></figcaption>
-  </figure>
-</center>
+<figure class="image">
+  <a name="fig4-3"/></a>
+  <img src="images/namespaceClass.png" style="zoom:100%"/>
+  <figcaption><a name="fig4-3">Figure 4-3: Namespace class diagram</a></figcaption>
+</figure>
 
 <table>
 <thead>
@@ -2119,8 +2106,8 @@ it's BUILTIN, CORE, DOMAIN, EXTENSION, OTHERNIEM, XML, or XSD, then in a
 conforming schema pile it must be EXTERNAL. So I think these properties
 will go away when I have time to fool with it.</p>
 </blockquote>
-<p>Figure 4-4 shows the representation of a Namespace object in CMF and
-in the corresponding XSD.</p>
+<p><a href="#fig4-4">Figure 4-4</a> shows the representation of a
+Namespace object in CMF and in the corresponding XSD.</p>
 <pre><code>&lt;Namespace&gt;
   &lt;NamespaceURI&gt;https://docs.oasis-open.org/niemopen/ns/model/niem-core/6.0/&lt;/NamespaceURI&gt;
   &lt;NamespacePrefixText&gt;nc&lt;/NamespacePrefixText&gt;
@@ -2144,7 +2131,7 @@ in the corresponding XSD.</p>
     &lt;xs:documentation&gt;NIEM Core.&lt;/xs:documentation&gt;
   &lt;/xs:annotation&gt;    
 &lt;/xs:schema&gt;</code></pre>
-<center><i><a name="fig4-4"></a>Figure 4-4: Namespace object in CMF and XSD</i></center><p/>
+<figcaption><a name="fig4-4">Figure 4-4: Namespace object in CMF and XSD</a></figcaption>
 
 <p>The following table shows the mapping between Namespace object
 representations in CMF and XSD.</p>
@@ -2190,13 +2177,11 @@ namespace</td>
 <p>A model component in a namespace is either a Class object, a Property
 object, or a Datatype object in a NIEM model. The abstract component
 class defines the common properties.</p>
-<center>
-  <figure class="image">
-    <a name="fig4-4"/></a>
-    <img src="images/component.png" style="zoom:100%"/>
-    <figcaption><i>Figure 4-5: Component class diagram</i></figcaption>
-  </figure>
-</center>
+<figure class="image">
+  <a name="fig4-4"/></a>
+  <img src="images/component.png" style="zoom:100%"/>
+  <figcaption><a name="fig4-5">Figure 4-5: Component class diagram</a></figcaption>
+</figure>
 
 <table>
 <thead>
@@ -2261,13 +2246,11 @@ provided, but the use of which is not recommended.</td>
 that is, an <a href="#def-object-class"><span class="termRef">object
 class</span></a>. For example, <code>nc:PersonType</code> is a Class
 object in the NIEM Core model.</p>
-<center>
-  <figure class="image">
-    <a name="fig4-6"/></a>
-    <img src="images/class.png" style="zoom:100%"/>
-    <figcaption><i>Figure 4-6: Class and HasProperty class diagram</i></figcaption>
-  </figure>
-</center>
+<figure class="image">
+  <a name="fig4-6"/></a>
+  <img src="images/class.png" style="zoom:100%"/>
+  <figcaption><a name="fig4-6">Figure 4-6: Class and HasProperty class diagram</a></figcaption>
+</figure>
 
 <table>
 <thead>
@@ -2407,7 +2390,7 @@ CMF, and then in XSD as a complex type with child elements.</p>
   &lt;/xs:complexContent&gt;
 &lt;/xs:complexType&gt;
 </code></pre>
-<center><i><a name="fig4-7"></a>Figure 4-7: A Class object in CMF and in XSD (CCC type)</i></center><p/>
+<figcaption><a name="fig4-7">Figure 4-7: A Class object in CMF and in XSD (CCC type)</a></figcaption>
 
 <p>The following table shows the mapping between Class object
 representations in CMF and XSD.</p>
@@ -2492,7 +2475,7 @@ child elements.</p>
     &lt;/xs:extension&gt;
   &lt;/xs:simpleContent&gt;
 &lt;/xs:complexType&gt;</code></pre>
-<center><i><a name="fig4-8"></a>Figure 4-8: Class object in CMF and XSD (CSC type)</i></center><p/>
+<figcaption><a name="fig4-8">Figure 4-8: Class object in CMF and XSD (CSC type)</a></figcaption>
 
 <p>An <a href="#def-atomic-class"><span class="termRef">atomic
 class</span></a> always has a DataProperty object named after the class,
@@ -2609,7 +2592,7 @@ HasProperty objects in CMF and the corresponding XSD.</p>
   &lt;/xs:element&gt;
 &lt;/xs:sequence&gt;
 &lt;xs:attribute ref=&quot;ex:aProperty&quot; use=&quot;required&quot;/&gt;</code></pre>
-<center><i><a name="fig4-9"></a>Figure 4-9: HasProperty object in CMF and XSD</i></center><p/>
+<figcaption><a name="fig4-9">Figure 4-9: HasProperty object in CMF and XSD</a></figcaption>
 
 <p>The following table shows the mapping between HasProperty
 representations in CMF and XSD.</p>
@@ -2652,13 +2635,11 @@ representations in CMF and XSD.</p>
 <h2 id="46-property-class-abstract">4.6 Property class (abstract)</h2>
 <p>A Property object represents a data property or an object property in
 a NIEM model.</p>
-<center>
-  <figure class="image">
-    <a name="fig4-10"/></a>
-    <img src="images/property.png" style="zoom:100%"/>
-    <figcaption><i>Figure 4-10: Property class diagram</i></figcaption>
-  </figure>
-</center>
+<figure class="image">
+  <a name="fig4-10"/></a>
+  <img src="images/property.png" style="zoom:100%"/>
+  <figcaption><a name="fig4-10">Figure 4-10: Property class diagram</a></figcaption>
+</figure>
 
 <table>
 <thead>
@@ -2755,8 +2736,9 @@ inline).</td>
 </tbody>
 </table>
 <p>An ObjectProperty object is represented in XSD as an element
-declaration with a type that is a Class object. Figure 4-11 shows an
-ObjectProperty object in XSD and the corresponding CMF.</p>
+declaration with a type that is a Class object. <a
+href="#fig4-11">Figure 4-11</a> shows an ObjectProperty object in XSD
+and the corresponding CMF.</p>
 <pre><code>&lt;ObjectProperty structures:id=&quot;ex.ExampleProperty&quot;&gt;
   &lt;Name&gt;ExampleProperty&lt;/Name&gt;
   &lt;Namespace structures:ref=&quot;ex&quot; xsi:nil=&quot;true&quot;/&gt;
@@ -2777,7 +2759,7 @@ ObjectProperty object in XSD and the corresponding CMF.</p>
     &lt;xs:documentation&gt;Documentation text for ExampleProperty.&lt;/xs:documentation&gt;
   &lt;/xs:annotation&gt;
 &lt;/xs:element&gt;</code></pre>
-<center><i><a name="fig4-11"></a>Figure 4-11: ObjectProperty object in CMF and XSD</i></center><p/>
+<figcaption><a name="fig4-11">Figure 4-11: ObjectProperty object in CMF and XSD</a></figcaption>
 
 <p>The following table shows the mapping between ObjectProperty object
 representations in CMF and XSD.</p>
@@ -2833,7 +2815,7 @@ representations in CMF and XSD.</p>
 <h2 id="48-dataproperty-class">4.8 DataProperty class</h2>
 <p>A DataProperty object represents a property with a range that is a
 datatype. For example, the <code>nc:PersonFullName</code> object shown
-in <a href="fig3-3">figure 3-3</a> is a property with a range of
+in <a href="#fig3-6">figure 3-6</a> is a property with a range of
 <code>xs:string</code>.</p>
 <table>
 <thead>
@@ -2891,8 +2873,8 @@ to an object in a message. (Object references are described in <a
 href="">section ref message rules</a>.)</p>
 <p>DataProperty objects are represented in XSD as an attribute
 declaration, or as an element declaration with a type that is a Datatype
-object. Figure 4-12 shows the CMF and XSD representations of two
-DataProperty objects.</p>
+object. <a href="#fig4-12">Figure 4-12</a> shows the CMF and XSD
+representations of two DataProperty objects.</p>
 <pre><code>&lt;DataProperty structures:id=&quot;ex.ExampleProperty&quot;&gt;
   &lt;Name&gt;ExampleProperty&lt;/Name&gt;
   &lt;Namespace structures:ref=&quot;ex&quot; xsi:nil=&quot;true&quot;/&gt;
@@ -2925,7 +2907,7 @@ DataProperty objects.</p>
     &lt;xs:documentation&gt;Documentation text for ExampleProperty.&lt;/xs:documentation&gt;
   &lt;/xs:annotation&gt;
 &lt;/xs:attribute&gt; </code></pre>
-<center><i><a name="fig4-12"></a>Figure 4-12: DataProperty object in CMF and XSD</i></center><p/>
+<figcaption><a name="fig4-12">Figure 4-12: DataProperty object in CMF and XSD</a></figcaption>
 
 <p>The following table shows the mapping between DataProperty
 representations in CMF and XSD.</p>
@@ -2983,27 +2965,25 @@ representations in CMF and XSD.</p>
 </br>
 
 <h2 id="49-datatype-class">4.9 Datatype class</h2>
-<center>
-  <figure class="image">
-    <a name="fig4-13"/></a>
-    <img src="images/datatype.png" style="zoom:100%"/>
-    <figcaption><i>Figure 4-13: Datatype classes</i></figcaption>
-  </figure>
-</center>
+<figure class="image">
+  <a name="fig4-13"/></a>
+  <img src="images/datatype.png" style="zoom:100%"/>
+  <figcaption><a name="fig4-13">Figure 4-13: Datatype classes</a></figcaption>
+</figure>
 
 <p>A Datatype object defines the allowed values of a corresponding
 atomic literal value in a message. Objects for primitive data types,
 corresponding to the XSD data types, have only the <em>name</em>,
 <em>namespace</em>, and <em>documentation</em> properties inherited from
-the Component class. For example, figure 4-14 shows the CMF
-representation of the <code>xs:string</code> primitive data type. All
-other datatypes are represented by either a Restriction, List, or Union
-object.</p>
+the Component class. For example, <a href="#fig4-14">figure 4-14</a>
+shows the CMF representation of the <code>xs:string</code> primitive
+data type. All other datatypes are represented by either a Restriction,
+List, or Union object.</p>
 <pre><code>&lt;Datatype&gt;
   &lt;Name&gt;string&lt;/Name&gt;
   &lt;Namespace structures:ref=&quot;xs&quot; xsi:nil=&quot;true&quot;/&gt;
 &lt;/Datatype&gt;</code></pre>
-<center><i><a name="fig4-14"></a>Figure 4-14: Plain CMF datatype object for `xs:string`</i></center><p/>
+<figcaption><a name="fig4-14">Figure 4-14: Plain CMF datatype object for `xs:string`</a></figcaption>
 
 <h2 id="410-list-class">4.10 List class</h2>
 <p>A List object defines a datatype as a whitespace-separated list of
@@ -3050,7 +3030,8 @@ significant.</td>
 </table>
 <p>A List object is represented in XSD as a complex type definition that
 extends a simple type definition with an <code>xs:list</code> element.
-Figure 4-15 shows the CMF and XSD representation of a List object.</p>
+<a href="#fig4-15">Figure 4-15</a> shows the CMF and XSD representation
+of a List object.</p>
 <pre><code>&lt;ListDatatype structures:id=&quot;ex.ExListType&quot;&gt;
   &lt;Name&gt;ExListType&lt;/Name&gt;
   &lt;Namespace structures:ref=&quot;ex&quot; xsi:nil=&quot;true&quot;/&gt;
@@ -3072,7 +3053,7 @@ Figure 4-15 shows the CMF and XSD representation of a List object.</p>
     &lt;/xs:extension&gt;
   &lt;/xs:simpleContent&gt;
 &lt;/xs:complexType&gt;</code></pre>
-<center><i><a name="fig4-15"></a>Figure 4-15: List object in CMF and XSD</i></center><p/>
+<figcaption><a name="fig4-15">Figure 4-15: List object in CMF and XSD</a></figcaption>
 
 <p>The following table shows the mapping between List object
 representations in CMF and XSD.</p>
@@ -3148,8 +3129,8 @@ datatypes.</td>
 </table>
 <p>A Union object is represented in XSD as a complex type definition
 that extends a simple type definition with an <code>xs:union</code>
-element. Figure 4-16 shows the XSD and CMF representations of a Union
-object.</p>
+element. <a href="#fig4-16">Figure 4-16</a> shows the XSD and CMF
+representations of a Union object.</p>
 <pre><code>&lt;UnionDatatype structures:id=&quot;ex.UnionType&quot;&gt;
   &lt;Name&gt;UnionType&lt;/Name&gt;
   &lt;Namespace structures:ref=&quot;test&quot; xsi:nil=&quot;true&quot;/&gt;
@@ -3170,7 +3151,7 @@ object.</p>
     &lt;/xs:extension&gt;
   &lt;/xs:simpleContent&gt;
 &lt;/xs:complexType&gt;</code></pre>
-<center><i><a name="fig4-16"></a>Figure 4-16: Union object in CMF and XSD</i></center><p/>
+<figcaption><a name="fig4-16">Figure 4-16: Union object in CMF and XSD</a></figcaption>
 
 <p>The following table shows the mapping between UnionDatatype object
 representations in CMF and XSD.</p>
@@ -3258,8 +3239,9 @@ a column of a code list.</td>
 </tbody>
 </table>
 <p>A Restriction object is represented in XSD as a complex type with
-simple content containing an <code>xs:restriction</code> element. Figure
-4-17 shows the CMF and XSD representations of a Restriction object.</p>
+simple content containing an <code>xs:restriction</code> element. <a
+href="#fig4-17">Figure 4-17</a> shows the CMF and XSD representations of
+a Restriction object.</p>
 <pre><code>&lt;RestrictionDatatype structures:id=&quot;test.RestrictionType&quot;&gt;
   &lt;Name&gt;RestrictionType&lt;/Name&gt;
   &lt;Namespace structures:ref=&quot;test&quot; xsi:nil=&quot;true&quot;/&gt;
@@ -3292,7 +3274,7 @@ simple content containing an <code>xs:restriction</code> element. Figure
     &lt;/xs:restriction&gt;
   &lt;/xs:simpleContent&gt;
 &lt;/xs:complexType&gt;</code></pre>
-<center><i><a name="fig4-17"></a>Figure 4-17: Restriction object in CMF and XSD</i></center><p/>
+<figcaption><a name="fig4-17">Figure 4-17: Restriction object in CMF and XSD</a></figcaption>
 
 <p>The following table shows the mapping between Restriction object
 representations in CMF and XSD.</p>
@@ -3488,10 +3470,10 @@ value, false otherwise.</td>
 </table>
 <p>A CodeListBinding object is represented in XSD as a
 <code>clsa:SimpleCodeListBinding</code> element in an
-<code>xs:appinfo</code> element. Figure 4-15 above shows the XSD and CMF
-representation of a CodeListBinding object. The following table shows
-the mapping between CodeListBinding object representations in CMF and
-XSD.</p>
+<code>xs:appinfo</code> element. <a href="#fig4-15">Figure 4-15</a>
+above shows the XSD and CMF representation of a CodeListBinding object.
+The following table shows the mapping between CodeListBinding object
+representations in CMF and XSD.</p>
 <table>
 <thead>
 <tr class="header">
@@ -3517,13 +3499,11 @@ XSD.</p>
 </br>
 
 <h2 id="415-augmentation-class">4.15 Augmentation class</h2>
-<center>
-  <figure class="image">
-    <a name="fig4-18"/></a>
-    <img src="images/augment.png" style="zoom:100%"/>
-    <figcaption><i>Figure 4-18: Augmentation class diagram</i></figcaption>
-  </figure>
-</center>
+<figure class="image">
+  <a name="fig4-18"/></a>
+  <img src="images/augment.png" style="zoom:100%"/>
+  <figcaption><a name="fig4-18">Figure 4-18: Augmentation class diagram</a></figcaption>
+</figure>
 
 <p>Developers of domain schemas and other schemas that build on and
 extend the NIEM release schemas need to be able to define additional
@@ -3670,7 +3650,7 @@ results in the following CMF:</p>
     &lt;AugmentationIndex&gt;1&lt;/AugmentationIndex&gt;
   &lt;/AugmentationRecord&gt;  
 &lt;/Namespace&gt;</code></pre>
-<center><i><a name="fig4-19"></a>Figure 4-19: Augmentation object in CMF</i></center><p/>
+<figcaption><a name="fig4-19">Figure 4-19: Augmentation object in CMF</a></figcaption>
 
 <p>In CMF, the augmentation property appears in the augmented Class
 object -- like any other property, except that the augmenting namespace
@@ -3699,7 +3679,7 @@ results in the following CMF:</p>
     &lt;/AugmentingNamespace&gt;
   &lt;/HasProperty&gt;  
 &lt;/Class&gt;</code></pre>
-<center><i><a name="fig4-20"></a>Figure 4-20: AugmentingNamespace property in CMF</i></center><p/>
+<figcaption><a name="fig4-20">Figure 4-20: AugmentingNamespace property in CMF</a></figcaption>
 
 <h3 id="4151-augmentations-in-niem-xsd">4.15.1 Augmentations in NIEM
 XSD</h3>
@@ -3778,7 +3758,7 @@ augmentation properties.</p>
     &lt;xs:documentation&gt;An augmentation point for PersonType.&lt;&lt;/xs:documentation&gt;
   &lt;/xs:annotation&gt;
 &lt;/xs:element&gt;</code></pre>
-<center><i><a name="fig4-21"></a>Figure 4-21: An augmentation point element</i></center><p/>
+<figcaption><a name="fig4-21">Figure 4-21: An augmentation point element</a></figcaption>
 
 <p>An <a
 href="#def-augmentation-point-element"><span class="termRef">augmentation
@@ -3803,9 +3783,9 @@ href="#def-augmentation-element"><span class="termRef">augmentation
 element</span></a> having the augmentation type, and substitutable for
 the augmentation point element in the augmented type.</li>
 </ul>
-<p>Figure 4-22 shows the XSD for a namespace augmenting
-<code>nc:PersonType</code> with two properties. (The corresponding CMF
-is shown in figures 4-19 and 4-20 above.)</p>
+<p><a href="#fig4-22">Figure 4-22</a> shows the XSD for a namespace
+augmenting <code>nc:PersonType</code> with two properties. (The
+corresponding CMF is shown in figures 4-19 and 4-20 above.)</p>
 <pre><code>&lt;xs:complexType name=&quot;PersonAugmentationType&quot;&gt;
   &lt;xs:complexContent&gt;
     &lt;xs:extension base=&quot;structures:AugmentationType&quot;&gt;
@@ -3817,11 +3797,12 @@ is shown in figures 4-19 and 4-20 above.)</p>
   &lt;/xs:complexContent&gt;
 &lt;/xs:complexType&gt;
 &lt;xs:element name=&quot;PersonAugmentation&quot; type=&quot;j:ExampleAugmentationType&quot; substitutionGroup=&quot;nc:PersonAugmentationPoint&quot;/&gt;</code></pre>
-<center><i><a name="fig4-22"></a>Figure 4-22: Augmenting a CCC type via an augmentation element and type</i></center><p/>
+<figcaption><a name="fig4-22">Figure 4-22: Augmenting a CCC type via an augmentation element and type</a></figcaption>
 
 <p>In an XML message, the augmentation element is only a container for
-the augmenting properties; it has no meaning of its own. Figure 4-23
-shows a NIEM XML message with this augmentation.</p>
+the augmenting properties; it has no meaning of its own. <a
+href="#fig4-23">Figure 4-23</a> shows a NIEM XML message with this
+augmentation.</p>
 <pre><code>&lt;nc:Person&gt;
   &lt;nc:PersonFullName&gt;Tommy Atkins&lt;/nc:PersonFullName&gt;
   &lt;j:PersonAugmentation&gt;
@@ -3829,11 +3810,11 @@ shows a NIEM XML message with this augmentation.</p>
     &lt;j:PersonForeignNationalIndicator&gt;true&lt;/j:PersonForeignNationalIndicator&gt;
   &lt;/j:PersonAugmentation&gt;
 &lt;/nc:Person&gt;</code></pre>
-<center><i><a name="fig4-23"></a>Figure 4-23: An XML message from a CCC type with an augmentation element</i></center><p/>
+<figcaption><a name="fig4-23">Figure 4-23: An XML message from a CCC type with an augmentation element</a></figcaption>
 
 <p>There is no need for the augmentation element in a NIEM JSON message.
-It does not appear in the equivalent JSON message, shown in figure 4-24
-below.</p>
+It does not appear in the equivalent JSON message, shown in <a
+href="#fig4-24">figure 4-24</a> below.</p>
 <pre><code>{
   &quot;nc:Person&quot;: {
     &quot;nc:PersonFullName&quot;: &quot;Tommy Atkins&quot;,
@@ -3841,17 +3822,18 @@ below.</p>
     &quot;j:PersonForeignNationalIndicator&quot;: true
   }
 }</code></pre>
-<center><i><a name="fig4-24"></a>Figure 4-24: A JSON message from a CCC type with an augmentation element</i></center><p/>
+<figcaption><a name="fig4-24">Figure 4-24: A JSON message from a CCC type with an augmentation element</a></figcaption>
 
 <h3 id="4153-augmenting-a-ccc-type-with-an-ordinary-element">4.15.3
 Augmenting a CCC type with an ordinary element</h3>
 <p>Another way to augment a CCC type with an element is to substitute an
 ordinary element (that is, one that does not have an augmentation type)
 for the augmentation point. In this case there is no augmentation
-element in the XML message. Figure 4-25 shows the XSD from the
-augmenting namespace (<code>http://example.com/s4figs/</code>). It also
-shows the CMF for this augmentation. Figure 4-26 shows an XML message
-with this augmentation, and the equivalent JSON message.</p>
+element in the XML message. <a href="#fig4-25">Figure 4-25</a> shows the
+XSD from the augmenting namespace
+(<code>http://example.com/s4figs/</code>). It also shows the CMF for
+this augmentation. <a href="#fig4r-26">Figure 4-26</a> shows an XML
+message with this augmentation, and the equivalent JSON message.</p>
 <pre><code>&lt;xs:element name=&quot;PersonFictionalIndicator&quot; type=&quot;niem-xs:boolean&quot;
     substitionGroup=&quot;nc:PersonAugmentationPoint&quot;&gt;
   &lt;xs:annotation&gt;
@@ -3887,7 +3869,7 @@ with this augmentation, and the equivalent JSON message.</p>
   &lt;DocumentationText&gt;True if a person is a character in a work of fiction.&lt;/DocumentationText&gt;
   &lt;Datatype structures:ref=&quot;xs:boolean&quot; xsi:nil=&quot;true&quot;/&gt;
 &lt;/DataProperty&gt;</code></pre>
-<center><i><a name="fig4-25"></a>Figure 4-25: Augmenting a CCC type by substituting an ordinary element</i></center><p/>
+<figcaption><a name="fig4-25">Figure 4-25: Augmenting a CCC type by substituting an ordinary element</a></figcaption>
 
 <pre><code>&lt;nc:Person&gt;
   &lt;nc:PersonFullName&gt;Peter Wimsey&lt;/nc:PersonFullName&gt;
@@ -3900,7 +3882,7 @@ with this augmentation, and the equivalent JSON message.</p>
     &quot;ex:PersonFictionalIndicator&quot;: true
   }
 }</code></pre>
-<center><i><a name="fig4-26"></a>Figure 4-26: Equivalent XML and JSON messages from a CCC type augmented by an ordinary element</i></center></p>
+<figcaption><a name="fig4-26">Figure 4-26: Equivalent XML and JSON messages from a CCC type augmented by an ordinary element</a></figcaption>
 
 <h3 id="4154-augmenting-a-ccc-type-with-an-attribute">4.15.4 Augmenting
 a CCC type with an attribute</h3>
@@ -3909,11 +3891,12 @@ a CCC type with an attribute</h3>
 must be done in a subset schema document for the augmented namespace
 (and not the reference or extension schema document). The
 <code>xs:attribute</code> element must include <em>appinfo</em> to
-specify the augmenting namespace. Figure 4-27 shows the XSD
-representation of <code>nc:PersonType</code> augmented with the
-attribute <code>ex:detectiveIndicator</code>, and the CMF for this
-augmentation. Figure 4-28 shows an XML message that includes this
-augmentation, and the equivalent JSON message.</p>
+specify the augmenting namespace. <a href="#fig4-27">Figure 4-27</a>
+shows the XSD representation of <code>nc:PersonType</code> augmented
+with the attribute <code>ex:detectiveIndicator</code>, and the CMF for
+this augmentation. <a href="#fig4-28">Figure 4-28</a> shows an XML
+message that includes this augmentation, and the equivalent JSON
+message.</p>
 <pre><code>&lt;xs:complexType name=&quot;PersonType&quot;&gt;
   &lt;xs:annotation&gt;
     &lt;xs:documentation&gt;A data type for a human being.&lt;/xs:documentation&gt;
@@ -3942,7 +3925,7 @@ augmentation, and the equivalent JSON message.</p>
     &lt;AugmentingNamespace&gt;http://example.com/s4figs/&lt;/AugmentingNamespace&gt;
   &lt;/HasProperty&gt;
 &lt;/Class&gt;</code></pre>
-<center><i><a name="fig4-27"></a>Figure 4-27: Augmenting a CCC type with an attribute</i></center><p/>
+<figcaption><a name="fig4-27">Figure 4-27: Augmenting a CCC type with an attribute</a></figcaption>
 
 <pre><code>&lt;nc:Person&gt;
   &lt;nc:PersonFullName&gt;Peter Wimsey&lt;/nc:PersonFullName&gt;
@@ -3955,7 +3938,7 @@ augmentation, and the equivalent JSON message.</p>
     &quot;ex:detectiveIndicator&quot;: true
   }
 }</code></pre>
-<center><i><a name="fig4-28"></a>Figure 4-28: Equivalent XML and JSON messages from a CCC type augmented with an attribute</i></center><p/>
+<figcaption><a name="fig4-28">Figure 4-28: Equivalent XML and JSON messages from a CCC type augmented with an attribute</a></figcaption>
 
 <h3 id="4155-augmenting-a-csc-type-with-an-attribute">4.15.5 Augmenting
 a CSC type with an attribute</h3>
@@ -3963,11 +3946,11 @@ a CSC type with an attribute</h3>
 <code>xs:attribute</code> to the complex type definition. This must be
 done in a subset schema document for the augmented namespace. The
 attribute reference must include <em>appinfo</em> to specify the
-augmenting namespace. Figure 4-29 shows the XSD representation of
-<code>nc:DirectionCodeType</code> augmented with the attribute
-<code>ex:magneticIndicator</code>, and the equivalent CMF. Figure 4-30
-shows part of an XML message that includes this augmentation, and the
-equivalent JSON message.</p>
+augmenting namespace. <a href="#fig4-29">Figure 4-29</a> shows the XSD
+representation of <code>nc:DirectionCodeType</code> augmented with the
+attribute <code>ex:magneticIndicator</code>, and the equivalent CMF. <a
+href="#fig4-30">Figure 4-30</a> shows part of an XML message that
+includes this augmentation, and the equivalent JSON message.</p>
 <pre><code>  &lt;xs:complexType name=&quot;DirectionCodeType&quot;&gt;
     &lt;xs:annotation&gt;
       &lt;xs:documentation&gt;A data type for compass directions.&lt;/xs:documentation&gt;
@@ -4008,7 +3991,7 @@ equivalent JSON message.</p>
     &lt;AugmentingNamespace&gt;http://example.com/s4figs/&lt;/AugmentingNamespace&gt;
   &lt;/HasProperty&gt;
 &lt;/Class&gt;</code></pre>
-<center><i><a name="fig4-29"></a>Figure 4-29: Augmenting a CSC type with an attribute</i></center><p/>
+<figcaption><a name="fig4-29">Figure 4-29: Augmenting a CSC type with an attribute</a></figcaption>
 
 <pre><code>&lt;nc:RelativeLocationDirectionCode ex:magneticIndicator=&quot;true&quot;&gt;E&lt;/nc:RelativeLocationDirectionCode&gt;
 ---------------
@@ -4018,16 +4001,17 @@ equivalent JSON message.</p>
     &quot;ex:magneticIndicator&quot;: true
   }
 }</code></pre>
-<center><i><a name="fig4-30"></a>Figure 4-30: Equivalent XML and JSON messages from a CSC type augmented with an attribute</i></center><p/>
+<figcaption><a name="fig4-30">Figure 4-30: Equivalent XML and JSON messages from a CSC type augmented with an attribute</a></figcaption>
 
 <h3 id="4156-augmenting-a-csc-type-with-an-ordinary-element">4.15.6
 Augmenting a CSC type with an ordinary element</h3>
 <p>XML simple content cannot contain a child element. A CSC type is
 augmented with an element property by adding a <em>reference
 attribute</em> to the complex type definition. A reference attribute is
-a pointer to an element in a message. Figure 4-31 shows the XSD
-representation of <code>nc:DirectionCodeType</code> augmented with the
-element <code>nc:Metadata</code>, and the equivalent CMF.</p>
+a pointer to an element in a message. <a href="#fig4-31">Figure 4-31</a>
+shows the XSD representation of <code>nc:DirectionCodeType</code>
+augmented with the element <code>nc:Metadata</code>, and the equivalent
+CMF.</p>
 <pre><code>  &lt;xs:complexType name=&quot;DirectionCodeType&quot;&gt;
     &lt;xs:annotation&gt;
       &lt;xs:documentation&gt;A data type for compass directions.&lt;/xs:documentation&gt;
@@ -4084,14 +4068,14 @@ element <code>nc:Metadata</code>, and the equivalent CMF.</p>
   &lt;Datatype structures:ref=&quot;xs.IDREFS&quot; xsi:nil=&quot;true&quot;/&gt;
   &lt;AttributeIndicator&gt;true&lt;/AttributeIndicator&gt;
 &lt;/DataProperty&gt;</code></pre>
-<center><i><a name="fig4-31"></a>Figure 4-31: Augmenting a CSC type with an element</i></center><p/>
+<figcaption><a name="fig4-31">Figure 4-31: Augmenting a CSC type with an element</a></figcaption>
 
 <p>A property with a name ending in "Ref" is a reference attribute. It
 refers to an element in the same namespace with the same name, first
 letter in uppercase, and "Ref" deleted; for example, "nc:metadataRef"
-points to an "nc:Metadata" element. Figure 4-32 shows part of an XML
-message that includes the above augmentation, and the equivalent JSON
-message.</p>
+points to an "nc:Metadata" element. <a href="#fig4-32">Figure 4-32</a>
+shows part of an XML message that includes the above augmentation, and
+the equivalent JSON message.</p>
 <pre><code>&lt;nc:RelativeLocationDirectionCode nc:metadataRef=&quot;#MD01&quot;&gt;E&lt;/nc:RelativeLocationDirectionCode&gt;
 &lt;nc:Metadata structures:id=&quot;#MD01&quot;&gt;
   &lt;nc:Comment&gt;Our best guess&lt;/nc:Comment&gt;
@@ -4106,7 +4090,7 @@ message.</p>
     &quot;nc:Comment&quot;: &quot;Our best guess&quot;
   }
 }</code></pre>
-<center><i><a name="fig4-32"></a>Figure 4-32: Equivalent XML and JSON messages from a CSC type augmented with an attribute</i></center><p/>
+<figcaption><a name="fig4-32">Figure 4-32: Equivalent XML and JSON messages from a CSC type augmented with an attribute</a></figcaption>
 
 <h3 id="4157-global-element-augmentations">4.15.7 Global element
 augmentations</h3>
@@ -4190,8 +4174,8 @@ an originating or authoritative document defining a local term.</td>
 </table>
 <p>A LocalTerm object is represented in XSD by a
 <code>appinfo:LocalTerm</code> element within <code>xs:appinfo</code>
-element in the <code>xs:schema</code> element. Figure 4-33 shows a
-LocalTerm object in XSD and the corresponding CMF.</p>
+element in the <code>xs:schema</code> element. <a href="#fig4-33">Figure
+4-33</a> shows a LocalTerm object in XSD and the corresponding CMF.</p>
 <pre><code>&lt;LocalTerm&gt;
   &lt;TermName&gt;2D&lt;/TermName&gt;
   &lt;TermLiteralText&gt;Two-dimensional&lt;/TermLiteralText&gt;
@@ -4216,7 +4200,7 @@ LocalTerm object in XSD and the corresponding CMF.</p>
     &lt;appinfo:SourceText&gt;citation #2&lt;/appinfo:SourceText&gt;
   &lt;/appinfo:LocalTerm&gt;
 &lt;/xs:appinfo&gt;</code></pre>
-<center><i><a name="fig4-33"></a>Figure 4-33: Example LocalTerm objects in CMF and XSD</i></center><p/>
+<figcaption><a name="fig4-33">Figure 4-33: Example LocalTerm objects in CMF and XSD</a></figcaption>
 
 <p>The following table shows the mapping between LocalTerm object
 representations in CMF and XSD.</p>
@@ -4541,7 +4525,7 @@ document</span></a> is intended to represent a reference, extension, or
 subset namespace. For example, a <a
 href="#def-reference-schema-document"><span class="termRef">reference
 schema document</span></a> contains the conformance target assertion
-shown in figure 5-1 below:</p>
+shown in <a href="#fig5-1">figure 5-1</a> below:</p>
 <pre><code>&lt;xs:schema
   targetNamespace=&quot;https://docs.oasis-open.org/niemopen/ns/model/niem-core/6.0/&quot;
   xmlns:ct=&quot;https://docs.oasis-open.org/niemopen/ns/specification/conformanceTargets/6.0/&quot;
@@ -4549,12 +4533,12 @@ shown in figure 5-1 below:</p>
   ct:conformanceTargets=&quot;https://docs.oasis-open.org/niemopen/ns/specification/XNDR/6.0/#ReferenceSchemaDocument&quot;
   version=&quot;1&quot;
   xml:lang=&quot;en-US&quot;&gt;</code></pre>
-<center><i><a name="fig5-1"></a>Figure 5-1: Conformance target assertion in XSD</i></center><p/>
+<figcaption><a name="fig5-1">Figure 5-1: Conformance target assertion in XSD</a></figcaption>
 
 <p>In CMF, the <code>ConformanceTargetURI</code> property indicates
 whether a Namespace object represents a reference, extension, or subset
 namespace. For example, the Namespace object equivalent to the namespace
-in figure 5-1 is shown below:</p>
+in <a href="#fig5-1">figure 5-1</a> is shown below:</p>
 <pre><code>&lt;Namespace structures:id=&quot;nc&quot;&gt;
   &lt;NamespaceURI&gt;https://docs.oasis-open.org/niemopen/ns/model/niem-core/6.0/&lt;/NamespaceURI&gt;
   &lt;NamespacePrefixText&gt;nc&lt;/NamespacePrefixText&gt;
@@ -4566,7 +4550,7 @@ in figure 5-1 is shown below:</p>
   &lt;NamespaceVersionText&gt;1&lt;/NamespaceVersionText&gt;
   &lt;NamespaceLanguageName&gt;en-US&lt;/NamespaceLanguageName&gt;
 &lt;/Namespace&gt;</code></pre>
-<center><i><a name="fig5-2"></a>Figure 5-2: Conformance target in CMF</i></center><p/>
+<figcaption><a name="fig5-2">Figure 5-2: Conformance target in CMF</a></figcaption>
 
 <h2 id="63-rules">6.3 Rules</h2>
 <p>Some content of this document is <a
@@ -5771,7 +5755,7 @@ content to appear in XML instances.</p>
 Schema namespace or the XML namespace.</p>
 <p><a name="rule-11-13"></a><strong>Rule 11-13
 (XSD)(Constraint):</strong> An element type that is not
-<code>xs:anySimpleType</code> MUST NOT be a simple type. (NSR 9-42)</p>
+<code>xs:anySimpleType</code> MUST NOT be a simple type.</p>
 <p><a name="rule-11-14"></a><strong>Rule 11-14
 (XSD)(Constraint):</strong> An attribute declaration MUST have a
 type.</p>
@@ -6286,7 +6270,7 @@ the following fragment of an XML document:</p>
     &lt;nc:PersonFullName&gt;Clark Kent&lt;/nc:PersonFullName&gt;
   &lt;/nc:PersonName&gt;
 &lt;/nc:Person&gt;</code></pre>
-<center><i><a name="fig12-1"></a>Figure 12-1: Example of content elements</i></center><p/>
+<figcaption><a name="fig12-1">Figure 12-1: Example of content elements</a></figcaption>
 
 <p>In this instance, the XML elements describe relationships between
 data objects:</p>
@@ -6345,15 +6329,13 @@ describe the relationships between the objects and literals.</p></li>
 describe the data objects.</p></li>
 </ol>
 <p>NIEM is designed so that NIEM XML data is a form of RDF data. The RDF
-equivalent of the XML in figure 13-1 is illustrated in the diagram in
-figure 13-3, and shown in figure 13-4.</p>
-<center>
-  <figure class="image">
-    <a name="fig12-3"/></a>
-    <img src="images/xml-meaning.png" alt="figure" style="zoom:100%"/>
-    <figcaption><i>Figure 12-3: Diagram showing the meaning of XML data</i></figcaption>
-  </figure>
-</center>
+equivalent of the XML in <a href="#fig13-1">figure 13-1</a> is
+illustrated in the diagram in <a href="#fig13-3">figure 13-3</a>, and
+shown in <a href="#fig13-4">figure 13-4</a>.</p>
+<figure>
+  <img src="images/xml-meaning.png" alt="figure" style="zoom:100%"/>
+  <figcaption><a name="fig12-2">Figure 12-2: Diagram showing the meaning of XML data</a></figcaption>
+</figure>
 
 <pre><code>@prefix nc: &lt;https://docs.oasis-open.org/niemopen/ns/model/niem-core/6.0/&gt; .
 @prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
@@ -6362,7 +6344,7 @@ _:n1 rdf:type nc:PersonType .
 _:n1 nc:PersonName _:n2 .
 _:n2 rdf:type nc:PersonNameType .
 _:n2 nc:PersonFullName &quot;Clark Kent&quot;.</code></pre>
-<center><i><a name="fig12-4"></a>Figure 12-4: RDF equivalent of XML data</i></center><p/>
+<figcaption><a name="fig12-3">Figure 12-3: RDF equivalent of XML data</a></figcaption>
 
 <p><a name="rule-12-2"></a><strong>Rule 12-2
 (XML)(Interpretation):</strong> Within the instance, the meaning of an
@@ -6449,7 +6431,7 @@ is the subject of the arrest:</p>
     &lt;nc:EntityPerson structures:ref=&quot;bart&quot; xsi:nil=&quot;true&quot;/&gt;
   &lt;/j:ArrestSubject&gt;
 &lt;/j:Arrest&gt;</code></pre>
-<center><i><a name="fig12-5"></a>Figure 12-5: Example of `structures:id` and `structures:ref`</i></center><p/>
+<figcaption><a name="fig12-4">Figure 12-4: Example of `structures:id` and `structures:ref`</a></figcaption>
 
 <p>Note that rules below establish that relationships established using
 <code>structures:id</code> and <code>structures:ref</code> have the
@@ -6534,7 +6516,7 @@ URN namespace for UUIDs:</p>
   &lt;j:Arrest xsi:nil=&quot;true&quot;
     structures:uri=&quot;urn:uuid:f81d4fae-7dec-11d0-a765-00a0c91e6bf6&quot;/&gt;
 &lt;/example:ArrestMessage&gt;</code></pre>
-<center><i><a name="fig12-6"></a>Figure 12-6: Example of `structures:uri` holding an absolute URI</i></center><p/>
+<figcaption><a name="fig12-5">Figure 12-5: Example of `structures:uri` holding an absolute URI</a></figcaption>
 
 <p>The following example shows a relative URI, using xml:base to carry
 the base URI for the document. The person object identified by the
@@ -6547,7 +6529,7 @@ href="http://state.example/scmods/B263-1655-2187">http://state.example/scmods/B2
     &lt;/j:ArrestSubject&gt;
   &lt;/j:Arrest&gt;
 &lt;/example:ArrestMessage&gt;</code></pre>
-<center><i><a name="fig12-7"></a>Figure 12-7: Example of `structures:uri` holding an relative URI, with an `xml:base`</i></center><p/>
+<figcaption><a name="fig12-6">Figure 12-6: Example of `structures:uri` holding an relative URI, with an `xml:base`</a></figcaption>
 
 <p><a name="rule-12-9"></a><strong>Rule 12-9
 (XML)(Interpretation):</strong> The value of an attribute
@@ -6589,7 +6571,7 @@ which has the identifier
     &lt;/j:ArrestSubject&gt;
   &lt;/j:Arrest&gt;
 &lt;/example:ArrestMessage&gt;</code></pre>
-<center><i><a name="fig12-8"></a>Figure 12-8: Example of `structures:id`, `structures:ref`, and `structures:uri` identifying the same object</i></center><p/>
+<figcaption><a name="fig12-7">Figure 12-7: Example of `structures:id`, `structures:ref`, and `structures:uri` identifying the same object</a></figcaption>
 
 <h3
 id="1223-differentiating-reference-to-identifier-links-and-use-of-uris">12.2.3
@@ -6660,7 +6642,7 @@ role of a person.</p>
     &lt;/nc:PersonName&gt;
   &lt;/nc:RoleOfPerson&gt;
 &lt;/j:Witness&gt;</code></pre>
-<center><i><a name="fig12-9"></a>Figure 12-9: Example with no reference</i></center><p/>
+<figcaption><a name="fig12-8">Figure 12-8: Example with no reference</a></figcaption>
 
 <p>The next example, with a backward reference, also expresses a witness
 object that is a role of a person. It first expresses the person object,
@@ -6674,7 +6656,7 @@ reference back to the person.</p>
 &lt;j:Witness&gt;
   &lt;nc:EntityPerson structures:ref=&quot;c58&quot; xsi:nil=&quot;true&quot;/&gt;
 &lt;/j:Witness&gt;</code></pre>
-<center><i><a name="fig12-10"></a>Figure 12-10: Example with a backward reference</i></center><p/>
+<figcaption><a name="fig12-9">Figure 12-9: Example with a backward reference</a></figcaption>
 
 <p>The final example, with a forward reference shows a witness as a role
 of a person, with a separate person object expressed as a forward
@@ -6687,7 +6669,7 @@ definition of the witness.</p>
       &lt;nc:PersonFullName&gt;John Doe&lt;/nc:PersonFullName&gt;
     &lt;/nc:PersonName&gt;
   &lt;/nc:RoleOfP</code></pre>
-<center><i><a name="fig12-11"></a>Figure 12-11: Example with a forward reference</i></center><p/>
+<figcaption><a name="fig12-10">Figure 12-10: Example with a forward reference</a></figcaption>
 
 <p>NIEM-conformant data instances may use either representation as
 needed, to represent the meaning of the fundamental data. There is no
@@ -7190,7 +7172,8 @@ specification (XSD)</a>.</li>
 document must conform (SET)</a>.</li>
 <li><a href="#rule-11-86">Rule 11-86: Schema marked as extension schema
 document must conform (SET)</a>.</li>
-<li><a href="#rule-12-1">Rule 12-1: NO NAME YET (XML)</a>.</li>
+<li><a href="#rule-12-1">Rule 12-1: XML messages are schema-valid
+(XML)</a>.</li>
 <li><a href="#rule-12-2">Rule 12-2: NO NAME YET (XML)</a>.</li>
 <li><a href="#rule-12-3">Rule 12-3: NO NAME YET (XML)</a>.</li>
 <li><a href="#rule-12-4">Rule 12-4: NO NAME YET (XML)</a>.</li>
@@ -7538,7 +7521,8 @@ href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-42">Rule
 9-42, Element type is not simple type </a></td>
-<td style="text-align: left;"><a href="#rule-11-40">11-40</a></td>
+<td style="text-align: left;"><a href="#rule-11-13">11-13</a>, <a
+href="#rule-11-40">11-40</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
@@ -8844,6 +8828,100 @@ href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/
 </tbody>
 </table>
 <hr />
+<h1 id="appendix-e-index-of-figures">Appendix E. Index of figures</h1>
+<ul>
+<li><a href="#fig2-1">Figure 2-1</a>: NIEM-based machine-to-machine data
+exchange</li>
+<li><a href="#fig3-1">Figure 3-1</a>: Message specification, types, and
+formats</li>
+<li><a href="#fig3-2">Figure 3-2</a>: Sample NIEM XML message</li>
+<li><a href="#fig3-3">Figure 3-3</a>: Sample NIEM JSON message</li>
+<li><a href="#fig3-4">Figure 3-4</a>: NIEM communities and data
+models</li>
+<li><a href="#fig3-5">Figure 3-5</a>: High-level view of the NIEM
+metamodel</li>
+<li><a href="#fig3-6">Figure 3-6</a>: Message object and metamodel
+components</li>
+<li><a href="#fig4-1">Figure 4-1</a>: The NIEM metamodel</li>
+<li><a href="#fig4-2">Figure 4-2</a>: Model class diagram</li>
+<li><a href="#fig4-3">Figure 4-3</a>: Namespace class diagram</li>
+<li><a href="#fig4-4">Figure 4-4</a>: Namespace object in CMF and
+XSD</li>
+<li><a href="#fig4-5">Figure 4-5</a>: Component class diagram</li>
+<li><a href="#fig4-6">Figure 4-6</a>: Class and HasProperty class
+diagram</li>
+<li><a href="#fig4-7">Figure 4-7</a>: A Class object in CMF and in XSD
+(CCC type)</li>
+<li><a href="#fig4-8">Figure 4-8</a>: Class object in CMF and XSD (CSC
+type)</li>
+<li><a href="#fig4-9">Figure 4-9</a>: HasProperty object in CMF and
+XSD</li>
+<li><a href="#fig4-10">Figure 4-10</a>: Property class diagram</li>
+<li><a href="#fig4-11">Figure 4-11</a>: ObjectProperty object in CMF and
+XSD</li>
+<li><a href="#fig4-12">Figure 4-12</a>: DataProperty object in CMF and
+XSD</li>
+<li><a href="#fig4-13">Figure 4-13</a>: Datatype classes</li>
+<li><a href="#fig4-14">Figure 4-14</a>: Plain CMF datatype object for
+<code>xs:string</code></li>
+<li><a href="#fig4-15">Figure 4-15</a>: List object in CMF and XSD</li>
+<li><a href="#fig4-16">Figure 4-16</a>: Union object in CMF and XSD</li>
+<li><a href="#fig4-17">Figure 4-17</a>: Restriction object in CMF and
+XSD</li>
+<li><a href="#fig4-18">Figure 4-18</a>: Augmentation class diagram</li>
+<li><a href="#fig4-19">Figure 4-19</a>: Augmentation object in CMF</li>
+<li><a href="#fig4-20">Figure 4-20</a>: AugmentingNamespace property in
+CMF</li>
+<li><a href="#fig4-21">Figure 4-21</a>: An augmentation point
+element</li>
+<li><a href="#fig4-22">Figure 4-22</a>: Augmenting a CCC type via an
+augmentation element and type</li>
+<li><a href="#fig4-23">Figure 4-23</a>: An XML message from a CCC type
+with an augmentation element</li>
+<li><a href="#fig4-24">Figure 4-24</a>: A JSON message from a CCC type
+with an augmentation element</li>
+<li><a href="#fig4-25">Figure 4-25</a>: Augmenting a CCC type by
+substituting an ordinary element</li>
+<li><a href="#fig4-26">Figure 4-26</a>: Equivalent XML and JSON messages
+from a CCC type augmented by an ordinary element</li>
+<li><a href="#fig4-27">Figure 4-27</a>: Augmenting a CCC type with an
+attribute</li>
+<li><a href="#fig4-28">Figure 4-28</a>: Equivalent XML and JSON messages
+from a CCC type augmented with an attribute</li>
+<li><a href="#fig4-29">Figure 4-29</a>: Augmenting a CSC type with an
+attribute</li>
+<li><a href="#fig4-30">Figure 4-30</a>: Equivalent XML and JSON messages
+from a CSC type augmented with an attribute</li>
+<li><a href="#fig4-31">Figure 4-31</a>: Augmenting a CSC type with an
+element</li>
+<li><a href="#fig4-32">Figure 4-32</a>: Equivalent XML and JSON messages
+from a CSC type augmented with an attribute</li>
+<li><a href="#fig4-33">Figure 4-33</a>: Example LocalTerm objects in CMF
+and XSD</li>
+<li><a href="#fig5-1">Figure 5-1</a>: Conformance target assertion in
+XSD</li>
+<li><a href="#fig5-2">Figure 5-2</a>: Conformance target in CMF</li>
+<li><a href="#fig12-1">Figure 12-1</a>: Example of content elements</li>
+<li><a href="#fig12-2">Figure 12-2</a>: Diagram showing the meaning of
+XML data</li>
+<li><a href="#fig12-3">Figure 12-3</a>: RDF equivalent of XML data</li>
+<li><a href="#fig12-4">Figure 12-4</a>: Example of
+<code>structures:id</code> and <code>structures:ref</code></li>
+<li><a href="#fig12-5">Figure 12-5</a>: Example of
+<code>structures:uri</code> holding an absolute URI</li>
+<li><a href="#fig12-6">Figure 12-6</a>: Example of
+<code>structures:uri</code> holding an relative URI, with an
+<code>xml:base</code></li>
+<li><a href="#fig12-7">Figure 12-7</a>: Example of
+<code>structures:id</code>, <code>structures:ref</code>, and
+<code>structures:uri</code> identifying the same object</li>
+<li><a href="#fig12-8">Figure 12-8</a>: Example with no reference</li>
+<li><a href="#fig12-9">Figure 12-9</a>: Example with a backward
+reference</li>
+<li><a href="#fig12-10">Figure 12-10</a>: Example with a forward
+reference</li>
+</ul>
+<hr />
 <h1 id="appendix-w-safety-security-and-privacy-considerations">Appendix
 W. Safety, Security and Privacy Considerations</h1>
 <p>(Note: OASIS strongly recommends that Open Projects consider issues
@@ -8870,7 +8948,7 @@ information.</p>
 <hr />
 <h1 id="appendix-x-acknowledgments">Appendix X. Acknowledgments</h1>
 <p><code>(Note: A Work Product approved by the OP should include a list of people who participated in the development of the Work Product. This is generally done by collecting the list of names in this appendix. This list should be initially compiled by the Chair, and any Member of the OP may add or remove their names from the list by request. Remove this note before submitting for publication.)</code></p>
-<h2 id="d1-special-thanks">D.1 Special Thanks</h2>
+<h2 id="x1-special-thanks">X.1 Special Thanks</h2>
 <p>(This is an optional subsection to call out contributions from OP
 members. If a OP wants to thank non-OP members then they should avoid
 using the term "contribution" and instead thank them for their
@@ -8878,7 +8956,7 @@ using the term "contribution" and instead thank them for their
 <p>Substantial contributions to this document from the following
 individuals are gratefully acknowledged:</p>
 <p>Participant Name, Affiliation or "Individual Member"</p>
-<h2 id="d2-participants">D.2 Participants</h2>
+<h2 id="x2-participants">x.2 Participants</h2>
 <p>(An OP can determine who they list here. It is common practice for
 OPs to list everyone that was part of the OP during the creation of the
 document, but this is ultimately an OP decision on who they want to list

@@ -5,3 +5,5 @@
   span.termRef::before { font-weight: bold; content: "·"; } 
   span.termRef::after { font-weight:bold; content: "·"; } 
   code { font-size: 16px; }
+  img { display:table; margin-left:auto; margin-right:auto; }
+  figcaption { text-align:center; font-style:italic; }
