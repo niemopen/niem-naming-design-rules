@@ -8,17 +8,17 @@
 
 ## Questions
 
-- [ ] Add TODO for things to be updated later?  Easier to find all the unfinished places vs text descriptions.
-- [ ] Is Section 1.2.1 Definition of terms current?
-- [ ] Does the `Constraint` vs `Interpretation` distinction add anything meaningful to rules?  Simpler without it?
-- [ ] Style convention: Get rid of smart quotes and dashes?  Avoid the mix of standard quotes and left/right quotes?
-- [ ] How do definitions work?  Official is from the Definitions table at the top and then repeated in the text below?
-- [ ] Do we need a separate Conformance specification since the OASIS requires the NDR to have its own Conformance section?
+- [x] Add TODO for things to be updated later?  Easier to find all the unfinished places vs text descriptions.  **Doing this now**
+- [ ] Is Section 1.2.1 Definition of terms current? **Not even slightly current**
+- [ ] Does the `Constraint` vs `Interpretation` distinction add anything meaningful to rules?  Simpler without it? **Probably remove, decide later**
+- [x] Style convention: Get rid of smart quotes and dashes?  Avoid the mix of standard quotes and left/right quotes? **Working on the dashes (markdown likes "-", not "–"). Don't see any smart quotes - where are they?**
+- [x] How do definitions work?  Official is from the Definitions table at the top and then repeated in the text below? **That seems to be OASIS style**
+- [ ] Do we need a separate Conformance specification since the OASIS requires the NDR to have its own Conformance section? **Perhaps not. Also, *docs/template-README* suggests we may not be required to have a separate Conformance section before the appendices.**
   - No IEPD spec to conform to any more
 - [ ] Add something about when to use NIEM and when it might be overkill?
   - Maybe in section 3.1 (Machine-to-machine data specifications)?
   - When you want to build multiple message specifications (leverage commonalities of an existing data model), already use NIEM or have exchange partners using NIEM, etc.
-- [ ] Move `@context` to the top of JSON messages to align more closely with the position of XML namespace prefixes?
+- [x] Move `@context` to the top of JSON messages to align more closely with the position of XML namespace prefixes? **Yes, TODO**
 - [ ] Status of external standards in CMF?  Needs to be resolved before publishing NDR or CMF.
 - [ ] Aren't CMF field names ending in "Of" missing a property or representation term? (e.g., SubPropertyOf, ListOf)
 
@@ -214,12 +214,12 @@ Reuse line from the Introduction?
 
 - [x] Add messages to the outline?
 
-  - Rename the section to something like "Messages" or "Messages in NIEM" or break up the message information into its own section or subsection?
+  - Rename the section to something like "Messages" or "Messages in NIEM" or break up the message information into its own section or subsection? **Added subsections for message and message format/type/specification; added examples**
   - Would like to have messages show up explicitly in the TOC / Outline
 
-- [ ] Add message terms to the Glossary
+- [x] Add message terms to the Glossary
 
-  - Add message, message type, message format, and message specification to the Glossary's Definition of Terms and add definition formatting / links to their usage here.
+  - Add message, message type, message format, and message specification to the Glossary's Definition of Terms and add definition formatting / links to their usage here. **Done**
 
 - [x] More information about message terms
 
@@ -263,8 +263,8 @@ Reuse line from the Introduction?
 
 ## 3.3 Reuse of open standards
 
-- [ ] JSON Schema as a non-normative method to validate the content of JSON or YAML messages?
-- [ ] Note about why JSON Schema is not a modeling formalism?
+- [x] JSON Schema as a non-normative method to validate the content of JSON or YAML messages?
+- [ ] Note about why JSON Schema is not a modeling formalism? **Maybe in section 3.5?**
 
 ## 3.4 The NIEM metamodel
 
@@ -307,7 +307,7 @@ Reuse line from the Introduction?
 
 ## 3.7 NIEM messages in XML and JSON
 
-- [x] Move after or under 3.1?  Exemplifies some of the message information in that section.
+- [x] Move after or under 3.1?  Exemplifies some of the message information in that section. **Different examples now appear as figure 3.2**
 
 ## 4. Data models in NIEM
 

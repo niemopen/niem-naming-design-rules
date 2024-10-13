@@ -16,11 +16,37 @@
 
 -------
 
+```
+NOTE: I have added some CSS styling to help your markdown previewer do the right thing. 
+This must be removed before publication. Likewise the following code block. (TODO). 
+
+Set the width of your markdown preview window so that the following line does not wrap,
+and the terminal "X" is visible without horizontal scrollbar:
+.........1.........2.........3.........4.........5.........6.........7.........8.........9.........0.........1.........2.........3..X
+This is the width of a code block when the OASIS-formatted HTML is printed to PDF by Microsoft Edge.
+Trying my best to avoid ugly line wrapping in the PDF.
+```
+
+<style>
+  body { font-size: 12pt; }
+  a { text-decoration: none; color: #000; background-color: #FFF; }
+  a[href]:hover { color: #000; background-color: #F9FAD4; }
+  a.url { font-family: "Courier New", Courier, monospace; font-size: 80%; }
+  a.ref, span.ref { font-weight: bold; }
+  span.termRef::before { font-weight: bold; content: "·"; }
+  span.termRef::after { font-weight:bold; content: "·"; }
+  code { font-family: CourierNew, monospace; font-size: 10pt; }
+  img { display:table; margin-left:auto; margin-right:auto; }
+  figcaption { text-align:center; font-style:italic; }
+</style>
+
+-------
+
 # NIEM Naming and Design Rules (NDR) Version 6.0
 
 ## Project Specification Draft 01
 
-## 9 October 2024 draft
+## 13 October 2024 draft
 
 &nbsp;
 
@@ -199,11 +225,13 @@ This optional section provides a description of significant differences from pre
 |Literal||
 |Local term|A word, phrase, acronym, or other string of characters that is used in the name of a namespace component, but that is not defined in OED, or that has a non-OED definition in this nameespace, or has a word sense that is in some way unclear.|
 |Local type||
-|Message|The data in an information exchange|
+|Message|A package of data shared at runtime; a sequence of bits that convey information to be exchanged or shared. (see [section 3.1.1](#311-messages))|
 |Message designer|A person that creates a message type and format from an information requirement, so that a message at runtime will contain all the facts that need to be conveyed.|
 |Message developer|A person that writes software to implement a message specification, producing or processing messages that conform to the message format.|
+|Message format|A specification of the valid syntax of messages. (see [section 3.1.2](#312-message-format))|
 |Message schema document|A XSD representation of a message namespace|
-|Message specification|A collection of related message formats and types|
+|Message specification|A collection of related message formats and types. (see [section 3.1.4](#314-message-specification))|
+|Message type|A specification of the information content of messages. (see [section 3.1.3](#313-message-type))|
 |Metadata||
 |Mixed content|The mixing of data tags with text|
 |Model object|Represents a complete or partial NIEM model.|
@@ -235,7 +263,9 @@ This optional section provides a description of significant differences from pre
 |Reference schema document||
 |Representation term|Indicate the style of component, prevents name conflicts or indicates the nature of the value.|
 |Restriction object|Defines a datatype as a restriction of a base datatype plus zero or more restricting Facet objects.|
+|Schema||
 |Schema document||
+|Serialization||
 |Simple content|An object or type that has only attributes, not elements.|
 |Simple type||
 |Subset|A collection of NIEM components required for an information exchange.|
@@ -298,20 +328,20 @@ This optional section provides a description of significant differences from pre
 
 # 2. How To Read This Document
 
-This document provides normative specifications for NIEM-conforming data models. It also describes the goals and principles behind those specifications. It includes examples and explanations to help users of NIEM understand the goals, principles, and specifications. The relevant sections of this document will depend on the role of the user. [Figure 2-1](#fig2-1) illustrates the relationships between these roles and NIEM.
+This document provides normative specifications for NIEM-conforming data models. It also describes the goals and principles behind those specifications. It includes examples and explanations to help users of NIEM understand the goals, principles, and specifications. The relevant sections of this document will depend on the role of the user. [Figure 2-1](#fig2-1) illustrates the relationships between these roles and NIEM activites.
 
 <figure>
-  <img src="images/context.png" style="zoom: 100%;" />
-  <figcaption><a name="fig2-1">Figure 2-1: NIEM-based machine-to-machine data exchange</a></figcaption>
+  <img src="images/userRoles.png" style="zoom: 100%;" />
+  <figcaption><a name="fig2-1">Figure 2-1: User roles and activities</a></figcaption>
 </figure>
 
 The user roles in the above figure are:
 
 * *Business analysts* and *subject matter experts*, who provide the requirements for information transfer. These requirements might describe an information resource available to all comers. They could describe an information exchange as part of a business process. They need not be tied to known producers and consumers.
 
-* *Message designers*, who express those requirements in the form of a developer-level data model, and create at least one message format that specifies the syntax and semantics of the data that will convey the required information at runtime.
+* *Message designers*, who express those requirements as a [message type](#def), which specifies the syntax and semantics of the data that will convey the required information at runtime.
 
-* *Message developers*, who write software for producer systems that will construct messages containing the required information and following the defined syntax, or software for consumer systems that will parse and process such messages.
+* *Message developers*, who write software to construct messages that contain the required information and follows the defined syntax, and who write software to parse and process such messages.
 
 The remaining sections of this document most relevant to each of these roles are shown in the following table:
 
@@ -358,128 +388,189 @@ The following namespace prefixes are used consistently within this specification
 
 # 3. Overview of the NIEM Technical Architecture
 
-This overview describes NIEM's design goals and principles. It introduces key features of the architecture that will be defined in more detail later in the document.
+This overview describes NIEM's design goals and principles, and introduces key features of the architecture. The major design goals are:
 
-## 3.1 NIEM Messages
+* *Shared understanding of data.* NIEM supports developer understanding of the data their systems produce and consume.
+
+* *Reuse of community-agreed data definitions.* NIEM reduces cost by promoting shared data definitions, without demanding a single data model of everything for everyone.
+
+* *Open standards with free-and-open-source developer tools.* NIEM does not depend on proprietary standards or expensive developer tools.
+
+The key architecture features mentioned in section 3 are:
+
+* *The NIEM metamodel* - an abstract, technology-neutral data model for NIEM data models
+
+* *Two equivalent model representations* - one a profile of XML Schema (XSD), for backward continuity; one itself a NIEM [message type](#def), for every technology. 
+
+* *Model namespaces* - for model configuration management by multiple authors working independently.
+
+## 3.1 Machine-to-machine data specifications
 
 NIEM is a framework for developer-level specifications of data. A NIEM-based data specification – which is built *using* NIEM and in *conformance* to NIEM, but is not itself a *part* of NIEM – describes data to the developers of producing and consuming systems. This data may be shared via:
 
-* a message passed between applications
+* a [message](#def) passed between applications
 * an information resource published on the web
 * an API for a system or service
 
-NIEM is potentially useful for any mechanism that transfers a package of data across a system or organization boundary. (Within a large system, NIEM may be useful when data passes between components belonging to different developer teams.)
+NIEM is potentially useful for any mechanism that transfers a package of data across a system or organization boundary. (Within a system, NIEM may be useful when data passes between components belonging to different developer teams.)
 
-The primary purpose of a NIEM-based data specification is to establish a common understanding among developers, so that they can write software that correctly handles the shared data, hence "machine-to-machine". (The content of a NIEM message may also be directly presented to human consumers, and NIEM can help these consumers understand what they see, but that is not the main purpose of NIEM.)
+The primary purpose of a NIEM-based data specification is to establish a common understanding among developers, so that they can write software that correctly handles the shared data, hence "machine-to-machine". (NIEM-conforming data may also be directly presented to human consumers, and NIEM can help these consumers understand what they see, but that is not the main purpose of NIEM.)
 
-In NIEM terms, the package of data shared at runtime is a *message*. For example, a specific incident report shared between a police agency and a prosecutor (e.g. in XML or JSON syntax).
+Data sharing in NIEM is implemented in terms of messages, message formats, and message types. These are illustrated in [figure 3-1](#fig3-1).
 
-A *message type* defines the mandatory and optional information content of a class of messages without prescribing a particular syntax. For example, a logical structure (e.g. in CMF or XSD syntax) that describes all possible incident report messages.
+* [message](#def) - a package of data shared at runtime; an instance of a [message format](#def) and type
+* [message format](#def) - a definition of one syntax for the messages of a [message type](#def)
+* [message type](#def) - a definition of the information content in equivalent [message format](#def)s
 
-A message type MUST have a message model that precisely defines the information content of a message of that type. That message model MUST appropriately constrain cardinalities and datatypes. It may be represented in CMF, XSD, or both. Those representations must conform.
+<figure>
+  <img src="images/m2mShare.png" alt="figure" style="zoom:100%"/>
+  <figcaption><a name="fig3-1">Figure 3-1: Message types, message formats, and messages</a></figcaption>
+</figure>
 
-A *message format* defines a syntax for the content of a message type. For example, a real-world representation of all possible incident report messages.  If the message type is in CMF syntax, then the message format may be either XSD or JSON schema.  If the message type is in XSD syntax, then the message format must be XSD.
+A message designer turns information requirements into a [message type](#def), then turns a [message type](#def) into one or more message formats. Message devleopers then use a [message format](#def) to implmement software that produces or consumes conforming messages.
 
-A message format MUST have a schema capable of validating a message in that format -- JSON Schema for JSON formats, XSD for XML formats. Those schemas can be generated from the message model or hand-coded. The schema for XML formats MAY be the message model in XSD. There are no conformance targets for these schemas, and so they do not have to conform.
+### 3.1.1 Messages
 
-All of these definitions are expressed in terms of a machine-readable *data model*, using either of NIEM's two *modeling formats*, the Common Model Format (CMF) or XML Schema (XSD). 
+In NIEM terms, the package of data shared at runtime is a [message](#def). This data is arranged according to a supported [serialization](#def). (At present, these are XML and JSON; others may be added later.) The result is a sequence of bits that represent the information content of the [message](#def). [Figure 3-2](#fig3-2) shows a simple [message](#def) in XML and JSON, each of which is a request for a quantity of some item. (In all examples, closing tags and brackets may be omitted, and long lines may be truncated.)
 
-A collection of related message formats and types is a *message specification*. The usual case is a message specification with one message type and one message format, but a more complex arrangements is possible, illustrated in [figure 3-1](#fig3-1) below.
+```
+<msg:Request                                                            | {
+ xmlns:nc="https://docs.oasis-open.org/niemopen/ns/model/niem-core/6.0/ |   "@context": "http://example.com/ReqRes/Request/JSON/1.0/"
+ xmlns:msg="http://example.com/ReqRes/1.0/">                            |   "msg:Request": {
+  <msg:RequestID>RQ001</msg:RequestID>                                  |     "msg:RequestID" : "RQ001",
+  <msg:RequestedItem>                                                   |     "msg:RequestedItem": {
+    <nc:ItemName>Socks</nc:ItemName>                                    |       "nc:ItemName": Socks",
+    <nc:ItemQuantity>10</nc:ItemQuantity>                               |       "nc:ItemQuantity": 10
+  </msg:RequestedItem>                                                  |      }
+</msg:Request>                                                          |   }
+                                                                        | }
+```
+<figcaption><a name="fig3-2">Figure 3-2: Example of messages in XML and JSON syntax</a></figcaption>
+
+> A NIEM message was originally known as an *information exchange package (IEP)*, a term that found its way into the U.S. Federal Enterprise Architecture (2005).  A [message specification](#def) was originally known as an *information exchange package documentation (IEPD).*  These terms are still in widespread use within the NIEM community today, and will not go away soon (if ever). 
+
+Every [message](#def) is an instance of a [message format](#def). A conforming message must satisfy the rules in [section TODO](); in particular, it must be valid according to the [schema](#def) of its [message format](#def).
+
+### 3.1.2 Message format
+
+A [message format](#def) specifies the syntax of valid messages. This provides message developers with an exact description of the messages to be generated or processed by their software. 
+
+A [message format](#def) includes a [schema](#def) that can be used to assess the validity of a [message](#def). This [schema](#def) is expressed in [XML Schema](#refTODO) (XSD) for XML formats, and [JSON Schema](#refTODO) for JSON formats. [Figure 3-3](#fig3-3) shows a portion of the schemas for the two example messages in [figure 3-2](#fig3-2).
+
+```
+<xs:complexType name="RequestType">                                  | JSON Schema example TODO
+  <xs:sequence>                                                      | 
+    <xs:element ref="msg:RequestID"/>                                | 
+    <xs:element ref="msg:RequestedItem"/>                            | 
+  </xs:sequence>                                                     | 
+</xs:complexType>                                                    | 
+<xs:element name="Request" type="msg:RequestType"/>                  | 
+
+```
+<figcaption><a name="fig3-3">Figure 3-3: Example of message format schemas</a></figcaption>
+
+Producing and consuming systems may use the message format's schema to validate the syntax of messages at runtime, but are not obligated to do so. Message developers may also use the schema during development for software testing. The schemas may also be used by developers for data binding; for example, [JAXB](#refTODO) with XSD schemas.
+
+A [message format](#def) belongs to one [message type](#def). A conforming [message format](#def) must satisfy the rules in [section TODO](); in particular, it must be constructed so that every [message](#def) that is valid according to the format also satisfies the information content constraints of its [message type](#def).
+
+### 3.1.3 Message type
+
+One important feature of NIEM is that every [message](#def) has an equivalent [message](#def) in every other supported serialization. These equivalent messages have a different [message format](#def), but the same [message type](#def). For example, the messages in [figure 3-2](#fig3-2) are equivalent. They represent the same information content, and can be converted one to the other without loss of information.
+
+A [message type](#def) specifies the information content of its messages without prescribing their syntax. It includes a [message model](#def), which defines the mandatory and optional content of its messages and the meaning of that content. This model is expressed in either of NIEM's two model representations, which are described in [section 3.5](#35-the-niem-metamodel) and section [3.6](#36-niem-model-representations-xsd-and-cmf), and fully defined in [section 4](#4-data-models-in-niem). [Figure 3-4](#fig3-4) shows a portion of the message model for the two message formats in [figure 3-3](#fig3-3).
+
+```
+<xs:complexType name="RequestType" appinfo:referenceCode="NONE | <Class structures:id="msg.RequestType">
+  <xs:annotation>                                              |   <Name>RequestType</Name>
+    <xs:documentation>                                         |   <Namespace structures:ref="msg" xsi:nil="true"/>
+      A data type for a request of a specified item and quanti |   <DocumentationText>
+    </xs:documentation>                                        |     A data type for a request of a specified item and quantity.
+  </xs:annotation>                                             |   </DocumentationText>
+  <xs:complexContent>                                          |   <ReferenceCode>NONE</ReferenceCode>
+    <xs:extension base="structures:ObjectType">                |   <HasProperty>
+      <xs:sequence>                                            |     <DataProperty structures:ref="msg.RequestID" xsi:nil="true"/>
+        <xs:element ref="msg:RequestID"/>                      |     <MinOccursQuantity>1</MinOccursQuantity>
+        <xs:element ref="msg:RequestedItem"/>                  |     <MaxOccursQuantity>1</MaxOccursQuantity>
+      </xs:sequence>                                           |   </HasProperty>
+    </xs:extension>                                            |   <HasProperty>
+  </xs:complexContent>                                         |     <ObjectProperty structures:ref="msg.RequestedItem" xsi:nil="true
+</xs:complexType>                                              |     <MinOccursQuantity>1</MinOccursQuantity>
+                                                               |     <MaxOccursQuantity>1</MaxOccursQuantity>
+                                                               |   </HasProperty>
+                                                               | </Class>
+```
+<figcaption><a name="fig3-4">Figure 3-4: Example message model in XSD and CMF</a></figcaption>
+
+A message designer expresses information requirements by creating a [message type](#def).  The [message type](#def) then dictates 
+
+A message model contains all of the information needed to compose the schema for all of its [message format](#def)s. 
+NIEMOpen provides free and open-source software to generate these schemas from the message model. Messsage designers are also free to compose these by hand.
+
+A conforming [message type](#def) must satisfy all of the rules in [section TODO]().
+
+### 3.1.4 Message specification
+
+A [message specification](#def) is a collection of related message types. For instance, the example Request message above might be paired with a Response message as part of a request/response protocol. Those two message types would be suitably collected in a [message specification](#def) for the protocol, as illustrated below in [figure 3-5](#fig3-5).
 
 <figure>
   <img src="images/messageSpec.png" alt="figure" style="zoom:100%"/>
-  <figcaption><a name="fig3-1">Figure 3-1: Message specification, types, and formats</a></figcaption>
+  <figcaption><a name="fig3-5">Figure 3-5: Message specifications, types, and formats</a></figcaption>
 </figure>
 
-A *message specification* MAY have a reuse model that defines all of the components used in all of the *message types*. That reuse model SHOULD NOT constrain cardinalities or datatypes. It may be represented in CMF, XSD, or both. Those representations must conform.
+## 3.2 Reuse of community-agreed data models
 
-> A NIEM message was originally known as an *information exchange package (IEP)*, a term that found its way into the U.S. Federal Enterprise Architecture (2005).  A message specification was originally known as an *information exchange package documentation (IEPD).*  These terms are still in widespread use within the NIEM community today, and will not go away soon (if ever). 
-
-A *message designer* creates a message type and format from an information requirement, so that a message at runtime will contain all the facts that need to be conveyed. Then any number of *message developers* write software to implement the specification, producing or processing messages that conform to the message format. Message designers need some understanding of NIEM, but the message developers do not. (Sometimes the message developers do not even know that NIEM exists.) [Figure 2-1](#fig2-1) above illustrates the relationships between message designers, message developers, and message formats.
-
-NIEM supports XML and JSON message formats; support for other formats may be added in the future. One important feature of NIEM is that messages of the same type are convertable across serializations; for example, a NIEM XML message can be converted to NIEM JSON, and vice versa, with no bespoke programming required.
-
-## 3.2 NIEM messages in XML and JSON
-
-The content of a NIEM message may be formatted as XML or JSON. Any NIEM message may be converted from one supported format to another, without loss of information. Figures 3-4 and 3-5 show the equivalent NIEM XML and JSON serializations of the information depicted in figure 3-3.
-
-```
-<nc:Person
-  xmlns:nc="https://docs.oasis-open.org/niemopen/ns/model/niem-core/6.0/">
-  <nc:PersonName>
-    <nc:PersonFullName>Clark Kent</nc:PersonFullName>
-  </nc:PersonName>
-</nc:Person>
-```
-<figcaption><a name="fig3-2">Figure 3-2: Sample NIEM XML message</a></figcaption>
-
-```
-{ 
-  "nc:Person": {
-    "nc:PersonName": {
-      "nc:PersonFullName": "Clark Kent"
-    }
-  },
-  "@context": { "nc": "https://docs.oasis-open.org/niemopen/ns/model/niem-core/6.0/" }
-}
-```
-<figcaption><a name="fig3-3">Figure 3-3: Sample NIEM JSON message</a></figcaption>
-
--------
-
-## 3.3 Reuse of community-agreed data models
-
-NIEM is also a framework for communities to create data models for concepts that are useful in multiple data specifications. These community models are typically not *complete* for any particular specification. Instead, they reflect the community's judgement on which definitions are *worth the trouble of agreement*. The NIEM core model contains definitions found useful by the NIEM community as a whole. NIEM domain models reuse the core, extending it with definitions found useful by the domain community. The core model plus the domain models comprise the "NIEM model". [Figure 3-4](#fig3-4) below illustrates the relationships between domain communities and community models.
+NIEM is also a framework for communities to create data models for concepts that are useful in multiple data specifications. These community models are typically not *complete* for any particular specification. Instead, they reflect the community's judgement on which definitions are *worth the trouble of agreement*. The NIEM core model contains definitions found useful by the NIEM community as a whole. NIEM domain models reuse the core, extending it with definitions found useful by the domain community. The core model plus the domain models comprise the "NIEM model". [Figure 3-6](#fig3-6) below illustrates the relationships between domain communities and community models.
 
 <figure>
   <img src="images/community.png" alt="figure" style="zoom:100%"/>
-  <figcaption><a name="fig3-4">Figure 3-4: NIEM communities and data models</a></figcaption>
+  <figcaption><a name="fig3-6">Figure 3-6: NIEM communities and data models</a></figcaption>
 </figure>
 
 Message designers reuse definitions from the NIEM model, selecting a (usually small) subset of definitions that express part of their information requirement. Message designers then create model extensions, adding components that do not yet exist in NIEM. Local extensions that could be useful to others in the community beyond the scope of the original message can be submitted for potential adoption by NIEM (https://github.com/niemopen/niem-model/issues).
 
 Data model reuse is especially useful in a large enterprise. Its value grows with the number of developer teams, and with the degree of commonality in the shared data. NIEM was originally designed for data sharing among federal, state, and local governments – where commonality and number of developer teams is large indeed.
 
-## 3.4 Reuse of open standards
+## 3.3 Reuse of open standards
 
 NIEM is built on a foundation of open standards, primarily:
 
 * XML and XSD – message serialization and validation; also a modeling formalism
 * JSON and JSON-LD – message serialization and linked data
+* JSON Schema - message validation
 * RDF, RDFS, and OWL – formal semantics
 * ISO 11179 – data element conventions
 
 One of NIEM's principles is to reuse well-known information technology standards when these are supported by free and open-source software. NIEM avoids reuse of standards that effectively depend on proprietary software. When the NIEMOpen project defines a standard of its own, it also provides free and open-source software to support it.
 
-## 3.5 The NIEM metamodel
+## 3.4 The NIEM metamodel
 
-A data model in NIEM defines the syntax and semantics of a message format, or the information content of a message type, or the agreed definitions of a community. The information required for those purposes can itself be modeled. The model of that information is the *NIEM metamodel* -- an abstract model for NIEM data models. The metamodel is expressed in UML, and is described in detail in [section 4](). At a high level, the major components of the metamodel are classes, datatypes, properties, and namespaces. [Figure 3-5](#fig3-5) provides an lllustration.
+A data model in NIEM defines the syntax and semantics of a [message format](#def), or the information content of a [message type](#def), or the agreed definitions of a community. The information required for those purposes can itself be modeled. The model of that information is the *NIEM metamodel* -- an abstract model for NIEM data models. The metamodel is expressed in UML, and is described in detail in [section 4](). At a high level, the major components of the metamodel are classes, datatypes, properties, and namespaces. [Figure 3-7](#fig3-7) provides an lllustration.
 
 <figure class="image">
   <a name="fig3-2"/></a>
   <img src="images/highLevel.png" style="zoom:75%"/>
-  <figcaption><a name="fig3-5">Figure 3-5: High-level view of the NIEM metamodel</a></figcaption>
+  <figcaption><a name="fig3-7">Figure 3-7: High-level view of the NIEM metamodel</a></figcaption>
 </figure>
 
-- A *property* is a concept, idea, or thing.  It often appears as a field in a message and can contain subfields (for objects / object properties) or a value (for literals / data properties). Properties define semantics.
+- A *property* is a concept, idea, or thing.  It often appears as a field in a [message](#def) and can contain subfields (for objects / object properties) or a value (for literals / data properties). Properties define semantics.
 
-- A *datatype* defines the allowed values of a corresponding atomic *literal value* in a message. Types define structures
+- A *datatype* defines the allowed values of a corresponding atomic *literal value* in a [message](#def). Types define structures
 
-- A *class* defines the content of a corresponding *object* (or *resource*) in a message. A class has one or more *properties*. An *object property* defines a subject-predicate-value relationship between an object and another object.  A *data property* defines a relationship between an object and a literal value.
+- A *class* defines the content of a corresponding *object* (or *resource*) in a [message](#def). A class has one or more *properties*. An *object property* defines a subject-predicate-value relationship between an object and another object.  A *data property* defines a relationship between an object and a literal value.
 
 - A *namespace* is a collection of uniquely-named components defined by an authority.
 
-[Figure 3-6](#fig3-6) below illustrates the relationships among metamodel components, NIEM model components, and the corresponding message objects and values.
+[Figure 3-8](#fig3-8) below illustrates the relationships among metamodel components, NIEM model components, and the corresponding [message](#def) objects and values.
 
 <figure class="image">
   <a name="fig3-3"/></a>
   <img src="images/msg+meta.png" style="zoom:100%"/>
-  <figcaption><a name="fig3-6">Figure 3-6: Message object and metamodel components</a></figcaption>
+  <figcaption><a name="fig3-8">Figure 3-8: Message object and metamodel components</a></figcaption>
 </figure>
 
-A NIEM message contains properties which are based on objects or literal values. These are specified by the Class, Property, and Datatype objects in a NIEM data model, which defines the content of a conforming message and the meaning of that content. In [figure 3-6](#fig3-6), the name object is defined by the `nc:PersonNameType` Class object; the literal value is defined by the `xs:string` Datatype object, and the property relationship between the two is defined by the `nc:PersonFullName` DataProperty object.
+A NIEM [message](#def) contains properties which are based on objects or literal values. These are specified by the Class, Property, and Datatype objects in a NIEM data model, which defines the content of a conforming [message](#def) and the meaning of that content. In [figure 3-8](#fig3-8), the name object is defined by the `nc:PersonNameType` Class object; the literal value is defined by the `xs:string` Datatype object, and the property relationship between the two is defined by the `nc:PersonFullName` DataProperty object.
 
-## 3.6 NIEM model representations: XSD and CMF
+## 3.5 NIEM model representations: XSD and CMF
 
 The abstract metamodel has two concrete representations:  NIEM XSD and NIEM CMF. These are equivalent representations and may be converted from one to the other without loss.
 
@@ -487,9 +578,9 @@ Every version of NIEM uses a profile of XML Schema (XSD) as a NIEM model represe
 
 XSD as a model representation directly supports conformance testing of NIEM XML messages through schema validation. However, JSON developers (and developers working with other formats) cannot use XSD to validate their messages. Nor do they want to read XSD specifications of message content.
 
-NIEM 6 introduces the Common Model Format (CMF), a NIEM model representation intended to support all developers. CMF is itself a NIEM-based message type, the result of applying the NIEM framework to the information requirements in the metamodel.  A CMF message represents a NIEM data model, which is an instance of the NIEM metamodel. CMF is a technology-neutral model representation, because:
+NIEM 6 introduces the Common Model Format (CMF), a NIEM model representation intended to support all developers. CMF is itself a NIEM-based [message type](#def), the result of applying the NIEM framework to the information requirements in the metamodel.  A CMF message represents a NIEM data model, which is an instance of the NIEM metamodel. CMF is a technology-neutral model representation, because:
 
-* A CMF model that specifies a message type also specifies the corresponding XML and JSON message formats. 
+* A CMF model that specifies a [message type](#def) also specifies the corresponding XML and JSON [message format](#def)s. 
 
 * A CMF model can be transformed into XSD for validation of XML messages, and into JSON Schema for validation of JSON messages.
 
@@ -497,7 +588,7 @@ NIEM 6 introduces the Common Model Format (CMF), a NIEM model representation int
 
 [Section 4](#4-data-models-in-niem) defines the mappings between the metamodel, NIEM XSD, and CMF.
 
-## 3.7 Namespaces
+## 3.6 Namespaces
 
 The components of a NIEM model are partitioned into *namespaces.* This prevents name clashes among communities or domains that have different business perspectives, even when they choose identical data names to represent different data concepts.
 
@@ -509,7 +600,7 @@ Namespaces are the units of model configuration management. Once published, the 
 
 # 4. Data models in NIEM
 
-The NIEM metamodel is an abstract model, defined in the UML diagram below, that specifies the content of a NIEM data model. CMF is a NIEM message type that implements the metamodel. A CMF message is a representation of a NIEM data model. A NIEM data model may also be represented in NIEM XSD. This section specifies:
+The NIEM metamodel is an abstract model, defined in the UML diagram below, that specifies the content of a NIEM data model. CMF is a NIEM [message type](#def) that implements the metamodel. A CMF message is a representation of a NIEM data model. A NIEM data model may also be represented in NIEM XSD. This section specifies:
 
 * the meaning of the classes, attributes, and relationships in the metamodel
 * the meaning of the classes, datatypes, and properties in CMF that implement the metamodel
@@ -891,7 +982,7 @@ The following table shows the mapping between ObjectProperty object representati
 
 ## 4.8 DataProperty class
 
-A DataProperty object represents a property with a range that is a datatype. For example, the `nc:PersonFullName` object shown in [figure 3-6](#fig3-6) is a property with a range of `xs:string`.
+A DataProperty object represents a property with a range that is a datatype. For example, the `nc:PersonFullName` object shown in [figure 3-8](#fig3-8) is a property with a range of `xs:string`.
 
 | UML | CMF | Definition | Card | Ord | Range |
 | --- | --- | ---------- | :--: | :-: | ----- |
@@ -902,7 +993,7 @@ A DataProperty object represents a property with a range that is a datatype. For
 
 An [attribute property](#def) is a data property in which `isAttribute` is true.  These are represented in XSD as an attribute declaration.
 
-A [reference property](#def) is an attribute property that contains a reference to an object in a message.  (Object references are described in [section ref message rules]().)
+A [reference property](#def) is an attribute property that contains a reference to an object in a [message](#def).  (Object references are described in [section ref message rules]().)
 
 DataProperty objects are represented in XSD as an attribute declaration, or as an element declaration with a type that is a Datatype object. [Figure 4-12](#fig4-12) shows the CMF and XSD representations of two DataProperty objects.
 
@@ -966,7 +1057,7 @@ The following table shows the mapping between DataProperty representations in CM
   <figcaption><a name="fig4-13">Figure 4-13: Datatype classes</a></figcaption>
 </figure>
 
-A Datatype object defines the allowed values of a corresponding atomic literal value in a message. Objects for primitive data types, corresponding to the XSD data types, have only the *name*, *namespace*, and *documentation* properties inherited from the Component class. For example, [figure 4-14](#fig4-14) shows the CMF representation of the `xs:string` primitive data type. All other datatypes are represented by either a Restriction, List, or Union object.
+A Datatype object defines the allowed values of a corresponding atomic literal value in a [message](#def). Objects for primitive data types, corresponding to the XSD data types, have only the *name*, *namespace*, and *documentation* properties inherited from the Component class. For example, [figure 4-14](#fig4-14) shows the CMF representation of the `xs:string` primitive data type. All other datatypes are represented by either a Restriction, List, or Union object.
 
 ```
 <Datatype>
@@ -1328,7 +1419,7 @@ For example, `nc:PersonAugmentationPoint` is the augmentation point element for 
 
 Because an augmentation point element is abstract, it cannot appear in messages - it is a placeholder for element substitution only.
 
-The augmentation point element may be constrained in subset or message schema documents, or omitted if not needed in a particular message specification.
+The augmentation point element may be constrained in subset or message schema documents, or omitted if not needed in a particular [message specification](#def).
 
 One way to augment a CCC type with an element is to define:
 
@@ -1754,7 +1845,7 @@ A model representation or message conforms to the NIEM architecture when it sati
 
 A [reference schema document](#def) is the XSD representation of a [reference namespace](#def). (The equivalent CMF representation is a [reference namespace file](#def), described in [section 6.1.6](#616-cmf-model-cmf).)
 
-The components in a reference namespace are intended for the widest possible reuse. They provide names and definitions for concepts, and relations among them. These namespaces are characterized by "optionality and over-inclusiveness". That is, they define more concepts than needed for any particular data exchange specification, without cardinality constraints, so it is easy to select the concepts that are needed and omit the rest. They also omit unnecessary range or length constraints on property datatypes. A reference namespace is intended to capture the meaning of its components. It is not intended for a complete definition of any particular message type or format. Message designers are expected to subset, profile, and extend the components in reference namespaces as needed to match their information exchange requirements.
+The components in a reference namespace are intended for the widest possible reuse. They provide names and definitions for concepts, and relations among them. These namespaces are characterized by "optionality and over-inclusiveness". That is, they define more concepts than needed for any particular data exchange specification, without cardinality constraints, so it is easy to select the concepts that are needed and omit the rest. They also omit unnecessary range or length constraints on property datatypes. A reference namespace is intended to capture the meaning of its components. It is not intended for a complete definition of any particular [message type](#def) or format. Message designers are expected to subset, profile, and extend the components in reference namespaces as needed to match their information exchange requirements.
 
 The rules for a reference schema document amplify and constrain the use of XML Schema, for three reasons:
 
@@ -1772,7 +1863,7 @@ All of the components in the NIEM model are defined according to the rules in th
 
 An [extension schema document](#def) is the XSD representation of an [extension namespace](#def). (The equivalent CMF representation is an [extension namespace file](#def); see [section 6.1.6](#616-cmf-model-cmf).)
 
-The components in an extension namespace are intended for reuse within a more narrow scope than those defined in a reference namespace. These components express the additional vocabulary required for an information exchange, above and beyond the vocabulary available from the NIEM model.  The intended scope is often a particular message specification. Sometimes a community or organization will define an extension namespace for components to be reused in several related message specifications. Message designers are  also encouraged to subset, profile, and extend the components in extension namespaces created by another author.
+The components in an extension namespace are intended for reuse within a more narrow scope than those defined in a reference namespace. These components express the additional vocabulary required for an information exchange, above and beyond the vocabulary available from the NIEM model.  The intended scope is often a particular [message specification](#def). Sometimes a community or organization will define an extension namespace for components to be reused in several related message specifications. Message designers are  also encouraged to subset, profile, and extend the components in extension namespaces created by another author.
 
 Several rules applicable to reference schema documents are relaxed for extension schema documents in order to provide more designer and developer convenience at the expense of some reusability.
 
@@ -1806,7 +1897,7 @@ The documents in a [schema document set](#def) are capable of validating an XML 
 
 ### 6.1.6 CMF model (CMF)
 
-A [CMF model](#def) is a NIEM-based message conforming to the CMF message specification. It may represent any of:
+A [CMF model](#def) is a NIEM-based message conforming to the CMF [message specification](#def). It may represent any of:
 
 * A single reference namespace. This is a [reference namespace file](#def), a unit of configuration management equivalent to a reference schema document. There can be only one reference namespace file for a reference namespace.
 
@@ -1886,7 +1977,7 @@ Many rules in this document apply to more than one conformance target. For this 
 
 * [*Section 11: Rules for XSD*](#11-rules-for-niem-xsd). NIEM employes a profile of XSD. Many legal XSD constructs are not permitted in NIEM. Most rules fall into this category.
 
-* [*Rules for messages*](). A NIEM message must be valid according to its message format. These rules apply to all messages, regardless of format.
+* [*Rules for messages*](). A NIEM message must be valid according to its [message format](#def). These rules apply to all messages, regardless of format.
 
 The following table shows the correlation between a categories of rules category and conformance targets:
 
@@ -1903,7 +1994,7 @@ The following table shows the correlation between a categories of rules category
 
 ## 6.4 Testing conformance
 
-Namespaces, models, and messages may be tested for conformance by applying the rules in this document.  Messages may also be tested for conformance to their message format in the following ways:
+Namespaces, models, and messages may be tested for conformance by applying the rules in this document.  Messages may also be tested for conformance to their [message format](#def) in the following ways:
 
 1. *XML message, XSD model:* Perform XML Schema validation.
 2. *XML message, CMF model:* Generate XSD from CMF, perform XML Schema validation.
@@ -3563,13 +3654,15 @@ Rescorla, E. and B. Korver, "Guidelines for Writing RFC Text on Security Conside
 
 # Appendix E. Index of figures
 
-* [Figure 2-1](#fig2-1): NIEM-based machine-to-machine data exchange
-* [Figure 3-1](#fig3-1): Message specification, types, and formats
-* [Figure 3-2](#fig3-2): Sample NIEM XML message
-* [Figure 3-3](#fig3-3): Sample NIEM JSON message
-* [Figure 3-4](#fig3-4): NIEM communities and data models
-* [Figure 3-5](#fig3-5): High-level view of the NIEM metamodel
-* [Figure 3-6](#fig3-6): Message object and metamodel components
+* [Figure 2-1](#fig2-1): User roles and activities
+* [Figure 3-1](#fig3-1): Message specifications, types, and formats
+* [Figure 3-2](#fig3-2): Example of messages in XML and JSON syntax
+* [Figure 3-3](#fig3-3): Example of message format schemas
+* [Figure 3-4](#fig3-4): Example message model in XSD and CMF
+* [Figure 3-5](#fig3-5): Message specifications, types, and formats
+* [Figure 3-6](#fig3-6): NIEM communities and data models
+* [Figure 3-7](#fig3-7): High-level view of the NIEM metamodel
+* [Figure 3-8](#fig3-8): Message object and metamodel components
 * [Figure 4-1](#fig4-1): The NIEM metamodel
 * [Figure 4-2](#fig4-2): Model class diagram
 * [Figure 4-3](#fig4-3): Namespace class diagram
