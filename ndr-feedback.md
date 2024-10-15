@@ -264,24 +264,24 @@ Reuse line from the Introduction?
 ## 3.3 Reuse of open standards
 
 - [x] JSON Schema as a non-normative method to validate the content of JSON or YAML messages?
-- [ ] Note about why JSON Schema is not a modeling formalism? **Maybe in section 3.5?**
+- [x] Note about why JSON Schema is not a modeling formalism? **Maybe in section 3.5? Yes.**
 
 ## 3.4 The NIEM metamodel
 
 - [x] Descriptions of class, datatype, properties
 
   - Start with a definition of property.  A concept, idea, or thing.  Appears as a field in a message and can contain subfields (for objects / object properties) or a value (for literals / data properties).
-  - Properties define semantics, types define structures
+  - Properties define semantics, types define structures **Needs more explanation. Seems XML-specific, perhaps**
     - One nc:PersonType type
       - Many different kinds of people in the model (properties) that share the same nc:PersonType structure
     - One nc:TextType type
       - Many different kinds of text elements in the model (properties) that share the same nc:TextType structure
 
-- [ ] No conceptual Type class as the parent of Class and Datatype?
+- [x] No conceptual Type class as the parent of Class and Datatype? **Added here but not in the detailed diagram**
 
 - [ ] Figure 3-3
 
-  - Add person as a top-level object?
+  - Add person as a top-level object? **Changed to Request message example**
 
 - [x] objects, properties, and literal values
 
@@ -300,7 +300,7 @@ Reuse line from the Introduction?
     - validation testing of XML messages?
   - JSON Schema for validation testing of JSON messages (no conformance testing)
 
-- [ ] Also, add reason why no recommendation to build NIEM JSON Schemas directly:
+- [x] Also, add reason why no recommendation to build NIEM JSON Schemas directly:
 
   - No conformance testing
   - JSON Schema differences from XML Schema (Tom's reasons, not the same kind of modeling capabilities like inheritance and abstracts, lossy round-trips between XSD and JSON Schema)
