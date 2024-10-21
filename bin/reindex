@@ -28,7 +28,7 @@ my %figCap;                     # map of new figure tag to caption
 my @figList;                    # list of new figure tags in order
 
 # First pass through source
-# Renumber rules, and remember what you did (for second pass)
+# Renumber rules and figures, and remember what you did (for second pass)
 
 while (<>) {
   $lnum++;
@@ -76,7 +76,10 @@ while (<>) {
         print STDERR "Rule with no NIEM 5 mapping at line $lnum\n";
       }
       # Fix the tag in this rule line
-      s/^\*\*Rule \d+-\d+/**Rule $ntag/;
+      if ($otag ne $ntag) {
+        print STDERR "Rule $otag becomes $ntag at line $lnum\n";
+        s/^\*\*Rule \d+-\d+/**Rule $ntag/;
+      }
     }
   }
   # Handle figure caption lines in source
@@ -95,7 +98,7 @@ while (<>) {
       $figCap{$ntag} = $cap;
       push(@figList,$ntag);
       if ($otag ne $ntag) {
-        print STDERR "Replacing figure $otag with $ntag at $lnum\n";
+        print STDERR "Figure $otag becomes $ntag at $lnum\n";
         $figMap{$otag} = $ntag;
         s/Figure \d+-\d+:\s*/Figure $sect-$nnum: /;
         s/<a name="[^"]*">/<a name="fig$ntag">/ if m/<a name="[^"]*">/;
@@ -105,78 +108,19 @@ while (<>) {
   push(@lines,$_);
 }
 
-# Second pass through source to fix links
+# Second pass through source
 # Quit when Appendix C (index of rules) is reached.
 
+my $line;
 $lnum = 0;
 while (@lines) {
-  $lnum++;
-  my $line  = shift(@lines);
-  my $nline = $line;
-
-  # Find and fix every rule reference on current line
-  while ($line =~ m/\[([^]]+)\]\(#([^)]+)\)/g) {
-    # print "matched: $&\n";
-    my $rlink = $1;             # link text; eg. "Rule 7-5"
-    my $ankr  = $2;             # link anchor name; eg. "rule-7-5"
-    my @beg   = @-;
-    my @end   = @+;
-    next unless $ankr =~ /^rule/;
-    # print "rlink=$rlink\n";
-    # print "ankr=$ankr\n";
-
-    # Set anchor from link if missing; eg. "[Rule 7-5](#rule)"
-    if ($ankr eq "rule" && $rlink =~ m/^Rule\s+(\d+-\d+)$/) {
-      # print "\nset anchor\n";
-      my $rltag = $1;
-      substr($nline,$beg[2],length $ankr) = "rule-$rltag";
-      $ankr = "rule-$rltag";
-      # print "rltag=$rltag\n";
-      # print "otag=$1\n";
-      # print $nline;
-    }
-    # Replace old tag in link text; eg. "Rule 7-5" becomes "Rule 7-1"
-    if ($rlink =~ m/^Rule (\d+-\d+)$/) {
-      # print "\nreplace old link text\n";
-      my $ntag = $ruleMap{$1};
-      substr($nline,$beg[1],length $rlink) = "Rule $ntag";
-      # print "ntag=$ntag\n";
-      # print "otag=$1\n";
-      # print $nline;
-    }
-    # Replace old tag in link anchor; eg. "#rule-7-5" becomes "#rule-7-1"
-    if ($ankr =~ m/^rule-(\d+-\d+)$/) {
-      # print "\nreplace old link anchor\n";
-      my $nank = $ruleMap{$1};
-      substr($nline,$beg[2],length $ankr) = "rule-$nank";
-      # print "nank=$nank\n";
-      # print $nline;
-    }
-  }
-
-  # Find and fix every figure reference on current line
-  while ($nline =~ m/\[([Ff]igure\s+)(\d+-\d+)\]\(#fig([^)]+)\)/g) {
-    my $fig   = $1;             # link text; eg "Figure "
-    my $rlink = $2;             # link text; eg. "2-5"
-    my $ankr  = $3;             # link anchor; eg. "2-5"
-    my @beg   = @-;
-    my @end   = @+;
-    my $ntag  = $figMap{$ankr};
-    if (defined $ntag) {
-      print STDERR "Fixed link to figure $ntag (was $ankr} at line $lnum\n";
-      my $rep  = "[$fig$ntag](#fig$ntag)";
-      substr($nline,$beg[0],$end[0]-$beg[0]) = $rep;
-    }
-  }
-
-  # Done fixing references on this line.
-  print $nline;
-  last if $nline =~ m/^# Appendix C/;
+  $line = shift(@lines);
+  print $line;
+  last if $line =~ m/^# Appendix C/;
 }
 
 # Remove old Appendix C; generate new rule index
 
-my $line;
 while (@lines) {
   $line = shift(@lines);
   last if $line =~ /^# Appendix/;

@@ -218,7 +218,7 @@ hasProperty &gt;</panel_attributes>
     <panel_attributes>lt=&lt;-
 m1=1
 m2=0..*
-&lt; hasClass</panel_attributes>
+&lt; class</panel_attributes>
     <additional_attributes>10.0;20.0;130.0;20.0</additional_attributes>
   </element>
   <element>
@@ -232,7 +232,7 @@ m2=0..*
     <panel_attributes>lt=&lt;-
 m1=1
 m2=0..*
-&lt; hasDatatype</panel_attributes>
+&lt; datatype</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;50.0;610.0;50.0;610.0;10.0</additional_attributes>
   </element>
   <element>

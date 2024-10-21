@@ -20,7 +20,7 @@
   - When you want to build multiple message specifications (leverage commonalities of an existing data model), already use NIEM or have exchange partners using NIEM, etc.
 - [x] Move `@context` to the top of JSON messages to align more closely with the position of XML namespace prefixes? **Yes, TODO**
 - [ ] Status of external standards in CMF?  Needs to be resolved before publishing NDR or CMF.
-- [ ] Aren't CMF field names ending in "Of" missing a property or representation term? (e.g., SubPropertyOf, ListOf)
+- [ ] Aren't CMF field names ending in "Of" missing a property or representation term? (e.g., SubPropertyOf, ListOf) **Those are object properties, which don't require a representation term**
 
 ## Abstract
 
@@ -314,19 +314,19 @@ Reuse line from the Introduction?
 - [ ] Need to describe what these things are
 - [ ] Basic concepts should be described here, backed up with CMF / metamodel stuff.
   - Wouldn't the CMF spec be the source of the CMF class definitions.  NDR describes what NIEM concepts are.
-- [ ] Drop shortened UML field names?
+- [x] Drop shortened UML field names?  **Done, only CMF names appear now**
   - Easier to deal with one set of names than two
   - Shortened names goes against NIEM naming principles
   - Shortened names can be unclear (`confTarg`, `docPath`)
 - [ ] Tables showing the mappings between CMF and XSD don't seem to be numbered or linked
-- [ ] Use real examples instead of things like ExampleProperty and ExType
-- [ ] Add XML and JSON instance examples to correspond with the CMF and XSD examples?
+- [ ] Use real examples instead of things like ExampleProperty and ExType **Examples are now more real… but completely real examples often require a lot of stuff that obscures the point. For example, I'd love to use the real WeightMeasureType in figure 4-9, but then I'd have to explain the abstract elements and substitution.)**
+- [ ] Add XML and JSON instance examples to correspond with the CMF and XSD examples? **Perhaps? I did for section 4.4, which is as far as I've gone.**
 
 ## 4.1 Model class
 
 - [ ] Expand definition
 - [ ] What is a partial NIEM model?
-- [ ] Good place to talk about subsets
+- [ ] Good place to talk about subsets  **That's in 6.1.3 at present**
 - [ ] Reference vs message model (generic and reusable vs smaller and specialized)
   - NIEM is a reference model.
   - Organizations can define their own reference model if they want to define common extensions across multiple messages
@@ -336,8 +336,9 @@ Reuse line from the Introduction?
 
 ## 4.2 Namespace class
 
-- [ ] Describe what a namespace is
-- [ ] Describe the main kinds of namespace in NIEM, and who manages them?
+- [ ] Describe what a namespace is  **That's in section 3.6**
+
+- [ ] Describe the main kinds of namespace in NIEM, and who manages them? **Maybe someplace else?**
   - Core
   - Domain
   - Code
@@ -346,22 +347,43 @@ Reuse line from the Introduction?
   - External
   - Proxy(?)
   - Utility
-- [ ] Namespace versioning
+  
+- [ ] Namespace versioning **Add anything missing to section 3.6**?
   - Persistence for published versions
   - Draft strategies (same uri, different version attribute)
   - Dependencies on other namespaces
   - Authoritative source (e.g., multiple domains use `Arrest`  but defer to the Justice domain to manage it)
-- [ ] Describe qualified names / namespace prefixes?
+  
+- [ ] Describe qualified names / namespace prefixes? **Maybe? Could be a paragraph right after figure 4-4?**
   - Can use aliases in JSON for issues with qualified names
-- [ ] Describe the need for `@context`
+  
+- [ ] Describe the need for `@context` **Goes in rules for JSON messages, I think**
   - Preserve namespace information for JSON
   - Without context, you don't know that `nc` represents the NIEM Core namespace and you don't know which version
+  
 - [ ] ImportDocumentationText?
-  - Isn't this documentation for an external namespace?  Capture it there?
-- [ ] `NIEMVersionText` - We use this for draft stages (alpha, beta, PSD01, etc.)
-- [ ] `NamespaceLanguageName` - Isn't this a code?
-- [ ] `NamespaceKindCode` - NIEM uses category instead of kind.
-- [ ] `DocumentFilePathText` - Add a note that this is needed for XML schemas.  Not required for JSON only representations or required to maintain transformation capabilities?
+  - Isn't this documentation for an external namespace?  Capture it there? **In CMF it is recorded in the Namespace object for the external namespace.  In XSD the documentation string is actually in the importing schema document.**
+  
+    ```
+      <xs:import 
+        namespace="http://www.opengis.net/gml/3.2" 
+        schemaLocation="../external/ogc/gml/3.2.1/gml.xsd" 
+        appinfo:externalImportIndicator="true">
+        <xs:annotation>
+          <xs:documentation>Geography Markup Language (GML) version 3.2.1 schemas.  See http://www.opengeospatial.org OGC document 07-036 for documentation: "The Geography Markup Language (GML) was originally developed within the Open Geospatial Consortium, Inc. (OGC). ISO 19136 was prepared by ISO/TC 211 jointly with the OGC."  See http://schemas.opengis.net/gml/ for schemas.</xs:documentation>
+        </xs:annotation>
+      </xs:import>
+    ```
+  
+    **If your schema pile has two <imports> for the same external namespace with two different comments, so sad too bad. **
+  
+- [ ] `NIEMVersionText` - We use this for draft stages (alpha, beta, PSD01, etc.) **You are thinking of `NamespaceVersionText`.  This property is the version of the structures namespace in the XSD representation. For example, in the CMF representation of the core namespace in NIEM 5.2, this has the value `5`.**
+
+- [ ] `NamespaceLanguageName` - Isn't this a code? **You would think so, but when you look at RFC 4646 I believe you'll see there can't really be a code list for all the valid values**
+
+- [x] `NamespaceKindCode` - NIEM uses category instead of kind. **OK, changed in my working CMF spec**
+
+- [ ] `DocumentFilePathText` - Add a note that this is needed for XML schemas.  Not required for JSON only representations or required to maintain transformation capabilities? **It's just a way  to specify a schema document pile layout in a CMF file**
 
 ## 4.3 Component class
 
@@ -369,16 +391,38 @@ Reuse line from the Introduction?
 
 ## 4.4 Class class
 
-- [ ] Do we have any abstract classes?
-- [ ] Don't we also have an Augmentation class?  Name ends with `AugmentationType`, extends `structures:AugmentationType`, definition begins with "...", etc.
-- [ ] More info and subsections for the kinds of object classes?
+- [ ] Do we have any abstract classes? **The NIEM model does not. CMF does, though**
+
+- [ ] Don't we also have an Augmentation class?  Name ends with `AugmentationType`, extends `structures:AugmentationType`, definition begins with "...", etc. **Augmentation CCCs do not have corresponding model objects**
+
+- [x] More info and subsections for the kinds of object classes? **Now have subsections for ordinary and atomic classes**
+
 - [ ] Expected an atomic class to be a simple type, not a complex type with simple content.
-  - `Literal class` and `datatype` instead of CSC and simple?
+  - `Literal class` and `datatype` instead of CSC and simple? **We could call this a "literal class" if that name seems better.**
+  
 - [ ] Do we need `AugmentableIndicator`?
-  - Is it just for subsets to flag which ones carry augmentation points and which ones don't?
-- [ ] `ReferenceCode` / inline vs ref isn't explained
+  - Is it just for subsets to flag which ones carry augmentation points and which ones don't? **No, it's for extension namespaces.  Augmentation points are not required in extension schema documents.  If we change that, we can get rid of this property. The new rule in section 11.6 needs work either way.**
+  
+- [ ] `ReferenceCode` / inline vs ref isn't explained **Done?**
+
 - [ ] Atomic class example doesn't show how you get from Class has property Example2Literal to `xs:extension base="xs:integer"`
-- [ ] Can't EXT CCC types be either extensions or restrictions?  CMF doesn't capture that information.
+
+- [ ] Can't EXT CCC types be either extensions or restrictions?  CMF doesn't capture that information.  **NDR5 permits restriction in EXT.  I had thought I could recognize a restriction from the child elements. But that won't work if the restriction removes *all* of the inherited elements.  So I think I'll do this in CMF:**
+
+  ```
+    <xs:element name="SubClassOf" type="cmf:ClassType" nillable="true">
+      <xs:annotation>
+        <xs:documentation>A base class of a subclass.</xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name="RestrictionSubClassOf" type="cmf:ClassType" nillable="true" substitutionGroup="cmf:SubClassOf">
+      <xs:annotation>
+        <xs:documentation>A base class of a subclass that may exclude optional properties from the base.</xs:documentation>
+      </xs:annotation>
+    </xs:element>
+  ```
+
+  **That's a lot of coding for something that may never be used in the compl history of the world, but oh well.**
 
 Literal properties
 
@@ -463,7 +507,7 @@ This is similar to what we do for change request spreadsheets and augmentation p
 ## 4.6 Property class
 
 - [ ] Use substitution instead of subProperty for clarity?
-- [ ] Putting AbstractIndicator and SubPropertyOf on Property allows for abstract or substitutable attributes in CMF, which aren't valid XML
+- [ ] Putting AbstractIndicator and SubPropertyOf on Property allows for abstract or substitutable attributes in CMF, which aren't valid XML.  
 - [ ] RelationshipPropertyIndicator is unclear.
 - [ ] Add attributes of the Component class to the UML diagram to make it easy to see what Property inherits?
 
