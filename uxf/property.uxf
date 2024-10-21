@@ -4,10 +4,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>410</x>
+      <x>420</x>
       <y>470</y>
-      <w>130</w>
-      <h>120</h>
+      <w>120</w>
+      <h>80</h>
     </coordinates>
     <panel_attributes>--
 Class
@@ -21,24 +21,26 @@ bg=LIGHT_GRAY</panel_attributes>
     <coordinates>
       <x>470</x>
       <y>310</y>
-      <w>270</w>
+      <w>280</w>
       <h>180</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>250.0;10.0;250.0;90.0;10.0;90.0;10.0;160.0</additional_attributes>
+    <additional_attributes>260.0;10.0;260.0;90.0;10.0;90.0;10.0;160.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
       <x>680</x>
       <y>210</y>
-      <w>130</w>
+      <w>140</w>
       <h>110</h>
     </coordinates>
     <panel_attributes>--
 /Component/
 --
-
+-name
+-namespace
+-documentationText
 bg=LIGHT_GRAY</panel_attributes>
     <additional_attributes/>
   </element>
@@ -47,20 +49,20 @@ bg=LIGHT_GRAY</panel_attributes>
     <coordinates>
       <x>680</x>
       <y>470</y>
-      <w>130</w>
+      <w>140</w>
       <h>80</h>
     </coordinates>
     <panel_attributes>--
 /Property/
 --
--isAbstract
--isRelationship</panel_attributes>
+-abstractIndicator
+-relationshipIndicator</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>730</x>
+      <x>740</x>
       <y>310</y>
       <w>30</w>
       <h>180</h>
@@ -71,7 +73,7 @@ bg=LIGHT_GRAY</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>750</x>
+      <x>760</x>
       <y>310</y>
       <w>350</w>
       <h>180</h>
@@ -82,9 +84,9 @@ bg=LIGHT_GRAY</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1020</x>
+      <x>1030</x>
       <y>470</y>
-      <w>130</w>
+      <w>120</w>
       <h>80</h>
     </coordinates>
     <panel_attributes>--
@@ -98,36 +100,36 @@ bg=LIGHT_GRAY</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>900</x>
-      <y>490</y>
-      <w>140</w>
-      <h>290</h>
+      <x>920</x>
+      <y>510</y>
+      <w>150</w>
+      <h>270</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1=1
 m2=0..*
 datatype &gt;</panel_attributes>
-    <additional_attributes>120.0;10.0;40.0;10.0;40.0;260.0;10.0;260.0</additional_attributes>
+    <additional_attributes>110.0;10.0;60.0;10.0;60.0;240.0;10.0;240.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
       <x>780</x>
       <y>670</y>
-      <w>130</w>
+      <w>150</w>
       <h>110</h>
     </coordinates>
     <panel_attributes>--
 DataProperty
 --
--isAttribute*
--isRefAttribute*</panel_attributes>
+-attributeIndicator*
+-refAttributeIndicator*</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>750</x>
+      <x>760</x>
       <y>540</y>
       <w>110</w>
       <h>150</h>
@@ -138,7 +140,7 @@ DataProperty
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>640</x>
+      <x>650</x>
       <y>540</y>
       <w>100</w>
       <h>150</h>
@@ -149,9 +151,9 @@ DataProperty
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>570</x>
+      <x>580</x>
       <y>670</y>
-      <w>160</w>
+      <w>150</w>
       <h>110</h>
     </coordinates>
     <panel_attributes>--
@@ -163,21 +165,21 @@ ObjectProperty
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>460</x>
-      <y>580</y>
+      <x>470</x>
+      <y>540</y>
       <w>130</w>
-      <h>200</h>
+      <h>240</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1=1
 m2=0..*
 &lt; class </panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;170.0;110.0;170.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;210.0;110.0;210.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>920</x>
+      <x>960</x>
       <y>210</y>
       <w>130</w>
       <h>110</h>
@@ -192,27 +194,27 @@ bg=LIGHT_GRAY</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>800</x>
+      <x>810</x>
       <y>250</y>
-      <w>130</w>
+      <w>170</w>
       <h>50</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
 m2=1
 m1=0:*
-ns &gt;</panel_attributes>
-    <additional_attributes>10.0;20.0;110.0;20.0</additional_attributes>
+namespace &gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;150.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>770</x>
+      <x>780</x>
       <y>420</y>
       <w>160</w>
       <h>100</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
-subPropertyOf &gt;
+&lt; subProperyOf
 m2=0..1</panel_attributes>
     <additional_attributes>10.0;50.0;10.0;20.0;100.0;20.0;100.0;70.0;40.0;70.0</additional_attributes>
   </element>

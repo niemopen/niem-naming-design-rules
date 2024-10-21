@@ -46,7 +46,7 @@ This is the width of a code block when the OASIS-formatted HTML is printed to PD
 
 ## Project Specification Draft 01
 
-## 20 October 2024 draft
+## 21 October 2024 draft
 
 &nbsp;
 
@@ -743,9 +743,9 @@ The following table shows the mapping between Namespace object representations i
 | NamespaceVersionText | `xs:schema/@version` |
 | NamespaceLanguageName | `xs:schema/@xml:lang` |
 
-## 4.3 Component (abstract)
+## 4.3 Component
 
-A Component is either a Class object, a Property object, or a Datatype object in a NIEM model. This abstract class defines the common properties.
+A Component is either a Class object, a Property object, or a Datatype object in a NIEM model. This abstract class defines the common properties of those three concrete subclasses.
 
 <figure class="image">
   <a name="fig4-4"/></a>
@@ -806,7 +806,7 @@ A Class object represents a class of message objects defined by a NIEM model; th
 | subClassOf            | A base class of a subclass. | 0..1 | - | ClassType |  
 | PropertyAssociation   | An occurrence of a property as content of a class. | 0..* | Y | PropertyAssociationType |
 
-The range of the `referenceCode` property, `ReferenceCodeType`, is a code list with the following codes and meanings:
+The range of the `ReferenceCode` property is a code list with the following codes and meanings:
 
 | Code | Definition |
 | ---- | ---------- |
@@ -925,40 +925,40 @@ An [atomic class](#def) always has one DataProperty that is not an [attribute pr
 
 An [atomic class](#def) always has at least one [attribute property(#def).  In XSD, a complex type with simple content and no attributes represents a [Datatype](#49-datatype-class), not a Class.
 
-## 4.5 PropertyAssociation class
+## 4.5 PropertyAssociation
 
-A PropertyAssociation object represents the occurrence of a property in a class. For example, the `nc:PersonType` class object in the NIEM core model cointains a PropertyAssociation object for the `nc:PersonName` property.
+An instance of the PropertyAssociation class represents the occurrence of a property in a class in a NIEM model. For example, the `nc:PersonName` class object in the NIEM core model cointains a PropertyAssociation object for the `nc:PersonMiddleName` property and the `nc:personNameCommentText` property.
 
 | Name                  | Definition | Card | Ord | Range |
 | --------------------- | ---------- | :--: | :-: | ----- |
 | PropertyAssociation           | A data type for an occurrence of a property as content of a class. |
-| minOccursQuantity     | The minimum number of times a property may occur within an object of a class. | 1 | - | xs:integer |
-| maxOccursQuantity     | The maximum number of times a property may occur within an object of a class. | 1 | - | MaxOccursType |
-| documentationText     | A human-readable documentation of a property that is content of a class. | 0..* | Y | TextType |
-| orderedPropertyIndicator | True if the order of a repeated property within an object is significant. | 0..1 | - | xs:boolean |
-| augmentingNamespace   |  A namespace responsible for augmenting a class with a property. | 0..* | - | NamespaceType |
-| property              | The property that occurs in the class. | 1 | - | PropertyType |
+| MinOccursQuantity     | The minimum number of times a property may occur within an object of a class. | 1 | - | xs:integer |
+| MaxOccursQuantity     | The maximum number of times a property may occur within an object of a class. | 1 | - | MaxOccursType |
+| DocumentationText     | A human-readable documentation of the association between a class and a child property content of that class. | 0..* | Y | TextType |
+| OrderedPropertyIndicator | True if the order of a repeated property within an object is significant. | 0..1 | - | xs:boolean |
+| AugmentingNamespace   |  A namespace responsible for augmenting a class with a property. | 0..* | - | NamespaceType |
+| Property              | The property that occurs in the class. | 1 | - | PropertyType |
 
-A PropertyAssociation object is represented in XSD as an element or attribute reference within a complex type definition. [Figure 4-12](#fig4-12) shows two PropertyAssociation objects in CMF and the corresponding XSD.
+A PropertyAssociation object is represented in XSD as an element or attribute reference within a complex type definition. [Figure 4-12](#fig4-12) shows the representation of two PropertyAssociation objects, first in CMF, and then in XSD.
 
 ```
 <PropertyAssociation>
-  <DataProperty structures:ref="ex.PersonMiddleName" xsi:nil="true"/>
+  <ObjectProperty structures:ref="nc.PersonMiddleName" xsi:nil="true"/>
   <MinOccursQuantity>0</MinOccursQuantity>
   <MaxOccursQuantity>unbounded</MaxOccursQuantity>
   <DocumentationText>
-    Documentation here refers to the relationship between the object and this property.
+    Documentation here refers to the association between the object and this property.
   </DocumentationText>
   <OrderedPropertyIndicator>true</OrderedPropertyIndicator>
 </PropertyAssociation>
 <PropertyAssociation>
-  <DataProperty structures:ref="ex.aProperty" xsi:nil="true"/>
-  <MinOccursQuantity>1</MinOccursQuantity>
+  <DataProperty structures:ref="nc:personNameCommentText" xsi:nil="true"/>
+  <MinOccursQuantity>0</MinOccursQuantity>
   <MaxOccursQuantity>1</MaxOccursQuantity>
 </PropertyAssociation>
 ---------------
 <xs:sequence>
-  <xs:element ref="ex:PersonMiddleName" 
+  <xs:element ref="nc:PersonMiddleName" 
     minOccurs="0" maxOccurs="unbounded" appinfo:orderedPropertyIndicator="true">
     <xs:annotation>
       <xs:documentation>
@@ -967,7 +967,7 @@ A PropertyAssociation object is represented in XSD as an element or attribute re
     </xs:annotation>
   </xs:element>
 </xs:sequence>
-<xs:attribute ref="ex:aProperty" use="required"/>
+<xs:attribute ref="nc:personNameCommentText" use="optional"/>
 ```
 <figcaption><a name="fig4-12">Figure 4-12: PropertyAssociation object in CMF and XSD</a></figcaption>
 
@@ -975,16 +975,16 @@ The following table shows the mapping between PropertyAssociation representation
 
 | CMF | XSD |
 | --- | --- |
-| Property | The property object for `xs:element/@ref`. |
-| MinOccursQuantity | `xs:element/@minOccurs` |
+| Property | The property object for `xs:element/@ref` or `xs:attribute/@ref`. |
+| MinOccursQuantity | `xs:element/@minOccurs` or `xs:attribute/@use` |
 | MaxOccursQuantity | `xs:element/@maxOccurs` |
-| DocumentationText | `xs:element/xs:annotation/xs:documentation` |
+| DocumentationText | `xs:element/xs:annotation/xs:documentation` or `xs:attribute/xs:annotation/xs:documentation`|
 | OrderedPropertyIndicator | `xs:element/@appinfo:orderedPropertyIndicator` |
-| AugmentingNamespace | `xs:element/@appinfo:augmentingNamespace` |
+| AugmentingNamespace | `xs:element/@appinfo:augmentingNamespace` or `xs:attribute/@appinfo:augmentingNamespace`|
 
-## 4.6 Property class (abstract)
+## 4.6 Property
 
-A Property object represents a data property or an object property in a NIEM model. 
+A Property object is either an ObjectProperty or a DataProperty in a NIEM model. This abstract class defines the common properties of those two concrete subclasses.
 
 <figure class="image">
   <img src="images/property.png" style="zoom:100%"/>
@@ -993,43 +993,41 @@ A Property object represents a data property or an object property in a NIEM mod
 
 | Name                  | Definition | Card | Ord | Range |
 | --------------------- | ---------- | :--: | :-: | ----- |
-| Property | PropertyType | A data type for a property. |
-| isAbstract | AbstractIndicator | True if a property must be specialized; false if a property may be used directly. | 0..1 | - | xs:boolean |
-| isRelationship | RelationshipPropertyIndicator | True for a property that applies to the relationship between two objects (instead of to a single object). | 0..1 | - | xs:boolean |
-| subPropertyOf | SubPropertyOf | A property of which a property is a subproperty. | 0..1 | - | PropertyType |
-</br>
+| Property              | A data type for a property. |
+| AbstractIndicator     | True if a property must be specialized; false if a property may be used directly. | 0..1 | - | xs:boolean |
+| RelationshipIndicator | True for a property that applies to the relationship between two objects (instead of to a single object). | 0..1 | - | xs:boolean |
+| SubPropertyOf         | A property of which a property is a subproperty. | 0..1 | - | PropertyType |
 
-## 4.7 ObjectProperty class
+The meaning of a relationship property is explained in [Section 5: Data modeling patterns](#5-data-modeling-patterns). TODO
 
-An ObjectProperty object represents a property with a range that is a class. For example, the `nc:PersonName` object in the NIEM core model is a property with a range of `nc:PersonNameType`.
+The examples of a Property object in CMF and XSD, and the table showing the mapping between the CMF and XSD representations, are shown below in the definitions of the concrete subclasses, [ObjectProperty](#47-objectproperty) and [DataProperty](#48-dataproperty-class).
+
+## 4.7 ObjectProperty
+
+An instance of the ObjectProperty class represents a property in a NIEM model with a range that is a class. For example, the `nc:PersonMiddleName` object in the NIEM core model is an object property with a range of the `nc:PersonNameTextType` class.
 
 | Name                  | Definition | Card | Ord | Range |
 | --------------------- | ---------- | :--: | :-: | ----- |
-| ObjectProperty | ObjectPropertyType | A data type for an object property. |
-| referenceCode | ReferenceCode | A code describing how a property may be referenced (or must appear inline). | 0..1 | - | ReferenceCodeType |
-| class | Class | The class of this object property. | 1 | - | ClassType |
+| ObjectProperty        | A data type for an object property. |
+| ReferenceCode         | A  code describing how a property may be referenced (or must appear inline). | 0..1 | - | ReferenceCodeType |
+| Class                 | The class of this object property. | 1 | - | ClassType |
 
-An ObjectProperty object is represented in XSD as an element declaration with a type that is a Class object. [Figure 4-11](#fig4-11) shows an ObjectProperty object in XSD and the corresponding CMF.
+An ObjectProperty object is represented in XSD as an element declaration with a type that is a Class object. [Figure 4-14](#fig4-14) shows an ObjectProperty object, represented first in CMF, and then in XSD.
 
 ```
-<ObjectProperty structures:id="ex.ExampleProperty">
-  <Name>ExampleProperty</Name>
+<ObjectProperty structures:id="ex.ExampleObjectProperty">
+  <Name>ExampleObjectProperty</Name>
   <Namespace structures:ref="ex" xsi:nil="true"/>
-  <DocumentationText>Documentation text for ExampleProperty.</DocumentationText>
-  <DeprecatedIndicator>true</DeprecatedIndicator>
+  <DocumentationText>Documentation text for ExampleObjectProperty.</DocumentationText>
+  <DeprecatedIndicator>false</DeprecatedIndicator>
   <AbstractIndicator>true</AbstractIndicator>
-  <SubPropertyOf structures:ref="ex.PropertyAbstract" xsi:nil="true"/>
-  <RelationshipPropertyIndicator>true</RelationshipPropertyIndicator>
+  <ReferenceCode>URI</ReferenceCode>
   <Class structures:ref="ex.ExType" xsi:nil="true"/>
-  <ReferenceCode>ANY</ReferenceCode>
 </ObjectProperty>
 ---------------
-<xs:element name="ExampleProperty" type="ex:ExType" abstract="true" substitutionGroup="ex:PropertyAbstract" 
-  appinfo:deprecated="true" 
-  appinfo:relationshipPropertyIndicator="true"
-  appinfo:referenceCode="ANY">
+<xs:element name="ExampleObjectProperty" type="ex:ExType" abstract="true" appinfo:referenceCode="URI">
   <xs:annotation>
-    <xs:documentation>Documentation text for ExampleProperty.</xs:documentation>
+    <xs:documentation>Documentation text for ExampleObjectProperty.</xs:documentation>
   </xs:annotation>
 </xs:element>
 ```
@@ -1048,37 +1046,37 @@ The following table shows the mapping between ObjectProperty object representati
 | RelationshipPropertyIndicator | `xs:element/@appinfo:relationshipPropertyIndicator`
 | Class | The class object for `xs:element/@type` |
 | ReferenceCode | `xs:complexType/@appinfo:referenceCode` |
-</br>
 
-## 4.8 DataProperty class
+## 4.8 DataProperty
 
-A DataProperty object represents a property with a range that is a datatype. For example, the `nc:PersonFullName` object shown in [figure 3-8](#fig3-8) is a property with a range of `xs:string`.
+An instance of the DataProperty class represents a property in a NIEM model with a range that is a datatype. For example, the `nc:personNameCommentText` property in the NIEM core model is a data property with a range of the `xs:string` datatype.
+
 
 | Name                  | Definition | Card | Ord | Range |
 | --------------------- | ---------- | :--: | :-: | ----- |
-| DataProperty | DataPropertyType | 
-| isAttribute* | AttributeIndicator | True for a property that is represented as attributes in XML. | 0..1 | - | xs:boolean |
-| isRefAttribute* | RefAttributeIndicator | True for a property that is an [object reference attribute](). | 0..1 | - | xs:boolean |
-| datatype | Datatype | The datatype of this data property. | 1 | - | DatatypeType |
+| DataProperty          | A data type for a data property. | 
+| AttributeIndicator    | True for a property that is represented as attributes in XML. | 0..1 | - | xs:boolean |
+| RefAttributeIndicator | True for a property that is an [object reference attribute](). | 0..1 | - | xs:boolean |
+|  Datatype             | The datatype of this data property. | 1 | - | DatatypeType |
 
-An [attribute property](#def) is a data property in which `isAttribute` is true.  These are represented in XSD as an attribute declaration.
+An [attribute property](#def) is a data property in which `AttributeIndicator` is true.  These are represented in XSD as an attribute declaration.
 
-A [reference property](#def) is an attribute property that contains a reference to an object in a [message](#def).  (Object references are described in [section ref message rules]().)
+A [reference property](#def) is an attribute property that contains a reference to an object in a [message](#def).  (Object references are described in [section ref message rules]().)TODO
 
-DataProperty objects are represented in XSD as an attribute declaration, or as an element declaration with a type that is a Datatype object. [Figure 4-12](#fig4-12) shows the CMF and XSD representations of two DataProperty objects.
+A DataProperty object is represented in XSD as an attribute declaration, or as an element declaration with a type that is a Datatype object. [Figure 4-15](#fig4-15) shows the representations of two DataProperty objects, first in CMF, and then in the corresponding XSD.
 
 ```
-<DataProperty structures:id="ex.ExampleProperty">
-  <Name>ExampleProperty</Name>
+<DataProperty structures:id="ex.ExampleDataProperty">
+  <Name>ExampleDataProperty</Name>
   <Namespace structures:ref="ex" xsi:nil="true"/>
-  <DocumentationText>Documentation text for ExampleProperty.</DocumentationText>
+  <DocumentationText>Documentation text for ExampleDataProperty.</DocumentationText>
   <DeprecatedIndicator>true</DeprecatedIndicator>
   <AbstractIndicator>true</AbstractIndicator>
   <SubPropertyOf structures:ref="ex.PropertyAbstract" xsi:nil="true"/>
   <Datatype structures:ref="ex.ExType" xsi:nil="true"/>
 </DataProperty>
-<DataProperty structures:id="ex.AttributeProperty">
-  <Name>AttributeProperty</Name>
+<DataProperty structures:id="ex.exampleAttributeProperty">
+  <Name>exampleAttributeProperty</Name>
   <Namespace structures:ref="ex" xsi:nil="true"/>
   <DocumentationText>Documentation text for AttributeProperty.</DocumentationText>
   <DeprecatedIndicator>true</DeprecatedIndicator>
@@ -1087,17 +1085,14 @@ DataProperty objects are represented in XSD as an attribute declaration, or as a
   <RefAttributeIndicator>true</RefAttributeIndicator>
 </DataProperty> 
 ---------------
-<xs:element name="ExampleProperty" type="ex:ExType" abstract="true" substitutionGroup="ex:PropertyAbstract" 
-  appinfo:deprecated="true">
+<xs:element name="ExampleDataProperty" type="ex:ExType" substitutionGroup="ex:PropertyAbstract"   appinfo:deprecated="true">
   <xs:annotation>
-    <xs:documentation>Documentation text for ExampleProperty.</xs:documentation>
+    <xs:documentation>Documentation text for ExampleDataProperty.</xs:documentation>
   </xs:annotation>
 </xs:element>
-<xs:attribute name="AttributeProperty" type="xs:string" 
-  appinfo:deprecated="true" 
-  appinfo:referenceAttributeIndicator="true">
+<xs:attribute name="exampleAttributeProperty" type="xs:string" appinfo:referenceAttributeIndicator="true">
   <xs:annotation>
-    <xs:documentation>Documentation text for ExampleProperty.</xs:documentation>
+    <xs:documentation>Documentation text for ExampleDataProperty.</xs:documentation>
   </xs:annotation>
 </xs:attribute> 
 ```
@@ -1119,7 +1114,7 @@ The following table shows the mapping between DataProperty representations in CM
 | RefAttributeIndicator | `xs:attribute/@appinfo:referenceAttributeIndicator` |
 </br>
 
-## 4.9 Datatype class
+## 4.9 Datatype
 
 <figure class="image">
   <a name="fig4-13"/></a>
@@ -1127,7 +1122,7 @@ The following table shows the mapping between DataProperty representations in CM
   <figcaption><a name="fig4-16">Figure 4-16: Datatype classes</a></figcaption>
 </figure>
 
-A Datatype object defines the allowed values of a corresponding atomic literal value in a [message](#def). Objects for primitive data types, corresponding to the XSD data types, have only the *name*, *namespace*, and *documentation* properties inherited from the Component class. For example, [figure 4-14](#fig4-14) shows the CMF representation of the `xs:string` primitive data type. All other datatypes are represented by either a Restriction, List, or Union object.
+An instance of the Datatype class defines the allowed values of a data property in a [message](#def). Objects for primitive data types, corresponding to the XSD data types, have only the *name*, *namespace*, and *documentation* properties inherited from the Component class. For example, [figure 4-17](#fig4-17) shows the CMF representation of the `xs:string` primitive data type. All other datatypes are represented by either a Restriction, List, or Union object.
 
 ```
 <Datatype>
@@ -1137,26 +1132,26 @@ A Datatype object defines the allowed values of a corresponding atomic literal v
 ```
 <figcaption><a name="fig4-17">Figure 4-17: Plain CMF datatype object for `xs:string`</a></figcaption>
 
-## 4.10 List class
+## 4.10 List
 
-A List object defines a datatype as a whitespace-separated list of atomic values.
+An instance of the List class represents a NIEM model datatype with values that are a whitespace-separated list of atomic values.
 
 | Name                  | Definition | Card | Ord | Range |
 | --------------------- | ---------- | :--: | :-: | ----- |
-| List | ListDatatype | A data type for a NIEM model datatype that is a whitespace-separated list of atomic values.||||
-| isOrdered | OrderedPropertyIndicator | True if the order of a repeated property within an object is significant. | 0..1 | - | xs:boolean |
-| listType | ListItemDatatype | The datatype of the atomic values in a list. | 1 | - | DatatypeType |
+| List                  | A data type for a NIEM model datatype that is a whitespace-separated list of atomic values.||||
+| OrderedPropertyIndicator | True if the order of a repeated property within an object is significant. | 0..1 | - | xs:boolean |
+| ListItemDatatype      | The datatype of the atomic values in a list. | 1 | - | DatatypeType |
 
-A List object is represented in XSD as a complex type definition that extends a simple type definition with an `xs:list` element.  [Figure 4-15](#fig4-15) shows the CMF and XSD representation of a List object.
+A List object is represented in XSD as a complex type definition that extends a simple type definition that has an `xs:list` element.  [Figure 4-18](#fig4-18) shows the CMF and XSD representation of a List object.
 
 ```
-<ListDatatype structures:id="ex.ExListType">
+<List structures:id="ex.ExListType">
   <Name>ExListType</Name>
   <Namespace structures:ref="ex" xsi:nil="true"/>
   <DocumentationText>A data type for a list ofintegers.</DocumentationText>
   <ListItemDatatype structures:ref="xs.integer" xsi:nil="true"/>
   <OrderedPropertyIndicator>true</OrderedPropertyIndicator>
-</ListDatatype>
+</List>
 ---------------
 <xs:simpleType name="ExListSimpleType">
   <xs:list itemType="xs:integer"/>
@@ -1186,25 +1181,25 @@ The following table shows the mapping between List object representations in CMF
 | OrderedPropertyIndicator | `xs:complexType/@appinfo:orderedPropertyIndicator` |
 </br>
 
-## 4.11 Union class
+## 4.11 Union
 
-A Union object defines a datatype as the union of one or more datatypes.
+An instance of the Union class represents a NIEM model datatype that is the union of one or more datatypes.
 
 | Name                  | Definition | Card | Ord | Range |
 | --------------------- | ---------- | :--: | :-: | ----- |
-| Union | UnionDatatype | A data type for a NIEM model datatype that is a union of datatypes.
-| unionType | UnionMemberDatatype | A NIEM model datatype that is a member of a union datatype. | 1..* | - | DatatypeType |
+| Union                 | A data type for a NIEM model datatype that is a union of datatypes.
+| UnionMemberDatatype   | A NIEM model datatype that is a member of a union datatype. | 1..* | - | DatatypeType |
 
-A Union object is represented in XSD as a complex type definition that extends a simple type definition with an `xs:union` element. [Figure 4-16](#fig4-16) shows the XSD and CMF representations of a Union object.
+A Union object is represented in XSD as a complex type definition that extends a simple type definition that has an `xs:union` element. [Figure 4-19](#fig4-19) shows the XSD and CMF representations of a Union object.
 
 ```
-<UnionDatatype structures:id="ex.UnionType">
+<Union structures:id="ex.UnionType">
   <Name>UnionType</Name>
   <Namespace structures:ref="test" xsi:nil="true"/>
   <DocumentationText>A data type for a union of integer and float datatypes.</DocumentationText>
   <UnionMemberDatatype structures:ref="xs.integer" xsi:nil="true"/>
   <UnionMemberDatatype structures:ref="xs.float" xsi:nil="true"/>
-</UnionDatatype>
+</Union>
 ---------------
 <xs:simpleType name="UnionSimpleType">
   <xs:union memberTypes="xs:integer xs:float"/>
@@ -1232,37 +1227,39 @@ The following table shows the mapping between UnionDatatype object representatio
 | UnionMemberDatatype | `xs:simpleType/xs:union/@memberTypes` |
 </br>
 
-## 4.12 Restriction class
+## 4.12 Restriction
 
-A Restriction object defines a datatype as a restriction of a base datatype plus zero or more restricting Facet objects.
+An instance of the Restriction class represents a NIEM model datatype as a base datatype plus zero or more constraining facets.
 
 | Name                  | Definition | Card | Ord | Range |
 | --------------------- | ---------- | :--: | :-: | ----- |
-| Restriction | RestrictionType | A data type for a restriction of a data type. |
-| restricts | RestrictionBase | The NIEM model datatype that is restricted by this datatype. | 1 | - | DatatypeType |
-| facet | Facet | A data concept for a facet that restricts an aspect of a data type. | 0..* | - | FacetType |
-| clb | CodeListBinding | A property for connecting atomic values defined by a data type to a a column of a code list. | 0..1 | - | CodeListBindingType |
+| Restriction           | A data type for a restriction of a data type. |
+| RestrictionBase       | The NIEM model datatype that is restricted by this datatype. | 1 | - | DatatypeType |
+| Facet                 | A constraint on an aspect of a data type. | 0..* | - | FacetType |
+| CodeListBinding       | A property for connecting atomic values defined by a data type to a a column of a code list. | 0..1 | - | CodeListBindingType |
 
-A Restriction object is represented in XSD as a complex type with simple content containing an `xs:restriction` element. [Figure 4-17](#fig4-17) shows the CMF and XSD representations of a Restriction object.
+A Restriction object is represented in XSD as a complex type with simple content that contains an `xs:restriction` element. [Figure 4-20](#fig4-20) shows the CMF and XSD representations of a Restriction object.
 
 ```
-<RestrictionDatatype structures:id="test.RestrictionType">
+<Restriction structures:id="test.RestrictionType">
   <Name>RestrictionType</Name>
   <Namespace structures:ref="test" xsi:nil="true"/>
   <DocumentationText>Exercise code list binding</DocumentationText>
   <RestrictionBase structures:ref="xs.token" xsi:nil="true"/>
-  <Enumeration>
-    <StringValue>GB</StringValue>
-  </Enumeration>
-  <Enumeration>
-    <StringValue>US</StringValue>
-  </Enumeration>
+  <Facet>
+    <FacetCategoryCode>enumeration</FacetCategoryCode>
+    <FacetValue>GB</StringValue>
+  </Facet>
+  <Facet>
+    <FacetCategoryCode>enumeration</FacetCategoryCode>
+    <FacetValue>US</StringValue>
+  </Facet>
   <CodeListBinding>
     <CodeListURI>http://api.nsgreg.nga.mil/geo-political/GENC/2/3-11</CodeListURI>
     <CodeListColumnName>foo</CodeListColumnName>
     <CodeListConstrainingIndicator>true</CodeListConstrainingIndicator>
   </CodeListBinding>
-</RestrictionDatatype>
+</Restriction>
 ---------------
 <xs:complexType name="RestrictionType">
   <xs:annotation>
@@ -1299,50 +1296,81 @@ A [code list datatype](#def) is a Restriction in which each value that is valid 
 
 Many code datatypes have simple content composed of xs:enumeration values. Code types may also be  constructed using the NIEM Code Lists Specification [[Code Lists]](#ref), which supports code lists defined using a variety of methods, including CSV spreadsheets; these are represented by a [CodeListBinding](#414-codelistbinding-class) object, described below.
 
-## 4.13 Facet class
+## 4.13 Facet
 
-There are twelve Facet subclasses in the metamodel, and twelve Facet properties in CMF, each with the same meaning as the corresponding twelve constraining facets in XML Schema. 
-
-A Facet object is represented in XSD as one of the twelve XSD constraining facet elements. Each XSD facet element has a corresponding CMF facet object, as shown in the following table.
-
-| XSD element | CMF Facet object | CMF class |
-| --- | ---------- | --------- |
-| `xs:enumeration`     | Enumeration    | AnyValueFacetType
-| `xs:fractionDigits ` | FractionDigits | NonNegativeValueFacetType
-| `xs:length`          | Length         | NonNegativeValueFacetType
-| `xs:maxExclusive`    | MaxExclusive   | AnyValueFacetType
-| `xs:maxInclusive`    | MaxInclusive   | AnyValueFacetType
-| `xs:maxLength`       | MaxLength      | NonNegativeValueFacetType
-| `xs:minExclusive`    | MinExclusive   | AnyValueFacetType
-| `xs:minInclusive`    | MinInclusive   | AnyValueFacetType
-| `xs:minLength`       | MinLength      | NonNegativeValueFacetType
-| `xs:pattern`         | Pattern        | PatternFacetType
-| `xs:totalDigits`     | TotalDigits    | PositiveValueFacetType
-| `xs:whiteSpace`      | WhiteSpace     | WhiteSpaceFacetType
-
-The value property of each CMF facet type is represented in XSD as the `@value` attribute of the XSD element; for example, `xs:length/@value`.
-
-The DocumentationText property of each CMF facet type is represented in XSD as the `xs:enumeration/xs:annotation/xs:documentation`.
-
-## 4.14 CodeListBinding class
-
-A CodeListBinding object establishes a relationship between a Restriction object and a code list specification. The detailed meaning of the object properties is provided in [ref code list specification]().
+An instance of the Facet class specifies a constraint on the base datatype of a Restriction object.
 
 | Name                  | Definition | Card | Ord | Range |
 | --------------------- | ---------- | :--: | :-: | ----- |
-| CodeListBinding | CodeListBinding |
-| uri | CodeListURI | A universal identifier for a code list. |  1 | - | xs:anyURI |
-| column | CodeListColumnName | A local name for a code list column within a code list. | 0..1 | - | xs:string |
-| isConstraining | CodeListConstrainingIndicator | True when a code list binding constrains the validity of a code list value, false otherwise. | 0..1 | - | xs:boolean |
+| Facet                 | A data type for a constraint on an aspect of a data type. |
+| FacetCategoryCode     | A kind of constraint on a restriction datatype. | 1 | - | FacetCategoryCodeType |
+| FacetValue            | A value of a constraint on a restriction datatype. | 1 | - | xs:string |
+| DocumentationText     | A human-readable documentation of a constraint on a restriction datatype. | 0..* | Y | TextType |
 
-A CodeListBinding object is represented in XSD as a `clsa:SimpleCodeListBinding` element in an `xs:appinfo` element. [Figure 4-15](#fig4-15) above shows the XSD and CMF representation of a CodeListBinding object. The following table shows the mapping between CodeListBinding object representations in CMF and XSD.
+The range of the `FacetCategoryCode` property is a code list. The twelve codes correspond to the twelve constraining facets in [XML Schema](#refTODO); that is, the code `length` corresponds to the `xs:length` constraining facet in XSD, and constrains the valid values of the base datatype in the same way as the XSD facet.
+
+A Facet object is represented in XSD as a constraining facet on a simple type. [Figure 4-21](#fig4-21) shows the representation of two Facet objects, first in CMF, then in XSD:
+
+```
+<Facet>
+  <FacetCategoryCode>minInclusive</FacetCategoryCode>
+  <FacetValue>0</FacetValue>
+</Facet>
+<Facet>
+  <FacetCategoryCode>maxExclusive</FacetCategoryCode>
+  <FacetValue>360</FacetValue>
+</Facet>
+---------------
+<xs:restriction base="niem-xs:decimal">
+  <xs:minInclusive value="0"/>
+  <xs:maxExclusive value="360"/>
+</xs:restriction>
+```
+<figcaption><a name="fig4-21">Figure 4-21: Facet object in CMF and XSD</a></figcaption>
+
+The following table shows the mapping between Facet representations in CMF and XSD:
+
+| CMF | XSD |
+| --- | --- |
+| FacetCategoryCode | *the local name of the facet element; e.g.*`minInclusive` |
+| FacetValue | `@value` |
+| DocumentationText | `xs:annotation/xs:documentation` |
+
+## 4.14 CodeListBinding
+
+An instance of the CodeListBinding class establishes a relationship between a Restriction object and a code list specification. The detailed meaning of the object properties is provided in [ref code list specification]().
+
+| Name                  | Definition | Card | Ord | Range |
+| --------------------- | ---------- | :--: | :-: | ----- |
+| CodeListBinding | A data type for connecting simple content defined by an XML Schema component to a a column of a code list. |
+| CodeListURI | A universal identifier for a code list. |  1 | - | xs:anyURI |
+| CodeListColumnName | A local name for a code list column within a code list. | 0..1 | - | xs:string |
+| CodeListConstrainingIndicator | True when a code list binding constrains the validity of a code list value, false otherwise. | 0..1 | - | xs:boolean |
+
+A CodeListBinding object is represented in XSD as a `clsa:SimpleCodeListBinding` element in an `xs:appinfo` element. [Figure 4-22](#fig4-22) shows the representation of a CodeListBinding object, first in CMF, then in XSD.
+
+```
+<CodeListBinding>
+  <CodeListURI>http://api.nsgreg.nga.mil/geo-political/GENC/2/3-11</CodeListURI>
+  <CodeListConstrainingIndicator>false</CodeListConstrainingIndicator>
+</CodeListBinding>
+---------------
+<xs:simpleType name="CountryAlpha2CodeSimpleType">
+  <xs:annotation>
+    <xs:documentation>A data type for country codes.</xs:documentation>
+    <xs:appinfo>
+      <clsa:SimpleCodeListBinding codeListURI="http://api.nsgreg.nga.mil/geo-political/GENC/2/3-11" constrainingIndicator="false"/>
+    </xs:appinfo>
+```
+<figcaption><a name="fig4-22">Figure 4-22: CodeListBinding object in CMF and XSD</a></figcaption>
+
+The following table shows the mapping between CodeListBinding representations in CMF and XSD.
 
 | CMF | XSD |
 | --- | --- |
 | CodeListURI | `clsa:SimpleCodeListBinding/@codeListURI` |
 | CodeListColumnName | `clsa:SimpleCodeListBinding/@columnName` |
 | CodeListConstrainingIndicator | `clsa:SimpleCodeListBinding/@constrainingIndicator` |
-</br>
 
 ## 4.15 Augmentation class
 
@@ -1796,20 +1824,20 @@ A property with a name ending in "Ref" is a reference attribute. It refers to an
 
 ### 4.15.8 Global attribute augmentations
 
-## 4.16 LocalTerm class
+## 4.16 LocalTerm
 
-A [*local term*](#def) is a word, phrase, acronym, or other string of characters that is used in the name of a namespace component, but that is not defined in [OED](), or that has a non-OED definition in this namespace, or has a word sense that is in some way unclear. A LocalTerm object captures the namespace author's definition of such a local term. For example, the Justice domain namespace in the NIEM model has a LocalTerm object defining the name "CLP" with documentation "Commercial Learners Permit".
+A [*local term*](#def) is a word, phrase, acronym, or other string of characters that is used in the name of a namespace component, but that is not defined in [OED](), or that has a non-OED definition in this namespace, or has a word sense that is in some way unclear. An instance of the LocalTerm class captures the namespace author's definition of such a local term. For example, the Justice domain namespace in the NIEM model has a LocalTerm object defining the name "CLP" with documentation "Commercial Learners Permit".
 
-| UML | CMF | Definition | Card | Ord | Range |
-| --- | --- | ---------- | :--: | :-: | ----- |
-| LocalTerm | LocalTermType | A data type for the meaning of a term that may appear within the name of a model component. |
-| name | TermName | The name of the local term. | 1 | - | xs:token |
-| documentation | DocumentationText | A human-readable text definition of a data model component or term, or the documentation of a namespace. | 0..1 | - | TextType |
-| literal | TermLiteralText | A meaning of a local term provided as a full, plain-text form. | 0..1 | - | xs:string |
-| sourceURI | SourceURI | A URI that is an identifier or locator for an originating or authoritative document defining a local term. | 0..* | - | xs:anyURI |
-| citation | SourceCitationText | A plain text citation of, reference to, or bibliographic entry for an originating or authoritative document defining a local term. | 0..* | - | xs:string |
+| Name                  | Definition | Card | Ord | Range |
+| --------------------- | ---------- | :--: | :-: | ----- |
+| LocalTerm             | A data type for the meaning of a term that may appear within the name of a model component. |
+| TermName              | The name of the local term. | 1 | - | xs:token |
+| DocumentationText     | A human-readable text definition of a data model component or term, or the documentation of a namespace. | 0..1 | - | TextType |
+| TermLiteralText       | A meaning of a local term provided as a full, plain-text form. | 0..1 | - | xs:string |
+| SourceURI             | A URI that is an identifier or locator for an originating or authoritative document defining a local term. | 0..* | - | xs:anyURI |
+| SourceCitationText    | A plain text citation of, reference to, or bibliographic entry for an originating or authoritative document defining a local term. | 0..* | - | xs:string |
 
-A LocalTerm object is represented in XSD by a `appinfo:LocalTerm` element within `xs:appinfo` element in the `xs:schema` element. [Figure 4-33](#fig4-33) shows a LocalTerm object in XSD and the corresponding CMF.
+A LocalTerm object is represented in XSD by a `appinfo:LocalTerm` element within `xs:appinfo` element in the `xs:schema` element. [Figure 4-33](#fig4-33) shows the representation of a LocalTerm object in CMF and XSD.
 
 ```
 <LocalTerm>
@@ -1848,18 +1876,16 @@ The following table shows the mapping between LocalTerm object representations i
 | TermLiteralText | `appinfo:LocalTerm/@literal` |
 | SourceURI | Each URI in the `appinfo:LocalTerm/@sourceURIs` list |
 | SourceCitationText | `appinfo:LocalTerm/appinfo:SourceText` |
-</br>
 
-## 4.17 TextType class
+## 4.17 TextType
 
-A TextType object combines a string property with a language property.
+An instance of the TextType class combines a string property with a language property.
 
-| UML | CMF | Definition | Card | Ord | Range |
-| --- | --- | ---------- | :--: | :-: | ----- |
-| TextType | TextType | A data type for a character string with a language code.||||
-| literal | TextLiteral | A literal value of a character string. | 1 | - | xs:string |
-| lang | lang | A name of the language of a character string. | 0..1 | - | xs:language |
-</br>
+| Name                  | Definition | Card | Ord | Range |
+| --------------------- | ---------- | :--: | :-: | ----- |
+| TextType              | A data type for a character string with a language code.||||
+| TextLiteral           | A literal value that is a character string. | 1 | - | xs:string |
+| lang                  | A name of the language of a character string. | 0..1 | - | xs:language |
 
 -------
 
