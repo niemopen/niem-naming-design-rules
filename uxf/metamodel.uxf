@@ -166,13 +166,13 @@ Class
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>320</x>
+      <x>330</x>
       <y>490</y>
       <w>130</w>
       <h>110</h>
     </coordinates>
     <panel_attributes>--
-PropertyAssociation
+ChildPropertyAssociation
 --
 -minOccursQuantity
 -maxOccursQuantity
@@ -810,28 +810,28 @@ drawPolygon(p);</custom_code>
     <coordinates>
       <x>160</x>
       <y>510</y>
-      <w>180</w>
+      <w>190</w>
       <h>40</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-&gt;
 m2=0..*
 m1=1
-propertyAssociation &gt;</panel_attributes>
-    <additional_attributes>10.0;20.0;160.0;20.0</additional_attributes>
+childPropertyAssociation &gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;170.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>440</x>
+      <x>450</x>
       <y>510</y>
-      <w>120</w>
+      <w>110</w>
       <h>40</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
 m2=1
 m1=0:*
 property &gt;</panel_attributes>
-    <additional_attributes>10.0;20.0;100.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;90.0;20.0</additional_attributes>
   </element>
   <element>
     <type>CustomElementImpl</type>

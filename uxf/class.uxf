@@ -28,7 +28,7 @@ fontsize=10
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>550</x>
+      <x>540</x>
       <y>620</y>
       <w>130</w>
       <h>120</h>
@@ -44,15 +44,15 @@ Class
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>480</x>
+      <x>490</x>
       <y>570</y>
-      <w>110</w>
+      <w>100</w>
       <h>90</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 subClassOf &gt;
 m2=0..1</panel_attributes>
-    <additional_attributes>90.0;50.0;90.0;20.0;40.0;20.0;40.0;70.0;70.0;70.0</additional_attributes>
+    <additional_attributes>80.0;50.0;80.0;20.0;30.0;20.0;30.0;70.0;50.0;70.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -91,7 +91,7 @@ bg=LIGHT_GRAY</panel_attributes>
       <h>120</h>
     </coordinates>
     <panel_attributes>--
-PropertyAssociation
+ChildPropertyAssociation
 --
 -minOccursQuantity
 -maxOccursQuantity
@@ -103,16 +103,16 @@ PropertyAssociation
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>670</x>
+      <x>660</x>
       <y>660</y>
-      <w>180</w>
+      <w>190</w>
       <h>40</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-&gt;
 m2=0:*
 m1=1
-propertyAssociation &gt;</panel_attributes>
-    <additional_attributes>10.0;20.0;160.0;20.0</additional_attributes>
+childPropertyAssociation &gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;170.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>

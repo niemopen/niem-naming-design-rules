@@ -8,6 +8,7 @@
 # Syntax of a rule in the markdown source is:
 #
 # **Rule 1-1 (CMF,XSD)(Constraint):** rule name || rule text. (N5R 1-1)
+# **Rule 1-1:** rule name || rule text. (N5R 1-1)
 
 use warnings;
 use strict;
@@ -17,7 +18,6 @@ my @lines;                      # remember source lines for 2nd pass
 my %ruleCt;                     # last rule number seen, by section
 my %ruleMap;                    # map of old rule tags to new tags
 my %ruleName;                   # map of new rule tag to rule name
-my %ruleTarg;                   # map of new rule tag to rule targets
 my %n5Map;                      # map of NIEM 5 rule to new rule tag
 my @rules;                      # ordered list of new rule tags
 my @newRules;                   # rule tags w/o corresponding NIEM 5 rule
@@ -35,41 +35,39 @@ while (<>) {
 
   # Handle rule lines in source
   if (m/^\*\*Rule /) {
-    if (!m/^\*\*Rule (\d+)-(\d+)\s+(\([^)]+\))(\([^)]+\)):\*\*\s*/) {
+    if (!m/^\*\*Rule (\d+)-(\d+):\*\*\s+(.+)\s\|\|\s+/) {
       print STDERR "Bad rule syntax at line $lnum\n";
     }
     else {
-      my $rest  = $';           # rest of current line
       my $sect  = $1;           # section number
       my $onum  = $2;           # current rule number in section
-      my $targs = $3;           # conformance targets eg. (REF,EXT)
-      my $kind  = $4;           # rule kind eg. (Constraint)
+      my $rname = $3;           # rule name
+      my $rest  = $';
       my $otag  = "$1-$2";      # rule tag eg. 7-1
       my $nnum  = ++$ruleCt{$sect}; # new rule number
       my $ntag  = "$sect-$nnum";    # new rule tag
-      $ruleMap{$otag}  = $ntag;
-      $ruleTarg{$ntag} = $targs;
-      $ruleName{$ntag} = "";
-      push(@rules,$ntag);
 
-      if ($rest =~ m/^([^|]+)\|\|\s*/) {
-        my $rname = $1;         # rule name
-        $rest = $';             # rest of line after rule name
-        $rname =~ s/\s+$//;
-        $ruleName{$ntag} = $rname;
-      }
-      else {
-        print STDERR "Rule with no name at line $lnum\n";
-      }
+      # print STDERR "sect=$sect\n";
+      # print STDERR "onum=$onum\n";
+      # print STDERR "rname=$rname\n";
+      # print STDERR "otag=$otag\n";
+      # print STDERR "nnum=$nnum\n";
+      # print STDERR "ntag=$ntag\n";
+
+      $ruleMap{$otag}  = $ntag;
+      $ruleName{$ntag} = $rname;
+      push(@rules,$ntag);
 
       if ($rest =~ m/\(N5R ([^)]+)\)\s*$/) {
         my @n5rs = split(/,\s*/,$1);
         foreach my $n5r (@n5rs) {
+          # print "n5r=$n5r\n";
           $n5Map{$n5r} .= ",$ntag" if defined $n5Map{$n5r};
           $n5Map{$n5r}  = $ntag    unless defined $n5Map{$n5r};
         }
       }
       elsif ($rest =~ m/\(NEW\)\s*$/) {
+        # print "NEW\n";
         push(@newRules,$ntag);
       }
       else {
@@ -128,8 +126,7 @@ while (@lines) {
 print "\n";
 foreach my $rtag (@rules) {
   my $rname = $ruleName{$rtag} || "NO NAME YET";
-  my $targ  = $ruleTarg{$rtag};
-  print "* [Rule $rtag: $rname $targ](#rule-$rtag).\n";
+  print "* [Rule $rtag: $rname](#rule-$rtag).\n";
 }
 print "\n-------\n\n$line";
 

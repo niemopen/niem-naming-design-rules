@@ -1,38 +1,32 @@
 #!/usr/bin/perl
 
-# Produces an intermediate markdown stream from the markdown input with
-# defined terms in the text linked to entries in the glossary, and with
-# anchors inserted for rules.
+# Transforms the markdown source that you edit into an intermediate
+# markdown stream that is ready for pandoc. Don't edit the output!
+# Just give it to pandoc to produce the final HTML.
 #
-# (The intermediate file is ugly, don't edit it, just pass it to the
-# next process in the pipeline.)
+# What are the changes?
 #
-# A defined term in the source looks like this:
+# * Source code blocks are made different from inline code:
+#   opening code fence (```) -->  <pre><code class="source">
+#   closing code fence --> </code></pre>
 #
-#    [Defined term](#def)
-#    [defined term](#def)
+# * Defined term links are changed into <span> and <a> elements,
+#   which puts the dots before and after a defined term:
+#   [defined term](#def) -->
+#   <span class="termRef"><a href="def-defined-term"> ...
 #
-# In the intermediate form, it looks like this:
+# * Defined terms in the glossary become anchors:
+#   | Defined term | definition | -->
+#   | <a name="def-defined-term">Defined term</a> | definition |
 #
-#    <span class="termRef"><a name="def-defined-term">Defined term </a></span>
-#    <span class="termRef"><a name="def-defined-term">defined term </a></span>
-#
-# The <span> element is there to put the dots around the defined term.
-# Isn't that ugly? Yes, it is. But nobody has to look at it.
-#
-# The source document is always structured so that the glossary comes before
-# the first defined term in the text. A definition in the source is found
-# in the first table in the glossary section ; it looks like this:
-#
-#    [Defined term|Definition|
-#
-# In the intermediate form, it looks like this
-#
-#    |<a href="def-defined-term></a>Defined term|Definition|
+# * Rules get an anchor; rule name and NIEM 5 crossref are removed:
+#   **Rule 0-0:** Rule name || Rule text. (N5R 1-1) -->
+#   <a name="rule-0-0"></a>**Rule 0-0:** Rule text.
 
 use warnings;
 use strict;
 
+my $openFence = 1;
 my $line = 0;
 my %terms;
 
@@ -51,12 +45,12 @@ while (<>) {
 # Process each line in the glossary definitions table
 while (<>) {
   $line++;
-  print, last  if /^#/;        # found next section; all done
+  print, last  if /^#/;        # found next section; glossary all done
   print, next if /^\s*$/;      # blank line
   if (m/^\|([^|]*)\|([^|]*)\|/) {
-    my $def  = $2;
-    my $term = lc $1;
-    my $href = lc $1;
+    my $def  = trim($2);
+    my $term = lc trim($1);
+    my $href = lc trim($1);
     $href =~ s/ +/-/g;
     $href = "def-$href";
     printf "| <a name=\"%s\"></a>%s | %s |\n", $href, $term, $def;
@@ -91,16 +85,38 @@ while (<>) {
       substr($_, $si, $mlen) = $rep;
     }
     else {
+      my $rep = "[<span class=\"termRef\">$ttxt</span>]()";
+      substr($_, $si, $mlen) = $rep;
       printf STDERR "no definition for %s at line %d\n", $term, $line;
     }
   }
   # Add anchor to rules; remove rule name and (N5R) crossref
-  if (m/^\*\*Rule (\d+-\d+)\s+/) {
+  if (m/^\*\*Rule (\d+-\d+):\*\*\s+/) {
     my $anchor = sprintf('<a name="rule-%s"></a>',$1);
     s/^/$anchor/;
     s/:\*\*\s*.*\|\|\s*/:** /;
     s/\s*\(NEW\)\s*$/\n/;
     s/\s*\(N5R [^)]+\)\s*$/\n/;
   }
+  # Replace each reference link in the current line;
+  # for example: [webarch](#ref)
+  while (m/\[+([^]]+)\]+\(#ref\)/g) {
+    my $si    = $-[0];        # beginning index of reference
+    my $ei    = $+[0];        # ending index of reference
+    my $mlen  = $ei - $si;    # length of reference
+    my $ttxt  = $1;           # text of reference; eg. "webarch"
+    my $href  = lc $1;        # reference, all lowercase
+    $href =~ s/[\W]//g;       # reference, only word chars
+
+    my $repl = sprintf("<a href=\"#%s\"><b>[%s]</b></a>", $href, $ttxt);
+    substr($_, $si, $mlen) = $repl;
+  }
   print;
+}
+
+sub trim {
+  my ($rv) = @_;
+  $rv =~ s/^\s+//;
+  $rv =~ s/\s+$//;
+  return $rv;
 }

@@ -14,9 +14,10 @@ PANDOC_ARGS = -f gfm -t html --toc --toc-depth=5 -s $(STYLES) $(METADATA)
 all : html pdf
 
 html: $(NDRHTML)
+pdf:  $(NDRPDF)
 
 $(NDRHTML) : $(NDRSRC)
-	bin/makelinks $(NDRSRC) | pandoc $(PANDOC_ARGS) -o $(NDRHTML)
+	bin/fixmd $(NDRSRC) | pandoc $(PANDOC_ARGS) -o $(NDRHTML)
 
 VMARG   = --margin-top 16mm --margin-bottom 16mm
 HMARG   = --margin-left 10mm --margin-right 10mm

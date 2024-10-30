@@ -197,15 +197,16 @@ DataProperty
     <id>Relation</id>
     <coordinates>
       <x>500</x>
-      <y>520</y>
+      <y>510</y>
       <w>230</w>
-      <h>160</h>
+      <h>170</h>
     </coordinates>
-    <panel_attributes>lt=&lt;-
-m1=1
+    <panel_attributes>lt=-
+m1=0..*
 m2=0..*
-hasProperty &gt;</panel_attributes>
-    <additional_attributes>210.0;10.0;70.0;10.0;70.0;130.0;10.0;130.0</additional_attributes>
+r1= property
+r2= class</panel_attributes>
+    <additional_attributes>210.0;20.0;70.0;20.0;70.0;140.0;10.0;140.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
