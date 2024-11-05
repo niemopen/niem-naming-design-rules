@@ -4,8 +4,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>700</x>
-      <y>460</y>
+      <x>370</x>
+      <y>530</y>
       <w>150</w>
       <h>110</h>
     </coordinates>
@@ -19,40 +19,40 @@ bg=LIGHT_GRAY</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>980</x>
-      <y>460</y>
-      <w>130</w>
+      <x>680</x>
+      <y>530</y>
+      <w>220</w>
       <h>110</h>
     </coordinates>
     <panel_attributes>--
 Augmentation
 --
--minOccurs
--maxOccurs
--global
--index*</panel_attributes>
+-minOccurQuantity
+-maxOccursQuantity
+-augmentedGlobalComponentID
+-augmentationIndex*</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>840</x>
-      <y>510</y>
-      <w>160</w>
+      <x>510</x>
+      <y>580</y>
+      <w>190</w>
       <h>50</h>
     </coordinates>
     <panel_attributes>lt=&lt;-&gt;&gt;&gt;&gt;&gt;
 m1=0..*
 m2=1
-aug &gt;
+augmentation &gt;
 </panel_attributes>
-    <additional_attributes>140.0;20.0;10.0;20.0</additional_attributes>
+    <additional_attributes>170.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1270</x>
-      <y>400</y>
+      <x>1060</x>
+      <y>470</y>
       <w>130</w>
       <h>90</h>
     </coordinates>
@@ -66,8 +66,8 @@ bg=LIGHT_GRAY</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1270</x>
-      <y>560</y>
+      <x>1060</x>
+      <y>630</y>
       <w>130</w>
       <h>90</h>
     </coordinates>
@@ -81,29 +81,31 @@ bg=LIGHT_GRAY</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1100</x>
-      <y>430</y>
+      <x>890</x>
+      <y>490</y>
       <w>190</w>
-      <h>100</h>
+      <h>110</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1=0..1
 m2=1
-class &gt;</panel_attributes>
-    <additional_attributes>170.0;10.0;90.0;10.0;90.0;70.0;10.0;70.0</additional_attributes>
+r1=class
+r1pos=-20,0</panel_attributes>
+    <additional_attributes>170.0;20.0;50.0;20.0;50.0;80.0;10.0;80.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1100</x>
-      <y>530</y>
+      <x>890</x>
+      <y>600</y>
       <w>190</w>
       <h>110</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m2=1
 m1=1
-property &gt;</panel_attributes>
-    <additional_attributes>170.0;80.0;90.0;80.0;90.0;10.0;10.0;10.0</additional_attributes>
+r1=property
+r1pos=-20,0</panel_attributes>
+    <additional_attributes>170.0;80.0;50.0;80.0;50.0;10.0;10.0;10.0</additional_attributes>
   </element>
 </diagram>
