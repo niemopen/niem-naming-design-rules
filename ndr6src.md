@@ -45,7 +45,7 @@ pre > code { font-size: 9pt; margin-left:auto; margin-right:auto; }
 
 ## Project Specification Draft 01
 
-## 4 November 2024 draft
+## 11 November 2024 draft
 
 &nbsp;
 
@@ -431,7 +431,7 @@ A message designer turns information requirements into a [message type](#def), t
 
 ### 3.1.1 Messages
 
-In NIEM terms, the package of data shared at runtime is a [message](#def). This data is arranged according to a supported [serialization](#def). The result is a sequence of bits that represent the information content of the message. [Figure 3-2](#fig3-2) shows two messages with the same information, one serialized in XML, the other in JSON. Each message is a request for a quantity of some item. (In all examples, closing tags and brackets may be omitted, and long lines may be truncated.)
+In NIEM terms, the package of data shared at runtime is a [message](#def). This data is arranged according to a supported [serialization](#def). The result is a sequence of bits that represent the information content of the message. [Figure 3-2](#fig3-2) shows two messages representing the same information, one serialized in XML, the other in JSON. Each message in this example is a request for a quantity of some item. (In all examples, closing tags and brackets may be omitted, and long lines may be truncated.)
 
 ```
 <msg:Request                                                  | {
@@ -444,13 +444,14 @@ In NIEM terms, the package of data shared at runtime is a [message](#def). This 
   </msg:RequestedItem>                                        |      }
 </msg:Request>                                                |   }
                                                               | }
-
 ```
 <figcaption><a name="fig3-2">Figure 3-2: Example of messages in XML and JSON syntax</a></figcaption>
 
-The data structure of a NIEM message appears to be a tree, but is actually a graph. Every NIEM serialization has a reference mechanism; that is, a way to replace an inline copy of a node with a pointer. (See [section TODO]().)
+The data structure of a NIEM message appears to be a tree with a root node. It is actually a directed graph with an [initial node](#def). The [initial node](#def) in [figure 3-2](#fig-3-2) is the `msg:Request` element in the XML message. In the JSON message it is the value for the `msg:Request` key.
 
-Every [message](#def) is an instance of a [message format](#def). A conforming message must satisfy the rules in [section TODO](); in particular, it must be valid according to the [schema](#def) of its [message format](#def).
+Every NIEM serialization has a mechanism for references; that is, a way for one node in the serialized graph to point to a node elsewhere in the graph. This mechanism supports cycles and avoids duplication in the graph data structure. (See [section TODO]().)
+
+Every [message](#def) is an instance of a [message format](#def). A conforming message must satisfy the rules in [section 11](#11-rules-for-messages); in particular, it must be valid according to the [schema](#def) of its [message format](#def).
 
 > A NIEM message was originally known as an *information exchange package (IEP)*, a term that found its way into the U.S. Federal Enterprise Architecture (2005).  A [message specification](#def) was originally known as an *information exchange package documentation (IEPD).*  These terms are in widespread use within the NIEM community today, and will not go away soon (if ever). 
 
@@ -474,13 +475,13 @@ A [message format](#def) includes a [schema](#def) that can be used to assess th
 
 Producing and consuming systems may use the message format schema to validate the syntax of messages at runtime, but are not obligated to do so. Message developers may also use the schema during development for software testing. The schemas may also be used by developers for data binding; for example, [JAXB](#refTODO) with XSD schemas.
 
-A [message format](#def) belongs to exactly one [message type](#def). A conforming [message format](#def) must satisfy the rules in [section TODO](); in particular, it must be constructed so that every [message](#def) that is valid according to the format also satisfies the information content constraints of its [message type](#def).
+A [message format](#def) belongs to exactly one [message type](#def). A conforming [message format](#def) must satisfy the rules in [section 10](#10-rules-for-message-types-and-message-formats); in particular, it must be constructed so that every [message](#def) that is valid according to the format also satisfies the information content constraints of its [message type](#def).
 
 ### 3.1.3 Message type
 
 One important feature of NIEM is that every [message](#def) has an equivalent [message](#def) in every other supported serialization. These equivalent messages have a different [message format](#def), but have the same [message type](#def). For example, the messages in [figure 3-2](#fig3-2) above are equivalent. They represent the same information content, and can be converted one to the other without loss of information.
 
-A [message type](#def) specifies the information content of its messages without prescribing their syntax. A [message type](#def) includes a [message model](#def), which defines the mandatory and optional content of its messages and the meaning of that content. This model is expressed in either of NIEM's two model representations, which are described in [section 3.5](#35-the-niem-metamodel) and section [3.6](#36-niem-model-representations-xsd-and-cmf), and fully defined in [section 4](#4-data-models-in-niem). [Figure 3-4](#fig3-4) shows a portion of the message model for the two message formats in [figure 3-3](#fig3-3).
+A [message type](#def) specifies the information content of its messages without prescribing their syntax. A [message type](#def) includes a [message model](#def), which precisely defines the mandatory and optional content of its messages and the meaning of that content. This model is expressed in either of NIEM's two model representations, which are described in [section 3.5](#35-the-niem-metamodel) and section [3.6](#36-niem-model-representations-xsd-and-cmf), and fully defined in [section 4](#4-data-models-in-niem). [Figure 3-4](#fig3-4) shows a portion of the message model for the two message formats in [figure 3-3](#fig3-3).
 
 ```
 <xs:complexType name="ItemType" appinfo:referenceCode="NONE"> | <Class structures:id="nc.ItemType">
@@ -515,9 +516,9 @@ A [message type](#def) specifies the information content of its messages without
 ```
 <figcaption><a name="fig3-4">Figure 3-4: Example message model in XSD and CMF</a></figcaption>
 
-A message model contains all of the information needed to generate the schema for each [message format](#def) it specifies. NIEMOpen provides free and open-source [software tools](#TODO) to generate these schemas from the message model. (Messsage designers are also free to compose these schemas by hand.)
+A [message type](#def) provides all of the information needed to generate the schema for each [message format](#def) it specifies. NIEMOpen provides free and open-source [software tools](#TODO) to generate these schemas from the message model. (Messsage designers are also free to compose these schemas by hand.)
 
-A conforming [message type](#def) must satisfy all of the rules in [section TODO]().
+A conforming [message type](#def) must satisfy all of the rules in [section 10](#10-rules-for-message-types-and-message-formats).
 
 ### 3.1.4 Message specification
 
@@ -530,15 +531,15 @@ A [message specification](#def) is a collection of related message types. For in
 
 **Summary:**
 
-* A message specification defines one or more message types; a message type belongs to one message specification
-* A message type defines one or more message formats; a message format belongs to one message type
-* A message format defines the syntax of valid messages
-* A message type defines the semantics of valid messages
-* A message is an instance of a message format and of that format's message type
+* A [message specification](#def) defines one or more [message types](#def); a [message type](#def) belongs to one [message specification](#def)
+* A [message type](#def) defines one or more [message formats](#def); a [message format](#def) belongs to one [message type[(#def)]
+* A [message format](#def) defines the syntax of valid [messages](#def)
+* A [message type](#def) defines the semantics of valid messages, plus their mandatory and optional content
+* A [message](#def) is an instance of a [message format](#def) and of that format's [message type](#def)
 
 ## 3.2 Reuse of community-agreed data models
 
-NIEM is also a framework for communities to create data models for concepts that are useful in multiple data specifications. These community models are typically not *complete* for any particular specification. Instead, they reflect the community's judgement on which definitions are *worth the trouble of agreement*. The NIEM core model contains definitions found useful by the NIEM community as a whole. NIEM domain models reuse the core, extending it with definitions found useful by the domain community. The core model plus the domain models comprise the "NIEM model". [Figure 3-6](#fig3-6) below illustrates the relationships between domain communities and community models.
+NIEM is also a framework for communities to create [reuse models](#def) for concepts that are useful in multiple data specifications. These community models are typically not *complete* for any particular specification. Instead, they reflect the community's judgement on which definitions are *worth the trouble of agreement*. The NIEM core model contains definitions found useful by the NIEM community as a whole. NIEM domain models reuse the core, extending it with definitions found useful by the domain community. The core model plus the domain models comprise the "NIEM model". [Figure 3-6](#fig3-6) below illustrates the relationships between domain communities and community models.
 
 <figure>
   <img src="images/community.png" alt="figure" style="zoom:100%"/>
@@ -571,7 +572,7 @@ A data model in NIEM is either a [message model](#def), defining the information
   <figcaption><a name="fig3-7">Figure 3-7: High-level view of the NIEM metamodel</a></figcaption>
 </figure>
 
-*Examples TODO"*
+*Examples TODO*
 
 - A *property* is a concept, idea, or thing.  It defines a field that may appear in a [message](#def) and can contain subfields (for objects / object properties) or a value (for literals / data properties). For example, in [figure 3-4](#fig3-4), `req:RequestedItem` and `nc:ItemName` are names of properties. `req:RequestedItem` is an object property for the requested item; `nc:ItemName` is a data property for the name of the item. The meaning of these properties is captured in the documentation text.
 
@@ -2821,6 +2822,43 @@ This is not allowed in NIEM XSD. There is always a one-to-one match between name
 
 A [schema document set](#def) defines an XML Schema that may be used to validate an XML document. This rule ensures that a schema document set under consideration contains definitions for everything that it references; it has everything necessary to do a complete validation of XML documents, without any unresolved references. Note that some tools may allow validation of documents using partial schemas, when components that are not present are not exercised by the XML document under validation. Such a schema does not meet qualify as a conformant schema document set.
 
+**Rule 9-10:** Use structures namespace consistent with specification || A [schema document set](#def) MUST include the [structures namespace](#def) as it is defined in [Appendix B](#appendix-b--structures-namespace) of this document. (N5R 10-78)
+
+This rule further enforces uniform and consistent use of the NIEM structures namespace, without addition. Users are not allowed to insert types, attributes, etc. that are not specified by this document.
+
+-------
+
+# 10. Rules for message types and message formats
+
+**Rule 10-1:** Message type declares initial class and property || A [message type](#def) MUST declare the class and property for the [initial node](#def) of conforming [messages](#def). (NEW)
+
+A [message model](#def) alone is insufficient to completely define the content of conforming [messages](#def). The [message model](#def) defines the content of several properties, but does not say which of those properties are required in a conforming [message](#def). 
+
+For example, the [message type](#def) for the [message](#def) in [figure 3-2](#fig-3-2) (reproduced below) must declare that the initial property is `msg:Request` and the initial class is `msg:RequestType`. Otherwise, the single element `<nc:ItemName>Wrench</nc:ItemName>` would be a valid [message](#def), because it is valid according to the [message model](#def).
+
+```
+<msg:Request                                                  | {
+ xmlns:nc="https://docs.oasis-open.org/niemopen/ns/model/     |   "@context": "http://example.com/ReqRes/Request/JSON/1.0",
+ xmlns:msg="http://example.com/ReqRes/1.0/">                  |   "msg:Request": {
+  <msg:RequestID>RQ001</msg:RequestID>                        |     "msg:RequestID" : "RQ001",
+  <msg:RequestedItem>                                         |     "msg:RequestedItem": {
+    <nc:ItemName>Wrench</nc:ItemName>                         |       "nc:ItemName": Wrench",
+    <nc:ItemQuantity>10</nc:ItemQuantity>                     |       "nc:ItemQuantity": 10
+  </msg:RequestedItem>                                        |      }
+</msg:Request>                                                |   }
+                                                              | }
+```
+
+This document does not specify any particular syntax for the declaration. 
+
+**Rule 10-2:** Message format schema matches message type || The [schema](#def) for a [message format](#def) MUST validate exactly those [messages](#def) that conform to the format's [message type](#def). (NEW)
+
+This is the only conformance rule for the XML Schema in an XML message format, or the JSON Schema in a JSON message format. NIEMOpen provides free and open-source software to generate conforming schemas from the message type. Developers are also free to construct those schemas by hand.
+
+-------
+
+# 11. Rules for messages
+
 -------
 
 Beyond this point THERE ARE DRAGONS!
@@ -3601,6 +3639,9 @@ Add a reference to a NIEMOpen tools page TODO.
 * [Rule 9-7: Consistent import documentation](#rule-9-7).
 * [Rule 9-8: Namespace prefix is unique](#rule-9-8).
 * [Rule 9-9: Schema document set must be complete](#rule-9-9).
+* [Rule 9-10: Use structures namespace consistent with specification](#rule-9-10).
+* [Rule 10-1: Message type declares initial class and property](#rule-10-1).
+* [Rule 10-2: Message format schema matches message type](#rule-10-2).
 * [Rule 12-1: NO NAME](#rule-12-1).
 * [Rule 12-2: NO NAME](#rule-12-2).
 * [Rule 12-3: NO NAME](#rule-12-3).
@@ -3802,7 +3843,7 @@ Add a reference to a NIEMOpen tools page TODO.
 | [Rule 10-75, appinfo:appliesToElements references elements ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-75) | *no matching NIEM6 rule* |
 | [Rule 10-76, appinfo:LocalTerm annotates schema ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-76) | [8-75](#rule-8-75) |
 | [Rule 10-77, appinfo:LocalTerm has literal or definition ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-77) | [7-35](#rule-7-35) |
-| [Rule 10-78, Use structures consistent with specification ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-78) | *no matching NIEM6 rule* |
+| [Rule 10-78, Use structures consistent with specification ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-78) | [9-10](#rule-9-10) |
 | [Rule 11-1, Name of type ends in Type ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-1) | [7-1](#rule-7-1) |
 | [Rule 11-2, Only types have name ending in Type or SimpleType ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-2) | [7-1](#rule-7-1), [8-25](#rule-8-25) |
 | [Rule 11-3, Base type definition defined by conformant schema ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-3) | [8-37](#rule-8-37) |

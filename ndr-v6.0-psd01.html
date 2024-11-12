@@ -102,7 +102,7 @@ Design Rules (NDR) Version 6.0</a>
 <li><a href="#project-specification-draft-01"
 id="toc-project-specification-draft-01">Project Specification Draft
 01</a></li>
-<li><a href="#4-november-2024-draft" id="toc-4-november-2024-draft">4
+<li><a href="#11-november-2024-draft" id="toc-11-november-2024-draft">11
 November 2024 draft</a>
 <ul>
 <li><a href="#this-stage" id="toc-this-stage">This stage:</a></li>
@@ -380,6 +380,13 @@ id="toc-91-rules-for-model-files">9.1 Rules for model files</a></li>
 <li><a href="#92-rules-for-schema-document-sets"
 id="toc-92-rules-for-schema-document-sets">9.2 Rules for schema document
 sets</a></li>
+</ul></li>
+<li><a href="#10-rules-for-message-types-and-message-formats"
+id="toc-10-rules-for-message-types-and-message-formats">10. Rules for
+message types and message formats</a></li>
+<li><a href="#11-rules-for-messages" id="toc-11-rules-for-messages">11.
+Rules for messages</a>
+<ul>
 <li><a href="#122-identifiers-and-references"
 id="toc-122-identifiers-and-references">12.2 Identifiers and
 references</a>
@@ -515,7 +522,7 @@ pre > code { font-size: 9pt; margin-left:auto; margin-right:auto; }
 Design Rules (NDR) Version 6.0</h1>
 <h2 id="project-specification-draft-01">Project Specification Draft
 01</h2>
-<h2 id="4-november-2024-draft">4 November 2024 draft</h2>
+<h2 id="11-november-2024-draft">11 November 2024 draft</h2>
 <p> </p>
 <h4 id="this-stage">This stage:</h4>
 <p><a
@@ -1781,11 +1788,11 @@ href="#def-message"><span class="termRef">message</span></a>. This data
 is arranged according to a supported <a
 href="#def-serialization"><span class="termRef">serialization</span></a>.
 The result is a sequence of bits that represent the information content
-of the message. <a href="#fig3-2">Figure 3-2</a> shows two messages with
-the same information, one serialized in XML, the other in JSON. Each
-message is a request for a quantity of some item. (In all examples,
-closing tags and brackets may be omitted, and long lines may be
-truncated.)</p>
+of the message. <a href="#fig3-2">Figure 3-2</a> shows two messages
+representing the same information, one serialized in XML, the other in
+JSON. Each message in this example is a request for a quantity of some
+item. (In all examples, closing tags and brackets may be omitted, and
+long lines may be truncated.)</p>
 <pre><code>&lt;msg:Request                                                  | {
  xmlns:nc=&quot;https://docs.oasis-open.org/niemopen/ns/model/     |   &quot;@context&quot;: &quot;http://example.com/ReqRes/Request/JSON/1.0&quot;,
  xmlns:msg=&quot;http://example.com/ReqRes/1.0/&quot;&gt;                  |   &quot;msg:Request&quot;: {
@@ -1795,21 +1802,28 @@ truncated.)</p>
     &lt;nc:ItemQuantity&gt;10&lt;/nc:ItemQuantity&gt;                     |       &quot;nc:ItemQuantity&quot;: 10
   &lt;/msg:RequestedItem&gt;                                        |      }
 &lt;/msg:Request&gt;                                                |   }
-                                                              | }
-</code></pre>
+                                                              | }</code></pre>
 <figcaption><a name="fig3-2">Figure 3-2: Example of messages in XML and JSON syntax</a></figcaption>
 
-<p>The data structure of a NIEM message appears to be a tree, but is
-actually a graph. Every NIEM serialization has a reference mechanism;
-that is, a way to replace an inline copy of a node with a pointer. (See
-<a href="">section TODO</a>.)</p>
+<p>The data structure of a NIEM message appears to be a tree with a root
+node. It is actually a directed graph with an <a
+href=""><span class="termRef">initial node</span></a>. The <a
+href=""><span class="termRef">initial node</span></a> in <a
+href="#fig-3-2">figure 3-2</a> is the <code>msg:Request</code> element
+in the XML message. In the JSON message it is the value for the
+<code>msg:Request</code> key.</p>
+<p>Every NIEM serialization has a mechanism for references; that is, a
+way for one node in the serialized graph to point to a node elsewhere in
+the graph. This mechanism supports cycles and avoids duplication in the
+graph data structure. (See <a href="">section TODO</a>.)</p>
 <p>Every <a href="#def-message"><span class="termRef">message</span></a>
 is an instance of a <a
 href="#def-message-format"><span class="termRef">message
 format</span></a>. A conforming message must satisfy the rules in <a
-href="">section TODO</a>; in particular, it must be valid according to
-the <a href="#def-schema"><span class="termRef">schema</span></a> of its
-<a href="#def-message-format"><span class="termRef">message
+href="#11-rules-for-messages">section 11</a>; in particular, it must be
+valid according to the <a
+href="#def-schema"><span class="termRef">schema</span></a> of its <a
+href="#def-message-format"><span class="termRef">message
 format</span></a>.</p>
 <blockquote>
 <p>A NIEM message was originally known as an <em>information exchange
@@ -1855,7 +1869,8 @@ binding; for example, <a href="#refTODO">JAXB</a> with XSD schemas.</p>
 format</span></a> belongs to exactly one <a
 href="#def-message-type"><span class="termRef">message type</span></a>.
 A conforming <a href="#def-message-format"><span class="termRef">message
-format</span></a> must satisfy the rules in <a href="">section TODO</a>;
+format</span></a> must satisfy the rules in <a
+href="#10-rules-for-message-types-and-message-formats">section 10</a>;
 in particular, it must be constructed so that every <a
 href="#def-message"><span class="termRef">message</span></a> that is
 valid according to the format also satisfies the information content
@@ -1879,9 +1894,9 @@ type</span></a> specifies the information content of its messages
 without prescribing their syntax. A <a
 href="#def-message-type"><span class="termRef">message type</span></a>
 includes a <a href=""><span class="termRef">message model</span></a>,
-which defines the mandatory and optional content of its messages and the
-meaning of that content. This model is expressed in either of NIEM's two
-model representations, which are described in <a
+which precisely defines the mandatory and optional content of its
+messages and the meaning of that content. This model is expressed in
+either of NIEM's two model representations, which are described in <a
 href="#35-the-niem-metamodel">section 3.5</a> and section <a
 href="#36-niem-model-representations-xsd-and-cmf">3.6</a>, and fully
 defined in <a href="#4-data-models-in-niem">section 4</a>. <a
@@ -1918,8 +1933,9 @@ the two message formats in <a href="#fig3-3">figure 3-3</a>.</p>
                                                               | &lt;/ObjectProperty&gt;</code></pre>
 <figcaption><a name="fig3-4">Figure 3-4: Example message model in XSD and CMF</a></figcaption>
 
-<p>A message model contains all of the information needed to generate
-the schema for each <a
+<p>A <a href="#def-message-type"><span class="termRef">message
+type</span></a> provides all of the information needed to generate the
+schema for each <a
 href="#def-message-format"><span class="termRef">message
 format</span></a> it specifies. NIEMOpen provides free and open-source
 <a href="#TODO">software tools</a> to generate these schemas from the
@@ -1927,7 +1943,9 @@ message model. (Messsage designers are also free to compose these
 schemas by hand.)</p>
 <p>A conforming <a
 href="#def-message-type"><span class="termRef">message type</span></a>
-must satisfy all of the rules in <a href="">section TODO</a>.</p>
+must satisfy all of the rules in <a
+href="#10-rules-for-message-types-and-message-formats">section
+10</a>.</p>
 <h3 id="314-message-specification">3.1.4 Message specification</h3>
 <p>A <a href="#def-message-specification"><span class="termRef">message
 specification</span></a> is a collection of related message types. For
@@ -1944,28 +1962,45 @@ href="#fig3-5">figure 3-5</a>.</p>
 
 <p><strong>Summary:</strong></p>
 <ul>
-<li>A message specification defines one or more message types; a message
-type belongs to one message specification</li>
-<li>A message type defines one or more message formats; a message format
-belongs to one message type</li>
-<li>A message format defines the syntax of valid messages</li>
-<li>A message type defines the semantics of valid messages</li>
-<li>A message is an instance of a message format and of that format's
-message type</li>
+<li>A <a href="#def-message-specification"><span class="termRef">message
+specification</span></a> defines one or more <a
+href="#def-message-type"><span class="termRef">message types</span></a>;
+a <a href="#def-message-type"><span class="termRef">message
+type</span></a> belongs to one <a
+href="#def-message-specification"><span class="termRef">message
+specification</span></a></li>
+<li>A <a href="#def-message-type"><span class="termRef">message
+type</span></a> defines one or more <a
+href="#def-message-format"><span class="termRef">message
+formats</span></a>; a <a
+href="#def-message-format"><span class="termRef">message
+format</span></a> belongs to one [message type[(#def)]</li>
+<li>A <a href="#def-message-format"><span class="termRef">message
+format</span></a> defines the syntax of valid <a
+href="#def-message"><span class="termRef">messages</span></a></li>
+<li>A <a href="#def-message-type"><span class="termRef">message
+type</span></a> defines the semantics of valid messages, plus their
+mandatory and optional content</li>
+<li>A <a href="#def-message"><span class="termRef">message</span></a> is
+an instance of a <a
+href="#def-message-format"><span class="termRef">message
+format</span></a> and of that format's <a
+href="#def-message-type"><span class="termRef">message
+type</span></a></li>
 </ul>
 <h2 id="32-reuse-of-community-agreed-data-models">3.2 Reuse of
 community-agreed data models</h2>
-<p>NIEM is also a framework for communities to create data models for
-concepts that are useful in multiple data specifications. These
-community models are typically not <em>complete</em> for any particular
-specification. Instead, they reflect the community's judgement on which
-definitions are <em>worth the trouble of agreement</em>. The NIEM core
-model contains definitions found useful by the NIEM community as a
-whole. NIEM domain models reuse the core, extending it with definitions
-found useful by the domain community. The core model plus the domain
-models comprise the "NIEM model". <a href="#fig3-6">Figure 3-6</a> below
-illustrates the relationships between domain communities and community
-models.</p>
+<p>NIEM is also a framework for communities to create <a
+href=""><span class="termRef">reuse models</span></a> for concepts that
+are useful in multiple data specifications. These community models are
+typically not <em>complete</em> for any particular specification.
+Instead, they reflect the community's judgement on which definitions are
+<em>worth the trouble of agreement</em>. The NIEM core model contains
+definitions found useful by the NIEM community as a whole. NIEM domain
+models reuse the core, extending it with definitions found useful by the
+domain community. The core model plus the domain models comprise the
+"NIEM model". <a href="#fig3-6">Figure 3-6</a> below illustrates the
+relationships between domain communities and community models.</p>
 <figure>
   <img src="images/community.png" alt="figure" style="zoom:100%"/>
   <figcaption><a name="fig3-6">Figure 3-6: NIEM communities and data models</a></figcaption>
@@ -2020,7 +2055,7 @@ lllustration.</p>
   <figcaption><a name="fig3-7">Figure 3-7: High-level view of the NIEM metamodel</a></figcaption>
 </figure>
 
-<p><em>Examples TODO"</em></p>
+<p><em>Examples TODO</em></p>
 <ul>
 <li><p>A <em>property</em> is a concept, idea, or thing. It defines a
 field that may appear in a <a
@@ -6543,6 +6578,67 @@ unresolved references. Note that some tools may allow validation of
 documents using partial schemas, when components that are not present
 are not exercised by the XML document under validation. Such a schema
 does not meet qualify as a conformant schema document set.</p>
+<p><a name="rule-9-10"></a><strong>Rule 9-10:</strong> A <a
+href=""><span class="termRef">schema document set</span></a> MUST
+include the <a href=""><span class="termRef">structures
+namespace</span></a> as it is defined in <a
+href="#appendix-b--structures-namespace">Appendix B</a> of this
+document.</p>
+<p>This rule further enforces uniform and consistent use of the NIEM
+structures namespace, without addition. Users are not allowed to insert
+types, attributes, etc. that are not specified by this document.</p>
+<hr />
+<h1 id="10-rules-for-message-types-and-message-formats">10. Rules for
+message types and message formats</h1>
+<p><a name="rule-10-1"></a><strong>Rule 10-1:</strong> A <a
+href="#def-message-type"><span class="termRef">message type</span></a>
+MUST declare the class and property for the <a
+href=""><span class="termRef">initial node</span></a> of conforming <a
+href="#def-message"><span class="termRef">messages</span></a>.</p>
+<p>A <a href=""><span class="termRef">message model</span></a> alone is
+insufficient to completely define the content of conforming <a
+href="#def-message"><span class="termRef">messages</span></a>. The <a
+href=""><span class="termRef">message model</span></a> defines the
+content of several properties, but does not say which of those
+properties are required in a conforming <a
+href="#def-message"><span class="termRef">message</span></a>.</p>
+<p>For example, the <a
+href="#def-message-type"><span class="termRef">message type</span></a>
+for the <a href="#def-message"><span class="termRef">message</span></a>
+in <a href="#fig-3-2">figure 3-2</a> (reproduced below) must declare
+that the initial property is <code>msg:Request</code> and the initial
+class is <code>msg:RequestType</code>. Otherwise, the single element
+<code>&lt;nc:ItemName&gt;Wrench&lt;/nc:ItemName&gt;</code> would be a
+valid <a href="#def-message"><span class="termRef">message</span></a>,
+because it is valid according to the <a
+href=""><span class="termRef">message model</span></a>.</p>
+<pre><code>&lt;msg:Request                                                  | {
+ xmlns:nc=&quot;https://docs.oasis-open.org/niemopen/ns/model/     |   &quot;@context&quot;: &quot;http://example.com/ReqRes/Request/JSON/1.0&quot;,
+ xmlns:msg=&quot;http://example.com/ReqRes/1.0/&quot;&gt;                  |   &quot;msg:Request&quot;: {
+  &lt;msg:RequestID&gt;RQ001&lt;/msg:RequestID&gt;                        |     &quot;msg:RequestID&quot; : &quot;RQ001&quot;,
+  &lt;msg:RequestedItem&gt;                                         |     &quot;msg:RequestedItem&quot;: {
+    &lt;nc:ItemName&gt;Wrench&lt;/nc:ItemName&gt;                         |       &quot;nc:ItemName&quot;: Wrench&quot;,
+    &lt;nc:ItemQuantity&gt;10&lt;/nc:ItemQuantity&gt;                     |       &quot;nc:ItemQuantity&quot;: 10
+  &lt;/msg:RequestedItem&gt;                                        |      }
+&lt;/msg:Request&gt;                                                |   }
+                                                              | }</code></pre>
+<p>This document does not specify any particular syntax for the
+declaration.</p>
+<p><a name="rule-10-2"></a><strong>Rule 10-2:</strong> The <a
+href="#def-schema"><span class="termRef">schema</span></a> for a <a
+href="#def-message-format"><span class="termRef">message
+format</span></a> MUST validate exactly those <a
+href="#def-message"><span class="termRef">messages</span></a> that
+conform to the format's <a
+href="#def-message-type"><span class="termRef">message
+type</span></a>.</p>
+<p>This is the only conformance rule for the XML Schema in an XML
+message format, or the JSON Schema in a JSON message format. NIEMOpen
+provides free and open-source software to generate conforming schemas
+from the message type. Developers are also free to construct those
+schemas by hand.</p>
+<hr />
+<h1 id="11-rules-for-messages">11. Rules for messages</h1>
 <hr />
 <p>Beyond this point THERE ARE DRAGONS!</p>
 <h2 id="122-identifiers-and-references">12.2 Identifiers and
@@ -6891,37 +6987,37 @@ Definitions</h2>
 full value of each enumeration, to preserve the semantics of the codes.
 In the example below, the code "1" has no semantic meaning on its own;
 "Fatal Accident" does.</p>
-<div class="sourceCode" id="cb46"><pre
-class="sourceCode json"><code class="sourceCode json"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;aamva_d20:AccidentSeverityCodeType&quot;:</span> <span class="fu">{</span>  </span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;description&quot;</span><span class="fu">:</span> <span class="st">&quot;A data type for severity levels of an accident.&quot;</span><span class="fu">,</span>  </span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="st">&quot;string&quot;</span><span class="fu">,</span>  </span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;oneOf&quot;</span><span class="fu">:</span> <span class="ot">[</span>  </span>
-<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span>  </span>
-<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;const&quot;</span><span class="fu">:</span> <span class="st">&quot;1&quot;</span><span class="fu">,</span>  </span>
-<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;description&quot;</span><span class="fu">:</span> <span class="st">&quot;Fatal Accident&quot;</span>  </span>
-<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span><span class="ot">,</span>  </span>
-<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span>  </span>
-<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;const&quot;</span><span class="fu">:</span> <span class="st">&quot;2&quot;</span><span class="fu">,</span>  </span>
-<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;description&quot;</span><span class="fu">:</span> <span class="st">&quot;Incapacitating Injury Accident&quot;</span>  </span>
-<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span><span class="ot">,</span>  </span>
-<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span>  </span>
-<span id="cb46-14"><a href="#cb46-14" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;const&quot;</span><span class="fu">:</span> <span class="st">&quot;3&quot;</span><span class="fu">,</span>  </span>
-<span id="cb46-15"><a href="#cb46-15" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;description&quot;</span><span class="fu">:</span> <span class="st">&quot;Non-incapacitating Evident Injury&quot;</span>  </span>
-<span id="cb46-16"><a href="#cb46-16" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span><span class="ot">,</span>  </span>
-<span id="cb46-17"><a href="#cb46-17" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span>  </span>
-<span id="cb46-18"><a href="#cb46-18" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;const&quot;</span><span class="fu">:</span> <span class="st">&quot;4&quot;</span><span class="fu">,</span>  </span>
-<span id="cb46-19"><a href="#cb46-19" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;description&quot;</span><span class="fu">:</span> <span class="st">&quot;Possible Injury Accident&quot;</span>  </span>
-<span id="cb46-20"><a href="#cb46-20" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span><span class="ot">,</span>  </span>
-<span id="cb46-21"><a href="#cb46-21" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span>  </span>
-<span id="cb46-22"><a href="#cb46-22" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;const&quot;</span><span class="fu">:</span> <span class="st">&quot;5&quot;</span><span class="fu">,</span>  </span>
-<span id="cb46-23"><a href="#cb46-23" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;description&quot;</span><span class="fu">:</span> <span class="st">&quot;Non-injury Accident&quot;</span>  </span>
-<span id="cb46-24"><a href="#cb46-24" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span><span class="ot">,</span>  </span>
-<span id="cb46-25"><a href="#cb46-25" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span>  </span>
-<span id="cb46-26"><a href="#cb46-26" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;const&quot;</span><span class="fu">:</span> <span class="st">&quot;9&quot;</span><span class="fu">,</span>  </span>
-<span id="cb46-27"><a href="#cb46-27" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;description&quot;</span><span class="fu">:</span> <span class="st">&quot;Unknown&quot;</span>  </span>
-<span id="cb46-28"><a href="#cb46-28" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span>  </span>
-<span id="cb46-29"><a href="#cb46-29" aria-hidden="true" tabindex="-1"></a>    <span class="ot">]</span>  </span>
-<span id="cb46-30"><a href="#cb46-30" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre
+class="sourceCode json"><code class="sourceCode json"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;aamva_d20:AccidentSeverityCodeType&quot;:</span> <span class="fu">{</span>  </span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;description&quot;</span><span class="fu">:</span> <span class="st">&quot;A data type for severity levels of an accident.&quot;</span><span class="fu">,</span>  </span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="st">&quot;string&quot;</span><span class="fu">,</span>  </span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;oneOf&quot;</span><span class="fu">:</span> <span class="ot">[</span>  </span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span>  </span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;const&quot;</span><span class="fu">:</span> <span class="st">&quot;1&quot;</span><span class="fu">,</span>  </span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;description&quot;</span><span class="fu">:</span> <span class="st">&quot;Fatal Accident&quot;</span>  </span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span><span class="ot">,</span>  </span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span>  </span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;const&quot;</span><span class="fu">:</span> <span class="st">&quot;2&quot;</span><span class="fu">,</span>  </span>
+<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;description&quot;</span><span class="fu">:</span> <span class="st">&quot;Incapacitating Injury Accident&quot;</span>  </span>
+<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span><span class="ot">,</span>  </span>
+<span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span>  </span>
+<span id="cb47-14"><a href="#cb47-14" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;const&quot;</span><span class="fu">:</span> <span class="st">&quot;3&quot;</span><span class="fu">,</span>  </span>
+<span id="cb47-15"><a href="#cb47-15" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;description&quot;</span><span class="fu">:</span> <span class="st">&quot;Non-incapacitating Evident Injury&quot;</span>  </span>
+<span id="cb47-16"><a href="#cb47-16" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span><span class="ot">,</span>  </span>
+<span id="cb47-17"><a href="#cb47-17" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span>  </span>
+<span id="cb47-18"><a href="#cb47-18" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;const&quot;</span><span class="fu">:</span> <span class="st">&quot;4&quot;</span><span class="fu">,</span>  </span>
+<span id="cb47-19"><a href="#cb47-19" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;description&quot;</span><span class="fu">:</span> <span class="st">&quot;Possible Injury Accident&quot;</span>  </span>
+<span id="cb47-20"><a href="#cb47-20" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span><span class="ot">,</span>  </span>
+<span id="cb47-21"><a href="#cb47-21" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span>  </span>
+<span id="cb47-22"><a href="#cb47-22" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;const&quot;</span><span class="fu">:</span> <span class="st">&quot;5&quot;</span><span class="fu">,</span>  </span>
+<span id="cb47-23"><a href="#cb47-23" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;description&quot;</span><span class="fu">:</span> <span class="st">&quot;Non-injury Accident&quot;</span>  </span>
+<span id="cb47-24"><a href="#cb47-24" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span><span class="ot">,</span>  </span>
+<span id="cb47-25"><a href="#cb47-25" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span>  </span>
+<span id="cb47-26"><a href="#cb47-26" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;const&quot;</span><span class="fu">:</span> <span class="st">&quot;9&quot;</span><span class="fu">,</span>  </span>
+<span id="cb47-27"><a href="#cb47-27" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;description&quot;</span><span class="fu">:</span> <span class="st">&quot;Unknown&quot;</span>  </span>
+<span id="cb47-28"><a href="#cb47-28" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span>  </span>
+<span id="cb47-29"><a href="#cb47-29" aria-hidden="true" tabindex="-1"></a>    <span class="ot">]</span>  </span>
+<span id="cb47-30"><a href="#cb47-30" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 <h2 id="133-normalization-for-json-schema">13.3 Normalization for JSON
 Schema</h2>
 <p>NIEM property and class names can be lengthy and some development
@@ -6930,68 +7026,68 @@ NIEM uses, e.g. <code>nc:PersonGivenName</code>. NIEM allows mapping of
 these longer fully qualified names to shorter names. The mappings are
 put in the <code>@context</code> object along with namespace
 mappings.</p>
-<div class="sourceCode" id="cb47"><pre
-class="sourceCode json"><code class="sourceCode json"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;$schema&quot;</span><span class="fu">:</span> <span class="st">&quot;http://json-schema.org/draft-07/schema#&quot;</span><span class="fu">,</span></span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="st">&quot;object&quot;</span><span class="fu">,</span></span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;@context&quot;</span> <span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;nc&quot;</span><span class="fu">:</span> <span class="st">&quot;http://release.niem.gov/niem/niem-core/5.0/&quot;</span><span class="fu">,</span></span>
-<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;nc:PersonName&quot;</span><span class="fu">,</span></span>
-<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;first&quot;</span><span class="fu">:</span> <span class="st">&quot;nc:PersonGivenName&quot;</span><span class="fu">,</span></span>
-<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;middle&quot;</span><span class="fu">:</span> <span class="st">&quot;nc:PersonMiddleName&quot;</span><span class="fu">,</span></span>
-<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;last&quot;</span><span class="fu">:</span> <span class="st">&quot;nc:PersonSurName&quot;</span><span class="fu">,</span></span>
-<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;nametype&quot;</span><span class="fu">:</span> <span class="st">&quot;nc:PersonNameType&quot;</span><span class="fu">,</span></span>
-<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;nametexttype&quot;</span><span class="fu">:</span> <span class="st">&quot;nc:PersonNameTextType&quot;</span><span class="fu">,</span></span>
-<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;propernametexttype&quot;</span><span class="fu">:</span> <span class="st">&quot;nc:ProperNameTextType&quot;</span><span class="fu">,</span></span>
-<span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;texttype&quot;</span><span class="fu">:</span> <span class="st">&quot;nc:TextType&quot;</span></span>
-<span id="cb47-14"><a href="#cb47-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">},</span></span>
-<span id="cb47-15"><a href="#cb47-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-16"><a href="#cb47-16" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;properties&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb47-17"><a href="#cb47-17" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb47-18"><a href="#cb47-18" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;description&quot;</span><span class="fu">:</span> <span class="st">&quot;A combination of names and/or titles by which a person is known.&quot;</span><span class="fu">,</span></span>
-<span id="cb47-19"><a href="#cb47-19" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="st">&quot;array&quot;</span><span class="fu">,</span></span>
-<span id="cb47-20"><a href="#cb47-20" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;items&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;$ref&quot;</span><span class="fu">:</span> <span class="st">&quot;#/definitions/nametype&quot;</span><span class="fu">}</span></span>
-<span id="cb47-21"><a href="#cb47-21" aria-hidden="true" tabindex="-1"></a>        <span class="fu">},</span></span>
-<span id="cb47-22"><a href="#cb47-22" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;first&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb47-23"><a href="#cb47-23" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;description&quot;</span><span class="fu">:</span> <span class="st">&quot;A first name of a person.&quot;</span><span class="fu">,</span></span>
-<span id="cb47-24"><a href="#cb47-24" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;$ref&quot;</span><span class="fu">:</span> <span class="st">&quot;#/definitions/nametexttype&quot;</span></span>
-<span id="cb47-25"><a href="#cb47-25" aria-hidden="true" tabindex="-1"></a>        <span class="fu">},</span></span>
-<span id="cb47-26"><a href="#cb47-26" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;middle&quot;</span><span class="fu">:</span> <span class="fu">{</span>  </span>
-<span id="cb47-27"><a href="#cb47-27" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;description&quot;</span><span class="fu">:</span> <span class="st">&quot;A middle name of a person.&quot;</span><span class="fu">,</span>  </span>
-<span id="cb47-28"><a href="#cb47-28" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="st">&quot;array&quot;</span><span class="fu">,</span>  </span>
-<span id="cb47-29"><a href="#cb47-29" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;items&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;$ref&quot;</span><span class="fu">:</span> <span class="st">&quot;#/definitions/nametexttype&quot;</span><span class="fu">}</span>  </span>
-<span id="cb47-30"><a href="#cb47-30" aria-hidden="true" tabindex="-1"></a>        <span class="fu">},</span></span>
-<span id="cb47-31"><a href="#cb47-31" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;last&quot;</span><span class="fu">:</span> <span class="fu">{</span>  </span>
-<span id="cb47-32"><a href="#cb47-32" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;description&quot;</span><span class="fu">:</span> <span class="st">&quot;A last name or family name of a person.&quot;</span><span class="fu">,</span>  </span>
-<span id="cb47-33"><a href="#cb47-33" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;$ref&quot;</span><span class="fu">:</span> <span class="st">&quot;#/definitions/nametexttype&quot;</span>  </span>
-<span id="cb47-34"><a href="#cb47-34" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
-<span id="cb47-35"><a href="#cb47-35" aria-hidden="true" tabindex="-1"></a>    <span class="fu">},</span></span>
-<span id="cb47-36"><a href="#cb47-36" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;definitions&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb47-37"><a href="#cb47-37" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;nametype&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb47-38"><a href="#cb47-38" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;description&quot;</span><span class="fu">:</span> <span class="st">&quot;A data type for a combination of names and/or titles by which a person is known.&quot;</span><span class="fu">,</span></span>
-<span id="cb47-39"><a href="#cb47-39" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="st">&quot;object&quot;</span><span class="fu">,</span></span>
-<span id="cb47-40"><a href="#cb47-40" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;properties&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb47-41"><a href="#cb47-41" aria-hidden="true" tabindex="-1"></a>                <span class="dt">&quot;first&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;$ref&quot;</span><span class="fu">:</span> <span class="st">&quot;#/properties/first&quot;</span><span class="fu">},</span></span>
-<span id="cb47-42"><a href="#cb47-42" aria-hidden="true" tabindex="-1"></a>                <span class="dt">&quot;middle&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;$ref&quot;</span><span class="fu">:</span> <span class="st">&quot;#/properties/middle&quot;</span><span class="fu">},</span></span>
-<span id="cb47-43"><a href="#cb47-43" aria-hidden="true" tabindex="-1"></a>                <span class="dt">&quot;last&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;$ref&quot;</span><span class="fu">:</span> <span class="st">&quot;#/properties/last&quot;</span><span class="fu">},</span></span>
-<span id="cb47-44"><a href="#cb47-44" aria-hidden="true" tabindex="-1"></a>            <span class="fu">},</span></span>
-<span id="cb47-45"><a href="#cb47-45" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;required&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;last&quot;</span><span class="ot">]</span></span>
-<span id="cb47-46"><a href="#cb47-46" aria-hidden="true" tabindex="-1"></a>        <span class="fu">},</span></span>
-<span id="cb47-47"><a href="#cb47-47" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;nametexttype&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb47-48"><a href="#cb47-48" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;description&quot;</span><span class="fu">:</span> <span class="st">&quot;A data type for a name by which a person is known, referred, or addressed.&quot;</span><span class="fu">,</span></span>
-<span id="cb47-49"><a href="#cb47-49" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;$ref&quot;</span><span class="fu">:</span> <span class="st">&quot;#/definitions/propernametexttype&quot;</span></span>
-<span id="cb47-50"><a href="#cb47-50" aria-hidden="true" tabindex="-1"></a>        <span class="fu">},</span></span>
-<span id="cb47-51"><a href="#cb47-51" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;propernametexttype&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb47-52"><a href="#cb47-52" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;description&quot;</span><span class="fu">:</span> <span class="st">&quot;A data type for a word or phrase by which a person or thing is known, referred, or addressed.&quot;</span><span class="fu">,</span></span>
-<span id="cb47-53"><a href="#cb47-53" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;$ref&quot;</span><span class="fu">:</span> <span class="st">&quot;#/definitions/texttype&quot;</span></span>
-<span id="cb47-54"><a href="#cb47-54" aria-hidden="true" tabindex="-1"></a>        <span class="fu">},</span></span>
-<span id="cb47-55"><a href="#cb47-55" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;texttype&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb47-56"><a href="#cb47-56" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;description&quot;</span><span class="fu">:</span> <span class="st">&quot;A data type for a character string.&quot;</span><span class="fu">,</span></span>
-<span id="cb47-57"><a href="#cb47-57" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="st">&quot;string&quot;</span></span>
-<span id="cb47-58"><a href="#cb47-58" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
-<span id="cb47-59"><a href="#cb47-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-60"><a href="#cb47-60" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
-<span id="cb47-61"><a href="#cb47-61" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre
+class="sourceCode json"><code class="sourceCode json"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;$schema&quot;</span><span class="fu">:</span> <span class="st">&quot;http://json-schema.org/draft-07/schema#&quot;</span><span class="fu">,</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="st">&quot;object&quot;</span><span class="fu">,</span></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;@context&quot;</span> <span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;nc&quot;</span><span class="fu">:</span> <span class="st">&quot;http://release.niem.gov/niem/niem-core/5.0/&quot;</span><span class="fu">,</span></span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;nc:PersonName&quot;</span><span class="fu">,</span></span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;first&quot;</span><span class="fu">:</span> <span class="st">&quot;nc:PersonGivenName&quot;</span><span class="fu">,</span></span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;middle&quot;</span><span class="fu">:</span> <span class="st">&quot;nc:PersonMiddleName&quot;</span><span class="fu">,</span></span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;last&quot;</span><span class="fu">:</span> <span class="st">&quot;nc:PersonSurName&quot;</span><span class="fu">,</span></span>
+<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;nametype&quot;</span><span class="fu">:</span> <span class="st">&quot;nc:PersonNameType&quot;</span><span class="fu">,</span></span>
+<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;nametexttype&quot;</span><span class="fu">:</span> <span class="st">&quot;nc:PersonNameTextType&quot;</span><span class="fu">,</span></span>
+<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;propernametexttype&quot;</span><span class="fu">:</span> <span class="st">&quot;nc:ProperNameTextType&quot;</span><span class="fu">,</span></span>
+<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;texttype&quot;</span><span class="fu">:</span> <span class="st">&quot;nc:TextType&quot;</span></span>
+<span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">},</span></span>
+<span id="cb48-15"><a href="#cb48-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-16"><a href="#cb48-16" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;properties&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb48-17"><a href="#cb48-17" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb48-18"><a href="#cb48-18" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;description&quot;</span><span class="fu">:</span> <span class="st">&quot;A combination of names and/or titles by which a person is known.&quot;</span><span class="fu">,</span></span>
+<span id="cb48-19"><a href="#cb48-19" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="st">&quot;array&quot;</span><span class="fu">,</span></span>
+<span id="cb48-20"><a href="#cb48-20" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;items&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;$ref&quot;</span><span class="fu">:</span> <span class="st">&quot;#/definitions/nametype&quot;</span><span class="fu">}</span></span>
+<span id="cb48-21"><a href="#cb48-21" aria-hidden="true" tabindex="-1"></a>        <span class="fu">},</span></span>
+<span id="cb48-22"><a href="#cb48-22" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;first&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb48-23"><a href="#cb48-23" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;description&quot;</span><span class="fu">:</span> <span class="st">&quot;A first name of a person.&quot;</span><span class="fu">,</span></span>
+<span id="cb48-24"><a href="#cb48-24" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;$ref&quot;</span><span class="fu">:</span> <span class="st">&quot;#/definitions/nametexttype&quot;</span></span>
+<span id="cb48-25"><a href="#cb48-25" aria-hidden="true" tabindex="-1"></a>        <span class="fu">},</span></span>
+<span id="cb48-26"><a href="#cb48-26" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;middle&quot;</span><span class="fu">:</span> <span class="fu">{</span>  </span>
+<span id="cb48-27"><a href="#cb48-27" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;description&quot;</span><span class="fu">:</span> <span class="st">&quot;A middle name of a person.&quot;</span><span class="fu">,</span>  </span>
+<span id="cb48-28"><a href="#cb48-28" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="st">&quot;array&quot;</span><span class="fu">,</span>  </span>
+<span id="cb48-29"><a href="#cb48-29" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;items&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;$ref&quot;</span><span class="fu">:</span> <span class="st">&quot;#/definitions/nametexttype&quot;</span><span class="fu">}</span>  </span>
+<span id="cb48-30"><a href="#cb48-30" aria-hidden="true" tabindex="-1"></a>        <span class="fu">},</span></span>
+<span id="cb48-31"><a href="#cb48-31" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;last&quot;</span><span class="fu">:</span> <span class="fu">{</span>  </span>
+<span id="cb48-32"><a href="#cb48-32" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;description&quot;</span><span class="fu">:</span> <span class="st">&quot;A last name or family name of a person.&quot;</span><span class="fu">,</span>  </span>
+<span id="cb48-33"><a href="#cb48-33" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;$ref&quot;</span><span class="fu">:</span> <span class="st">&quot;#/definitions/nametexttype&quot;</span>  </span>
+<span id="cb48-34"><a href="#cb48-34" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
+<span id="cb48-35"><a href="#cb48-35" aria-hidden="true" tabindex="-1"></a>    <span class="fu">},</span></span>
+<span id="cb48-36"><a href="#cb48-36" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;definitions&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb48-37"><a href="#cb48-37" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;nametype&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb48-38"><a href="#cb48-38" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;description&quot;</span><span class="fu">:</span> <span class="st">&quot;A data type for a combination of names and/or titles by which a person is known.&quot;</span><span class="fu">,</span></span>
+<span id="cb48-39"><a href="#cb48-39" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="st">&quot;object&quot;</span><span class="fu">,</span></span>
+<span id="cb48-40"><a href="#cb48-40" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;properties&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb48-41"><a href="#cb48-41" aria-hidden="true" tabindex="-1"></a>                <span class="dt">&quot;first&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;$ref&quot;</span><span class="fu">:</span> <span class="st">&quot;#/properties/first&quot;</span><span class="fu">},</span></span>
+<span id="cb48-42"><a href="#cb48-42" aria-hidden="true" tabindex="-1"></a>                <span class="dt">&quot;middle&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;$ref&quot;</span><span class="fu">:</span> <span class="st">&quot;#/properties/middle&quot;</span><span class="fu">},</span></span>
+<span id="cb48-43"><a href="#cb48-43" aria-hidden="true" tabindex="-1"></a>                <span class="dt">&quot;last&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;$ref&quot;</span><span class="fu">:</span> <span class="st">&quot;#/properties/last&quot;</span><span class="fu">},</span></span>
+<span id="cb48-44"><a href="#cb48-44" aria-hidden="true" tabindex="-1"></a>            <span class="fu">},</span></span>
+<span id="cb48-45"><a href="#cb48-45" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;required&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;last&quot;</span><span class="ot">]</span></span>
+<span id="cb48-46"><a href="#cb48-46" aria-hidden="true" tabindex="-1"></a>        <span class="fu">},</span></span>
+<span id="cb48-47"><a href="#cb48-47" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;nametexttype&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb48-48"><a href="#cb48-48" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;description&quot;</span><span class="fu">:</span> <span class="st">&quot;A data type for a name by which a person is known, referred, or addressed.&quot;</span><span class="fu">,</span></span>
+<span id="cb48-49"><a href="#cb48-49" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;$ref&quot;</span><span class="fu">:</span> <span class="st">&quot;#/definitions/propernametexttype&quot;</span></span>
+<span id="cb48-50"><a href="#cb48-50" aria-hidden="true" tabindex="-1"></a>        <span class="fu">},</span></span>
+<span id="cb48-51"><a href="#cb48-51" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;propernametexttype&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb48-52"><a href="#cb48-52" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;description&quot;</span><span class="fu">:</span> <span class="st">&quot;A data type for a word or phrase by which a person or thing is known, referred, or addressed.&quot;</span><span class="fu">,</span></span>
+<span id="cb48-53"><a href="#cb48-53" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;$ref&quot;</span><span class="fu">:</span> <span class="st">&quot;#/definitions/texttype&quot;</span></span>
+<span id="cb48-54"><a href="#cb48-54" aria-hidden="true" tabindex="-1"></a>        <span class="fu">},</span></span>
+<span id="cb48-55"><a href="#cb48-55" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;texttype&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb48-56"><a href="#cb48-56" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;description&quot;</span><span class="fu">:</span> <span class="st">&quot;A data type for a character string.&quot;</span><span class="fu">,</span></span>
+<span id="cb48-57"><a href="#cb48-57" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="st">&quot;string&quot;</span></span>
+<span id="cb48-58"><a href="#cb48-58" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
+<span id="cb48-59"><a href="#cb48-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-60"><a href="#cb48-60" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb48-61"><a href="#cb48-61" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 <p>See section <em>14.5 Normalization for JSON Instances</em>, below,
 for normalized instances.</p>
 <h1 id="14-rules-for-niem-messages-in-json">14. Rules for NIEM messages
@@ -7028,11 +7124,11 @@ There MUST NOT be additional meaning interpreted for an element with no
 content.</p>
 </blockquote>
 <p>In this example, neither empty object has any implied meaning:</p>
-<div class="sourceCode" id="cb48"><pre
-class="sourceCode json"><code class="sourceCode json"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>    <span class="er">SomeProperty1</span><span class="fu">:</span> <span class="st">&quot;&quot;</span><span class="fu">,</span></span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>    <span class="er">SomeProperty2</span><span class="fu">:</span> <span class="ot">[]</span></span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre
+class="sourceCode json"><code class="sourceCode json"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>    <span class="er">SomeProperty1</span><span class="fu">:</span> <span class="st">&quot;&quot;</span><span class="fu">,</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>    <span class="er">SomeProperty2</span><span class="fu">:</span> <span class="ot">[]</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 <h2 id="143-referencing">14.3 Referencing</h2>
 <p>Applicable Rules:</p>
 <ul>
@@ -7054,14 +7150,14 @@ becomes an  <a
 href="https://en.wikipedia.org/wiki/Internationalized_Resource_Identifier">Internationalized
 Resource Identifier (IRI)</a>, linking together all object in an
 instance with the same IRI.</p>
-<div class="sourceCode" id="cb49"><pre
-class="sourceCode json"><code class="sourceCode json"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;SomeLocalIdentifiedProperty&quot;:</span> <span class="fu">{</span></span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;some-id-string&quot;</span></span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="er">,</span></span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;SomeGlobalIdentifiedProperty&quot;:</span> <span class="fu">{</span></span>
-<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;http://some-uri/&quot;</span><span class="fu">,</span></span>
-<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@type&quot;</span><span class="fu">:</span> <span class="st">&quot;@vocab&quot;</span></span>
-<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre
+class="sourceCode json"><code class="sourceCode json"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;SomeLocalIdentifiedProperty&quot;:</span> <span class="fu">{</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;some-id-string&quot;</span></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="er">,</span></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;SomeGlobalIdentifiedProperty&quot;:</span> <span class="fu">{</span></span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;http://some-uri/&quot;</span><span class="fu">,</span></span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;@type&quot;</span><span class="fu">:</span> <span class="st">&quot;@vocab&quot;</span></span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span></code></pre></div>
 <p>Applicable Rules:</p>
 <ul>
 <li>Rule 12-5 Linked elements have same validation root (INS)</li>
@@ -7079,16 +7175,16 @@ to link to people objects.</p>
 objects of <code>nc:PersonType</code>, but also to objects derived from
 <code>nc:PersonType</code>, like a <code>j:MedicalPractitioner</code>
 object.</p>
-<div class="sourceCode" id="cb50"><pre
-class="sourceCode json"><code class="sourceCode json"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;nc:Person&quot;:</span> <span class="fu">{</span></span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;ABC123&quot;</span></span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;nc:PersonName&quot;</span><span class="er">:</span> <span class="fu">{</span></span>
-<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;nc:PersonFullName&quot;</span><span class="fu">:</span> <span class="st">&quot;Doctor Who&quot;</span></span>
-<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
-<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span><span class="er">,</span></span>
-<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;j:MedicalPractitioner&quot;:</span> <span class="fu">{</span></span>
-<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;ABC123&quot;</span></span>
-<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre
+class="sourceCode json"><code class="sourceCode json"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;nc:Person&quot;:</span> <span class="fu">{</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;ABC123&quot;</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;nc:PersonName&quot;</span><span class="er">:</span> <span class="fu">{</span></span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;nc:PersonFullName&quot;</span><span class="fu">:</span> <span class="st">&quot;Doctor Who&quot;</span></span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span><span class="er">,</span></span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;j:MedicalPractitioner&quot;:</span> <span class="fu">{</span></span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;@id&quot;</span><span class="fu">:</span> <span class="st">&quot;ABC123&quot;</span></span>
+<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 <p>It may be helpful to refer to the source CMF to more clearly see
 types and derivations.</p>
 <p>There MUST NOT be any difference in meaning between a relationship
@@ -7112,41 +7208,41 @@ this ordering.</p>
 <h2 id="145-normalization-for-json-instances">14.5 Normalization for
 JSON Instances</h2>
 <p>Instance with fully qualified names:</p>
-<div class="sourceCode" id="cb51"><pre
-class="sourceCode json"><code class="sourceCode json"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;nc:PersonName&quot;</span><span class="fu">:</span> <span class="ot">[</span>  </span>
-<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span>  </span>
-<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;nc:PersonGivenName&quot;</span><span class="fu">:</span> <span class="st">&quot;Peter&quot;</span><span class="fu">,</span>  </span>
-<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;nc:PersonMiddleName&quot;</span><span class="fu">:</span> <span class="ot">[</span>  </span>
-<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot;Death&quot;</span><span class="ot">,</span>  </span>
-<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot;Bredon&quot;</span>  </span>
-<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a>            <span class="ot">]</span><span class="fu">,</span>  </span>
-<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;nc:PersonSurName&quot;</span><span class="fu">:</span> <span class="st">&quot;Wimsey&quot;</span>  </span>
-<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span>  </span>
-<span id="cb51-11"><a href="#cb51-11" aria-hidden="true" tabindex="-1"></a>    <span class="ot">]</span></span>
-<span id="cb51-12"><a href="#cb51-12" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
-<p>Instance with short names:</p>
 <div class="sourceCode" id="cb52"><pre
 class="sourceCode json"><code class="sourceCode json"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;@context&quot;</span> <span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;nc&quot;</span><span class="fu">:</span> <span class="st">&quot;http://release.niem.gov/niem/niem-core/5.0/&quot;</span><span class="fu">,</span></span>
-<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;nc:PersonName&quot;</span><span class="fu">,</span></span>
-<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;first&quot;</span><span class="fu">:</span> <span class="st">&quot;nc:PersonGivenName&quot;</span><span class="fu">,</span></span>
-<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;middle&quot;</span><span class="fu">:</span> <span class="st">&quot;nc:PersonMiddleName&quot;</span><span class="fu">,</span></span>
-<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;last&quot;</span><span class="fu">:</span> <span class="st">&quot;nc:PersonSurName&quot;</span></span>
-<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">},</span></span>
-<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="ot">[</span>  </span>
-<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span>  </span>
-<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;first&quot;</span><span class="fu">:</span> <span class="st">&quot;Peter&quot;</span><span class="fu">,</span>  </span>
-<span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;middle&quot;</span><span class="fu">:</span> <span class="ot">[</span>  </span>
-<span id="cb52-14"><a href="#cb52-14" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot;Death&quot;</span><span class="ot">,</span>  </span>
-<span id="cb52-15"><a href="#cb52-15" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot;Bredon&quot;</span>  </span>
-<span id="cb52-16"><a href="#cb52-16" aria-hidden="true" tabindex="-1"></a>            <span class="ot">]</span><span class="fu">,</span>  </span>
-<span id="cb52-17"><a href="#cb52-17" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;last&quot;</span><span class="fu">:</span> <span class="st">&quot;Wimsey&quot;</span>  </span>
-<span id="cb52-18"><a href="#cb52-18" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span>  </span>
-<span id="cb52-19"><a href="#cb52-19" aria-hidden="true" tabindex="-1"></a>    <span class="ot">]</span></span>
-<span id="cb52-20"><a href="#cb52-20" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;nc:PersonName&quot;</span><span class="fu">:</span> <span class="ot">[</span>  </span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span>  </span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;nc:PersonGivenName&quot;</span><span class="fu">:</span> <span class="st">&quot;Peter&quot;</span><span class="fu">,</span>  </span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;nc:PersonMiddleName&quot;</span><span class="fu">:</span> <span class="ot">[</span>  </span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot;Death&quot;</span><span class="ot">,</span>  </span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot;Bredon&quot;</span>  </span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>            <span class="ot">]</span><span class="fu">,</span>  </span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;nc:PersonSurName&quot;</span><span class="fu">:</span> <span class="st">&quot;Wimsey&quot;</span>  </span>
+<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span>  </span>
+<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a>    <span class="ot">]</span></span>
+<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p>Instance with short names:</p>
+<div class="sourceCode" id="cb53"><pre
+class="sourceCode json"><code class="sourceCode json"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;@context&quot;</span> <span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;nc&quot;</span><span class="fu">:</span> <span class="st">&quot;http://release.niem.gov/niem/niem-core/5.0/&quot;</span><span class="fu">,</span></span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;nc:PersonName&quot;</span><span class="fu">,</span></span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;first&quot;</span><span class="fu">:</span> <span class="st">&quot;nc:PersonGivenName&quot;</span><span class="fu">,</span></span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;middle&quot;</span><span class="fu">:</span> <span class="st">&quot;nc:PersonMiddleName&quot;</span><span class="fu">,</span></span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;last&quot;</span><span class="fu">:</span> <span class="st">&quot;nc:PersonSurName&quot;</span></span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">},</span></span>
+<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="ot">[</span>  </span>
+<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span>  </span>
+<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;first&quot;</span><span class="fu">:</span> <span class="st">&quot;Peter&quot;</span><span class="fu">,</span>  </span>
+<span id="cb53-13"><a href="#cb53-13" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;middle&quot;</span><span class="fu">:</span> <span class="ot">[</span>  </span>
+<span id="cb53-14"><a href="#cb53-14" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot;Death&quot;</span><span class="ot">,</span>  </span>
+<span id="cb53-15"><a href="#cb53-15" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot;Bredon&quot;</span>  </span>
+<span id="cb53-16"><a href="#cb53-16" aria-hidden="true" tabindex="-1"></a>            <span class="ot">]</span><span class="fu">,</span>  </span>
+<span id="cb53-17"><a href="#cb53-17" aria-hidden="true" tabindex="-1"></a>            <span class="dt">&quot;last&quot;</span><span class="fu">:</span> <span class="st">&quot;Wimsey&quot;</span>  </span>
+<span id="cb53-18"><a href="#cb53-18" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span>  </span>
+<span id="cb53-19"><a href="#cb53-19" aria-hidden="true" tabindex="-1"></a>    <span class="ot">]</span></span>
+<span id="cb53-20"><a href="#cb53-20" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 <p>As with namespace declarations above, the <code>@context</code>
 object MUST exist as part of the specification, but does not need to be
 included in JSON instances being exchanged. Structure, however, cannot
@@ -7600,6 +7696,12 @@ documentation</a>.</li>
 <li><a href="#rule-9-8">Rule 9-8: Namespace prefix is unique</a>.</li>
 <li><a href="#rule-9-9">Rule 9-9: Schema document set must be
 complete</a>.</li>
+<li><a href="#rule-9-10">Rule 9-10: Use structures namespace consistent
+with specification</a>.</li>
+<li><a href="#rule-10-1">Rule 10-1: Message type declares initial class
+and property</a>.</li>
+<li><a href="#rule-10-2">Rule 10-2: Message format schema matches
+message type</a>.</li>
 <li><a href="#rule-12-1">Rule 12-1: NO NAME</a>.</li>
 <li><a href="#rule-12-2">Rule 12-2: NO NAME</a>.</li>
 <li><a href="#rule-12-3">Rule 12-3: NO NAME</a>.</li>
@@ -8769,7 +8871,7 @@ href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-78">Rule
 10-78, Use structures consistent with specification </a></td>
-<td style="text-align: left;"><em>no matching NIEM6 rule</em></td>
+<td style="text-align: left;"><a href="#rule-9-10">9-10</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
