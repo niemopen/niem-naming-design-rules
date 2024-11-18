@@ -3,8 +3,9 @@ a[href]:hover { color: #000; background-color: #F9FAD4; }
 span.termRef::before { font-weight: bold; content: "·"; } 
 span.termRef::after { font-weight:bold; content: "·"; }
 img { display:block; margin-left:auto; margin-right:auto; height:auto; }
-figcaption { text-align:center; font-style:italic; margin-bottom:10pt; }
+figcaption { text-align:center; font-style:italic; margin-top: 10pt; margin-bottom:10pt; }
 h2,h3 { margin-top:18pt; }
 code { font-size: 11pt; }
 pre > code { font-size: 9pt; }
+table { margin-bottom: 6pt; }
 

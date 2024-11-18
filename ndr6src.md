@@ -33,10 +33,11 @@ a[href]:hover { color: #000; background-color: #F9FAD4; }
 span.termRef::before { font-weight: bold; content: "·"; } 
 span.termRef::after { font-weight:bold; content: "·"; }
 img { display:block; margin-left:auto; margin-right:auto; height:auto; }
-figcaption { text-align:center; font-style:italic; margin-bottom:10pt; }
+figcaption { text-align:center; font-style:italic; margin-top: 10pt; margin-bottom:10pt; }
 h2,h3 { margin-top:18pt; }
 code { font-size: 11pt; }
 pre > code { font-size: 9pt; margin-left:auto; margin-right:auto; }
+table { margin-bottom: 12pt; }
 </style>
 
 -------
@@ -45,7 +46,7 @@ pre > code { font-size: 9pt; margin-left:auto; margin-right:auto; }
 
 ## Project Specification Draft 01
 
-## 11 November 2024 draft
+## 18 November 2024 draft
 
 &nbsp;
 
@@ -435,19 +436,22 @@ In NIEM terms, the package of data shared at runtime is a [message](#def). This 
 
 ```
 <msg:Request                                                  | {
- xmlns:nc="https://docs.oasis-open.org/niemopen/ns/model/     |   "@context": "http://example.com/ReqRes/Request/JSON/1.0",
- xmlns:msg="http://example.com/ReqRes/1.0/">                  |   "msg:Request": {
-  <msg:RequestID>RQ001</msg:RequestID>                        |     "msg:RequestID" : "RQ001",
-  <msg:RequestedItem>                                         |     "msg:RequestedItem": {
-    <nc:ItemName>Wrench</nc:ItemName>                         |       "nc:ItemName": Wrench",
-    <nc:ItemQuantity>10</nc:ItemQuantity>                     |       "nc:ItemQuantity": 10
-  </msg:RequestedItem>                                        |      }
-</msg:Request>                                                |   }
+ xmlns:nc="https://docs.oasis-open.org/niemopen/ns/model/niem |   "@context": {
+ xmlns:msg="http://example.com/ReqRes/1.0/">                  |     "nc": "https://docs.oasis-open.org/niemopen/ns/model/niem-
+  <msg:RequestID>RQ001</msg:RequestID>                        |     "msg": "http://example.com/ReqRes/1.0/"
+  <msg:RequestedItem>                                         |   },
+    <nc:ItemName>Wrench</nc:ItemName>                         |   "msg:Request": {
+    <nc:ItemQuantity>10</nc:ItemQuantity>                     |     "msg:RequestID" : "RQ001",
+  </msg:RequestedItem>                                        |     "msg:RequestedItem": {
+</msg:Request>                                                |       "nc:ItemName": Wrench",
+                                                              |       "nc:ItemQuantity": 10
+                                                              |      }
+                                                              |   }
                                                               | }
 ```
 <figcaption><a name="fig3-2">Figure 3-2: Example of messages in XML and JSON syntax</a></figcaption>
 
-The data structure of a NIEM message appears to be a tree with a root node. It is actually a directed graph with an [initial node](#def). The [initial node](#def) in [figure 3-2](#fig-3-2) is the `msg:Request` element in the XML message. In the JSON message it is the value for the `msg:Request` key.
+The data structure of a NIEM message appears to be a tree with a root node. It is actually a directed graph with an initial property. For example, the initial property in [figure 3-2](#fig-3-2) is the `msg:Request` element in the XML message. In the JSON message it is the value for the `msg:Request` key.
 
 Every NIEM serialization has a mechanism for references; that is, a way for one node in the serialized graph to point to a node elsewhere in the graph. This mechanism supports cycles and avoids duplication in the graph data structure. (See [section TODO]().)
 
@@ -516,6 +520,8 @@ A [message type](#def) specifies the information content of its messages without
 ```
 <figcaption><a name="fig3-4">Figure 3-4: Example message model in XSD and CMF</a></figcaption>
 
+In addition to the [message model](#def), a [message type](#def) also declares the initial property of conforming messages. For example, the [message type](#def) for the [message](#def) in [figure 3-2](#fig-3-2) must declare that the initial property is `msg:Request`. Without that declaration, the single element `<nc:ItemName>Wrench</nc:ItemName>` would be a valid [message](#def), because it is valid according to the [message model](#def).
+
 A [message type](#def) provides all of the information needed to generate the schema for each [message format](#def) it specifies. NIEMOpen provides free and open-source [software tools](#TODO) to generate these schemas from the message model. (Messsage designers are also free to compose these schemas by hand.)
 
 A conforming [message type](#def) must satisfy all of the rules in [section 10](#10-rules-for-message-types-and-message-formats).
@@ -532,7 +538,7 @@ A [message specification](#def) is a collection of related message types. For in
 **Summary:**
 
 * A [message specification](#def) defines one or more [message types](#def); a [message type](#def) belongs to one [message specification](#def)
-* A [message type](#def) defines one or more [message formats](#def); a [message format](#def) belongs to one [message type[(#def)]
+* A [message type](#def) defines one or more [message formats](#def); a [message format](#def) belongs to one [message type](#def)
 * A [message format](#def) defines the syntax of valid [messages](#def)
 * A [message type](#def) defines the semantics of valid messages, plus their mandatory and optional content
 * A [message](#def) is an instance of a [message format](#def) and of that format's [message type](#def)
@@ -566,9 +572,9 @@ One of NIEM's principles is to reuse well-known information technology standards
 
 A data model in NIEM is either a [message model](#def), defining the information content of a [message type](#def), or a [reuse model](#def), making the agreed definitions of a community available for reuse. The information required for those purposes can itself be modeled. The model of that information is the *NIEM metamodel* -- an abstract model for NIEM data models. The metamodel is expressed in UML, and is described in detail in [section 4](). At a high level, the major components of the metamodel are properties, classes, datatypes, namespaces, and models. [Figure 3-7](#fig3-7) provides an lllustration.
 
-<figure class="image">
+<figure>
   <a name="fig3-2"/></a>
-  <img src="images/highLevel.png" style="zoom:75%"/>
+  <img src="images/highLevel.png"/>
   <figcaption><a name="fig3-7">Figure 3-7: High-level view of the NIEM metamodel</a></figcaption>
 </figure>
 
@@ -1958,6 +1964,7 @@ An instance of the TextType class combines a string property with a language pro
 | TextType              | A data type for a character string with a language code.||||
 | TextLiteral           | A literal value that is a character string. | 1 | - | xs:string |
 | lang                  | A name of the language of a character string. | 0..1 | - | xs:language |
+</br>
 
 -------
 
@@ -1965,6 +1972,88 @@ An instance of the TextType class combines a string property with a language pro
 
 > NOTE: I think the sections on container objects and representation terms belong here, along with any other modeling patterns we want to describe.  NDR 5 buries these things in section 10, "Rules for NIEM modeling", but I don't think that makes sense in the NDR 6 organization.  This might also be a good place to talk about metadata in NIEM 6.
 
+## 5.1 Meaning of NIEM data
+
+The meaning of NIEM data is partly expressed through the hierarchy of elements in an XML message, or the hierarchy of objects in a JSON message. More meaning is provided through the message model's definition of those XML elements and JSON keys. For example, the meaning of the two equivalent messages from [figure 3-2](#fig-3-2) (reproduced below) is described in [figure 5-1](#fig-5-1).
+
+```
+<msg:Request                                                  | {
+ xmlns:nc="https://docs.oasis-open.org/niemopen/ns/model/niem |   "@context": {
+ xmlns:msg="http://example.com/ReqRes/1.0/">                  |     "nc": "https://docs.oasis-open.org/niemopen/ns/model/niem-
+  <msg:RequestID>RQ001</msg:RequestID>                        |     "msg": "http://example.com/ReqRes/1.0/"
+  <msg:RequestedItem>                                         |   },
+    <nc:ItemName>Wrench</nc:ItemName>                         |   "msg:Request": {
+    <nc:ItemQuantity>10</nc:ItemQuantity>                     |     "msg:RequestID" : "RQ001",
+  </msg:RequestedItem>                                        |     "msg:RequestedItem": {
+</msg:Request>                                                |       "nc:ItemName": Wrench",
+                                                              |       "nc:ItemQuantity": 10
+                                                              |      }
+                                                              |   }
+                                                              | }
+```
+
+| Message data | Description | Meaning |
+| ------------ | ----------- | ------- |
+| `<msg:Request>` *or*</br>`"msg:Request":{...}` |The initial property is `msg:Request`. The message model defines the range of this property as the `msg:RequestType` class. | There is an object that is a request for a specified quantity of a named item. |
+| `<msg:RequestID>` *or</br>`"msg:RequestID":...` | The next property is `msg:RequestID`. The message model defines the range of this data property as the `xs:token` datatype. | There is a relationship between the object of `msg:RequestType` and the literal value `RQ001`. |
+| `<msg:RequestedItem>` *or*</br>`"msg:RequestedItem":{...}` | The next property is `msg:RequestedItem`. The message model defines the range of this object property as the `nc:ItemType` class. | There is a relationship between the object of `msg:RequestType` and the object of `nc:ItemType`. |
+| `<nc:ItemName>` *or*</br>`"nc:ItemName":...` | The next property is `nc:ItemName`. The message model defines the range of this data property as the `nc:TextType` datatype. | There is a relationship between the object of `nc:ItemType` and the literal value `Wrench`. | 
+| `<nc:ItemQuantity>` *or*</br>`nc:ItemQuantity":...` | The next property is `nc:ItemQuantity`. The message model defines the range of this data property as the `nc:QuantityType` datatype. | There is a relationship between the object of `nc:ItemType` and the literal value `10`. |
+
+<figcaption><a name="fig-5-1">Figure 5-1: Meaning of NIEM data </a></figcaption>
+
+NIEM is designed so that NIEM data is a form of RDF data. For example, the message data above corresponds to the RDF shown in [figure 5-2](#fig-5-2)
+
+```
+@prefix nc: <https://docs.oasis-open.org/niemopen/ns/model/adapters/niem-xs/6.0/> .
+@prefix msg: <http://example.com/ReqRes/1.0/> .
+_:n1 a msg:RequestType .
+_:n1 msg:RequestID "RQ001".
+_:n1 msg:RequestedItem _:n2 .
+_:n2 a nc:ItemType .
+_:n2 nc:ItemName "Wrench" .
+_:n2 nc:ItemQuantity "10" .
+```
+<figcaption><a name="fig-5-2">Figure 5-2: RDF interpretation of NIEM data (Turtle syntax)</a></figcaption>
+
+That RDF data expresses a graph, illustrated by the diagram in [figure 5-3](#fig-5-3).
+
+<figure>
+  <img src="images/meaning.png" alt="Diagram showing meaning of NIEM data"/>
+  <figcaption><a name="fig-5-3">Figure 5-3: Diagram showing meaning of NIEM data</a></figcaption>
+</figure>
+
+In a NIEM message, that which is not stated is not implied. If data says a person’s name is John, it is not implicitly saying that he does not have other names, or that John is his legal name, or that he is different from a person known as Bob. The only assertion being made is that one of the names by which this person is known is John. 
+
+Likewise, nothing may be inferred from data that is not present in a NIEM message. It may be absent due to lack of availability, lack of knowledge, or deliberate withholding of information. These cases should be modeled explicitly, if they are required.
+
+## 5.2 References and URIs in NIEM messages
+
+> Explanatory material from NDR5 section 12.2.  Rules will appear in section 11.
+
+## 5.3 Atomic classes and datatypes
+
+> Explain why simple content with attributes must be a class.  Explain why that class turns into a datatype when you remove the attributes from your subset.
+
+## 5.4 Augmentation
+
+> Explanations and examples that now appear in section 4.15
+
+## 5.5 Roles
+
+> These use `structures:uri` in NIEM 6.  Need explanation and example
+
+## 5.6 Metadata
+
+> Done with augmentation in NIEM 6. Need explanation and example
+
+## 5.7 Representation terms
+
+> Stuff from NDR 5 section 10.7
+
+## 5.8 Container objects
+
+> NDR 5 section 10.6
 -------
 
 # 6. Conformance
@@ -2034,7 +2123,7 @@ For XSD, NIEMOpen makes use of [[CTAS]](#ref) to indicate whether a [schema docu
   version="1"
   xml:lang="en-US">
 ```
-<figcaption><a name="fig5-1">Figure 5-1: Conformance target assertion in XSD</a></figcaption>
+<figcaption><a name="fig5-4">Figure 5-4: Conformance target assertion in XSD</a></figcaption>
 
 In CMF, the `ConformanceTargetURI` property indicates whether a Namespace object represents a reference, extension, or subset namespace. For example, the Namespace object equivalent to the namespace in [figure 5-1](#fig5-1) is shown below:
 
@@ -2051,7 +2140,7 @@ In CMF, the `ConformanceTargetURI` property indicates whether a Namespace object
   <NamespaceLanguageName>en-US</NamespaceLanguageName>
 </Namespace>
 ```
-<figcaption><a name="fig5-2">Figure 5-2: Conformance target in CMF</a></figcaption>
+<figcaption><a name="fig5-5">Figure 5-5: Conformance target in CMF</a></figcaption>
 
 ## 6.3 Conformance testing
 
@@ -2431,7 +2520,7 @@ It is helpful when a [message specification](#def) includes the representation o
 
 **Rule 7-73:** Subset does not alter data definition || The data definition of a component in a [subset namespace](#def) MUST NOT be different than the data definition of the component in its [reference namespace](#def) or [extension namespace](#def). (NEW)
 
-A subset namespace must not change the text definition of the components it selects.
+The previous three rules together make up the [subset rule](#def): Any data that is valid for a [subset namespace](#def) must also be valid for its [reference namespace](#def) or [extension namespace](#def), and must have the same meaning.
 
 **Rule 7-74:** Augmentations declare augmenting namespace || The ChildPropertyAssociation object for an [augmentation property](#def) MUST declare each [augmenting namespace](#def). In the CMF representation the ChildPropertyAssociation object for the [augmentation property](#def) MUST have an AugmentingNamespace property containing the URI of each [augmenting namespace](#def). In the XSD representation, the attribute reference for an [augmentation property](#def) MUST have the attribute `appinfo:augmentingNamespace` containing the URI of each augmenting namespace. (NEW)
 
@@ -2830,24 +2919,7 @@ This rule further enforces uniform and consistent use of the NIEM structures nam
 
 # 10. Rules for message types and message formats
 
-**Rule 10-1:** Message type declares initial class and property || A [message type](#def) MUST declare the class and property for the [initial node](#def) of conforming [messages](#def). (NEW)
-
-A [message model](#def) alone is insufficient to completely define the content of conforming [messages](#def). The [message model](#def) defines the content of several properties, but does not say which of those properties are required in a conforming [message](#def). 
-
-For example, the [message type](#def) for the [message](#def) in [figure 3-2](#fig-3-2) (reproduced below) must declare that the initial property is `msg:Request` and the initial class is `msg:RequestType`. Otherwise, the single element `<nc:ItemName>Wrench</nc:ItemName>` would be a valid [message](#def), because it is valid according to the [message model](#def).
-
-```
-<msg:Request                                                  | {
- xmlns:nc="https://docs.oasis-open.org/niemopen/ns/model/     |   "@context": "http://example.com/ReqRes/Request/JSON/1.0",
- xmlns:msg="http://example.com/ReqRes/1.0/">                  |   "msg:Request": {
-  <msg:RequestID>RQ001</msg:RequestID>                        |     "msg:RequestID" : "RQ001",
-  <msg:RequestedItem>                                         |     "msg:RequestedItem": {
-    <nc:ItemName>Wrench</nc:ItemName>                         |       "nc:ItemName": Wrench",
-    <nc:ItemQuantity>10</nc:ItemQuantity>                     |       "nc:ItemQuantity": 10
-  </msg:RequestedItem>                                        |      }
-</msg:Request>                                                |   }
-                                                              | }
-```
+**Rule 10-1:** Message type declares initial property || A [message type](#def) MUST declare the initial property of conforming [messages](#def). (NEW)
 
 This document does not specify any particular syntax for the declaration. 
 
@@ -2858,6 +2930,33 @@ This is the only conformance rule for the XML Schema in an XML message format, o
 -------
 
 # 11. Rules for messages
+
+## 11.1 Rules for XML messages
+
+**Rule 11-1:** Message is schema-valid || An XML [message](#def) MUST be schema-valid as assessed against the [schema document set](#def) that represents the [message model](#def) of a [message type](#def). (N5R 12-1)
+
+This rule should not be construed to mean that XML validation must be performed on all XML instances as they are served or consumed; only that the XML instances validate if XML validation is performed. The XML Schema component definitions specify XML documents and element information items, and the instances should follow the rules given by the schemas, even when validation is not performed.
+
+**Rule 11-2:** No attributes from wildcards in structures || Every attribute in an XML message MUST be valid by virtue of an `xs:attribute` element in a [conforming schema document](#def). An XML [message](#def) MUST NOT contain an attribute that is schema-valid only by virtue of an `xs:anyAttribute` element in the [structures namespace](#def). (NEW)
+
+The [schema document](#def) for the [structures namespace](#def) contains `xs:anyAttribute` elements for the purpose of attribute augmentation. This permits a message designer to augment his subset of a [reference schema](#def) or [extension schema](#def) with one or more [attribute properties](#def), while still following the [subset rule](#def). 
+
+**Rule 11-3:** No invalid references || An element in an XML message MUST NOT have the attribute `structures:id` if its element declaration or type definition has the attribute `appinfo:referenceCode` with a value of `NONE`. (NEW)
+
+**Rule 11-4:** No invalid references || An element in an XML message MUST NOT have the attribute `structures:ref` if its element declaration or type definition has the attribute `appinfo:referenceCode` with a value of `NONE` or `URI`. (NEW)
+
+**Rule 11-5:** No invalid references || An element in an XML message MUST NOT have the attribute `structures:uri` if its element declaration or type definition has the attribute `appinfo:referenceCode` with a value of `NONE` or `REF`. (NEW)
+
+**Rule 11-6:** Element has only one resource identifying attribute || An element in an XML message MUST NOT have more than one attribute that is `structures:id`, `structures:ref`, or `structures:uri`. (N5R 12-3)
+
+**Rule 11-7:** Attribute `structures:ref` must reference `structures:id` || The value of an attribute `structures:ref` MUST match the value of an attribute `structures:id` of some element in the XML message. (N5R 12-4)
+
+Although many attributes with ID and IDREF semantics are defined by many vocabularies, for consistency, within a NIEM XML document any attribute structures:ref must refer to an attribute `structures:id`, and not any other attribute.
+
+**Rule 11-8:** Attribute `structures:ref` references element of correct type || The type of an eleme
+
+## 11.2 Rules for JSON messages
+
 
 -------
 
@@ -3640,8 +3739,16 @@ Add a reference to a NIEMOpen tools page TODO.
 * [Rule 9-8: Namespace prefix is unique](#rule-9-8).
 * [Rule 9-9: Schema document set must be complete](#rule-9-9).
 * [Rule 9-10: Use structures namespace consistent with specification](#rule-9-10).
-* [Rule 10-1: Message type declares initial class and property](#rule-10-1).
+* [Rule 10-1: Message type declares initial property](#rule-10-1).
 * [Rule 10-2: Message format schema matches message type](#rule-10-2).
+* [Rule 11-1: Message is schema-valid](#rule-11-1).
+* [Rule 11-2: No attributes from wildcards in structures](#rule-11-2).
+* [Rule 11-3: No invalid references](#rule-11-3).
+* [Rule 11-4: No invalid references](#rule-11-4).
+* [Rule 11-5: No invalid references](#rule-11-5).
+* [Rule 11-6: Element has only one resource identifying attribute](#rule-11-6).
+* [Rule 11-7: Attribute `structures:ref` must reference `structures:id`](#rule-11-7).
+* [Rule 11-8: Attribute `structures:ref` references element of correct type](#rule-11-8).
 * [Rule 12-1: NO NAME](#rule-12-1).
 * [Rule 12-2: NO NAME](#rule-12-2).
 * [Rule 12-3: NO NAME](#rule-12-3).
@@ -3899,10 +4006,10 @@ Add a reference to a NIEMOpen tools page TODO.
 | [Rule 11-53, XML namespace imported as conformant ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-53) | *no matching NIEM6 rule* |
 | [Rule 11-54, Each namespace may have only a single root schema in a schema set ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-54) | [9-5](#rule-9-5) |
 | [Rule 11-55, Consistently marked namespace imports ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-55) | [9-6](#rule-9-6) |
-| [Rule 12-1, Instance must be schema-valid ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_12-1) | *no matching NIEM6 rule* |
+| [Rule 12-1, Instance must be schema-valid ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_12-1) | [11-1](#rule-11-1) |
 | [Rule 12-2, Empty content has no meaning ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_12-2) | *no matching NIEM6 rule* |
-| [Rule 12-3, Element has only one resource identifying attribute ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_12-3) | [12-1](#rule-12-1) |
-| [Rule 12-4, Attribute structures:ref must reference structures:id ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_12-4) | [12-2](#rule-12-2) |
+| [Rule 12-3, Element has only one resource identifying attribute ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_12-3) | [11-6](#rule-11-6), [12-1](#rule-12-1) |
+| [Rule 12-4, Attribute structures:ref must reference structures:id ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_12-4) | [11-7](#rule-11-7), [12-2](#rule-12-2) |
 | [Rule 12-5, Linked elements have same validation root ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_12-5) | [12-3](#rule-12-3) |
 | [Rule 12-6, Attribute structures:ref references element of correct type ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_12-6) | [12-4](#rule-12-4) |
 | [Rule 12-7, structures:uri denotes resource identifier ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_12-7) | [12-5](#rule-12-5) |
@@ -3970,8 +4077,11 @@ Add a reference to a NIEMOpen tools page TODO.
 * [Figure 4-36](#fig4-36): Augmenting a CSC type with an element
 * [Figure 4-37](#fig4-37): Equivalent XML and JSON messages from a CSC type augmented with an attribute
 * [Figure 4-38](#fig4-38): Example LocalTerm objects in CMF and XSD
-* [Figure 5-1](#fig5-1): Conformance target assertion in XSD
-* [Figure 5-2](#fig5-2): Conformance target in CMF
+* [Figure 5-1](#fig5-1): Meaning of NIEM data 
+* [Figure 5-2](#fig5-2): RDF interpretation of NIEM data (Turtle syntax)
+* [Figure 5-3](#fig5-3): Diagram showing meaning of NIEM data
+* [Figure 5-4](#fig5-4): Conformance target assertion in XSD
+* [Figure 5-5](#fig5-5): Conformance target in CMF
 * [Figure 12-1](#fig12-1): Example of `structures:id` and `structures:ref`
 * [Figure 12-2](#fig12-2): Example of `structures:uri` holding an absolute URI
 * [Figure 12-3](#fig12-3): Example of `structures:uri` holding an relative URI, with an `xml:base`
