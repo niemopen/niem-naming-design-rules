@@ -1,0 +1,53 @@
+version: "0.2"
+ignorePaths: []
+dictionaryDefinitions: []
+dictionaries: []
+words:
+  - BCP
+  - Bollinger
+  - Bradner
+  - CCC
+  - CLA
+  - clsa
+  - CMF
+  - datatypes
+  - DOI
+  - Douklias
+  - Farrington
+  - gml
+  - Hulme
+  - IDREFS
+  - IEP
+  - Infoset
+  - IPR
+  - Jahn
+  - keyref
+  - Kondannagari
+  - Korver
+  - Lavdjola
+  - Leiba
+  - Madruga
+  - Mierwa
+  - NDR
+  - nonconformant
+  - Ordinality
+  - PGB
+  - RDFS
+  - referenceable
+  - Rescorla
+  - RISS
+  - Sparrell
+  - Stathakis
+  - subclassing
+  - subproperties
+  - subproperty
+  - underspecified
+  - unece
+  - Unisys
+  - unitless
+  - UTF
+  - Vamsi
+  - webarch
+  - xsi
+ignoreWords: []
+import: []

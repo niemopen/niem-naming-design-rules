@@ -3,8 +3,9 @@
 
 ## Misc
 
-- [ ] Upcoming commit to fix some typos and add syntax formatting for code blocks
+- [ ] Splitting examples that combine (CMF and XSD) or (XSD and JSON Schema) or (XML and JSON) into separate examples would allow us to use syntax highlighting on the code blocks.  Side-by-side examples might be worth keeping as is to make comparisons easier, but top-bottom combos could be split pretty easily.
 - [ ] CSpell file and add a GitHub action to run spellcheck?
+- [ ] Some CMF definitions are going to throw warnings when checked against the Schematron rules.
 
 ## Questions
 
@@ -14,13 +15,18 @@
 - [x] Style convention: Get rid of smart quotes and dashes?  Avoid the mix of standard quotes and left/right quotes? **Working on the dashes (markdown likes "-", not "–"). Don't see any smart quotes - where are they?**
 - [x] How do definitions work?  Official is from the Definitions table at the top and then repeated in the text below? **That seems to be OASIS style**
 - [ ] Do we need a separate Conformance specification since the OASIS requires the NDR to have its own Conformance section? **Perhaps not. Also, *docs/template-README* suggests we may not be required to have a separate Conformance section before the appendices.**
-  - No IEPD spec to conform to any more
+  - No IEPD spec to conform to any more - just guidance?
 - [ ] Add something about when to use NIEM and when it might be overkill?
   - Maybe in section 3.1 (Machine-to-machine data specifications)?
   - When you want to build multiple message specifications (leverage commonalities of an existing data model), already use NIEM or have exchange partners using NIEM, etc.
 - [x] Move `@context` to the top of JSON messages to align more closely with the position of XML namespace prefixes? **Yes, TODO**
 - [ ] Status of external standards in CMF?  Needs to be resolved before publishing NDR or CMF.
+  - [ ] Example with [GeoJSON](https://geojson.org/)?
+  - [ ] GML with `rdf:XMLLiteral` (how to do in JSON-LD)?
+  - [ ] Hold for PS02 or just an example on niem.github.io?
 - [ ] Aren't CMF field names ending in "Of" missing a property or representation term? (e.g., SubPropertyOf, ListOf) **Those are object properties, which don't require a representation term**
+- [ ] "Figure #" seems like the wrong label for code examples. Use "Figure" for images and "Example" for code?
+- [ ] Section 4 tables that document classes and attributes and tables that relate CMF to XSD don't have identifiers.  Use "Table #"?
 
 ## Abstract
 
@@ -251,6 +257,8 @@ Reuse line from the Introduction?
     - (*) Potential transformation to JSON Schema as well, but may be lossy
   - Missing Message Schema
 
+- [ ] Figure 3-4: The CMF element DataProperty has two opening brackets (`<<DataProperty`) and the `ObjectProperty` element beneath it isn't indented consistently.
+
 ## 3.2 Reuse of community-agreed data models
 
 - [x] Wording
@@ -260,6 +268,8 @@ Reuse line from the Introduction?
   Rephrase as "adding components that do not yet exist in NIEM."?  Most of them come from requirements we haven't seen, not ones we've rejected.
 
 - [x] Could also add a following sentence: "Local extensions that could be useful to others in the community beyond the scope of the original message can be submitted for potential adoption by NIEM (https://github.com/niemopen/niem-model/issues)."
+
+- [ ] "reuse model" - We've always used the term "reference model".  Consistent with "reference namespace".  Could also mention this includes EIEMs and enterprise models that extend NIEM.
 
 ## 3.3 Reuse of open standards
 
@@ -289,6 +299,10 @@ Reuse line from the Introduction?
 
 - [x] Mixing different levels of detail?  A NIEM message contains properties, which can be either objects or literal values.
 
+- [x] Figure 3-7
+
+Should the line be there between Property and Class?  ObjectProperty has a class; DataProperty has a Datatype.  But Property also has a Class, so DataProperty inherits its class?
+
 ## 3.5 NIEM model representations: XSD and CMF
 
 - [x] Conformance testing...
@@ -304,6 +318,32 @@ Reuse line from the Introduction?
 
   - No conformance testing
   - JSON Schema differences from XML Schema (Tom's reasons, not the same kind of modeling capabilities like inheritance and abstracts, lossy round-trips between XSD and JSON Schema)
+
+## 3.6 Namespaces
+
+- [ ] "Namespace are the units of model configuration management."
+
+Seems like there are two parts.  Yes, each namespace has its own version.  But they also get released together as a major, minor, or patch version of a model for consistency.
+
+If a domain put out its own update independently without the other namespaces in NIEM, and it made a bunch of breaking changes that created errors in other namespaces that depend on it, then there could be issues using that new content in messages.
+
+Seems more like versions are the units of model configuration management, and as part of that, each namespace is versioned independently.
+
+- [ ] "Once published, the components...may not be removed...As a result of this rule, a change by author of namespace X does not force a change by the author of any other namespace Y...."
+
+This is an important point and explains a question we get asked a lot. Not sure it stands out enough though and I'm not sure it's inclusive enough.  We want to make sure it's clear that implementers can keep using their exchanges based on old version of NIEM, not just message designers.
+
+Maybe something like...
+
+> As a result of this rule, once a specific version of a namespace is published, it can no longer be modified.  Updates must go into a new version of the namespace.  All published versions of a namespace should remain available to support older exchanges.
+>
+> In addition, note that messages specifications contain their own copy of the schemas that they depend upon.  New versions of a model or a namespace do not affect existing exchanges.  Exchange partners may decide to upgrade to a new version of NIEM if they decide it suits their needs, but only if they choose to do so, and only on their own timeline.  The NIEM release schedule does not force adopters to keep in sync.
+
+- [ ] "Augment a reference namespace or extension namespace with an attribute property."  I'd recommend mentioning this is a subset operation because of attribute wildcards.  Attribute wildcards allow almost any declared attribute to be used in NIEM schemas.  This is replacing the wildcard with specific attributes, which limits the range of possibilities to a pre-defined set.
+
+- [ ] "External namespace" - This part doesn't really describe what it is or what it's for.  Something like...
+
+> External namespace are namespace that do not follow NDR rules.  They exist to support the use of external standards, like GML, when it's better for interoperability to bring in and use other standards exactly as they are rather than to try to replicate their contents in NIEM conformant schemas.
 
 ## 3.7 NIEM messages in XML and JSON
 
@@ -322,6 +362,8 @@ Reuse line from the Introduction?
 - [ ] Use real examples instead of things like ExampleProperty and ExType **Examples are now more real… but completely real examples often require a lot of stuff that obscures the point. For example, I'd love to use the real WeightMeasureType in figure 4-9, but then I'd have to explain the abstract elements and substitution.)**
 - [ ] Add XML and JSON instance examples to correspond with the CMF and XSD examples? **Perhaps? I did for section 4.4, which is as far as I've gone.**
 
+- [ ] Subsections headers - Some headers use spaces (the concept) and some headers use camel casing (the CMF class) to separate terms.  I'd vote for spaces (the concept).  For example, "4.7 Object Property" instead of "4.7 ObjectProperty".
+
 ## 4.1 Model class
 
 - [ ] Expand definition
@@ -334,9 +376,15 @@ Reuse line from the Introduction?
   - A message model consists of namespaces and components taken from the NIEM reference model (usually in a minimized NIEM subset consisting of the necessary components plus any required dependencies).  And extension namespaces and components, created by the message designer, to meet requirements not in NIEM.
 - [ ] Missing fields in `iepd-catalog.xml` - name, description, version, point of contact, status, etc.
 
+- [ ] "A model object represents a complete or partial NIEM model." - We talk about *the* NIEM model a lot.  This mentions *a* NIEM model.  Maybe better to phrase it as "a complete or partial model based on NIEM"?
+
+- [ ] Skips the idea of versions of a model.  We talk about models like NIEM is a model, and like NIEM 6.0 is a model.  I think it's the first.  I think NIEM is one model with 13 versions, not a collection of 13 different models.  Even if it's just a note that explains wording like "the NIEM 6.0 model" is shorthand for "the 6.0 version of the NIEM model", and that the CMF model object represents a single version of the model.
+
 ## 4.2 Namespace class
 
 - [ ] Describe what a namespace is  **That's in section 3.6**
+
+Drop section 3.6 and move the contents to the top of this section.  I think it makes more sense for there to be one namespace section, and if I was looking to see what a namespace is, I'd jump here.
 
 - [ ] Describe the main kinds of namespace in NIEM, and who manages them? **Maybe someplace else?**
   - Core
@@ -347,37 +395,74 @@ Reuse line from the Introduction?
   - External
   - Proxy(?)
   - Utility
-  
+
 - [ ] Namespace versioning **Add anything missing to section 3.6**?
   - Persistence for published versions
   - Draft strategies (same uri, different version attribute)
   - Dependencies on other namespaces
   - Authoritative source (e.g., multiple domains use `Arrest`  but defer to the Justice domain to manage it)
-  
+
 - [ ] Describe qualified names / namespace prefixes? **Maybe? Could be a paragraph right after figure 4-4?**
   - Can use aliases in JSON for issues with qualified names
-  
+
 - [ ] Describe the need for `@context` **Goes in rules for JSON messages, I think**
   - Preserve namespace information for JSON
   - Without context, you don't know that `nc` represents the NIEM Core namespace and you don't know which version
-  
+
 - [ ] ImportDocumentationText?
   - Isn't this documentation for an external namespace?  Capture it there? **In CMF it is recorded in the Namespace object for the external namespace.  In XSD the documentation string is actually in the importing schema document.**
-  
+
     ```
-      <xs:import 
-        namespace="http://www.opengis.net/gml/3.2" 
-        schemaLocation="../external/ogc/gml/3.2.1/gml.xsd" 
+      <xs:import
+        namespace="http://www.opengis.net/gml/3.2"
+        schemaLocation="../external/ogc/gml/3.2.1/gml.xsd"
         appinfo:externalImportIndicator="true">
         <xs:annotation>
           <xs:documentation>Geography Markup Language (GML) version 3.2.1 schemas.  See http://www.opengeospatial.org OGC document 07-036 for documentation: "The Geography Markup Language (GML) was originally developed within the Open Geospatial Consortium, Inc. (OGC). ISO 19136 was prepared by ISO/TC 211 jointly with the OGC."  See http://schemas.opengis.net/gml/ for schemas.</xs:documentation>
         </xs:annotation>
       </xs:import>
     ```
-  
+
     **If your schema pile has two <imports> for the same external namespace with two different comments, so sad too bad. **
-  
+
+  CDM: Still don't understand this field.  I would assume CMF would look like...
+
+```xml
+<Model>
+  <Namespace>
+    <NamespacePrefixText>Core</NamespacePrefixText>
+    <DocumentationText>NIEM Core</DocumentationText>
+    <NamespaceCategoryCode>CORE</NamespaceCategoryCode>
+  </Namespace>
+  <Namespace>
+    <NamespacePrefixText>gml</NamespacePrefixText>
+    <DocumentationText>Geography Markup Language (GML) version ...</DocumentationText>
+    <NamespaceCategoryCode>EXTERNAL</NamespaceCategoryCode>
+  </Namespace>
+</Model>
+```
+
+Also, if you imported two external namespaces in the same namespace, you wouldn't be able to assign or separate the documentation for each of the namespaces in one ImportDocumentationText field.
+
 - [ ] `NIEMVersionText` - We use this for draft stages (alpha, beta, PSD01, etc.) **You are thinking of `NamespaceVersionText`.  This property is the version of the structures namespace in the XSD representation. For example, in the CMF representation of the core namespace in NIEM 5.2, this has the value `5`.**
+
+- Sounds more like the NDR version number, which could be pulled from the conformance target URI?
+
+- Better to use the full version number ("5.0", "6.0")?
+
+- Should the rep term be "ID" instead of text.
+
+- I think there several things we track for namespaces related to version numbers:
+
+  - Namespace version.  The full identifier is in `NamespaceURI`; the version number itself is embedded in the uri at the end.
+
+  - Draft version.  For example, "alpha2" or "ps01".  This is the `NamespaceVersionText` field?
+
+  - NDR conformance target (`ConformanceTargetURI`).  This gives us the version of the NDR and structures (also in `NIEMVersionText`) and REF vs EXT.
+
+- Can you have multiple namespaces in one model that use different versions of structures? Or Core?  Do you want to support that in CMF even you can hack it?
+
+  - Could move `NIEMVersionText` out of Namespace to the Model instead to describe which version of NIEM a message model extends (e.g., "5.1" or "6.0").
 
 - [ ] `NamespaceLanguageName` - Isn't this a code? **You would think so, but when you look at RFC 4646 I believe you'll see there can't really be a code list for all the valid values**
 
@@ -385,13 +470,25 @@ Reuse line from the Introduction?
 
 - [ ] `DocumentFilePathText` - Add a note that this is needed for XML schemas.  Not required for JSON only representations or required to maintain transformation capabilities? **It's just a way  to specify a schema document pile layout in a CMF file**
 
+Agree that the field is needed, just think JSON people who get all namespaces combined in one schema might not immediately understand it's needed if you want to be able to generate the XSD transformation, since each XSD namespace goes to it's own schema and they don't all go into the same directory.
+
 ## 4.3 Component class
 
 - [ ] Keywords, example content, and usage fields?
 
+- [ ] Should `DeprecatedIndicator` somehow have a default value of false, even though we don't allow defaults?
+  - [ ] We use `xs:token` so literal values get modified by a validating parser anyway and not modified by some other parsers, so we break our own rule / reason for not allowing defaults here.
+  - [ ] We might not have default values (NDR prohibits these) but we have default assumptions.  If deprecatedIndicator doesn't appear, we'll assume it to be false.  If augmentableIndicator doesn't appear, we'll assume it to be true?  False?  Is it better to make these explicit?
+
+- [ ] Drop Figure 4-6?  There is no CMF or XSD representation of a Component, so this might be confusing.
+
+- [ ] CMF to XSD table - Only mentions mappings to element or attribute declarations, not complex or simple types.
+
 ## 4.4 Class class
 
 - [ ] Do we have any abstract classes? **The NIEM model does not. CMF does, though**
+
+Does the NDR allow abstract classes?
 
 - [ ] Don't we also have an Augmentation class?  Name ends with `AugmentationType`, extends `structures:AugmentationType`, definition begins with "...", etc. **Augmentation CCCs do not have corresponding model objects**
 
@@ -399,11 +496,19 @@ Reuse line from the Introduction?
 
 - [ ] Expected an atomic class to be a simple type, not a complex type with simple content.
   - `Literal class` and `datatype` instead of CSC and simple? **We could call this a "literal class" if that name seems better.**
-  
+
 - [ ] Do we need `AugmentableIndicator`?
   - Is it just for subsets to flag which ones carry augmentation points and which ones don't? **No, it's for extension namespaces.  Augmentation points are not required in extension schema documents.  If we change that, we can get rid of this property. The new rule in section 11.6 needs work either way.**
-  
+
 - [ ] `ReferenceCode` / inline vs ref isn't explained **Done?**
+
+- [ ] Shouldn't `ReferenceCode` be under `ChildPropertyAssociation` instead?  Each child object (but not attribute) should be able to set this independently.
+
+- [ ] Maybe rename `ReferenceCode` as `UsageCode` instead and change code "NONE" to "INLINE"?
+
+- [ ] Shouldn't "ANY" include the ability to appear inline?
+
+- [ ] Also, another case of an assumed default value?  If not specified, then "ANY"? "NONE"?
 
 - [ ] Atomic class example doesn't show how you get from Class has property Example2Literal to `xs:extension base="xs:integer"`
 
@@ -423,6 +528,28 @@ Reuse line from the Introduction?
   ```
 
   **That's a lot of coding for something that may never be used in the compl history of the world, but oh well.**
+
+- [ ] Reorganization suggestion:
+
+- Drop "Ordinary class" and move its contents under "Class".
+- Add subsections under "Class" for "Adapter class" and "Association class", and show examples for each (even if they come in the next draft).
+- Merge "Atomic class" with "Datatype" down in section 4.9.  These both carry values
+
+- [ ] Figure 4-7 seems smaller and the text is harder to read than the other diagrams.  Possible to make it a little bigger?
+
+## 4.4.1 Ordinary class
+
+- [ ] The first paragraph relates most classes (CMF lingo) to elements with complex content (XSD lingo) but is missing the tie in to Object Property (CMF lingo).
+
+- [ ] "For example, figure 4-8 shows an XML element with complex content, and also the equivalent JSON message".  Should be "JSON property"?  It's not the full message and don't want to confuse it with section 3 stuff.
+
+- [ ] The first example under "Ordinary class" is not a class but an object property.  Calling this an *instance* of an ordinary class can also sound like an *example* of an ordinary class, which might confuse some readers.
+
+Should there be a little bit of text describing that this is an example of an object property as it appears in an XML or JSON message and the structure of it is defined by its class, WeightMeasureType, defined in the schema for that message and described below?
+
+- [ ] An opening and closing tag pair in Figure 4-8 doesn't match (`ex:MassUnitCode` / `unece:MassUnitCode`).
+
+## 4.4.2 Atomic class
 
 Literal properties
 
@@ -480,6 +607,10 @@ This is similar to what we do for change request spreadsheets and augmentation p
 >
 > Dr. Scott: The proposed <Literal> tag in CMF is indeed simpler, but does not help with the problem, which is XSD weirdness imposed on JSON developers, RDF developers, and probably every other kind of developer in the future. I wrote [*Literal properties and atomic classes in NIEM 6*](https://github.com/niemopen/ntac-admin/blob/main/documents/docs/Literals-241009.md) to explain the problem and our choices.  RDF-star is about attaching properties and values to triples, which I think doesn't help us here.
 
+- [ ] Figure 4-10: Should the `PropertyAssociation` be `ChildPropertyAssociation`?  Appears in other examples too.
+
+- [ ] "An atomic class always has at least one [attribute property(#def)" - Attribute isn't hyperlinked correctly.
+
 ## 4.5 HasProperty class
 
 - [ ] Rename as ChildProperty?
@@ -495,8 +626,56 @@ This is similar to what we do for change request spreadsheets and augmentation p
 >
 > Dr. Scott: CMF needs `structures:uri` to handle partial models.  But you won't see references like `structures:uri="ex:PersonMiddleName"`, because that's a QName, not a URI.  You'll see `structures:uri="http://example.com/Some/Namespace/URI/PersonMiddleName"` instead.  I think that's ugly, which is why I propsed adding a `qname` attribute to *structures.xsd*.  I believe we decided not to do that.
 
+We can add qname to structures if `structures:uri` doesn't already support qnames.  Maybe it does?  Doesn't `structures:uri` get translated to having type `@id` in JSON-LD?  If so, qnames will expand.
+
+From the JSON-LD Playground...
+
+Input:
+
+```json
+{
+  "@context": {
+    "ex": "http://www.example.com/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "nc": "http://release.niem.gov/niem/niem-core/5.0/",
+    "ex:qnameAsId": {
+      "@type": "@id"
+    },
+    "ex:qnameAsURI": {
+      "@type": "xsd:anyURI"
+    }
+  },
+  "ex:qnameAsId": "nc:Person",
+  "ex:qnameAsURI": "nc:Person"
+}
+```
+
+Expanded output:
+
+```json
+[
+  {
+    "http://www.example.com/qnameAsId": [
+      {
+        "@id": "http://release.niem.gov/niem/niem-core/5.0/Person"
+      }
+    ],
+    "http://www.example.com/qnameAsURI": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#anyURI",
+        "@value": "nc:Person"
+      }
+    ]
+  }
+]
+```
+
+QName value with type `@id` expanded; qname value with type `xsd:anyURI` did not expand.
+
+Oxygen seemed to accept any value for a property with type `xs:anyURI`, including qnames, numbers, and "cow".  Changing the type to `xs:QName` did make Oxygen check for a declared namespace prefix.
+
 - [ ] Figure 4-9: HasProperty object in CMF and XSD
-  - HasProperty doesn't exist independently.  Might be helpful to show the examples in context under the containing type.
+  - HasProperty doesn't exist independently.  Might be helpful to show the examples in context under the containing type.  Kind of like figure 4-10.
   - Use nameInitialIndicator for the example attribute?
 - [ ] Add an explicit note about attribute cardinalities
   - MinOccurs = 0 => `use="optional"`
@@ -504,36 +683,126 @@ This is similar to what we do for change request spreadsheets and augmentation p
   - Any MaxOccurs other than 1 (or just above 1?) is invalid
 - [ ] Add a note that documentation is required here for external properties in adapter classes but doesn't typically appear otherwise since every NIEM conformant property is already required to have its own definition.
 
+- [ ] Is there a way to support EXT choices optionally appearing under the sequence?  Add a field for choice group number or name and then generate choice blocks for matching properties?
+
+nc:PersonType
+
+- *property* (*optional choice group number*)
+- nc:PersonName
+- nc:PersonEyeColorCode (1)
+- nc:PersonEyeColorText (1)
+- nc:PersonDescriptionText
+- nc:PersonHairColorCode (2)
+- nc:PersonHairColorText (2)
+
+Would turn into (abbreviated)
+
+```xml
+<xs:complexType>
+  <xs:sequence>
+    <xs:element ref="nc:PersonName"/>
+    <xs:choice>
+      <xs:element ref="nc:PersonEyeColorCode"/>
+      <xs:element ref="nc:PersonEyeColorText"/>
+    </xs:choice>
+    <xs:element ref="nc:PersonDescriptionText"/>
+    <xs:choice>
+      <xs:element ref="nc:PersonHairColorCode"/>
+      <xs:element ref="nc:PersonHairColorText"/>
+    </xs:choice>
+  </xs:sequence>
+</xs:complexType>
+```
+
+or change the numbers to strings.
+
+- [ ] Association doesn't seem like quite the right name for this?
+
+I would think of this being an association if it contained both the type and the property.  Associations in NIEM usually contain the objects being related, not contain one object and be contained by the other.
+
+- [ ] Add a note about `AugmentingNamespace` being described in section 4.15?
+
+- [ ] Figure 4-12 - `xs:element/@appinfo:augmentingNamespace` doesn't show up in the XSD now.  We do it via augmentation types and substitution groups.  You wouldn't need this until we possibly convert to wildcards instead of augmentation points in NIEM 7.0, in which case the appinfo could be added then.
+
+- [ ] Property vs ObjectProperty and DataProperty
+
+- Figure 4-7 under Section 4.4 (Class) shows a ChildProperty Association pointing to a *Property*.
+
+- The 4.5 ChildPropertyAssociation class and attribute table contains a row for *Property*.
+
+- The CMF example in Figure 4-12 contains *ObjectProperty* and *DataProperty* in the two Property Associations.
+
+That seems like a little bit of a leap at this point.  Maybe update the description of Property in the 5.2 table to "An object property or a data property that occurs in the class." to create a tie in?
+
+- [ ] Add a note about attribute cardinality? Only possible values for min occurs is 0 or 1, corresponding to attribute use `optional` or `required`.
+
 ## 4.6 Property class
 
-- [ ] Use substitution instead of subProperty for clarity?
-- [ ] Putting AbstractIndicator and SubPropertyOf on Property allows for abstract or substitutable attributes in CMF, which aren't valid XML.  
 - [ ] RelationshipPropertyIndicator is unclear.
-- [ ] Add attributes of the Component class to the UML diagram to make it easy to see what Property inherits?
+
+- [x] Add attributes of the Component class to the UML diagram to make it easy to see what Property inherits?
+
+- [ ] Figure 4-13 and corresponding table - Does this need to contain "nillable" if EXT properties can set the value to false?
+
+- [ ] Make sections 4.7 (Object Property) and 4.8 (DataProperty) subsections of this one, like section 4.4 (Class) has subsections.
+
+- [ ] Maybe move section 4.5 (Child Property Association) after the property sections so readers can understand both parts of the association before getting to the association itself?  Or instead, maybe better to move the Property section before Class?
 
 ## 4.7 ObjectProperty class
 
-- [ ] Would be helpful to see a list of reference code values
+- [ ] Would be helpful to see a list of reference code values, or link back to the values that appear above.
+
+- [ ] `ReferenceCode` - If the ReferenceCode currently on `Class` gets moved to `ChildPropertyAssociation`, should this be here at all?  Or if so, derived rather than explicit?
+
+  - Seems to only apply to message format schemas (should nc:Person contains `structures:id`, `structures:ref` and `structures:uri`, or some subset of them, or none?).  CMF describes models, not ways to restrict content in message format schemas.  (We want to make that possible, but I think that's outside the scope of the NDR.)  Otherwise...
+
+  - If all child property associations that contain property `Person` use reference code "NONE" (inline), then property `Person` doesn't need the stuff from `structures`.  If it's code "REF" in one place and "URI" in another, then `Person` needs all `id`, `ref`, and `uri`.  And so on.
+
+  - Making it explicit on the property can lead to conflicts if it doesn't match up with what is defined on the child property associations.  And there is no point in allowing for additional flexibility on the property than what appears in the child property association if this only matters in the message format schemas.
+
 - [ ] Inline vs reference isn't explained much here.  Examples here or in section 5 (Data modeling patterns) would be helpful.
+
 - [ ] Default for reference code?  If not specified, element could be inline or reference?
+
+- [ ] The CMF to XSD table has several `xs:complexType` paths instead of `xs:element` paths.
 
 ## 4.8 DataProperty class
 
 - [ ] Example of `nc:PersonFullName` with range of `xs:string` is confusing since its type in NIEM is `nc:PersonNameTextType`
+
 - [ ] CMF shouldn't expect users to flatten NIEM themselves but the CMF Tool should do it for them
+
 - [ ] What is a data property in XML with AttributeIndicator = false?
+
   - Aren't elements with simple types invalid in reference / extension schemas?  (okay for flattened schemas)
-- [ ] Not sure what the RefAttributeIndicator / reference property is here
+
+- [ ] Not sure what the RefAttributeIndicator / reference property is here.  Is this attribute augmentation?  Described in section 4.15.6?
+
+- [ ] The CMF to XSD table contains several paths for `xs:complexType` instead of `xs:element` or `xs:attribute`.
+
+- [ ] I'd recommend adding an explicit Attribute class.
+
+  - The rules are different enough for them to be separate things.  Name camel casing, cardinality ranges, data type (only from the xs namespace or a type with a name that ends with "SimpleType").  Can't be abstract.  Can't be in a substitution group.
+  - If datatypes are allowed to contain attributes, then we'd want the child property association to only be able to reference attributes, not any data property.
 
 ## 4.9 Datatype class
 
 - [ ] Benefit of 11 facet subclasses vs a `FacetCategoryCode` code set?
+
   - I think XSLT could check if values for certain kinds of facets are numeric, positive, etc.
+
 - [ ] Seems like "atomic" is used again here to mean simple instead of simple + attributes
+
 - [ ] Can't EXT simple types be either restrictions or extensions?
+
   - Would need a field to capture which one
   - Would need ot rename Restriction class to something else (ValueType?)
+
 - [ ] Show the Component class and its attributes here to show its inherited fields?
+
+- [ ] List itemType is a singleton, not a list. Looks like multiple item datatypes are allowed in the UML diagram.
+
+- [ ] What is the "0..*" cardinality on `Restriction` going to `Datatype`?  There isn't a cardinality going out of List or Union to Datatype.
 
 ## 4.10 List class
 
@@ -542,6 +811,48 @@ This is similar to what we do for change request spreadsheets and augmentation p
 ## 4.11 Union class
 
 - [ ] `UnionOf` to something like `MemberDatatype` or `UnionMemberDataType`?
+
+- [ ] Figure 4-19 - XSD `<xs:simpleContent>` should be on its own line.
+
+## 4.12 Restriction
+
+- [ ] Recommend naming this Atomic Datatype instead of Restriction
+
+  - Lines up with XML schema kinds of datatypes: atomic, list, union
+  - Complex types can use restriction as well, so "Restriction" by itself doesn't uniquely identify this class as only a simple type restriction.
+
+- [ ] CMF to XSD table has `xs:complexType` paths but no `xs:simpleType` paths.
+
+## 4.13 Facet
+
+- [ ] Add a note that DocumentationText is required for enumerations and patterns?
+
+## 4.15 Augmentation class
+
+- [ ] What is the cardinality on the UML diagram - an augmentation can have 0..1 classes?  What's an augmentation without the class?
+
+- [ ] Single backtick code formatting is off for "There is no method for a message designer...and im:PersonType`." at the end of the sentence.
+
+- [ ] The class and attribute table has column names that are off, still has the original UML short attribute names, the "Card" column (should be "Description") is aligned center, and the range values are missing.
+
+- [ ] Could augmentation records themselves be ordered so that the augmentation index isn't required?
+
+- [ ] What is `AugmentedGlobalComponentID`?
+
+- [ ] Augmentation information seems duplicated.
+
+  - Doesn't this duplicate all of the augmentation info?
+  - It appears one time as an augmentation record in the Namespace object.
+  - And it appears a second time as a child property association in the augmented class.
+  - Is there really a need for both?  Couldn't the AugmentationRecord just be dropped?  The information could be derived.
+
+- [ ] Review of augmentation subsections still pending
+
+## 4.15.1 Augmentations in NIEM XSD
+
+- [ ] "a type with an atomic value...CSC type" - Better to use "a type with a simple value".  CSC types can also carry lists and unions.
+
+- [ ] "The four combinations iare" - typo "iare".
 
 ## 4.16 LocalTerm class
 
