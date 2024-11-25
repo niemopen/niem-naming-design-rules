@@ -846,13 +846,37 @@ That seems like a little bit of a leap at this point.  Maybe update the descript
   - And it appears a second time as a child property association in the augmented class.
   - Is there really a need for both?  Couldn't the AugmentationRecord just be dropped?  The information could be derived.
 
-- [ ] Review of augmentation subsections still pending
+- [ ] `AugmentationRecord` and `ChildPropertyAssociation` are almost the same thing.  Biggest difference is that child property associations are nested under classes, and they are ordered (no explicit index required).
 
 ## 4.15.1 Augmentations in NIEM XSD
 
 - [ ] "a type with an atomic value...CSC type" - Better to use "a type with a simple value".  CSC types can also carry lists and unions.
 
 - [ ] "The four combinations iare" - typo "iare".
+
+- [ ] Didn't see a corresponding section or a mention in 4.15 "Augmentation class" about how augmentations are handled in JSON.  May need a note saying that the JSON representation for individual augmentation patterns are included in each subsection.
+
+- [ ] Would it be clearer to give the patterns for 4.15.2 and 4.15.3 names, like "Augmentations with container substitution" and "Augmentations with direct substitution"?
+
+## 4.15.2 Augmenting a CCC type with an augmentation element and type
+
+- [ ] "Every CCC type in a reference or extension schema contains an augmentation point element" - except for adapter types.
+
+- [ ] The lead in for Figure 4-29 explains that the augmentation element does not appear in a NIEM JSON message.  Should also mention explicitly that the contents of the augmentation type do appear in the JSON message.
+
+## 4.15.3 Augmenting a CCC type with an ordinary element
+
+- [ ] Mention the trade-offs?
+
+- Simpler not to create an augmentation element and augmentation type
+- You can only place an element in a single substitution group, so you couldn't use this method to add the same property to multiple augmentations.
+- You can only place an element in a substitution group if it is in a namespace you own.  You can't changed the substitution group of an element from Core or a domain, for example, if you are creating an IEPD.
+
+## 4.15.4 Augmenting a CCC type with an attribute
+
+- [ ] I'm not sure this is clear why it's a subset operation.  Would be helpful to explain that removing the attribute wildcard from structures and replacing it with only the allowable attributes in a message constrains what can be sent.  Similar to constraining cardinality from 0 to unbounded to exactly the number of occurrences you want to appear, or removing properties and types you don't need from the subset.
+
+- [ ] Refactor to have one heading for "Augmenting a complex type with an attribute" with the generic description about removing wildcards in subset schemas and then put the CCC example and the CSC example into two subsections?
 
 ## 4.16 LocalTerm class
 
@@ -870,3 +894,82 @@ That seems like a little bit of a leap at this point.  Maybe update the descript
 - [ ] Representation pattern (not sure about representation terms)
 - [ ] Simple type unions to fake code set extension?
 
+## 6.2 Conformance target assertions
+
+- [ ] Should the base target namespace for this document be "https://docs.oasis-open.org/niemopen/ns/specification/XNDR/6.0/"?  We didn't go with the idea of splitting CMF and XSD versions into different documents.  Would require a change to the 6.0 schemas as well.
+
+## Rules
+
+- [ ] Better to break up compound rules?  e.g., Rule 7-1: "Name of Class, Datatype, and Property components || Class and Datatype components MUST have a name ending in "Type"; Property components MUST NOT."  Keep one rule for class and datatype names must end with "Type" and another rule for property names must not end with "Type"?
+
+- [ ] Note: Haven't done a real review of rules but have skimmed it to look at the organization.
+
+- [ ] Suggested rules outline:
+
+- Rules for components
+  - (general rules about name terms, camel casing, etc.)
+  - (general rules about data definitions)
+- Rules for properties
+- Rules for classes
+- Rules for datatypes
+- Rules for namespaces
+- Rules for models
+- Rules for message specifications
+- Rules for messages
+- Rules for NIEM XSD
+- Rules for NIEM JSON-LD
+
+## 7. Rules for namespaces
+
+- [ ] Recommend creating separate sections for components, or for properties and types, instead of embedding them into namespaces.
+
+Current:
+
+- 7. Namespaces
+  - 7.1 Component names
+  - 7.2 Component definitions
+  - 7.3 Namespace properties (e.g., prefix, version, uri)
+  - 7.4 REF namespaces
+  - 7.5 EXT namespaces
+  - 7.6 SUBSET namespaces
+
+Suggested:
+
+- 7. Components
+  - 7.1 Component names
+  - 7.2 Component documentation
+- 8. Namespaces
+  - 8.1 Namespace properties
+  - 8.2 REF namespaces
+  - 8.3 EXT namespaces
+  - 8.4 SUBSET namespaces
+
+## 8. Rules for schema documents
+
+- [ ] Isn't this similar to 13. "Rules for the NIEM profile of JSON-LD"?
+
+- Should this be moved to just in front of the JSON-LD section?
+- Should this be renamed "Rules for the NIEM profile of XSD"?  We have schemas for JSON too, but that's not what we are talking about here.
+- Section 8.1 has this name, but other subsections also contain rules for the NIEM profile of XSD, just grouped with related things together.
+
+## 8.2 Rules for type definitions
+
+- [ ] Rules 8-25 and 8-26 (complex and simple type names) correspond with rules 7-1 and 7-6 (class and datatype names end with "Type"; datatype names end with "SimpleType").  I don't think we need two extra rules.
+
+- Same for rule 8-31 (names of adapter types, association types, etc.)
+
+- [ ] Unless some is pretty familiar with the XML Schema specification, they are likely going to think "Rules for type definitions" is going to talk about type documentation / data definitions, e.g., standard opening phrases.  Recommend just calling this "Rules for types".  And to be consistent, just call "Rules for attribute and element declarations" "Rules for attributes and elements".
+
+## 9 Rules for models
+
+- [ ] Rule 9-1 excludes other utility namespaces besides structures
+
+## 12 ?
+
+- [ ] No high-level section 12.  Goes from 11.2 straight to 12.2.
+
+- [ ] Wouldn't info like `structures:id`, `structures:ref`, and `structures:uri` be grouped with 11.1 "Rules for XML messages"?
+
+## 14. Rules for NIEM messages in JSON
+
+- [ ] How is this different from 11.2 "Rules for JSON messages"?
