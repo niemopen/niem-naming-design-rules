@@ -351,7 +351,28 @@ Maybe something like...
 
 ## 4. Data models in NIEM
 
-- [ ] Need to describe what these things are
+- [ ] Need to describe what these things are.
+
+NIEM is a model of data values = message content.  It is not a class model that defines values and behavior (UML 11.4.1: *The purpose of a Class is to specify a classification of objects and to specify the Features that characterize the structure and behavior of those objects.*).
+* An instance of a Type is a value
+* An instance of a Class is an object
+
+This section says:
+> The definitions in these tables follow NIEM rules for documentation (which are described in section 8).
+> As a result, the definition of each metamodel class begins with "A data type for..." instead of "A class for...".
+
+which implies that the NIEM rules for documentation are a technicality rather than an accurate description of NIEM's core purpose and meaning. NDR should not gratuitously depart from this purpose: section 4.1 should remain **4.1 Model**, not 4.1 Model Class as in this feedback. Model is correctly defined as "A data type for a NIEM data model." but is described as "A Model object represents ...".  Either change that to "A Model type represents ..." or leave it ambiguous: "Model represents ...".  XSD does not define "the Model class" (the only mention of class in XSD refers to "classes of schema documents/languages, and character classes). In XSD, an instance of the Model **type** is represented by a *schema document set*.
+
+Same comment for all following sections: 4.2 A Namespace **value** represents a namespace in the model, and and Figure 4-3 is the Namespace **type** diagram. In XSD, an instance of the Namespace **type** is represented by the `xs:schema` element (a value) in a schema document.
+
+Same comment for 1.2.1 Glossary - an abstract **type** is a base for extension. There is no such thing as an atomic **class**; an instance of an atomic type is an indivisible value; the type may have value constraints.
+
+Same comment for 4.4 Class: "An *adapter class* has a name ending in *AdapterType*" is another symptom of confusion between classes and types. An instance of an adapter type is a value.
+
+Tracking down every instance of type/class confusion will not be possible for NIEM 6, but do not move in the wrong direction from NIEM 5. In particular, the question of a replacement for "atomic class" on 11/26 illustrates the problem:
+* "atomic type" or "primitive type" are meaningful names for classifiers of values that have no substructure.
+* the suggested "value class" is absurd - values are instances and classes model instances.
+
 - [ ] Basic concepts should be described here, backed up with CMF / metamodel stuff.
   - Wouldn't the CMF spec be the source of the CMF class definitions.  NDR describes what NIEM concepts are.
 - [x] Drop shortened UML field names?  **Done, only CMF names appear now**
