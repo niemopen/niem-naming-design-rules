@@ -371,7 +371,7 @@ Same comment for 4.4 Class: "An *adapter class* has a name ending in *AdapterTyp
 
 Tracking down every instance of type/class confusion will not be possible for NIEM 6, but do not move in the wrong direction from NIEM 5. In particular, the question of a replacement for "atomic class" on 11/26 illustrates the problem:
 * "atomic type" or "primitive type" are meaningful names for classifiers of values that have no substructure.
-* the suggested "value class" is absurd - values are instances and classes model instances.
+* the suggested "literal class" is confusing - literals are instances of types, and objects are instances of classes.
 
 - [ ] Basic concepts should be described here, backed up with CMF / metamodel stuff.
   - Wouldn't the CMF spec be the source of the CMF class definitions.  NDR describes what NIEM concepts are.
