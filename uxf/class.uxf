@@ -31,13 +31,12 @@ fontsize=10
       <x>540</x>
       <y>620</y>
       <w>130</w>
-      <h>120</h>
+      <h>100</h>
     </coordinates>
     <panel_attributes>--
 Class
 --
 -abstractIndicator
--augmentableIndicator
 -referenceCode</panel_attributes>
     <additional_attributes/>
   </element>
@@ -69,9 +68,9 @@ m2=0..1</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>720</x>
-      <y>360</y>
+      <y>370</y>
       <w>130</w>
-      <h>110</h>
+      <h>100</h>
     </coordinates>
     <panel_attributes>--
 /Component/
@@ -88,7 +87,7 @@ bg=LIGHT_GRAY</panel_attributes>
       <x>830</x>
       <y>620</y>
       <w>130</w>
-      <h>120</h>
+      <h>100</h>
     </coordinates>
     <panel_attributes>--
 ChildPropertyAssociation
@@ -96,8 +95,7 @@ ChildPropertyAssociation
 -minOccursQuantity
 -maxOccursQuantity
 -documentationText
--orderedPropertyIndicator
--augmentingNamespace</panel_attributes>
+-orderedPropertyIndicator</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -134,7 +132,7 @@ property &gt;</panel_attributes>
       <x>1050</x>
       <y>620</y>
       <w>130</w>
-      <h>120</h>
+      <h>100</h>
     </coordinates>
     <panel_attributes>--
 /Property/
@@ -158,9 +156,9 @@ bg=LIGHT_GRAY</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>1050</x>
-      <y>360</y>
+      <y>370</y>
       <w>130</w>
-      <h>110</h>
+      <h>100</h>
     </coordinates>
     <panel_attributes>--
 Namespace

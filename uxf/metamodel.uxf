@@ -159,7 +159,6 @@ ObjectProperty
 Class
 --
 -abstractIndicator
--augmentableIndicator
 -referenceCode</panel_attributes>
     <additional_attributes/>
   </element>
@@ -177,8 +176,7 @@ ChildPropertyAssociation
 -minOccursQuantity
 -maxOccursQuantity
 -documentationText
--orderedPropertyIndicator
--augmentingNamespace</panel_attributes>
+-orderedPropertyIndicator</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -440,7 +438,7 @@ r1pos=-65,-73</panel_attributes>
     <panel_attributes>lt=&lt;-&gt;&gt;&gt;&gt;&gt;
 m1=0..*
 m2=1
-augmentation &gt;
+augmentationRecord &gt;
 </panel_attributes>
     <additional_attributes>150.0;20.0;10.0;20.0</additional_attributes>
   </element>
@@ -453,7 +451,7 @@ augmentation &gt;
       <h>90</h>
     </coordinates>
     <panel_attributes>--
-Augmentation
+AugmentationRecord
 --
 -minOccursQuantity
 -maxOccursQuantity

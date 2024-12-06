@@ -36,7 +36,7 @@ Namespace
     <panel_attributes>lt=&lt;-&gt;&gt;&gt;&gt;&gt;
 m1=0..*
 m2=1
-augmentation &gt;
+augmentationRecord &gt;
 </panel_attributes>
     <additional_attributes>190.0;20.0;10.0;20.0</additional_attributes>
   </element>

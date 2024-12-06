@@ -25,7 +25,7 @@ bg=LIGHT_GRAY</panel_attributes>
       <h>110</h>
     </coordinates>
     <panel_attributes>--
-Augmentation
+AugmentationRecord
 --
 -minOccurQuantity
 -maxOccursQuantity
