@@ -973,3 +973,7 @@ Suggested:
 ## 14. Rules for NIEM messages in JSON
 
 - [ ] How is this different from 11.2 "Rules for JSON messages"?
+
+## Appendix D
+
+- [ ] Markdown lint is complaining about the trailing space in the link text following each rule title.  e.g., [Rule #: Rule title ]() - *space between "title" and closing square bracket*

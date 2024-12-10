@@ -6,22 +6,29 @@ words:
   - BCP
   - Bollinger
   - Bradner
+  - Bredon
   - CCC
   - CLA
+  - CLP
   - clsa
   - CMF
   - datatypes
   - DOI
   - Douklias
   - Farrington
+  - figcaption
   - gml
   - Hulme
   - IDREFS
+  - IEC
   - IEP
   - Infoset
   - IPR
+  - IRI
   - Jahn
+  - JAXB
   - keyref
+  - KGM
   - Kondannagari
   - Korver
   - Lavdjola
@@ -31,11 +38,13 @@ words:
   - NDR
   - nonconformant
   - Ordinality
+  - pandoc
   - PGB
   - RDFS
   - referenceable
   - Rescorla
   - RISS
+  - RQ001
   - Sparrell
   - Stathakis
   - subclassing

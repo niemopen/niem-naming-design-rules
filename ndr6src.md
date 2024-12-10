@@ -17,8 +17,8 @@
 -------
 
 
->NOTE: I have copied the CSS styling from *styles/ndr-styles.css* to help your markdown previewer do the right thing. 
-This must be removed before publication. The following code block must also be removed. (TODO). 
+>NOTE: I have copied the CSS styling from *styles/ndr-styles.css* to help your markdown previewer do the right thing.
+This must be removed before publication. The following code block must also be removed. (TODO).
 ```
 If you want to check the line length in code blocks,
 set the width of your markdown preview window so that the following line does not wrap,
@@ -28,9 +28,9 @@ This is the width of a code block when the OASIS-formatted HTML is printed to PD
 ```
 
 <style>
-a { text-decoration: none; color: #000; background-color: #FFF; } 
-a[href]:hover { color: #000; background-color: #F9FAD4; } 
-span.termRef::before { font-weight: bold; content: "·"; } 
+a { text-decoration: none; color: #000; background-color: #FFF; }
+a[href]:hover { color: #000; background-color: #F9FAD4; }
+span.termRef::before { font-weight: bold; content: "·"; }
 span.termRef::after { font-weight:bold; content: "·"; }
 span.highlight { background-color: #F9FAD4; }
 img { display:block; margin-left:auto; margin-right:auto; height:auto; }
@@ -89,6 +89,7 @@ This specification replaces or supersedes:
 
 This specification is related to:
 * _NIEM Model Version 6.0_. Edited by Christina Medlin. Latest stage: https://docs.oasis-open.org/niemopen/niem-model/v6.0/niem-model-v6.0.html.
+* _CTAS_. TODO
 * Related specifications (include hyperlink, preferably to HTML format)
 
 #### Abstract:
@@ -97,7 +98,7 @@ This Naming and Design Rules (NDR) document specifies XML Schema documents for u
 #### Status:
 This document was last revised or approved by the Project Governing Board of the OASIS NIEMOpen OP on the above date. The level of approval is also listed above. Check the "Latest stage" location noted above for possible later revisions of this document. Any other numbered Versions and other technical work produced by the Open Project (OP) are listed at http://www.niemopen.org/.
 
-Comments on this work can be provided by opening issues in the project repository or by sending email to the project’s public comment list: niemopen@lists.oasis-open-projects.org. List information is available at https://lists.oasis-open-projects.org/g/niemopen.
+Comments on this work can be provided by opening issues in the project repository or by sending email to the project's public comment list: niemopen@lists.oasis-open-projects.org. List information is available at https://lists.oasis-open-projects.org/g/niemopen.
 
 Note that any machine-readable content ([Computer Language Definitions](https://www.oasis-open.org/policies-guidelines/tc-process-2017-05-26/#wpComponentsCompLang)) declared Normative for this Work Product is provided in separate plain text files. In the event of a discrepancy between any such plain text file and display content in the Work Product's prose narrative document(s), the content in the separate plain text file prevails.
 
@@ -129,8 +130,6 @@ For complete copyright information please see the Notices section in the Appendi
 
 # 1 Introduction
 
-
-
 <!--
 Here is a customized command line which will generate HTML from this markdown file (named ndr-v6.0-psd01.md), if needed:
 
@@ -150,7 +149,7 @@ Note this command generates a Table of Contents (TOC) in HTML which is located a
 A TC may use other ways to generate HTML from markdown, and may generate a TOC in a different way.
 -->
 
-NIEM, formerly known as the "National Information Exchange Model,” is a framework for exchanging information among public and private sector organizations. The framework includes a [reference data model](https://docs.oasis-open.org/niemopen/niem-model/v6.0/niem-model-v6.0.html) for objects, properties, and relationships; and a set of technical specifications for using and extending the data model in information exchanges. The NIEM framework supports developer-level specifications of data that form a contract between developers. The data being specified is called a *message* in NIEM. While a message is usually something passed between applications, NIEM works equally well to specify an information resource published on the web, an input or output for a web service or remote procedure, and so forth, basically, any package of data that crosses a system or organization boundary.
+NIEM, formerly known as the "National Information Exchange Model," is a framework for exchanging information among public and private sector organizations. The framework includes a [reference data model](https://docs.oasis-open.org/niemopen/niem-model/v6.0/niem-model-v6.0.html) for objects, properties, and relationships; and a set of technical specifications for using and extending the data model in information exchanges. The NIEM framework supports developer-level specifications of data that form a contract between developers. The data being specified is called a *message* in NIEM. While a message is usually something passed between applications, NIEM works equally well to specify an information resource published on the web, an input or output for a web service or remote procedure, and so forth, basically, any package of data that crosses a system or organization boundary.
 
 NIEM promotes scalability and reusability of messages between information systems, allowing organizations to share data and information more efficiently. It was launched in 2005 in response to the U.S. Homeland Security Presidential Directives to improve information sharing between agencies following 9/11. Until 2023, NIEM was updated and maintained in a collaboration between the U.S. federal government, state and local government agencies, private sector, and non-profit and international organizations, with new versions released around once per year. NIEM defines a set of common objects, the *NIEM Core*, and 17 sets of objects that are specific to certain government or industry verticals, the *NIEM Domains*.
 
@@ -181,13 +180,13 @@ This optional section provides a description of significant differences from pre
 | Attribute property   | A data property in which `isAttribute` is true |
 | Augmentable class    | A class that can be augmented with additional properties |
 | Augmentation element | Element based on an augmentation type that is substitutable for the augmentation point element in the augmented type. |
-| Augmentation point element | An abstract element declaration that provides a place for any augmtation properties. |
+| Augmentation point element | An abstract element declaration that provides a place for any augmentation properties. |
 | Augmentation type    | Contains the augmenting properties |
 | Cardinality          | How many times a property may/must appear in an object |
 | Class                | Defines the content of a corresponding object (or resource) in a message. |
 | Code datatype        | A restriction in which each value that is valid for the datatype corresponds to a code value in a code list. |
 | Code list            | A list of distinct conceptual entities, each represented by a code value that has a known meaning beyond its text representation.  These codes may be meaningful text or may be a string of alphanumeric identifiers that represent abbreviations for literals. |
-| Common Model Format (CMF) | A NIEM representation of the matamodel. |
+| Common Model Format (CMF) | A NIEM representation of the metamodel. |
 | Complete model       | A model including a definition for every referenced component. |
 | Complex content      | A object or type with  child elements. |
 | Complex type         |  |
@@ -201,7 +200,7 @@ This optional section provides a description of significant differences from pre
 | Data property        | Defines a relationship between an object and a literal value. |
 | Datatype             | Defines the allowed values of a corresponding literal literal value in a message |
 | Deprecated           | A component that is provided, but the use of which is not recommended. |
-| Document element     | A property of a CMF object or XSD schema - defined by [ref Infoset]() |
+| Document element     | A property of a CMF object or XSD schema - defined by [Infoset](#ref) |
 | Documentation        | A human-readable text documentation of a component. |
 | Documented component | A CMF object or XSD schema component that has an associated data definition. |
 | Element              |  |
@@ -226,7 +225,7 @@ This optional section provides a description of significant differences from pre
 | JSON-LD              |  |
 | List                 | An object that defines a datatype as a whitespace-separated list of literal values. |
 | Literal              |  |
-| Local term           | A word, phrase, acronym, or other string of characters that is used in the name of a namespace component, but that is not defined in OED, or that has a non-OED definition in this nameespace, or has a word sense that is in some way unclear. |
+| Local term           | A word, phrase, acronym, or other string of characters that is used in the name of a namespace component, but that is not defined in OED, or that has a non-OED definition in this namespace, or has a word sense that is in some way unclear. |
 | Local type           |  |
 | Message              | A package of data shared at runtime; a sequence of bits that convey information to be exchanged or shared. (see [section 3.1.1](#311-messages)) |
 | Message designer     | A person that creates a message type and format from an information requirement, so that a message at runtime will contain all the facts that need to be conveyed. |
@@ -335,7 +334,7 @@ This optional section provides a description of significant differences from pre
 
 # 2. How To Read This Document
 
-This document provides normative specifications for NIEM-conforming data models. It also describes the goals and principles behind those specifications. It includes examples and explanations to help users of NIEM understand the goals, principles, and specifications. The relevant sections of this document will depend on the role of the user. [Figure 2-1](#fig2-1) illustrates the relationships between these roles and NIEM activites.
+This document provides normative specifications for NIEM-conforming data models. It also describes the goals and principles behind those specifications. It includes examples and explanations to help users of NIEM understand the goals, principles, and specifications. The relevant sections of this document will depend on the role of the user. [Figure 2-1](#fig2-1) illustrates the relationships between these roles and NIEM activities.
 
 <figure>
   <img src="images/userRoles.png" style="zoom: 100%;" />
@@ -368,7 +367,7 @@ The remaining sections of this document most relevant to each of these roles are
 
 ## 2.1 Document references
 
-This document relies on references to many outside documents. Such references are noted by bold, bracketed inline terms. For example, a reference to RFC 3986 is shown as [[RFC 3986]](#appendix-b-references). All reference documents are recorded in [Appendix B, References, below](#appendix-b-references).
+This document relies on references to many outside documents. Such references are noted by bold, bracketed inline terms. For example, a reference to RFC 3986 is shown as [[RFC 3986]](#appendix-a-references). All reference documents are recorded in [Appendix A, References, below](#appendix-a-references).
 
 ## 2.2 Clark notation and qualified names
 
@@ -384,9 +383,9 @@ Each Clark notation value usually consists of a namespace URI surrounded by curl
 
 The following namespace prefixes are used consistently within this specification. These prefixes are not normative; this document issues no requirement that these prefixes be used in any conformant artifact. Although there is no requirement for a schema or XML document to use a particular namespace prefix, the meaning of the following namespace prefixes have fixed meaning in this document.
 
-* `xs`: The namespace for the XML Schema definition language as defined by [XML Schema Structures] and [XML Schema Datatypes], http://www.w3.org/2001/XMLSchema.
-* `xsi`: The XML Schema instance namespace, defined by [XML Schema Structures] Section 2.6, Schema-Related Markup in Documents Being Validated, for use in XML documents, http://www.w3.org/2001/XMLSchema-instance.
-* `ct`: The namespace defined by [CTAS] for the conformanceTargets attribute, https://docs.oasis-open.org/niemopen/ns/specification/conformanceTargets/6.0/.
+* `xs`: The namespace for the XML Schema definition language as defined by [XML Schema Structures](#refTODO) and [XML Schema Datatypes](#refTODO), http://www.w3.org/2001/XMLSchema.
+* `xsi`: The XML Schema instance namespace, defined by [XML Schema Structures](#refTODO) Section 2.6, Schema-Related Markup in Documents Being Validated, for use in XML documents, http://www.w3.org/2001/XMLSchema-instance.
+* `ct`: The namespace defined by [CTAS](#refTODO) for the conformanceTargets attribute, https://docs.oasis-open.org/niemopen/ns/specification/conformanceTargets/6.0/.
 * `appinfo`: The namespace for the appinfo namespace, https://docs.oasis-open.org/niemopen/ns/model/appinfo/6.0/.
 * `structures`: The namespace for the structures namespace, https://docs.oasis-open.org/niemopen/ns/model/structures/6.0/.
 * `cmf`: The namespace for the CMF model representation, https://docs.oasis-open.org/niemopen/ns/specification/cmf/1.0/.
@@ -407,13 +406,13 @@ The key architecture features mentioned in section 3 are:
 
 * *The NIEM metamodel* - an abstract, technology-neutral data model for NIEM data models
 
-* *Two equivalent model representations* - One is a profile of XML Schema (XSD) that has been used in every version of NIEM. The other is itself a NIEM-based data specification, suitable for XML and many other data technologies. 
+* *Two equivalent model representations* - One is a profile of XML Schema (XSD) that has been used in every version of NIEM. The other is itself a NIEM-based data specification, suitable for XML and many other data technologies.
 
 * *Model namespaces* - for model configuration management by multiple authors working independently.
 
 ## 3.1 Machine-to-machine data specifications
 
-NIEM is a framework for developer-level specifications of data. A NIEM-based data specification – which is built *using* NIEM and in *conformance* to NIEM, but is not itself a *part* of NIEM – describes data to the developers of producing and consuming systems. This data may be shared via:
+NIEM is a framework for developer-level specifications of data. A NIEM-based data specification - which is built *using* NIEM and in *conformance* to NIEM, but is not itself a *part* of NIEM - describes data to the developers of producing and consuming systems. This data may be shared via:
 
 * a [message](#def) passed between applications
 * an information resource published on the web
@@ -434,7 +433,7 @@ Data sharing in NIEM is implemented in terms of messages, message formats, and m
   <figcaption><a name="fig3-1">Figure 3-1: Message types, message formats, and messages</a></figcaption>
 </figure>
 
-A message designer turns information requirements into a [message type](#def), then turns a [message type](#def) into one or more [message formats](#def). Message developers then use the [message type](#def) and [message format](#def) to understand how to implmement software that produces or consumes conforming messages.
+A message designer turns information requirements into a [message type](#def), then turns a [message type](#def) into one or more [message formats](#def). Message developers then use the [message type](#def) and [message format](#def) to understand how to implement software that produces or consumes conforming messages.
 
 ### 3.1.1 Messages
 
@@ -459,39 +458,39 @@ In NIEM terms, the package of data shared at runtime is a [message](#def). This 
 
 The data structure of a NIEM message appears to be a tree with a root node. It is actually a directed graph with an initial property. For example, the initial property in [figure 3-2](#fig-3-2) is the `msg:Request` element in the XML message. In the JSON message it is the value for the `msg:Request` key.
 
-Every NIEM serialization has a mechanism for references; that is, a way for one node in the serialized graph to point to a node elsewhere in the graph. This mechanism supports cycles and avoids duplication in the graph data structure. (See [section 5.2](#52-references-and-uris-in-niem-messages).)
+Every NIEM serialization has a mechanism for references; that is, a way for one node in the serialized graph to point to a node elsewhere in the graph. This mechanism supports cycles and avoids duplication in the graph data structure. (See [section 5.2](#52-identifiers-and-references-in-niem-messages).)
 
-Every [message](#def) is an instance of a [message format](#def). A conforming message must satisfy the rules in [section 11](#11-rules-for-messages); in particular, it must be valid according to the [schema](#def) of its [message format](#def).
+Every [message](#def) is an instance of a [message format](#def). A conforming message must satisfy the rules in [section 12](#12-rules-for-messages); in particular, it must be valid according to the [schema](#def) of its [message format](#def).
 
-> A NIEM message was originally known as an *information exchange package (IEP)*, a term that found its way into the U.S. Federal Enterprise Architecture (2005).  A [message specification](#def) was originally known as an *information exchange package documentation (IEPD).*  These terms are in widespread use within the NIEM community today, and will not go away soon (if ever). 
+> A NIEM message was originally known as an *information exchange package (IEP)*, a term that found its way into the U.S. Federal Enterprise Architecture (2005).  A [message specification](#def) was originally known as an *information exchange package documentation (IEPD).*  These terms are in widespread use within the NIEM community today, and will not go away soon (if ever).
 
 ### 3.1.2 Message format
 
-A [message format](#def) specifies the syntax of valid messages. This provides message developers with an exact description of the messages to be generated or processed by their software. 
+A [message format](#def) specifies the syntax of valid messages. This provides message developers with an exact description of the messages to be generated or processed by their software.
 
 A [message format](#def) includes a [schema](#def) that can be used to assess the validity of a [message](#def). This [schema](#def) is expressed in [XML Schema](#refTODO) (XSD) for XML message formats, and [JSON Schema](#refTODO) for JSON message formats. [Figure 3-3](#fig3-3) shows a portion of the schemas for the two example messages in [figure 3-2](#fig3-2).
 
 ```
 <xs:complexType name="RequestType">                                  | JSON Schema example TODO
-  <xs:sequence>                                                      | 
-    <xs:element ref="msg:RequestID"/>                                | 
-    <xs:element ref="msg:RequestedItem"/>                            | 
-  </xs:sequence>                                                     | 
-</xs:complexType>                                                    | 
-<xs:element name="Request" type="msg:RequestType"/>                  | 
+  <xs:sequence>                                                      |
+    <xs:element ref="msg:RequestID"/>                                |
+    <xs:element ref="msg:RequestedItem"/>                            |
+  </xs:sequence>                                                     |
+</xs:complexType>                                                    |
+<xs:element name="Request" type="msg:RequestType"/>                  |
 
 ```
 <figcaption><a name="fig3-3">Figure 3-3: Example of message format schemas</a></figcaption>
 
 Producing and consuming systems may use the message format schema to validate the syntax of messages at runtime, but are not obligated to do so. Message developers may also use the schema during development for software testing. The schemas may also be used by developers for data binding; for example, [JAXB](#refTODO) with XSD schemas.
 
-A [message format](#def) belongs to exactly one [message type](#def). A conforming [message format](#def) must satisfy the rules in [section 10](#10-rules-for-message-types-and-message-formats); in particular, it must be constructed so that every [message](#def) that is valid according to the format also satisfies the information content constraints of its [message type](#def).
+A [message format](#def) belongs to exactly one [message type](#def). A conforming [message format](#def) must satisfy the rules in [section 11](#11-rules-for-message-types-and-message-formats); in particular, it must be constructed so that every [message](#def) that is valid according to the format also satisfies the information content constraints of its [message type](#def).
 
 ### 3.1.3 Message type
 
 One important feature of NIEM is that every [message](#def) has an equivalent [message](#def) in every other supported serialization. These equivalent messages have a different [message format](#def), but have the same [message type](#def). For example, the messages in [figure 3-2](#fig3-2) above are equivalent. They represent the same information content, and can be converted one to the other without loss of information.
 
-A [message type](#def) specifies the information content of its messages without prescribing their syntax. A [message type](#def) includes a [message model](#def); this is the means through which the message designer precisely defines the mandatory and optional content of conforming messages and the meaning of that content. This model is expressed in either of NIEM's two model representations, which are described in [section 3.5](#35-the-niem-metamodel) and [section 3.6](#36-niem-model-representations-xsd-and-cmf), and fully defined in [section 4](#4-data-models-in-niem). [Figure 3-4](#fig3-4) shows a portion of the message model for the two message formats in [figure 3-3](#fig3-3).
+A [message type](#def) specifies the information content of its messages without prescribing their syntax. A [message type](#def) includes a [message model](#def); this is the means through which the message designer precisely defines the mandatory and optional content of conforming messages and the meaning of that content. This model is expressed in either of NIEM's two model representations, which are described in [section 3.4](#34-the-niem-metamodel) and [section 3.5](#35-niem-model-representations-xsd-and-cmf), and fully defined in [section 4](#4-data-models-in-niem). [Figure 3-4](#fig3-4) shows a portion of the message model for the two message formats in [figure 3-3](#fig3-3).
 
 ```
 <xs:complexType name="ItemType" appinfo:referenceCode="NONE"> | <Class structures:id="nc.ItemType">
@@ -528,9 +527,9 @@ A [message type](#def) specifies the information content of its messages without
 
 In addition to the [message model](#def), a [message type](#def) also declares the initial property of conforming messages. For example, the [message type](#def) for the [message](#def) in [figure 3-2](#fig-3-2) declares that the initial property is `msg:Request`.
 
-A [message type](#def) provides all of the information needed to generate the schema for each [message format](#def) it specifies. NIEMOpen provides free and open-source [software tools](#TODO) to generate these schemas from the message model. (Messsage designers are also free to compose these schemas by hand.)
+A [message type](#def) provides all of the information needed to generate the schema for each [message format](#def) it specifies. NIEMOpen provides free and open-source [software tools](#refTODO) to generate these schemas from the message model. (Message designers are also free to compose these schemas by hand.)
 
-A conforming [message type](#def) must satisfy all of the rules in [section 10](#10-rules-for-message-types-and-message-formats).
+A conforming [message type](#def) must satisfy all of the rules in [section 11](#11-rules-for-message-types-and-message-formats).
 
 ### 3.1.4 Message specification
 
@@ -562,23 +561,23 @@ Message designers reuse definitions from the NIEM model, selecting a (usually sm
 
 NIEM's policy of easy model extension supports easy reuse of community data models. Because a community model does not need to be complete for the union of all needs, the community may focus its effort on the common needs, where the effort of agreement has the highest value. Data definitions that are not common, that are needed only for a particular message appear only as extensions in that message type, and need be learned only by the message developers who implement it. Model extensions are further described in [section 3.7](#37-model-extensions).
 
-Data model reuse is especially useful in a large enterprise. Its value grows with the number of developer teams, and with the degree of commonality in the shared data. NIEM was originally designed for data sharing among federal, state, and local governments – where commonality and number of developer teams is large indeed.
+Data model reuse is especially useful in a large enterprise. Its value grows with the number of developer teams, and with the degree of commonality in the shared data. NIEM was originally designed for data sharing among federal, state, and local governments - where commonality and number of developer teams is large indeed.
 
 ## 3.3 Reuse of open standards
 
 NIEM is built on a foundation of open standards, primarily:
 
-* XML and XSD – message serialization and validation; also a modeling formalism
-* JSON and JSON-LD – message serialization and linked data
+* XML and XSD - message serialization and validation; also a modeling formalism
+* JSON and JSON-LD - message serialization and linked data
 * JSON Schema - message validation
-* RDF, RDFS, and OWL – formal semantics
-* ISO 11179 – conventions for data element names and documentation
+* RDF, RDFS, and OWL - formal semantics
+* ISO 11179 - conventions for data element names and documentation
 
 One of NIEM's principles is to reuse well-known information technology standards when these are supported by free and open-source software. NIEM avoids reuse of standards that effectively depend on proprietary software. When the NIEMOpen project defines a standard of its own, it also provides free and open-source software to support it.
 
 ## 3.4 The NIEM metamodel
 
-A data model in NIEM is either a [message model](#def), defining the information content of a [message type](#def), or a [reuse model](#def), making the agreed definitions of a community available for reuse. The information required for those purposes can itself be modeled. The model of that information is the *NIEM metamodel* -- an abstract model for NIEM data models. The metamodel is expressed in UML, and is described in detail in [section 4](). At a high level, the major components of the metamodel are properties, classes, datatypes, namespaces, and models. [Figure 3-7](#fig3-7) provides an lllustration.
+A data model in NIEM is either a [message model](#def), defining the information content of a [message type](#def), or a [reuse model](#def), making the agreed definitions of a community available for reuse. The information required for those purposes can itself be modeled. The model of that information is the *NIEM metamodel* -- an abstract model for NIEM data models. The metamodel is expressed in UML, and is described in detail in [section 4](#4-data-models-in-niem). At a high level, the major components of the metamodel are properties, classes, datatypes, namespaces, and models. [Figure 3-7](#fig3-7) provides an illustration.
 
 <figure>
   <a name="fig3-2"/></a>
@@ -590,11 +589,11 @@ A data model in NIEM is either a [message model](#def), defining the information
 
 - A *property* is a concept, idea, or thing.  It defines a field that may appear in a [message](#def) and can contain subfields (for objects / object properties) or a value (for literals / data properties). For example, in [figure 3-4](#fig3-4), `req:RequestedItem` and `nc:ItemName` are names of properties. `req:RequestedItem` is an object property for the requested item; `nc:ItemName` is a data property for the name of the item. The meaning of these properties is captured in the documentation text.
 
-- A *class* defines the properties that may appear in the content of a corresponding *object* in a [message](#def). A class has one or more *properties*. An *object property* in a class defines a subject-property-value relationship between two objectst.  A *data property* defines a relationship between an object and a literal value. In [figure 3-4](#fig3-4), `nc:ItemType` is the name of a class.
+- A *class* defines the properties that may appear in the content of a corresponding *object* in a [message](#def). A class has one or more *properties*. An *object property* in a class defines a subject-property-value relationship between two objects.  A *data property* defines a relationship between an object and a literal value. In [figure 3-4](#fig3-4), `nc:ItemType` is the name of a class.
 
 - A *datatype* defines the allowed values of a corresponding *literal value* in a [message](#def). In [figure 3-4](#fig3-4), `nc:TextType` is the name of a datatype.
 
-- Classes and datatypes are the two kinds of *type* in the metamodel. For historical reasons, the name of every class and datatype in the NIEM model ends in "Type". This is why the high-level view of the metamodel includes the abstract Type UML class. 
+- Classes and datatypes are the two kinds of *type* in the metamodel. For historical reasons, the name of every class and datatype in the NIEM model ends in "Type". This is why the high-level view of the metamodel includes the abstract Type UML class.
 
 - Classes, datatypes, and properties are the three kinds of metamodel *component*. (All of the common properties of classes and datatypes are defined in the Component class, which is why the abstract Type class is not needed in the detailed metamodel diagram in [section 4](#4-data-models-in-niem).)
 
@@ -618,7 +617,7 @@ The abstract metamodel has two concrete representations:  NIEM XSD and NIEM CMF.
 
 Every version of NIEM has used a profile of XML Schema (XSD) as a NIEM model representation. In XSD, a NIEM model is represented as a schema assembled from a collection of schema documents. Every aspect of the metamodel is represented in some way by a schema component.
 
-XSD as a model representation directly supports conformance testing of NIEM XML messages through schema validation. However, JSON developers (and developers working with other formats) cannot use XSD to validate their messages. Nor do they want to read XSD specifications of message content. For this reason, NIEM 6 introduces the Common Model Format (CMF), a NIEM model representation intended to support all developers. 
+XSD as a model representation directly supports conformance testing of NIEM XML messages through schema validation. However, JSON developers (and developers working with other formats) cannot use XSD to validate their messages. Nor do they want to read XSD specifications of message content. For this reason, NIEM 6 introduces the Common Model Format (CMF), a NIEM model representation intended to support all developers.
 
 CMF is the result of applying the NIEM framework to the information requirements in the metamodel. That result is a NIEM-based [message type](#def), which is part of a [message specification](#def), which is published in [CMF](#ref). In CMF, a model is represented as an instance of that [message type](#def); that is, a CMF [message](#def), also known as a [model file](#def).
 
@@ -682,7 +681,7 @@ Message designers almost never require *all* the components in the NIEM model, a
 
   * Provide cardinality and datatype constraints that precisely define the content of one or more message types.
 
-  * [Augment](#4154-augmenting-a-ccc-type-with-an-attribute) a [reference namespace](#def) or [extension namespace](#def) with an [attribute property](#def).
+  * [Augment](#4154-augmenting-a-class-with-an-attribute-property-in-xsd) a [reference namespace](#def) or [extension namespace](#def) with an [attribute property](#def).
 
   All message content that is valid for a subset namespace must also be valid for the [reference namespace](#def) or [extension namespace](#def) with the same URI.  Widening the value space of a component is not allowed. With the exception of attribute augmentations, adding components is not allowed. Changing the documentation of a component is not allowed.
 
@@ -696,7 +695,7 @@ NIEM has a fourth namespace category, for namespaces containing components from 
   * the [structures namespace](#def), `https://docs.oasis-open.org/niemopen/ns/model/structures/6.0/`
   * the XML namespace, `http://www.w3.org/XML/1998/namespace`.
 
-  XML attributes defined in an external namespace may be part of a NIEM model. XML elements defined in an external namespace are not part of a NIEM model, but may be used as properties of an [adapter type](#def); see [section TODO]().
+  XML attributes defined in an external namespace may be part of a NIEM model. XML elements defined in an external namespace are not part of a NIEM model, but may be used as properties of an [adapter type](#def); see [section TODO](#refTODO).
 
 Three special namespaces do not fit into any of the four categories:
 
@@ -712,9 +711,9 @@ Reuse of a community data model typically supplies some but not all of the neces
 
 In a *subclass*, a model designer creates a new class in his own namespace to represent a special kind of thing. The new class shares all of the properties of its parent class, and adds properties belonging only to the new class. For example, in the NIEM model, `nc:Vehicle` is a subclass of `nc:Conveyance`. Like any Conveyance, a Vehicle may have the `nc:ConveyanceEngineQuantity` property, but only Vehicles have the `nc:VehicleSeatingQuantity` property; other Conveyances do not.
 
-In an *augmentation*, a model designer creates additional properties for a class that is defined in a different namespace. Hwew the model designer is not creating a new class for a new kind of thing. Instead, he is providing properties which could have been defined by the original class designer, but in fact were not. For example, the designer of the NIEM Justice domain has augmented `nc:PersonType` with the `j:PersonSightedIndicator` property, because to the members of the Justice domain it is useful to record whether a person is able to see, even though to the NIEM community as a whole, adding this property to NIEM Core is not worth the trouble.
+In an *augmentation*, a model designer creates additional properties for a class that is defined in a different namespace. However the model designer is not creating a new class for a new kind of thing. Instead, he is providing properties which could have been defined by the original class designer, but in fact were not. For example, the designer of the NIEM Justice domain has augmented `nc:PersonType` with the `j:PersonSightedIndicator` property, because to the members of the Justice domain it is useful to record whether a person is able to see, even though to the NIEM community as a whole, adding this property to NIEM Core is not worth the trouble.
 
-In general, augmentations are preferred over subclassing. At present the NIEM metamodel does not suppport multiple inheritance. If several domains were to create a subclass of `nc:PersonType`, there would be no way for a message designer to combine in his message model the properties of a person from NIEM Justice, Immigration, etc. That combination is easily done with augmentations.
+In general, augmentations are preferred over subclassing. At present the NIEM metamodel does not support multiple inheritance. If several domains were to create a subclass of `nc:PersonType`, there would be no way for a message designer to combine in his message model the properties of a person from NIEM Justice, Immigration, etc. That combination is easily done with augmentations.
 
 -------
 
@@ -746,7 +745,7 @@ In addition to the UML diagram, this section contains several tables that docume
 
 Classes, attributes, and relationships have the same names in the metamodel and in CMF. (Attributes and relationship names have lower camel case in the diagram and tables, following the UML convention. The tables and the CMF specification use the same names in upper camel case, following the NIEM convention.)
 
-The definitions in these tables follow NIEM rules for documentation (which are described in [section 8](#8-rules-for-documentation)). As a result, the definition of each metamodel class begins with "A data type for..." instead of "A class for...".  (For historical reasons, the name of every class and datatype in the NIEM model ends in "Type", and this is reflected in the conventions for documentation. See [section 3.4](#34-the-niem-metamodel).)
+The definitions in these tables follow NIEM rules for documentation (which are described in [section 7.2](#72-rules-for-component-documentation)). As a result, the definition of each metamodel class begins with "A data type for..." instead of "A class for...".  (For historical reasons, the name of every class and datatype in the NIEM model ends in "Type", and this is reflected in the conventions for documentation. See [section 3.4](#34-the-niem-metamodel).)
 
 Names from CMF and the metamodel do not appear in the XSD representation of a model. Instead, NIEM defines special  interpretations of XML Schema components, making the elements and attributes in an XSD [schema document](#def) equivalent to CMF model components. The mapping between CMF components and XSD schema components is provided by a table in each section below, with these columns:
 
@@ -823,7 +822,7 @@ In XSD, an instance of the Namespace class is represented by the `<xs:schema>` e
   xml:lang="en-US">
   <xs:annotation>
     <xs:documentation>NIEM Core.</xs:documentation>
-  </xs:annotation>    
+  </xs:annotation>
 </xs:schema>
 ```
 <figcaption><a name="fig4-4">Figure 4-4: Namespace object in CMF and XSD</a></figcaption>
@@ -852,7 +851,7 @@ A Component is either a Class object, a Property object, or a Datatype object in
 | Name                  | Definition | Card | Ord | Range |
 | --------------------- | ---------- | :--: | :-: | ----- |
 | Component             | A data type for common properties of a data model component in NIEM. |
-| Name                  | The name of a data model component. | 1 | - | xs:NCName |q
+| Name                  | The name of a data model component. | 1 | - | xs:NCName |
 | DocumentationText     | A human-readable text definition of a data model component. | 0..* | Y | TextType |
 | DeprecatedIndicator   | True for a deprecated schema component; that is, a component that is provided, but the use of which is not recommended. | 0..1 | - | xs:boolean |
 | Namespace             | The namespace of a data model component. | 1 | - | NamespaceType |
@@ -898,7 +897,7 @@ A Class object represents a class of message objects defined by a NIEM model.  F
 | Class                 | A data type for a class. |
 | AbstractIndicator     | True if a class is a base for extension, and must be specialized to be used directly; false if a class may be used directly. | 0..1 | - | xs:boolean |
 | ReferenceCode         | A code describing how a property may be referenced (or must appear inline). | 0..1 | - | ReferenceCodeType |
-| subClassOf            | A base class of a subclass. | 0..1 | - | ClassType |  
+| subClassOf            | A base class of a subclass. | 0..1 | - | ClassType |
 | ChildPropertyAssociation   | An association between a class and a child property of that class. | 0..* | Y | ChildPropertyAssociationType |
 
 The range of the `ReferenceCode` property is a code list with the following codes and meanings:
@@ -914,7 +913,7 @@ Class objects may be categorized into four groups, as follows:
 
 * An [object class](#def) contains one or more properties from a conforming namespace. An [object class](#def) has a name ending in "Type". Most class objects fall into this category.
 
-* An [adapter class](#def) contains only properties from a single [external namespace](#def).  It acts as a conformance wrapper around data components defined in standards that are not NIEM conforming.  An [adapter class](#def) has a name ending in "AdapterType". (See [section 11.4](#114-rules-for-adapters-and-external-components).)
+* An [adapter class](#def) contains only properties from a single [external namespace](#def).  It acts as a conformance wrapper around data components defined in standards that are not NIEM conforming.  An [adapter class](#def) has a name ending in "AdapterType". (See [section 9.4](#94-rules-for-adapters-and-external-components).)
 
 * An [association class](#def) represents a specific relationship between objects.   Associations are used when a simple NIEM property is insufficient to model the relationship clearly, or to model properties of the relationship itself.  An [association class](#def) has a name ending in "AssociationType".
 
@@ -947,7 +946,7 @@ These classes are represented in XSD as a complex type with complex content ("CC
     <DataProperty structures:ref="ex.MeasureDecimalValue" xsi:nil="true"/>
     <MinOccursQuantity>1</MinOccursQuantity>
     <MaxOccursQuantity>1</MaxOccursQuantity>
-  </PropertyAssociation>    
+  </PropertyAssociation>
 </Class>
 ---------------
 <xs:complexType name="WeightMeasureType">
@@ -969,7 +968,7 @@ The following table shows the mapping between Class object representations in CM
 | ------------------- | --- |
 | AbstractIndicator   | `xs:complexType/@abstract` |
 | SubClassOf          | `xs:complexType/xs:complexContent/xs:extension/@base` |
-| AugmentableIndicator | True if the last element in the sequence is an [*augmentation point*](). |
+| AugmentableIndicator | True if the last element in the sequence is an [*augmentation point*](#def). |
 | ReferenceCode       | `xs:complexType/@appinfo:referenceCode` |
 | PropertyAssociation | `xs:complexType/xs:complexContent/xs:extension/xs:sequence/xs:element` or `xs:complexType/xs:complexContent/xs:extension/xs:attribute` |
 
@@ -1000,7 +999,7 @@ A literal class is represented in XSD as a complex type with simple content ("CS
       <DataProperty structures:ref="ex.WeightMeasureLiteral" xsi:nil="true"/>
       <MinOccursQuantity>1</MinOccursQuantity>
       <MaxOccursQuantity>1</MaxOccursQuantity>
-    </PropertyAssociation>    
+    </PropertyAssociation>
   </Class>
 ---------------
 <xs:complexType name="WeightMeasureType">
@@ -1016,7 +1015,7 @@ A literal class is represented in XSD as a complex type with simple content ("CS
 
 A [literal class](#def) always has one DataProperty that is not an [attribute property](#def). This property is named after the class, with "Type" replaced by "Literal"  It does not appear in the XSD representation of the literal class, or as a separate element in the XML message.
 
-A [literal class](#def) always has at least one [attribute property(#def).  In XSD, a complex type with simple content and no attributes represents a [Datatype](#49-datatype-class), not a Class.
+A [literal class](#def) always has at least one [attribute property](#def).  In XSD, a complex type with simple content and no attributes represents a [Datatype](#49-datatype), not a Class.
 
 ## 4.5 ChildPropertyAssociation
 
@@ -1050,7 +1049,7 @@ A PropertyAssociation object is represented in XSD as an element or attribute re
 </PropertyAssociation>
 ---------------
 <xs:sequence>
-  <xs:element ref="nc:PersonMiddleName" 
+  <xs:element ref="nc:PersonMiddleName"
     minOccurs="0" maxOccurs="unbounded" appinfo:orderedPropertyIndicator="true">
     <xs:annotation>
       <xs:documentation>
@@ -1092,7 +1091,7 @@ A Property object is either an ObjectProperty or a DataProperty in a NIEM model.
 
 The meaning of a relationship property is explained in [Section 5: Data modeling patterns](#5-data-modeling-patterns). TODO
 
-The examples of a Property object in CMF and XSD, and the table showing the mapping between the CMF and XSD representations, are shown below in the definitions of the concrete subclasses, [ObjectProperty](#47-objectproperty) and [DataProperty](#48-dataproperty-class).
+The examples of a Property object in CMF and XSD, and the table showing the mapping between the CMF and XSD representations, are shown below in the definitions of the concrete subclasses, [ObjectProperty](#47-objectproperty) and [DataProperty](#48-dataproperty).
 
 ## 4.7 ObjectProperty
 
@@ -1146,14 +1145,14 @@ An instance of the DataProperty class represents a property in a NIEM model with
 
 | Name                  | Definition | Card | Ord | Range |
 | --------------------- | ---------- | :--: | :-: | ----- |
-| DataProperty          | A data type for a data property. | 
+| DataProperty          | A data type for a data property. |
 | AttributeIndicator    | True for a property that is represented as attributes in XML. | 0..1 | - | xs:boolean |
-| RefAttributeIndicator | True for a property that is an [object reference attribute](). | 0..1 | - | xs:boolean |
+| RefAttributeIndicator | True for a property that is an [object reference attribute](#def). | 0..1 | - | xs:boolean |
 |  Datatype             | The datatype of this data property. | 1 | - | DatatypeType |
 
 An [attribute property](#def) is a data property in which `AttributeIndicator` is true.  These are represented in XSD as an attribute declaration.
 
-A [reference property](#def) is an attribute property that contains a reference to an object in a [message](#def).  (Object references are described in [section ref message rules]().)TODO
+A [reference property](#def) is an attribute property that contains a reference to an object in a [message](#def).  (Object references are described in [section ref message rules](#refTODO).)TODO
 
 A DataProperty object is represented in XSD as an attribute declaration, or as an element declaration with a type that is a Datatype object. [Figure 4-15](#fig4-15) shows the representations of two DataProperty objects, first in CMF, and then in the corresponding XSD.
 
@@ -1175,7 +1174,7 @@ A DataProperty object is represented in XSD as an attribute declaration, or as a
   <Datatype structures:ref="xs.string" xsi:nil="true"/>
   <AttributeIndicator>true</AttributeIndicator>
   <RefAttributeIndicator>true</RefAttributeIndicator>
-</DataProperty> 
+</DataProperty>
 ---------------
 <xs:element name="ExampleDataProperty" type="ex:ExType" substitutionGroup="ex:PropertyAbstract" appinfo:deprecated="true">
   <xs:annotation>
@@ -1186,7 +1185,7 @@ A DataProperty object is represented in XSD as an attribute declaration, or as a
   <xs:annotation>
     <xs:documentation>Documentation text for ExampleDataProperty.</xs:documentation>
   </xs:annotation>
-</xs:attribute> 
+</xs:attribute>
 ```
 <figcaption><a name="fig4-15">Figure 4-15: DataProperty object in CMF and XSD</a></figcaption>
 
@@ -1240,7 +1239,7 @@ A List object is represented in XSD as a complex type definition that extends a 
 <List structures:id="ex.ExListType">
   <Name>ExListType</Name>
   <Namespace structures:ref="ex" xsi:nil="true"/>
-  <DocumentationText>A data type for a list ofintegers.</DocumentationText>
+  <DocumentationText>A data type for a list of integers.</DocumentationText>
   <ListItemDatatype structures:ref="xs.integer" xsi:nil="true"/>
   <OrderedPropertyIndicator>true</OrderedPropertyIndicator>
 </List>
@@ -1356,7 +1355,7 @@ A Restriction object is represented in XSD as a complex type with simple content
 <xs:complexType name="RestrictionType">
   <xs:annotation>
     <xs:appinfo>
-      <clsa:SimpleCodeListBinding codeListURI="http://api.nsgreg.nga.mil/geo-political/GENC/2/3-11" 
+      <clsa:SimpleCodeListBinding codeListURI="http://api.nsgreg.nga.mil/geo-political/GENC/2/3-11"
         columnName="foo" constrainingIndicator="true"/>
     </xs:appinfo>
   </xs:annotation>
@@ -1386,7 +1385,7 @@ A [code list](#def) is a list of distinct conceptual entities, each represented 
 
 A [code list datatype](#def) is a Restriction in which each value that is valid for the datatype corresponds to a code value in a code list.
 
-Many code datatypes have simple content composed of xs:enumeration values. Code types may also be  constructed using the NIEM Code Lists Specification [[Code Lists]](#ref), which supports code lists defined using a variety of methods, including CSV spreadsheets; these are represented by a [CodeListBinding](#414-codelistbinding-class) object, described below.
+Many code datatypes have simple content composed of xs:enumeration values. Code types may also be  constructed using the NIEM Code Lists Specification [[Code Lists]](#ref), which supports code lists defined using a variety of methods, including CSV spreadsheets; these are represented by a [CodeListBinding](#414-codelistbinding) object, described below.
 
 ## 4.13 Facet
 
@@ -1430,7 +1429,7 @@ The following table shows the mapping between Facet representations in CMF and X
 
 ## 4.14 CodeListBinding
 
-An instance of the CodeListBinding class establishes a relationship between a Restriction object and a code list specification. The detailed meaning of the object properties is provided in [ref code list specification]().
+An instance of the CodeListBinding class establishes a relationship between a Restriction object and a code list specification. The detailed meaning of the object properties is provided in [ref code list specification](#refTODO).
 
 | Name                  | Definition | Card | Ord | Range |
 | --------------------- | ---------- | :--: | :-: | ----- |
@@ -1486,12 +1485,12 @@ The XSD representation of an augmentation is complex, and is explained below. In
 | AugmentationRecord | A data type for a class that is augmented with a property by a namespace. |
 | MinOccursQuantity | The minimum number of times a property may occur within an object of a class. | 1 | - | xs:integer |
 | MaxOccursQuantity | The maximum number of times a property may occur within an object of a class. | 1 | - | MaxOccursType |
-| AugmentationIndex | The ordinal position of an augmentation property that is part of an [augmentation type](). | 0..1 | - | xs:integer |
+| AugmentationIndex | The ordinal position of an augmentation property that is part of an [augmentation type](#def). | 0..1 | - | xs:integer |
 | GlobalClassCode | A code for a kind of class (object, association, or literal), such that every class in a model of that kind is augmented with a property | 0..1 | - | GlobalClassCodeType |
 | Class | The augmented class. | 0..1 | - | ClassType |
 | Property | The augmentation property . | 1 | - | PropertyType |
 
-For example, augmentation of `nc:PersonType` with `j:PersonAdultIndicator` and `j:PersonSightedlIndicator` by the justice namespace results in the following CMF for the augmenting namespace.
+For example, augmentation of `nc:PersonType` with `j:PersonAdultIndicator` and `j:PersonSightedIndicator` by the justice namespace results in the following CMF for the augmenting namespace.
 
 ```
 <Namespace>
@@ -1510,12 +1509,12 @@ For example, augmentation of `nc:PersonType` with `j:PersonAdultIndicator` and `
     <MinOccursQuantity>0</MinOccursQuantity>
     <MaxOccursQuantity>unbounded</MaxOccursQuantity>
     <AugmentationIndex>1</AugmentationIndex>
-  </AugmentationRecord>  
+  </AugmentationRecord>
 </Namespace>
 ```
 <figcaption><a name="fig4-24">Figure 4-24: Augmentation object in CMF</a></figcaption>
 
-A *global augmentation* adds a property to every class (of a specified kind) in the model. In CMF, a global augmentation is represented by an AugmentationRecord object with a GlobalClassCode property and no Class property. For example, a global augmentation adding `my:PrivacyCode` to every every [object class](#def) results in the follwing CMF for the augmenting namespace.
+A *global augmentation* adds a property to every class (of a specified kind) in the model. In CMF, a global augmentation is represented by an AugmentationRecord object with a GlobalClassCode property and no Class property. For example, a global augmentation adding `my:PrivacyCode` to every every [object class](#def) results in the following CMF for the augmenting namespace.
 
 ```
 <Namespace>
@@ -1538,9 +1537,9 @@ A global AugmentationRecord object has no Class property (because it applies to 
 | ------------ | ---------- |
 | OBJECT       | A code for an augmentation property that applies to all [object classes](#def). |
 | ASSOCIATION  | A code for an augmentation property that applies to all [association classes](#def) in the model. |
-| LITERAL      | A code for an augmentation property that applies to all [datatypes] and [literal classes](#def) in the model. |
+| LITERAL      | A code for an augmentation property that applies to all [datatypes](#def) and [literal classes](#def) in the model. |
 
-There is no code for [adpter classes](#def), because these classes may not be augmented. The effect of a `LITERAL` global augmentation is described in [section TODO]().
+There is no code for [adapter classes](#def), because these classes may not be augmented. The effect of a `LITERAL` global augmentation is described in [section TODO](#refTODO).
 
 ### 4.15.1 Augmentations in NIEM XSD
 
@@ -1548,7 +1547,7 @@ The XSD representation of an augmentation is complex, and varies based on two fa
 
 1. Is the augmentation property an [attribute property](#def) or an [element property](#def)?
 
-2. Is the model a [message model](#def)? In a message model, attribute augmentations appear in the schema documents for both the augmenting namespace and the augmented namespace. (See [section 4.15.4: *Attribute augmentations in message models*]())
+2. Is the model a [message model](#def)? In a message model, attribute augmentations appear in the schema documents for both the augmenting namespace and the augmented namespace. (See [section 4.15.5: *Attribute augmentations in message models*](#4155-attribute-augmentations-in-message-models))
 
 ### 4.15.2 Augmenting a class with an element property in XSD
 
@@ -1620,7 +1619,7 @@ All of the augmentations in the XSD representation of NIEM model use the above a
 
 ```
 <xs:element name="PersonFictionalCharacterIndicator" type="niem-xs:boolean"
-    substititionGroup="nc:PersonAugmentationPoint">
+    substitutionGroup="nc:PersonAugmentationPoint">
   <xs:annotation>
     <xs:documentation>True if a person is a character in a work of fiction.</xs:documentation>
   </xs:annotation>
@@ -1669,7 +1668,7 @@ In the XSD representation of a model, a namespace augments a class with an [attr
 ```
 <xs:schema
   targetNamespace="http://example.com/Characters/1.0/"
-  xmnls:chars="http://example.com/Characters/1.0/"
+  xmlns:chars="http://example.com/Characters/1.0/"
   xmlns:nc="https://docs.oasis-open.org/niemopen/ns/model/niem-core/6.0/"
   xmlns:xs="http://www.w3.org/2001/XMLSchema"
   ct:conformanceTargets="https://docs.oasis-open.org/niemopen/ns/specification/NDR/6.0/#ExtensionSchemaDocument"
@@ -1691,7 +1690,7 @@ In the XSD representation of a model, a namespace augments a class with an [attr
 <figcaption><a name="fig4-33">Figure 4-33: Augmenting a class with an attribute property in XSD</a></figcaption>
 
 ```
-<nc:Person chars:genre="romance"> 
+<nc:Person chars:genre="romance">
   <nc:PersonBirthDate>
     <nc:Date>2021-09-11</nc:Date>
   </nc:PersonBirthDate>
@@ -1729,7 +1728,7 @@ The `appinfo:augmentingNamespace` attribute is required; it declares that this a
 
 ## 4.16 LocalTerm
 
-A [*local term*](#def) is a word, phrase, acronym, or other string of characters that is used in the name of a namespace component, but that is not defined in [OED](), or that has a non-OED definition in this namespace, or has a word sense that is in some way unclear. An instance of the LocalTerm class captures the namespace author's definition of such a local term. For example, the Justice domain namespace in the NIEM model has a LocalTerm object defining the name "CLP" with documentation "Commercial Learners Permit".
+A [*local term*](#def) is a word, phrase, acronym, or other string of characters that is used in the name of a namespace component, but that is not defined in [OED](#refTODO), or that has a non-OED definition in this namespace, or has a word sense that is in some way unclear. An instance of the LocalTerm class captures the namespace author's definition of such a local term. For example, the Justice domain namespace in the NIEM model has a LocalTerm object defining the name "CLP" with documentation "Commercial Learners Permit".
 
 | Name                  | Definition | Card | Ord | Range |
 | --------------------- | ---------- | :--: | :-: | ----- |
@@ -1822,10 +1821,10 @@ The meaning of NIEM data is partly expressed through the hierarchy of nested obj
 | `<msg:Request>` *or*</br>`"msg:Request":{...}` |The initial property is `msg:Request`. The message model defines the range of this property as the `msg:RequestType` class. | There is an object that is a request for a specified quantity of a named item. |
 | `<msg:RequestID>` *or</br>`"msg:RequestID":...` | The next property is `msg:RequestID`. The message model defines the range of this data property as the `xs:token` datatype. | There is a relationship between the object of `msg:RequestType` and the literal value `RQ001`. |
 | `<msg:RequestedItem>` *or*</br>`"msg:RequestedItem":{...}` | The next property is `msg:RequestedItem`. The message model defines the range of this object property as the `nc:ItemType` class. | There is a relationship between the object of `msg:RequestType` and the object of `nc:ItemType`. |
-| `<nc:ItemName>` *or*</br>`"nc:ItemName":...` | The next property is `nc:ItemName`. The message model defines the range of this data property as the `nc:TextType` datatype. | There is a relationship between the object of `nc:ItemType` and the literal value `Wrench`. | 
+| `<nc:ItemName>` *or*</br>`"nc:ItemName":...` | The next property is `nc:ItemName`. The message model defines the range of this data property as the `nc:TextType` datatype. | There is a relationship between the object of `nc:ItemType` and the literal value `Wrench`. |
 | `<nc:ItemQuantity>` *or*</br>`nc:ItemQuantity":...` | The next property is `nc:ItemQuantity`. The message model defines the range of this data property as the `nc:QuantityType` datatype. | There is a relationship between the object of `nc:ItemType` and the literal value `10`. |
 
-<figcaption><a name="fig-5-1">Figure 5-1: Meaning of NIEM data </a></figcaption>
+<figcaption><a name="fig-5-1">Figure 5-1: Meaning of NIEM data</a></figcaption>
 
 NIEM is designed so that NIEM data is a form of RDF data. For example, the message data above corresponds to the RDF shown in [figure 5-2](#fig-5-2)
 
@@ -1848,7 +1847,7 @@ That RDF data expresses a graph, illustrated by the diagram in [figure 5-3](#fig
   <figcaption><a name="fig-5-3">Figure 5-3: Diagram showing meaning of NIEM data</a></figcaption>
 </figure>
 
-In a NIEM message, that which is not stated is not implied. If data says a person’s name is John, it is not implicitly saying that he does not have other names, or that John is his legal name, or that he is different from a person known as Bob. The only assertion being made is that one of the names by which this person is known is John. 
+In a NIEM message, that which is not stated is not implied. If data says a person's name is John, it is not implicitly saying that he does not have other names, or that John is his legal name, or that he is different from a person known as Bob. The only assertion being made is that one of the names by which this person is known is John.
 
 Likewise, nothing may be inferred from data that is not present in a NIEM message. It may be absent due to lack of availability, lack of knowledge, or deliberate withholding of information. These cases should be modeled explicitly, if they are required.
 
@@ -1860,9 +1859,9 @@ A hierarchy of nested objects (illustrated above) is sufficient to represent sim
 
 * Reuse: multiple objects have a relationship to a common object. For example, suppose Bob and Sue both have a mother relationship to Sally. Expressed via nested objects, this would result in a duplicate representation of Sally.
 
-NIEM solves these problems through object identifiers and references. Any object may have an identifer. An object reference can take the place of any object in a message, and is interpreted as if the object with the same identifier actually appeared in that place. The resulting data structure is a graph, not a tree. 
+NIEM solves these problems through object identifiers and references. Any object may have an identifier. An object reference can take the place of any object in a message, and is interpreted as if the object with the same identifier actually appeared in that place. The resulting data structure is a graph, not a tree.
 
-For example, in [figure 5-4](#fig-5-4) below, there is only one Person object in the message; it has the identifer `JD`, and is a child property of `nc:PersonLocationAssociation`. The `nc:Person` property of the `nc:PersonOrganizationAssociation` object is an object reference. The interpretation is that the person located at the Pentagon is also the person associated with the US Army.
+For example, in [figure 5-4](#fig-5-4) below, there is only one Person object in the message; it has the identifier `JD`, and is a child property of `nc:PersonLocationAssociation`. The `nc:Person` property of the `nc:PersonOrganizationAssociation` object is an object reference. The interpretation is that the person located at the Pentagon is also the person associated with the US Army.
 
 ```
 <nc:PersonLocationAssociation>                             | "nc:PersonLocationAssociation": {
@@ -1891,19 +1890,19 @@ For example, in [figure 5-4](#fig-5-4) below, there is only one Person object in
 
 [[XML]](#ref) defines ID and IDREF attributes; these act as references in XML data. NIEM XML uses ID and IDREF as one way to reference data across data objects.
 
-* `structures:id` is an ID attribute. Its value is an identifier for the object in which it appears. For example, in [figure 5-4](#fig-5-4) the value `JD` is an identifer for the `nc:Person` object. According to the rules of XML, an ID value must be unique within the XML document.
+* `structures:id` is an ID attribute. Its value is an identifier for the object in which it appears. For example, in [figure 5-4](#fig-5-4) the value `JD` is an identifier for the `nc:Person` object. According to the rules of XML, an ID value must be unique within the XML document.
 
   An ID attribute is a *fragment identifier* within the XML document. For example, if the message as a whole has the URI `http://example.com/MSG/`, then the object identifier `JD` is equivalent to `http://example.com/MSG/#JD`.
 
-* `structures:ref` is an IDREF attribute. An object with this attribute is a reference to the object with that identifier. For example, in [figure 5-4](#fig-5-4), the element `<nc:Person structures:ref="JD" xsi:nil="true"/>` is a reference to the `<nc:Person>` object that has the identifier `JD`. 
+* `structures:ref` is an IDREF attribute. An object with this attribute is a reference to the object with that identifier. For example, in [figure 5-4](#fig-5-4), the element `<nc:Person structures:ref="JD" xsi:nil="true"/>` is a reference to the `<nc:Person>` object that has the identifier `JD`.
 
-  The `structures:ref` attribute has type `xs:IDREF`, so according to the rules of XML the message must contain an ID attribute with the same value. This means a `structures:ref` reference can only link to an object within the same message. 
+  The `structures:ref` attribute has type `xs:IDREF`, so according to the rules of XML the message must contain an ID attribute with the same value. This means a `structures:ref` reference can only link to an object within the same message.
 
   Object references using `structures:ref` must not have content. If the object type has mandatory content, then `xsi:nil="true"` is required.
 
 ### 5.2.2 Object references in NIEM XML using structures:uri
 
-NIEM introduced support for linked data through the use of uniform resource identifiers (URIs), expressed in NIEM XML through the attribute `structures:uri`. In linked data, anything modeled or addressed by an information system may be called a *resource*: people, vehicles, reports, documents, relationships, ideas: anything that is talked about and modeled in an information system is a resource. In NIEM, the objects in a message are the resources; an object identifer is a resource identifier.
+NIEM introduced support for linked data through the use of uniform resource identifiers (URIs), expressed in NIEM XML through the attribute `structures:uri`. In linked data, anything modeled or addressed by an information system may be called a *resource*: people, vehicles, reports, documents, relationships, ideas: anything that is talked about and modeled in an information system is a resource. In NIEM, the objects in a message are the resources; an object identifier is a resource identifier.
 
 The `structures:uri` attribute assigns an object identifier to the element in which it appears. All of the elements having the same identifier refer to a single object, and all of those elements provide property values for that one object. For example, in [figure 5-5](#fig-5-5) below, there is only one Person object in the message. The person located at the Pentagon is also the person associated with the US Army; that person is named "John Doe" and also has red hair.
 
@@ -1938,7 +1937,7 @@ The `structures:uri` attribute has the type `xs:anyURI`. Values can be either a 
   <nc:Person structures:uri="http://example.com/PersonID/B263-1655-2187"/>
 ```
 
-If the message as a whole has a URI, then a relative reference is interpreted according to the rules for reference resolution in [[RFC3986]](#ref). For example, if the message URI is `http://example.com/MSG/`, then the relative reference `JD` resolves to `http://example.com/MSG/#JD`. 
+If the message as a whole has a URI, then a relative reference is interpreted according to the rules for reference resolution in [[RFC3986]](#ref). For example, if the message URI is `http://example.com/MSG/`, then the relative reference `JD` resolves to `http://example.com/MSG/#JD`.
 
 A relative resource in `structures:uri` is the same thing as a fragment identifier in `structures:id`, but with a leading `#` character. For example, `structures:uri="#JD"` and `structures:id="JD"` denote the same resource identifier.
 
@@ -1946,7 +1945,7 @@ A relative resource in `structures:uri` is the same thing as a fragment identifi
 
 * `structures:ref` and `structures:id` must appear within the same message.
 
-* `structures:ref` requires and provides type safety, in that the type of an object pointed to by structures:ref must be consistent with the referencing element’s type declaration.
+* `structures:ref` requires and provides type safety, in that the type of an object pointed to by structures:ref must be consistent with the referencing element's type declaration.
 
 * The value of `structures:id` must be unique for IDs within the XML document.
 
@@ -1958,7 +1957,7 @@ A relative resource in `structures:uri` is the same thing as a fragment identifi
 
 ### 5.2.4 Object references in NIEM JSON using @id
 
-Object references in NIEM JSON use JSON-LD's `@id` keyword. This is equivalent to `structures:uri` in NIEM XML. For example, the following NIEM XML and JSON references mean the same thing and are interpreted in the same way. (There is no equivalent to XML's ID/IDREF attributes.) 
+Object references in NIEM JSON use JSON-LD's `@id` keyword. This is equivalent to `structures:uri` in NIEM XML. For example, the following NIEM XML and JSON references mean the same thing and are interpreted in the same way. (There is no equivalent to XML's ID/IDREF attributes.)
 
 ```
 <nc:Person structures:uri="#JD">
@@ -1969,7 +1968,7 @@ The two JSON objects in [figure 5-5](#fig-5-5) that are values of a `nc:Person` 
 
 ### 5.2.5 Reference attributes
 
-yada yada yada
+TODO
 
 ### 5.2.6 Meaning of inline objects and object references
 
@@ -2014,9 +2013,9 @@ The rules in this document are designed to be used with or without the component
 
 ## 6.1 Conformance targets
 
-The conformance targets specifed in this document are listed below. The rules for each conformance target appear in the given sections.
+The conformance targets specified in this document are listed below. The rules for each conformance target appear in the given sections.
 
-* *Namespace:* A [conforming namespace](#def) is a namespace that fulfils all of the applicable rules in [section 7](#7-rules-for-namespaces). The rules for this conformance target apply to both the CMF and XSD representations of a namespace. (In CMF, this is a Namespace object in a [model file](#def). In XSD, this is a [schema document](#def).) The rules for all conforming namespaces are in:
+* *Namespace:* A [conforming namespace](#def) is a namespace that fulfils all of the applicable rules in [section 8](#8-rules-for-namespaces). The rules for this conformance target apply to both the CMF and XSD representations of a namespace. (In CMF, this is a Namespace object in a [model file](#def). In XSD, this is a [schema document](#def).) The rules for all conforming namespaces are in:
 
   [*Section 7.1: Rules for component names*](#71-rules-for-component-names)\
   [*Section 7.2: Rules for component documentation*](#72-rules-for-component-documentation)\
@@ -2026,12 +2025,12 @@ The conformance targets specifed in this document are listed below. The rules fo
 
   * *Extension namespace:* Additional rules for the [extension namespace](#def) conformance target are in [*section 9.9*](#99-rules-for-extension-schema-documents).
 
-  * *Subset namespace:* Additional rules for the [subset namespace](#def) conformance target are in [*section 9.10*]().
+  * *Subset namespace:* Additional rules for the [subset namespace](#def) conformance target are in [*section 9.10*](#910-rules-for-subset-schema-documents).
 
 * *Schema document*: A [conforming schema document](#def) is a [schema document](#def) that fulfils all applicable rules of this section. The rules for this conformance target apply only to the XSD representation of a namespace. The rules for all conforming schema documents are found in:
 
   [*Section 9.1: Rules for the NIEM profile of XSD*](#91-rules-for-the-niem-profile-of-xsd)\
-  [*Section 9.2: Rules for type definitions*](#92-rules-for-type-definitions)\
+  [*Section 9.2: Rules for type definitions*](#92-rules-for-xsd-types)\
   [*Section 9.3: Rules for attribute and element declarations*](#93-rules-for-attribute-and-element-declarations)\
   [*Section 9.4: Rules for adapters and external components*](#94-rules-for-adapters-and-external-components)\
   [*Section 9.5: Rules for proxy types*](#95-rules-for-proxy-types)\
@@ -2043,14 +2042,14 @@ The conformance targets specifed in this document are listed below. The rules fo
   * *Extension schema document:* Additional rules for the [extension schema document](#def) conformance target are in [*section 9.9*](#99-rules-for-extension-schema-documents).
 
   * *Subset schema document:* Additional rules for the [subset schema document](#def) conformance target are in [*section 9.9*](#910-rules-for-subset-schema-documents).
-  
+
     * (Additional rules for [subset schema documents](#def)) are not required.)
 
 * *Model*: A conforming model fulfils all of the rules in [section 10](#10-rules-for-models). There are two representations for NIEM models, CMF and XSD.
 
   * *Model file:* A [model file](#def) is a [message](#def) that conforms to the CMF [message type](#def). Additional rules for this conformance target are in [section 10.1](#101-rules-for-model-files).
 
-  * *Schema document set*: A [conforming schema document set](#def) is a [schema document set](#def) that fulfils all applicable rules in [section 9](#9-rules-for-models). Additional rules for this conformance target are in [section 10.2](#102-rules-for-schema-document-sets).
+  * *Schema document set*: A [conforming schema document set](#def) is a [schema document set](#def) that fulfils all applicable rules in [section 10](#10-rules-for-models). Additional rules for this conformance target are in [section 10.2](#102-rules-for-schema-document-sets).
 
 * *Message type and message format*: Rules for these conformance targets are in [section 11](#11-rules-for-message-types-and-message-formats)
 
@@ -2110,8 +2109,8 @@ Automated testing of most rules is possible. Some rules require human evaluation
 
 These rules apply to model components in both the CMF and XSD representations of conforming namespaces. In CMF, the representation is a Namespace object in a CMF model file. In XSD, it is a schema document.
 
-* Rules for names of components appear in [section 7.1](#71-rules-for-names-of-namespace-components)
-* Rules for documentation of components appear in [section 7.2](#72-rules-for-documentation-of-namespace-components)
+* Rules for names of components appear in [section 7.1](#71-rules-for-component-names)
+* Rules for documentation of components appear in [section 7.2](#72-rules-for-component-documentation)
 
 ## 7.1 Rules for component names
 
@@ -2149,7 +2148,7 @@ A Datatype with a name ending in "SimpleType" is sometimes needed for a [literal
 
 **Rule 7-8:** Name of code list datatypes || A [code list datatype](#def) MUST have a name ending in "CodeType" or "CodeSimpleType"; all other Datatype components MUST NOT. (N5R 10-17,10-18)
 
-The component representing a [code list](#def) is usually a Datatype object.  However, when the XSD represenation of a code list includes attributes, it is a Class object.
+The component representing a [code list](#def) is usually a Datatype object.  However, when the XSD representation of a code list includes attributes, it is a Class object.
 
 #### 7.1.1.3 Rules for names of Property components
 
@@ -2177,9 +2176,9 @@ NIEM supports internationalization in several ways, described in [[I18N]](#ref).
 
 **Rule 7-15:** Component names have only specific characters || The name of a model component MUST be entirely composed of specified  characters. (N5R 10-46)
 
-* Upper-case letters (A–Z)
-* Lower-case letters (a–z)
-* Digits (0–9)
+* Upper-case letters (A-Z)
+* Lower-case letters (a-z)
+* Digits (0-9)
 * Underscore (_)
 * Hyphen (-)
 * Period (.)
@@ -2210,7 +2209,7 @@ Names are a simple but incomplete means of providing semantics to data component
 
 Articles (e.g., a, an, the), conjunctions (e.g., and, or, but), and prepositions (e.g., at, by, for, from, in, of, to) are all disallowed in NIEM component names, unless they are required. For example, PowerOfAttorneyCode requires the preposition. These rules constrain slight variations in word forms and types to improve consistency and reduce potentially ambiguous or confusing component names.
 
-### 7.1.4 Property nameing rules from ISO 11179-5
+### 7.1.4 Property naming rules from ISO 11179-5
 
 The set of NIEM data components is a collection of data representations for real-world objects and concepts, along with their associated properties and relationships. Thus, names for these components would consist of the terms (words) for object classes or that describe object classes, their characteristic properties, subparts, and relationships.
 
@@ -2229,7 +2228,7 @@ For example, the NIEM component name `AircraftFuselageColorCode` is composed of 
 
 NIEM adopts an object-oriented approach to representation of data. Object classes represent what [ISO 11179-5](#ref) refers to as things of interest in a universe of discourse that may be found in a model of that universe. An object class or object term is a word that represents a class of real-world entities or concepts. An object-class term describes the applicable context for a NIEM component.
 
-The object-class term indicates the object category that this data component describes or represents. This term provides valuable context and narrows the scope of the component to an actual class of things or concepts.  An example of a conept term is Activity.  An example of an entity term is Vehicle.
+The object-class term indicates the object category that this data component describes or represents. This term provides valuable context and narrows the scope of the component to an actual class of things or concepts.  An example of a concept term is Activity.  An example of an entity term is Vehicle.
 
 #### 7.1.4.2 Property term
 
@@ -2237,7 +2236,7 @@ The object-class term indicates the object category that this data component des
 
 Objects or concepts are usually described in terms of their characteristic properties, data attributes, or constituent subparts. Most objects can be described by several characteristics. Therefore, a property term in the name of a data component represents a characteristic or subpart of an object class and generally describes the essence of that data component.  It describes the central meaning of the component.
 
-#### 7.1.4.3 Qualifer terms
+#### 7.1.4.3 Qualifier terms
 
 **Rule 7-26:** Name may have multiple qualifier terms || Multiple qualifier terms MAY be used within a component name as necessary to ensure clarity and uniqueness within its namespace and usage context. (N5R 10-60)
 
@@ -2259,33 +2258,34 @@ The representation terms for a property name serve several purposes in NIEM:
 
 The valid value set of a data element or value domain is described by the representation term. NIEM uses a standard set of representation terms in the representation portion of a NIEM-conformant component name. Table 6-1, Property representation terms, below, lists the primary representation terms and a definition for the concept associated with the use of that term. The table also lists secondary representation terms that may represent more specific uses of the concept associated with the primary representation term.
 
-| Primary</br>Representation</br>Term |Secondary</br>Representation</br>Term | Definition | 
+| Primary</br>Representation</br>Term |Secondary</br>Representation</br>Term | Definition |
 | --- | --- | ---------- |
 | Amount | - | A number of monetary units specified in a currency where the unit of currency is explicit or implied. |
 | BinaryObject | -| A set of finite-length sequences of binary octets. |
-| | Graphic	| A diagram, graph, mathematical curves, or similar representation |
-| | Picture	| A visual representation of a person, object, or scene | 
-| | Sound	| A representation for audio |
-| | Video	| A motion picture representation; may include audio encoded within |
-|Code	| | 	A character string (i.e., letters, figures, and symbols) that for brevity, language independence, or precision represents a definitive value of an attribute. |
-| DateTime | |	A particular point in the progression of time together with relevant supplementary information. |
-| | Date	| A continuous or recurring period of time, of a duration greater than or equal to a day. |
-| | Time	| A particular point in the progression of time within an unspecified 24-hour day.| 
-| | Duration	| An amount of time; the length of a time span. |
-| ID	| |	A character string to identify and distinguish uniquely one instance of an object in an identification scheme from all other objects in the same scheme together with relevant supplementary information. |
-| | URI	| A string of characters used to identify (or name) a resource. The main purpose of this identifier is to enable interaction with representations of the resource over a network, typically the World Wide Web, using specific protocols. A URI is either a Uniform Resource Locator (URL) or a Uniform Resource Name (URN). The specific syntax for each is defined by [[RFC 3986]](#ref). |
+| | Graphic | A diagram, graph, mathematical curves, or similar representation |
+| | Picture | A visual representation of a person, object, or scene |
+| | Sound | A representation for audio |
+| | Video | A motion picture representation; may include audio encoded within |
+|Code | | A character string (i.e., letters, figures, and symbols) that for brevity, language independence, or precision represents a definitive value of an attribute. |
+| DateTime | | A particular point in the progression of time together with relevant supplementary information. |
+| | Date | A continuous or recurring period of time, of a duration greater than or equal to a day. |
+| | Time | A particular point in the progression of time within an unspecified 24-hour day.|
+| | Duration | An amount of time; the length of a time span. |
+| ID | | A character string to identify and distinguish uniquely one instance of an object in an identification scheme from all other objects in the same scheme together with relevant supplementary information. |
+| | URI | A string of characters used to identify (or name) a resource. The main purpose of this identifier is to enable interaction with representations of the resource over a network, typically the World Wide Web, using specific protocols. A URI is either a Uniform Resource Locator (URL) or a Uniform Resource Name (URN). The specific syntax for each is defined by [[RFC 3986]](#ref). |
 | Indicator | | A list of two mutually exclusive Boolean values that express the only possible states of a property. |
-| Measure	| | 	A numeric value determined by measuring an object along with the specified unit of measure. |
-| Numeric	| | 	Numeric information that is assigned or is determined by calculation, counting, or sequencing. It does not require a unit of quantity or unit of measure. |
-| | Value	| A result of a calculation. |
-| | Rate	| A relative speed of change or progress. |
-| | Percent	| A representation of a unitless ratio, expressed as parts of a hundred, with 100 percent representing a ratio of 1 to 1. |
-| Quantity	| | 	A counted number of non-monetary units possibly including fractions. |
-| Text | -	| A character string (i.e., a finite sequence of characters) generally in the form of words of a language. |
-| | Name	| A word or phrase that constitutes the distinctive designation of a person, place, thing, or concept. |
-| List | | 		A sequence of values. This representation term is used in tandem with another of the listed representation terms.| 
-| Abstract	| | 	An element that may represent a concept, rather than a concrete property. This representation term may be used in tandem with another of the listed representation terms. |
-| Representation	| | 	An element that acts as a placeholder for alternative representations of the value of a type (see Section 5, The Representation pattern, above).  **TODO**|
+| Measure | | A numeric value determined by measuring an object along with the specified unit of measure. |
+| Numeric | | Numeric information that is assigned or is determined by calculation, counting, or sequencing. It does not require a unit of quantity or unit of measure. |
+| | Value | A result of a calculation. |
+| | Rate | A relative speed of change or progress. |
+| | Percent | A representation of a unitless ratio, expressed as parts of a hundred, with 100 percent representing a ratio of 1 to 1. |
+| Quantity | | A counted number of non-monetary units possibly including fractions. |
+| Text | - | A character string (i.e., a finite sequence of characters) generally in the form of words of a language. |
+| | Name | A word or phrase that constitutes the distinctive designation of a person, place, thing, or concept. |
+| List | | A sequence of values. This representation term is used in tandem with another of the listed representation terms.|
+| Abstract | | An element that may represent a concept, rather than a concrete property. This representation term may be used in tandem with another of the listed representation terms. |
+| Representation | | An element that acts as a placeholder for alternative representations of the value of a type (see Section 5, The Representation pattern, above).  **TODO**|
+| Ref | | **TODO** |
 
 <center><i><a name="tab6-1"></a>Table 6-1: Property representation terms</i></center><p/>
 
@@ -2336,7 +2336,7 @@ A [documented component](#def) is a CMF object or XSD schema component that has 
 
 **Rule 7-38:** Facet has data definition || In CMF, a Facet object MUST be a documented component. In XSD, an enumeration facet MUST be a documented component. (N5R 9-14)
 
-**Rule 7-39:** Documentation is provided in US English || In CMF, the language name for the first instance of the DocumentationText property in any Namespace or Component object MUST be `en-US`. In XSD, the first occurance of `xs:documentation` within `xs:annotation` MUST be within the scope of an occurance of `xml:lang` with a value of `en-US`. In each case, subsequent instances, if provided, MUST have a different language name. (NEW)
+**Rule 7-39:** Documentation is provided in US English || In CMF, the language name for the first instance of the DocumentationText property in any Namespace or Component object MUST be `en-US`. In XSD, the first occurrence of `xs:documentation` within `xs:annotation` MUST be within the scope of an occurrence of `xml:lang` with a value of `en-US`. In each case, subsequent instances, if provided, MUST have a different language name. (NEW)
 
 A model file or schema document always contains data definitions in US English. It may contain equivalent data definitions in other languages.
 
@@ -2352,9 +2352,9 @@ Data definitions should be concise, precise, and unambiguous without embedding a
 
 **Rule 7-43:** Do not leak representation into data definition || A data definition SHOULD NOT contain explicit representational or data typing information such as number of characters, classes of characters, range of mathematical values, etc., unless the very nature of the component can be described only by such information. (N5R 11-27)
 
-A component definition is intended to describe semantic meaning only, not representation or structure. How a component with simple content is represented is indicated through the representation term, but the primary source of representational information should come from the XML Schema definition of the types themselves. A developer should try to keep a component’s data definition decoupled from its representation.
+A component definition is intended to describe semantic meaning only, not representation or structure. How a component with simple content is represented is indicated through the representation term, but the primary source of representational information should come from the XML Schema definition of the types themselves. A developer should try to keep a component's data definition decoupled from its representation.
 
-### 7.2.3 Data defintion rules from ISO 11179-4
+### 7.2.3 Data definition rules from ISO 11179-4
 
 These rules are adopted from [[ISO 11179-4]](#ref), *Information technology — Metadata
 registries: Formulation of data definitions*
@@ -2418,7 +2418,7 @@ These rules apply to Class objects in CMF, and to complex type definitions in XS
 
 **Rule 8-1:** Namespace identifier is absolute URI || The namespace MUST have an identifier, which MUST match the production `<absolute-URI>` as defined by [[RFC 3986]](#ref). In CMF, the namespace identifier is the value of the NamespaceURI property in a Namespace object. In XSD, the namespace identifier is the value of `@targetNamespace` in the `<xs:schema>` element. (N5R 9-83, 9-84)
 
-**Rule 8-2:** Namespaces use slash URIs || The namespace SHOULD have an identifer ending in the slash ('/') character. (NEW)
+**Rule 8-2:** Namespaces use slash URIs || The namespace SHOULD have an identifier ending in the slash ('/') character. (NEW)
 
 **Rule 8-3:** Namespace has a prefix || The namespace MUST have a defined prefix, which MUST match the production `<NCName>` as defined by [[XML Namespaces]](#ref). |(NEW)
 
@@ -2430,31 +2430,31 @@ In CMF, the prefix is the value of the NamespacePrefix property in a Namespace o
 
 ## 8.2 Rules for reference namespaces
 
-**Rule 8-6:** Reference namespace asserts conformance || A [reference namespace](#def) MUST assert the conformance target identifer `https://docs.oasis-open.org/niemopen/ns/specification/NDR/6.0/#ReferenceSchemaDocument`; all other namespaces MUST NOT. In CMF, this is a value of the ConformanceTargetURI property in the Namespace object. In XSD, this is the [effective conformance target attribute](#def) of the schema document (*cf.*[§6.2](#62-conformance-target-assertions)). (N5R 4-1,4-5)
+**Rule 8-6:** Reference namespace asserts conformance || A [reference namespace](#def) MUST assert the conformance target identifier `https://docs.oasis-open.org/niemopen/ns/specification/NDR/6.0/#ReferenceSchemaDocument`; all other namespaces MUST NOT. In CMF, this is a value of the ConformanceTargetURI property in the Namespace object. In XSD, this is the [effective conformance target attribute](#def) of the schema document (*cf.*[§6.2](#62-conformance-target-assertions)). (N5R 4-1,4-5)
 
 The conformance target identifier ends in "ReferenceSchemaDocument" instead of "ReferenceNamespace" for historical reasons.
 
 **Rule 8-7:** Reference namespace does not have wildcard || In CMF, a Class object with a Namespace that is a [reference namespace](#def) MUST NOT have the TODO property. In XSD, the [schema document](#def) for the [reference namespace](#def) MUST NOT contain the element `xs:any` or `xs:anyAttribute`. (N5R 9-70, 9-71)
 
-Wilcards are permitted in [extension namespaces](#def), but not in [reference namespaces](#def) or in subsets of [reference namespaces](#def).
+Wildcards are permitted in [extension namespaces](#def), but not in [reference namespaces](#def) or in subsets of [reference namespaces](#def).
 
 **Rule 8-8:** Object properties in reference namespace are referenceable || In CMF, a Class object or an ObjectProperty object in a [reference namespace](#def) MUST NOT contain a ReferenceCode property of `ID`, `URI`, or `NONE`. In XSD, a type definition or an element declaration in a [reference namespace](#def) MUST NOT have an `@appinfo:referenceCode` property of `ID`, `URI`, or `NONE`. (NEW)
 
-To promote reuse, object properties defined in [reference namespaces](#def) and [extension namespaces](#def) are always referencable. In a subset of these namespaces, message designers may specify that some properties must be referenced via IDREF, or by URI, or must appear inline.
+To promote reuse, object properties defined in [reference namespaces](#def) and [extension namespaces](#def) are always referenceable. In a subset of these namespaces, message designers may specify that some properties must be referenced via IDREF, or by URI, or must appear inline.
 
 **Rule 8-9:** Reference namespace uses reference namespace components || A component that is used in a [reference namespace](#def) MUST be defined in a [reference namespace](#def). (N5R 11-50)
 
 ## 8.3 Rules for extension namespaces
 
-**Rule 8-10:** Extension namespace asserts conformance || An [extension namespace](#def) MUST assert the conformance target identifer `https://docs.oasis-open.org/niemopen/ns/specification/NDR/6.0/#ExtensionSchemaDocument`; all other namespaces MUST NOT. In CMF, this is a value of the ConformanceTargetURI property in the Namespace object. In XSD, this is the [effective conformance target attribute](#def) of the schema document (*cf*[§6.2](#62-conformance-target-assertions)). (N5R 4-2,4-6)
+**Rule 8-10:** Extension namespace asserts conformance || An [extension namespace](#def) MUST assert the conformance target identifier `https://docs.oasis-open.org/niemopen/ns/specification/NDR/6.0/#ExtensionSchemaDocument`; all other namespaces MUST NOT. In CMF, this is a value of the ConformanceTargetURI property in the Namespace object. In XSD, this is the [effective conformance target attribute](#def) of the schema document (*cf*[§6.2](#62-conformance-target-assertions)). (N5R 4-2,4-6)
 
 **Rule 8-11:** Object properties in extension namespace are referenceable || In CMF, a Class object or an ObjectProperty object in an [extension namespace](#def) MUST NOT have a ReferenceCode property of `ID`, `URI`, or `NONE`. In XSD, a type definition or an element declaration in an [extension namespace](#def) MUST NOT have an `@appinfo:referenceCode` property of `ID`, `URI`, or `NONE`. (NEW)
 
 ## 8.4 Rules for subset namespaces
 
-**Rule 8-12:** Subset namespace asserts conformance || A [subset namespace](#def) must assert the conformance target identifer `https://docs.oasis-open.org/niemopen/ns/specification/NDR/6.0/#SubsetSchemaDocument`. In CMF, this is a value of the ConformanceTargetURI property in the Namespace object. In XSD, this is the [effective conformances target attribute](#def) of the schema document (*cf*[§6.2](#62-conformance-target-assertions). (N5R 4-5)
+**Rule 8-12:** Subset namespace asserts conformance || A [subset namespace](#def) must assert the conformance target identifier `https://docs.oasis-open.org/niemopen/ns/specification/NDR/6.0/#SubsetSchemaDocument`. In CMF, this is a value of the ConformanceTargetURI property in the Namespace object. In XSD, this is the [effective conformance target attribute](#def) of the schema document (*cf*[§6.2](#62-conformance-target-assertions). (N5R 4-5)
 
-**Rule 8-13:** Subset has corresponding reference or extension namespace || A  representation of a [reference namespace](#def) or [extension namespace](#def) with the same identifer as the [subset namespace](#def) MUST exist. (NEW)
+**Rule 8-13:** Subset has corresponding reference or extension namespace || A  representation of a [reference namespace](#def) or [extension namespace](#def) with the same identifier as the [subset namespace](#def) MUST exist. (NEW)
 
 It is helpful when a [message specification](#def) includes the representation of the [reference namespace](#def) or [extension namespace](#def), as this facilitates automated validation of certain rules; however, this is not required, so long as the canonical representation exists somewhere.
 
@@ -2482,7 +2482,7 @@ The W3C XML Schema Language provides many features that allow a developer to rep
 
 Note that [external schema documents](#def) (i.e., non-NIEM-conformant schema documents) do not need to obey the rules set forth in this section. So long as schema components from external schema documents are adapted for use with NIEM according to the modeling rules in [section 9.4: Rules for adapters and external components](#94-rules-for-adapters-and-external-components), they may be used as they appear in the external standard, even if the schema components themselves violate the rules for NIEM-conformant schemas.
 
-**Rule 9-3:** Document is a valid schema document || The XSD representation of a namespace MUST be a [schema document](#def), as defined by [[XML Schema Structures]](). (N5R 7-1,7-2,7-3)
+**Rule 9-3:** Document is a valid schema document || The XSD representation of a namespace MUST be a [schema document](#def), as defined by [[XML Schema Structures]](#refTODO). (N5R 7-1,7-2,7-3)
 
 **Rule 9-4:** Document element is `xs:schema` || The [document element](#def) of the XSD representation of a namespace MUST be `xs:schema`. (N5R 7-4)
 
@@ -2506,7 +2506,7 @@ Note that [external schema documents](#def) (i.e., non-NIEM-conformant schema do
 - `xs:anySimpleType`
 - `xs:NOTATION`
 - `xs:ENTITY`
-- `xs:ENTITES`
+- `xs:ENTITIES`
 - any type in the XML namespace `http://www.w3.org/XML/1998/namespace`
 
 **Rule 9-7:** Prohibited list item types || A schema component MUST NOT have an attribute `{}itemType` with any of the following values: (N5R 9-15,9-16,9-17,9-18)
@@ -2536,7 +2536,7 @@ Note that [external schema documents](#def) (i.e., non-NIEM-conformant schema do
 
 **Rule 9-10:** No mixed content on complex type or complex content || A complex type definition MUST NOT have mixed content. (N5R 9-27,9-28)
 
-Mixed content allows the mixing of data tags with text. Languages such as XHTML use this syntax for markup of text. NIEM-conformant schemas define XML that is for data exchange, not text markup. Mixed content creates complexity in processing, defining, and constraining content. Well-defined markup languages exist outside NIEM and may be used with NIEM data, and so [*external schema documents*](#def) may include mixed content and may be used with NIEM. 
+Mixed content allows the mixing of data tags with text. Languages such as XHTML use this syntax for markup of text. NIEM-conformant schemas define XML that is for data exchange, not text markup. Mixed content creates complexity in processing, defining, and constraining content. Well-defined markup languages exist outside NIEM and may be used with NIEM data, and so [*external schema documents*](#def) may include mixed content and may be used with NIEM.
 
 **Rule 9-11:** Complex type content is explicitly simple or complex || A complex type definition MUST have a `xs:complexContent` or a `xs:simpleContent` child element (N5R 9-29)
 
@@ -2546,7 +2546,7 @@ XML Schema provides shorthand to defining complex content of a complex type, whi
 
 This rule addresses a peculiarity of the XML Schema definition language, which allows a complex type to be constructed using xs:complexContent, and yet is derived from a complex type that uses xs:simpleContent. These rules ensure that each type has the content style indicated by the schema.
 
-**Rule 9-13:** Untyped element is abstract || An untyped elememt or an element of type `xs:anySimpleType` MUST be abstract. (N5R 9-38,9-39)
+**Rule 9-13:** Untyped element is abstract || An untyped element or an element of type `xs:anySimpleType` MUST be abstract. (N5R 9-38,9-39)
 
 Untyped element declarations act as wildcards that may carry arbitrary data. By declaring such types abstract, NIEM allows the creation of type independent semantics without allowing arbitrary content to appear in XML instances.
 
@@ -2558,7 +2558,7 @@ Untyped element declarations act as wildcards that may carry arbitrary data. By 
 
 **Rule 9-17:** No default or fixed value || An element declaration MUST NOT have an attribute `{}default` or `{}fixed`. (N5R 9-45,9-46,9-57,9-58)
 
-**Rule 9-18:** Sequence has minimum and maximun cardinality 1 || An element `xs:sequence` MUST have a `minOccurs` and `maxOccurs` of 1. (N5R 9-66,9-67)
+**Rule 9-18:** Sequence has minimum and maximum cardinality 1 || An element `xs:sequence` MUST have a `minOccurs` and `maxOccurs` of 1. (N5R 9-66,9-67)
 
 **Rule 9-19:** `xs:choice` must be child of `xs:sequence` || An element `xs:choice` MUST be a child of `xs:sequence`. (N5R 9-65)
 
@@ -2574,7 +2574,7 @@ Since XML comments are not associated with any specific XML Schema construct, th
 
 An import that does not specify a namespace is enabling references to components without namespaces. NIEM requires that all components have a defined namespace. It is important that the namespace declared by a schema be universally defined and unambiguous.
 
-**Rule 9-24:** Import specifies local resource || An element `xs:import` MUST specifiy a schema document, which MUST be a local resource. (NEW)
+**Rule 9-24:** Import specifies local resource || An element `xs:import` MUST specify a schema document, which MUST be a local resource. (NEW)
 
 The schema document may be specified by a {}schemaLocation attribute in the xs:import element, or by XML Catalog resolution of the {}namespace attribute, or both. Requiring a local resource ensures that the component definitions are known and fixed.
 
@@ -2584,7 +2584,7 @@ This section provides rules for *type definitions* in the XSD representation of 
 
 **Rule 9-25:** Name of type definitions || A type definition that does not define a [*proxy type*](#def) MUST have a name ending in "Type"; all other XSD components MUST NOT. (N5R 11-2)
 
-Use of the representation term Type immediately identifies XML types in a NIEM-conformant schema and prevents naming collisions with corresponding XML elements and attributes. The exception for proxy types ensures that simple NIEM-compatible uses of base XML Schema types are familiar to people with XML Schema experience (*cf*[§8.5](#85-rules-for-proxy-types)).
+Use of the representation term Type immediately identifies XML types in a NIEM-conformant schema and prevents naming collisions with corresponding XML elements and attributes. The exception for proxy types ensures that simple NIEM-compatible uses of base XML Schema types are familiar to people with XML Schema experience (*cf*[§9.5](#95-rules-for-proxy-types)).
 
 **Rule 9-26:** Name of simple type definitions || A simple type definition MUST have a name ending in "SimpleType"; all other XSD components MUST NOT. (N5R 11-4)
 
@@ -2604,7 +2604,7 @@ All XML Schema top-level types (children of the document element) are required b
 
 **Rule 9-31:** Complex type has a category || A complex type definition MUST be an object type, an association type, an adapter type, or an augmentation type. (N5R 10-1)
 
-The rules in this document use the name of a type as the key indicator of the type’s category. This makes the rules much simpler than doing a deep examination of each type (and its base types) to identify its category. For complex types, the names follow a pattern:
+The rules in this document use the name of a type as the key indicator of the type's category. This makes the rules much simpler than doing a deep examination of each type (and its base types) to identify its category. For complex types, the names follow a pattern:
 
 * Name ends with AdapterType → type represents an [adapter class](#def). (see [Rule 7-3](#rule-7-3))
 * Name ends with AssociationType → type represents an [association class](#def). (see [Rule 7-4](#rule-7-4))
@@ -2615,7 +2615,7 @@ The rules in this document use the name of a type as the key indicator of the ty
 
 **Rule 9-33:** Adapter type derived from `structures:AdapterType` || A type definition that represents an [adapter class](#def) MUST be derived from `structures:AdapterType`. (NEW)
 
-**Rule 9-34:** Association type derived from `structures:AssociationType` || A type definition that represents an [association class](#def) MUST be derinved from `structures:AssociationType` or from another [association class](#def). (N5R 10-21)
+**Rule 9-34:** Association type derived from `structures:AssociationType` || A type definition that represents an [association class](#def) MUST be derived from `structures:AssociationType` or from another [association class](#def). (N5R 10-21)
 
 **Rule 9-35:** Augmentation type derived from `structures:AugmentationType` || A type definition that is an [augmentation type](#def) MUST be derived from `structures:AugmentationType`. (N5R 10-35)
 
@@ -2629,7 +2629,7 @@ The rules in this document use the name of a type as the key indicator of the ty
 
 In [conformant schema documents](#def), use of attribute groups is restricted. The only attribute group defined by NIEM for use in conformant schemas is `structures:SimpleObjectAttributeGroup`. This attribute group provides the attributes necessary for identifiers and references.
 
-**Rule 9-40:** Augmentation elements are not used directly || A complex type definition MUST NOT have an element use of an augmentation element declaration, or an element declaration that is in the substitition group of an augmentation point element declaration. (N5R 10-37)
+**Rule 9-40:** Augmentation elements are not used directly || A complex type definition MUST NOT have an element use of an augmentation element declaration, or an element declaration that is in the substitution group of an augmentation point element declaration. (N5R 10-37)
 
 Augmentation elements do not correspond to a model component, and must not be used as a property in any class.
 
@@ -2655,7 +2655,7 @@ Literal properties appear only in the CMF representation of a [literal class](#d
 
 **Rule 9-48:** Import of external schema document is labeled || An `xs:import` element importing an external schema document MUST own the attribute `appinfo:externalImportIndicator` with a value of `true`. (NEW)
 
-An [external schema document](#def) is any schema document that is not 
+An [external schema document](#def) is any schema document that is not
 
 * a [reference schema document](#def), or
 * an [extension schema document](#def), or
@@ -2695,7 +2695,7 @@ In normal (conformant) type definitions, a reference to an attribute or element 
 
 **Rule 9-55:** External attribute use not an ID || An attribute use schema component MUST NOT have an {attribute declaration} with an ID type. (N5R 10-15)
 
-NIEM schemas use `structures:id` to enable references between components. Each NIEM-defined complex type in a reference or extension schema document must incorporate a definition for `structures:id`. [XML] Section 3.3.1, Attribute Types entails that a complex type may have no more than one ID attribute. This means that an external attribute use must not be an ID attribute.
+NIEM schemas use `structures:id` to enable references between components. Each NIEM-defined complex type in a reference or extension schema document must incorporate a definition for `structures:id`. [XML](#ref) Section 3.3.1, Attribute Types entails that a complex type may have no more than one ID attribute. This means that an external attribute use must not be an ID attribute.
 
 The term "attribute use schema component" is defined by [[XML Schema Structures]](#ref) Section 3.5.1, The Attribute Use Schema Component. Attribute type ID is defined by[[XML]](#ref) Section 3.3.1, Attribute Types.
 
@@ -2733,7 +2733,7 @@ A [proxy type](#def) is not a model component. It is a convenience complex type 
 
 **Rule 9-63:** Standard opening phrase for augmentation element data definition || The data definition for an augmentation element SHOULD begin with the standard opening phrase "Supplements..." or "Additional information about...". (N5R 11-32)
 
-**Rule 9-64:** Standard opening phrase for augmentation type data definition || The data definition for an augmentation type SHOULD begin with the standard opening phrase "A data type (that supplements|for additional information about)...". (N5R 11-44) 
+**Rule 9-64:** Standard opening phrase for augmentation type data definition || The data definition for an augmentation type SHOULD begin with the standard opening phrase "A data type (that supplements|for additional information about)...". (N5R 11-44)
 
 **Rule 9-65:** Augmentation point element corresponds to its base type || A schema document containing an element declaration for an [augmentation point element](#def) MUST also contain a type definition for its augmented base type. (N5R 10-25)
 
@@ -2783,7 +2783,7 @@ NIEM defines a single namespace that holds components for use in NIEM-conformant
 
 **Rule 9-82:** Element declaration is nillable || An element declaration in a [reference schema document](#def) MUST have the `{nillable}` property with a value of true. (N5R 9-47)
 
-Properties in a reference or extension namespace are always referencable, in order to maximize reuse.  Message designers may make some properties un-referencable in a namespace subset.
+Properties in a reference or extension namespace are always referenceable, in order to maximize reuse.  Message designers may make some properties un-referenceable in a namespace subset.
 
 **Rule 9-83:** No `xs:choice` || A [reference schema document](#def) MUST NOT contain the element `xs:choice`. (N5R 9-64)
 
@@ -2795,7 +2795,7 @@ Properties in a reference or extension namespace are always referencable, in ord
 
 **Rule 9-85:** Attribute augmentations are documented || Within a [message model](#def), an attribute reference that does not appear in the corresponding [reference schema document](#def) or [extension schema document](#def) MUST have the attribute `appinfo:augmentingNamespace` containing the namespace prefix or URI of the augmenting namespace. (NEW)
 
-Augmented XSD type definitions in a message model must include attribute augmentations so that the schema will validate all conforming messages. See [section 4.15.5, *Attribute augmentations in messge models](#4155-attribute-augmentations-in-message-models).
+Augmented XSD type definitions in a message model must include attribute augmentations so that the schema will validate all conforming messages. See [section 4.15.5, *Attribute augmentations in message models](#4155-attribute-augmentations-in-message-models).
 
 -------
 
@@ -2813,7 +2813,7 @@ These rules apply to both the CMF and XSD representations of a model.
 
 **Rule 10-2:** Unique namespace prefixes || A model MUST NOT contain two namespaces with the same prefix. (NEW)
 
-In a NIEM model there is always a one-to-one match between namespace prefix and namespace URI. 
+In a NIEM model there is always a one-to-one match between namespace prefix and namespace URI.
 
 ## 10.1 Rules for model files
 
@@ -2869,7 +2869,7 @@ This rule further enforces uniform and consistent use of the NIEM structures nam
 
 **Rule 11-1:** Message type declares initial property || A [message type](#def) MUST declare the initial property of conforming [messages](#def). (NEW)
 
-This document does not specify any particular syntax for the declaration. 
+This document does not specify any particular syntax for the declaration.
 
 **Rule 11-2:** Message format schema matches message type || The [schema](#def) for a [message format](#def) MUST validate exactly those [messages](#def) that conform to the format's [message type](#def). (NEW)
 
@@ -2887,7 +2887,7 @@ This rule should not be construed to mean that XML validation must be performed 
 
 **Rule 12-2:** No attributes from wildcards in structures || Every attribute in an XML message MUST be valid by virtue of an `xs:attribute` element in a [conforming schema document](#def). An XML [message](#def) MUST NOT contain an attribute that is schema-valid only by virtue of an `xs:anyAttribute` element in the [structures namespace](#def). (NEW)
 
-The [schema document](#def) for the [structures namespace](#def) contains `xs:anyAttribute` elements for the purpose of attribute augmentation. This permits a message designer to augment his subset of a [reference schema](#def) or [extension schema](#def) with one or more [attribute properties](#def), while still following the [subset rule](#def). 
+The [schema document](#def) for the [structures namespace](#def) contains `xs:anyAttribute` elements for the purpose of attribute augmentation. This permits a message designer to augment his subset of a [reference schema](#def) or [extension schema](#def) with one or more [attribute properties](#def), while still following the [subset rule](#def).
 
 **Rule 12-3:** No invalid references || An element in an XML message MUST NOT have the attribute `structures:id` if its element declaration or type definition has the attribute `appinfo:referenceCode` with a value of `NONE`. (NEW)
 
@@ -2953,35 +2953,35 @@ Applicable Rule:
 Enumerations MUST have `description` objects providing the full value of each enumeration, to preserve the semantics of the codes. In the example below, the code "1" has no semantic meaning on its own; "Fatal Accident" does.
 
 ```json
-"aamva_d20:AccidentSeverityCodeType": {  
-	"description": "A data type for severity levels of an accident.",  
-	"type": "string",  
-	"oneOf": [  
-		{  
-			"const": "1",  
-			"description": "Fatal Accident"  
-		},  
-		{  
-			"const": "2",  
-			"description": "Incapacitating Injury Accident"  
-		},  
-		{  
-			"const": "3",  
-			"description": "Non-incapacitating Evident Injury"  
-		},  
-		{  
-			"const": "4",  
-			"description": "Possible Injury Accident"  
-		},  
-		{  
-			"const": "5",  
-			"description": "Non-injury Accident"  
-		},  
-		{  
-			"const": "9",  
-			"description": "Unknown"  
-		}  
-	]  
+"aamva_d20:AccidentSeverityCodeType": {
+  "description": "A data type for severity levels of an accident.",
+  "type": "string",
+  "oneOf": [
+  {
+  "const": "1",
+  "description": "Fatal Accident"
+  },
+  {
+  "const": "2",
+  "description": "Incapacitating Injury Accident"
+  },
+  {
+  "const": "3",
+  "description": "Non-incapacitating Evident Injury"
+  },
+  {
+  "const": "4",
+  "description": "Possible Injury Accident"
+  },
+  {
+  "const": "5",
+  "description": "Non-injury Accident"
+  },
+  {
+  "const": "9",
+  "description": "Unknown"
+  }
+  ]
 }
 ```
 
@@ -2991,65 +2991,65 @@ NIEM property and class names can be lengthy and some development environments c
 
 ```json
 {
-    "$schema": "http://json-schema.org/draft-07/schema#",
-    "type": "object",
-	"@context" : {
-	    "nc": "http://release.niem.gov/niem/niem-core/5.0/",
-		"name": "nc:PersonName",
-		"first": "nc:PersonGivenName",
-		"middle": "nc:PersonMiddleName",
-		"last": "nc:PersonSurName",
-		"nametype": "nc:PersonNameType",
-		"nametexttype": "nc:PersonNameTextType",
-		"propernametexttype": "nc:ProperNameTextType",
-		"texttype": "nc:TextType"
-	},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "@context" : {
+    "nc": "http://release.niem.gov/niem/niem-core/5.0/",
+    "name": "nc:PersonName",
+    "first": "nc:PersonGivenName",
+    "middle": "nc:PersonMiddleName",
+    "last": "nc:PersonSurName",
+    "nameType": "nc:PersonNameType",
+    "nameTextType": "nc:PersonNameTextType",
+    "properNameTextType": "nc:ProperNameTextType",
+    "textType": "nc:TextType"
+  },
 
-	"properties": {
-		"name": {
-			"description": "A combination of names and/or titles by which a person is known.",
-			"type": "array",
-			"items": {"$ref": "#/definitions/nametype"}
-		},
-		"first": {
-			"description": "A first name of a person.",
-			"$ref": "#/definitions/nametexttype"
-		},
-		"middle": {  
-			"description": "A middle name of a person.",  
-			"type": "array",  
-			"items": {"$ref": "#/definitions/nametexttype"}  
-		},
-		"last": {  
-			"description": "A last name or family name of a person.",  
-			"$ref": "#/definitions/nametexttype"  
-		}
-	},
-	"definitions": {
-		"nametype": {
-			"description": "A data type for a combination of names and/or titles by which a person is known.",
-			"type": "object",
-			"properties": {
-				"first": {"$ref": "#/properties/first"},
-				"middle": {"$ref": "#/properties/middle"},
-				"last": {"$ref": "#/properties/last"},
-			},
-			"required": ["last"]
-		},
-		"nametexttype": {
-			"description": "A data type for a name by which a person is known, referred, or addressed.",
-			"$ref": "#/definitions/propernametexttype"
-		},
-		"propernametexttype": {
-			"description": "A data type for a word or phrase by which a person or thing is known, referred, or addressed.",
-			"$ref": "#/definitions/texttype"
-		},
-		"texttype": {
-			"description": "A data type for a character string.",
-			"type": "string"
-		}
+  "properties": {
+    "name": {
+      "description": "A combination of names and/or titles by which a person is known.",
+      "type": "array",
+      "items": {"$ref": "#/definitions/nameType"}
+    },
+    "first": {
+      "description": "A first name of a person.",
+      "$ref": "#/definitions/nameTextType"
+    },
+    "middle": {
+      "description": "A middle name of a person.",
+      "type": "array",
+      "items": {"$ref": "#/definitions/nameTextType"}
+    },
+    "last": {
+      "description": "A last name or family name of a person.",
+      "$ref": "#/definitions/nameTextType"
+    }
+  },
+  "definitions": {
+    "nameType": {
+      "description": "A data type for a combination of names and/or titles by which a person is known.",
+      "type": "object",
+      "properties": {
+        "first": {"$ref": "#/properties/first"},
+        "middle": {"$ref": "#/properties/middle"},
+        "last": {"$ref": "#/properties/last"},
+      },
+      "required": ["last"]
+    },
+    "nameTextType": {
+      "description": "A data type for a name by which a person is known, referred, or addressed.",
+      "$ref": "#/definitions/properNameTextType"
+    },
+    "properNameTextType": {
+      "description": "A data type for a word or phrase by which a person or thing is known, referred, or addressed.",
+      "$ref": "#/definitions/textType"
+    },
+    "textType": {
+      "description": "A data type for a character string.",
+      "type": "string"
+    }
 
-	}
+  }
 }
 ```
 
@@ -3062,7 +3062,7 @@ See section _14.5 Normalization for JSON Instances_, below, for normalized insta
 Applicable Rule:
 
 > Rule 12-1 (Constraint)
-> The XML document MUST be schema-valid, as assessed against a conformant schema document set, composed of authoritative, comprehensive schema documents for the relevant namespaces.
+> The XML document MUST be schema-valid, as assessed against a conformant schema document set, composed of authoritative, comprehensive schema documents for the relevant namespaces.
 
 JSON messages MUST also be schema-valid, as assessed against JSON one or more authoritative, comprehensive JSON Schema documents.
 
@@ -3081,8 +3081,8 @@ In this example, neither empty object has any implied meaning:
 
 ```json
 {
-	SomeProperty1: "",
-	SomeProperty2: []
+  SomeProperty1: "",
+  SomeProperty2: []
 }
 ```
 
@@ -3096,7 +3096,7 @@ Applicable Rules:
 
 JSON-LD provides a means of identifying resources, both internally and externally, through the use of `@id`. Used on its own, `@id` provides a local identification string that identifies an object. All objects identified with the same string are the same object, linked to each other via the matching `@id` properties.
 
-Combined with `"@type": "@vocab"`, an `@id` becomes an  [Internationalized Resource Identifier (IRI)](https://en.wikipedia.org/wiki/Internationalized_Resource_Identifier), linking together all object in an instance with the same IRI.
+Combined with `"@type": "@vocab"`, an `@id` becomes an [Internationalized Resource Identifier (IRI)](https://en.wikipedia.org/wiki/Internationalized_Resource_Identifier), linking together all object in an instance with the same IRI.
 
 
 ```json
@@ -3121,13 +3121,13 @@ For example, an `nc:Person` object can be linked to other objects of `nc:PersonT
 
 ```json
 "nc:Person": {
-	"@id": "ABC123"
-	"nc:PersonName": {
-		"nc:PersonFullName": "Doctor Who"
-	}
+  "@id": "ABC123"
+  "nc:PersonName": {
+    "nc:PersonFullName": "Doctor Who"
+  }
 },
 "j:MedicalPractitioner": {
-	"@id": "ABC123"
+  "@id": "ABC123"
 }
 ```
 
@@ -3149,16 +3149,16 @@ Instance with fully qualified names:
 
 ```json
 {
-	"nc:PersonName": [  
-		{  
-			"nc:PersonGivenName": "Peter",  
-			"nc:PersonMiddleName": [  
-				"Death",  
-				"Bredon"  
-			],  
-			"nc:PersonSurName": "Wimsey"  
-		}  
-	]
+  "nc:PersonName": [
+    {
+      "nc:PersonGivenName": "Peter",
+      "nc:PersonMiddleName": [
+        "Death",
+        "Bredon"
+      ],
+      "nc:PersonSurName": "Wimsey"
+    }
+  ]
 }
 ```
 
@@ -3166,24 +3166,24 @@ Instance with short names:
 
 ```json
 {
-	"@context" : {
-	    "nc": "http://release.niem.gov/niem/niem-core/5.0/",
-		"name": "nc:PersonName",
-		"first": "nc:PersonGivenName",
-		"middle": "nc:PersonMiddleName",
-		"last": "nc:PersonSurName"
-	},
-	
-	"name": [  
-		{  
-			"first": "Peter",  
-			"middle": [  
-				"Death",  
-				"Bredon"  
-			],  
-			"last": "Wimsey"  
-		}  
-	]
+  "@context" : {
+      "nc": "http://release.niem.gov/niem/niem-core/5.0/",
+    "name": "nc:PersonName",
+    "first": "nc:PersonGivenName",
+    "middle": "nc:PersonMiddleName",
+    "last": "nc:PersonSurName"
+  },
+
+  "name": [
+    {
+      "first": "Peter",
+      "middle": [
+        "Death",
+        "Bredon"
+      ],
+      "last": "Wimsey"
+    }
+  ]
 }
 ```
 
@@ -3203,6 +3203,9 @@ The following documents are referenced in such a way that some or all of their c
 ###### [ClarkNS]
 Clark, J. XML Namespaces, 4 February 1999. Available from http://www.jclark.com/xml/xmlns.htm.
 
+###### [Infoset]
+TODO
+
 ###### [ISO 11179-4]
 ISO/IEC 11179-4 Information Technology — Metadata Registries (MDR) — Part 4: Formulation of Data Definitions Second Edition, 15 July 2004. Available from http://standards.iso.org/ittf/PubliclyAvailableStandards/c035346_ISO_IEC_11179-4_2004(E).zip.
 
@@ -3215,6 +3218,12 @@ Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14,
 ###### [RFC8174]
 Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017, http://www.rfc-editor.org/info/rfc8174.
 
+###### [XML Schema Datatypes]
+TODO
+
+###### [XML Schema Structures]
+TODO
+
 ## A.2 Informative References
 
 ###### [I18N]
@@ -3225,6 +3234,7 @@ Rescorla, E. and B. Korver, "Guidelines for Writing RFC Text on Security Conside
 
 ###### [Tools]
 Add a reference to a NIEMOpen tools page TODO.
+
 -------
 
 # Appendix B.  Structures namespace
@@ -3416,7 +3426,7 @@ Add a reference to a NIEMOpen tools page TODO.
 * [Rule 9-15: Element type is not simple type](#rule-9-15).
 * [Rule 9-16: Attribute declaration has type](#rule-9-16).
 * [Rule 9-17: No default or fixed value](#rule-9-17).
-* [Rule 9-18: Sequence has minimum and maximun cardinality 1](#rule-9-18).
+* [Rule 9-18: Sequence has minimum and maximum cardinality 1](#rule-9-18).
 * [Rule 9-19: `xs:choice` must be child of `xs:sequence`](#rule-9-19).
 * [Rule 9-20: Choice has minimum and maximum cardinality 1](#rule-9-20).
 * [Rule 9-21: Comment is not recommended](#rule-9-21).
@@ -3520,266 +3530,266 @@ Add a reference to a NIEMOpen tools page TODO.
 
 | NIEM 5 Rule | NIEM 6 Rules |
 | :--- | :--- |
-| [Rule 4-1, Schema marked as reference schema document must conform ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_4-1) | [8-6](#rule-8-6) |
-| [Rule 4-2, Schema marked as extension schema document must conform ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_4-2) | [8-10](#rule-8-10) |
-| [Rule 4-3, Schema is CTAS-conformant ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_4-3) | [9-1](#rule-9-1) |
-| [Rule 4-4, Document element has attribute ct:conformanceTargets ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_4-4) | [9-2](#rule-9-2) |
-| [Rule 4-5, Schema claims reference schema conformance target ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_4-5) | [8-6](#rule-8-6), [8-12](#rule-8-12) |
-| [Rule 4-6, Schema claims extension conformance target ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_4-6) | [8-10](#rule-8-10) |
-| [Rule 5-1, structures:uri denotes resource identifier ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_5-1) | *no matching NIEM6 rule* |
-| [Rule 7-1, Document is an XML document ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_7-1) | [9-3](#rule-9-3) |
-| [Rule 7-2, Document uses XML namespaces properly ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_7-2) | [9-3](#rule-9-3) |
-| [Rule 7-3, Document is a schema document ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_7-3) | [9-3](#rule-9-3) |
-| [Rule 7-4, Document element is xs:schema ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_7-4) | [9-4](#rule-9-4) |
-| [Rule 7-5, Component name follows ISO 11179 Part 5 Annex A ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_7-5) | [7-23](#rule-7-23) |
-| [Rule 9-1, No base type in the XML namespace ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-1) | [9-6](#rule-9-6) |
-| [Rule 9-2, No base type of xs:ID ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-2) | [9-6](#rule-9-6) |
-| [Rule 9-3, No base type of xs:IDREF ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-3) | [9-6](#rule-9-6) |
-| [Rule 9-4, No base type of xs:IDREFS ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-4) | [9-6](#rule-9-6) |
-| [Rule 9-5, No base type of xs:anyType ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-5) | [9-6](#rule-9-6) |
-| [Rule 9-6, No base type of xs:anySimpleType ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-6) | [9-6](#rule-9-6) |
-| [Rule 9-7, No base type of xs:NOTATION ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-7) | [9-6](#rule-9-6) |
-| [Rule 9-8, No base type of xs:ENTITY ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-8) | [9-6](#rule-9-6) |
-| [Rule 9-9, No base type of xs:ENTITIES ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-9) | [9-6](#rule-9-6) |
-| [Rule 9-10, Simple type definition is top-level ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-10) | [9-30](#rule-9-30) |
-| [Rule 9-11, No simple type disallowed derivation ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-11) | [9-77](#rule-9-77) |
-| [Rule 9-12, Simple type has data definition ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-12) | [7-37](#rule-7-37) |
-| [Rule 9-13, No use of fixed on simple type facets ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-13) | [9-78](#rule-9-78) |
-| [Rule 9-14, Enumeration has data definition ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-14) | [7-38](#rule-7-38) |
-| [Rule 9-15, No list item type of xs:ID ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-15) | [9-7](#rule-9-7) |
-| [Rule 9-16, No list item type of xs:IDREF ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-16) | [9-7](#rule-9-7) |
-| [Rule 9-17, No list item type of xs:anySimpleType ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-17) | [9-7](#rule-9-7) |
-| [Rule 9-18, No list item type of xs:ENTITY ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-18) | [9-7](#rule-9-7) |
-| [Rule 9-19, No union member types of xs:ID ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-19) | [9-8](#rule-9-8) |
-| [Rule 9-20, No union member types of xs:IDREF ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-20) | [9-8](#rule-9-8) |
-| [Rule 9-21, No union member types of xs:IDREFS ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-21) | [9-8](#rule-9-8) |
-| [Rule 9-22, No union member types of xs:anySimpleType ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-22) | [9-8](#rule-9-8) |
-| [Rule 9-23, No union member types of xs:ENTITY ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-23) | [9-8](#rule-9-8) |
-| [Rule 9-24, No union member types of xs:ENTITIES ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-24) | [9-8](#rule-9-8) |
-| [Rule 9-25, Complex type definition is top-level ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-25) | [9-30](#rule-9-30) |
-| [Rule 9-26, Complex type has data definition ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-26) | [7-37](#rule-7-37) |
-| [Rule 9-27, No mixed content on complex type ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-27) | [9-10](#rule-9-10) |
-| [Rule 9-28, No mixed content on complex content ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-28) | [9-10](#rule-9-10) |
-| [Rule 9-29, Complex type content is explicitly simple or complex ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-29) | [9-11](#rule-9-11) |
-| [Rule 9-30, Complex content uses extension ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-30) | *no matching NIEM6 rule* |
-| [Rule 9-31, Base type of complex type with complex content must have complex content ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-31) | [9-12](#rule-9-12) |
-| [Rule 9-32, Base type of complex type with complex content must have complex content ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-32) | [9-12](#rule-9-12) |
-| [Rule 9-33, Simple content uses extension ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-33) | [9-79](#rule-9-79) |
-| [Rule 9-34, No complex type disallowed substitutions ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-34) | [9-80](#rule-9-80) |
-| [Rule 9-35, No complex type disallowed derivation ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-35) | [9-81](#rule-9-81) |
-| [Rule 9-36, Element declaration is top-level ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-36) | [9-44](#rule-9-44) |
-| [Rule 9-37, Element declaration has data definition ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-37) | [7-37](#rule-7-37) |
-| [Rule 9-38, Untyped element is abstract ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-38) | [9-13](#rule-9-13) |
-| [Rule 9-39, Element of type xs:anySimpleType is abstract ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-39) | [9-13](#rule-9-13) |
-| [Rule 9-40, Element type not in the XML Schema namespace ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-40) | [9-14](#rule-9-14) |
-| [Rule 9-41, Element type not in the XML namespace ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-41) | [9-14](#rule-9-14) |
-| [Rule 9-42, Element type is not simple type ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-42) | [9-15](#rule-9-15), [9-45](#rule-9-45) |
-| [Rule 9-43, No element disallowed substitutions ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-43) | [9-80](#rule-9-80) |
-| [Rule 9-44, No element disallowed derivation ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-44) | [9-81](#rule-9-81) |
-| [Rule 9-45, No element default value ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-45) | [9-17](#rule-9-17) |
-| [Rule 9-46, No element fixed value ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-46) | [9-17](#rule-9-17) |
-| [Rule 9-47, Element declaration is nillable ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-47) | [9-82](#rule-9-82), [9-84](#rule-9-84) |
-| [Rule 9-48, Attribute declaration is top-level ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-48) | [9-44](#rule-9-44) |
-| [Rule 9-49, Attribute declaration has data definition ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-49) | [7-37](#rule-7-37) |
-| [Rule 9-50, Attribute declaration has type ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-50) | [9-16](#rule-9-16) |
-| [Rule 9-51, No attribute type of xs:ID ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-51) | [9-9](#rule-9-9) |
-| [Rule 9-52, No attribute type of xs:IDREF ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-52) | [9-9](#rule-9-9) |
-| [Rule 9-53, No attribute type of xs:IDREFS ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-53) | [9-9](#rule-9-9) |
-| [Rule 9-54, No attribute type of xs:ENTITY ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-54) | [9-9](#rule-9-9) |
-| [Rule 9-55, No attribute type of xs:ENTITIES ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-55) | [9-9](#rule-9-9) |
-| [Rule 9-56, No attribute type of xs:anySimpleType ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-56) | [9-9](#rule-9-9) |
-| [Rule 9-57, No attribute default values ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-57) | [9-17](#rule-9-17) |
-| [Rule 9-58, No fixed values for optional attributes ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-58) | [9-17](#rule-9-17) |
-| [Rule 9-59, No use of element xs:notation ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-59) | [9-5](#rule-9-5) |
-| [Rule 9-60, Model group does not affect meaning ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-60) | *no matching NIEM6 rule* |
-| [Rule 9-61, No xs:all ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-61) | [9-5](#rule-9-5) |
-| [Rule 9-62, xs:sequence must be child of xs:extension ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-62) | [9-28](#rule-9-28) |
-| [Rule 9-63, xs:sequence must be child of xs:extension or xs:restriction ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-63) | [9-29](#rule-9-29) |
-| [Rule 9-64, No xs:choice ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-64) | [9-83](#rule-9-83) |
-| [Rule 9-65, xs:choice must be child of xs:sequence ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-65) | [9-19](#rule-9-19) |
-| [Rule 9-66, Sequence has minimum cardinality 1 ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-66) | [9-18](#rule-9-18) |
-| [Rule 9-67, Sequence has maximum cardinality 1 ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-67) | [9-18](#rule-9-18) |
-| [Rule 9-68, Choice has minimum cardinality 1 ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-68) | [9-20](#rule-9-20) |
-| [Rule 9-69, Choice has maximum cardinality 1 ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-69) | [9-20](#rule-9-20) |
-| [Rule 9-70, No use of xs:any ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-70) | [8-7](#rule-8-7) |
-| [Rule 9-71, No use of xs:anyAttribute ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-71) | [8-7](#rule-8-7) |
-| [Rule 9-72, No use of xs:unique ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-72) | [9-5](#rule-9-5) |
-| [Rule 9-73, No use of xs:key ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-73) | [9-5](#rule-9-5) |
-| [Rule 9-74, No use of xs:keyref ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-74) | [9-5](#rule-9-5) |
-| [Rule 9-75, No use of xs:group ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-75) | [9-5](#rule-9-5) |
-| [Rule 9-76, No definition of attribute groups ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-76) | [9-5](#rule-9-5) |
-| [Rule 9-77, Comment is not recommended ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-77) | [9-21](#rule-9-21) |
-| [Rule 9-78, Documentation element has no element children ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-78) | [9-22](#rule-9-22) |
-| [Rule 9-79, xs:appinfo children are comments, elements, or whitespace ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-79) | [9-72](#rule-9-72) |
-| [Rule 9-80, Appinfo child elements have namespaces ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-80) | [9-73](#rule-9-73) |
-| [Rule 9-81, Appinfo descendants are not XML Schema elements ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-81) | [9-74](#rule-9-74) |
-| [Rule 9-82, Schema has data definition ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-82) | [7-36](#rule-7-36) |
-| [Rule 9-83, Schema document defines target namespace ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-83) | [8-1](#rule-8-1) |
-| [Rule 9-84, Target namespace is absolute URI ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-84) | [8-1](#rule-8-1) |
-| [Rule 9-85, Schema has version ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-85) | [8-4](#rule-8-4) |
-| [Rule 9-86, No disallowed substitutions ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-86) | [9-80](#rule-9-80) |
-| [Rule 9-87, No disallowed derivations ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-87) | [9-81](#rule-9-81) |
-| [Rule 9-88, No use of xs:redefine ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-88) | [9-5](#rule-9-5) |
-| [Rule 9-89, No use of xs:include ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-89) | [9-5](#rule-9-5) |
-| [Rule 9-90, xs:import must have namespace ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-90) | [9-23](#rule-9-23) |
-| [Rule 9-91, XML Schema document set must be complete ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-91) | [10-9](#rule-10-9) |
-| [Rule 9-92, Namespace referenced by attribute type is imported ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-92) | *no matching NIEM6 rule* |
-| [Rule 9-93, Namespace referenced by attribute base is imported ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-93) | *no matching NIEM6 rule* |
-| [Rule 9-94, Namespace referenced by attribute itemType is imported ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-94) | *no matching NIEM6 rule* |
-| [Rule 9-95, Namespaces referenced by attribute memberTypes is imported ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-95) | *no matching NIEM6 rule* |
-| [Rule 9-96, Namespace referenced by attribute ref is imported ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-96) | *no matching NIEM6 rule* |
-| [Rule 9-97, Namespace referenced by attribute substitutionGroup is imported ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-97) | *no matching NIEM6 rule* |
-| [Rule 10-1, Complex type has a category ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-1) | [9-31](#rule-9-31) |
-| [Rule 10-2, Object type with complex content is derived from structures:ObjectType ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-2) | [9-32](#rule-9-32) |
-| [Rule 10-3, RoleOf element type is an object type ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-3) | *no matching NIEM6 rule* |
-| [Rule 10-4, Only object type has RoleOf element ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-4) | *no matching NIEM6 rule* |
-| [Rule 10-5, RoleOf elements indicate the base types of a role type ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-5) | *no matching NIEM6 rule* |
-| [Rule 10-6, Instance of RoleOf element indicates a role object ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-6) | *no matching NIEM6 rule* |
-| [Rule 10-7, Import of external namespace has data definition ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-7) | [9-49](#rule-9-49) |
-| [Rule 10-8, External adapter type has indicator ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-8) | [9-50](#rule-9-50) |
-| [Rule 10-9, Structure of external adapter type definition follows pattern ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-9) | [9-51](#rule-9-51) |
-| [Rule 10-10, Element use from external adapter type defined by external schema documents ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-10) | [9-52](#rule-9-52) |
-| [Rule 10-11, External adapter type not a base type ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-11) | [9-53](#rule-9-53) |
-| [Rule 10-12, External adapter type not a base type ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-12) | [9-53](#rule-9-53) |
-| [Rule 10-13, External attribute use only in external adapter type ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-13) | *no matching NIEM6 rule* |
-| [Rule 10-14, External attribute use has data definition ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-14) | [9-54](#rule-9-54) |
-| [Rule 10-15, External attribute use not an ID ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-15) | [9-55](#rule-9-55) |
-| [Rule 10-16, External element use has data definition ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-16) | [9-56](#rule-9-56) |
-| [Rule 10-17, Name of code type ends in CodeType ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-17) | [7-5](#rule-7-5), [7-8](#rule-7-8) |
-| [Rule 10-18, Code type corresponds to a code list ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-18) | [7-5](#rule-7-5), [7-8](#rule-7-8) |
-| [Rule 10-19, Element of code type has code representation term ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-19) | [7-11](#rule-7-11) |
-| [Rule 10-20, Proxy type has designated structure ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-20) | [9-57](#rule-9-57), [9-58](#rule-9-58) |
-| [Rule 10-21, Association type derived from structures:AssociationType ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-21) | [7-4](#rule-7-4), [9-34](#rule-9-34) |
-| [Rule 10-22, Association element type is an association type ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-22) | [7-10](#rule-7-10) |
-| [Rule 10-23, Augmentable type has augmentation point element ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-23) | *no matching NIEM6 rule* |
-| [Rule 10-24, Augmentable type has at most one augmentation point element ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-24) | *no matching NIEM6 rule* |
-| [Rule 10-25, Augmentation point element corresponds to its base type ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-25) | [9-65](#rule-9-65) |
-| [Rule 10-26, An augmentation point element has no type ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-26) | [9-66](#rule-9-66) |
-| [Rule 10-27, An augmentation point element has no substitution group ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-27) | [9-67](#rule-9-67) |
-| [Rule 10-28, Augmentation point element is only referenced by its base type ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-28) | [9-68](#rule-9-68) |
-| [Rule 10-29, Augmentation point element use is optional ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-29) | [9-69](#rule-9-69) |
-| [Rule 10-30, Augmentation point element use is unbounded ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-30) | [9-69](#rule-9-69) |
-| [Rule 10-31, Augmentation point element use must be last element in its base type ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-31) | [9-70](#rule-9-70) |
-| [Rule 10-32, Element within instance of augmentation type modifies base ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-32) | *no matching NIEM6 rule* |
-| [Rule 10-33, Only an augmentation type name ends in AugmentationType ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-33) | [9-59](#rule-9-59) |
-| [Rule 10-34, Schema component with name ending in AugmentationType is an augmentation type ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-34) | [9-59](#rule-9-59) |
-| [Rule 10-35, Type derived from structures:AugmentationType is an augmentation type ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-35) | [9-35](#rule-9-35) |
-| [Rule 10-36, Augmentation element type is an augmentation type ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-36) | [9-60](#rule-9-60) |
-| [Rule 10-37, Augmentation elements are not used directly ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-37) | [9-40](#rule-9-40) |
-| [Rule 10-38, Metadata type has data about data ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-38) | *no matching NIEM6 rule* |
-| [Rule 10-39, Metadata types are derived from structures:MetadataType ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-39) | *no matching NIEM6 rule* |
-| [Rule 10-40, Metadata element declaration type is a metadata type ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-40) | *no matching NIEM6 rule* |
-| [Rule 10-41, Metadata element has applicable elements ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-41) | *no matching NIEM6 rule* |
-| [Rule 10-42, Name of element that ends in Representation is abstract ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-42) | [7-9](#rule-7-9) |
-| [Rule 10-43, A substitution for a representation element declaration is a value for a type ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-43) | *no matching NIEM6 rule* |
-| [Rule 10-44, Schema component name composed of English words ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-44) | [7-14](#rule-7-14) |
-| [Rule 10-45, Schema component name has xml:lang ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-45) | [8-5](#rule-8-5) |
-| [Rule 10-46, Schema component names have only specific characters ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-46) | [7-15](#rule-7-15) |
-| [Rule 10-47, Punctuation in component name is a separator ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-47) | [7-19](#rule-7-19) |
-| [Rule 10-48, Names use camel case ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-48) | [7-16](#rule-7-16) |
-| [Rule 10-49, Attribute name begins with lower case letter ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-49) | [7-17](#rule-7-17) |
-| [Rule 10-50, Name of schema component other than attribute and proxy type begins with upper case letter ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-50) | [7-18](#rule-7-18) |
-| [Rule 10-51, Names use common abbreviations ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-51) | [7-33](#rule-7-33) |
-| [Rule 10-52, Local term declaration is local to its schema document ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-52) | [7-34](#rule-7-34) |
-| [Rule 10-53, Local terminology interpretation ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-53) | *no matching NIEM6 rule* |
-| [Rule 10-54, Singular form is preferred in name ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-54) | [7-20](#rule-7-20) |
-| [Rule 10-55, Present tense is preferred in name ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-55) | [7-21](#rule-7-21) |
-| [Rule 10-56, Name does not have nonessential words ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-56) | [7-22](#rule-7-22) |
-| [Rule 10-57, Element or attribute name follows pattern ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-57) | [7-23](#rule-7-23) |
-| [Rule 10-58, Object-class term identifies concrete category ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-58) | [7-24](#rule-7-24) |
-| [Rule 10-59, Property term describes characteristic or subpart ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-59) | [7-25](#rule-7-25) |
-| [Rule 10-60, Name may have multiple qualifier terms ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-60) | [7-26](#rule-7-26) |
-| [Rule 10-61, Name has minimum necessary number of qualifier terms ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-61) | [7-27](#rule-7-27) |
-| [Rule 10-62, Order of qualifiers is not significant ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-62) | [7-28](#rule-7-28) |
-| [Rule 10-63, Redundant term in name is omitted ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-63) | [7-29](#rule-7-29) |
-| [Rule 10-64, Element with simple content has representation term ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-64) | [7-30](#rule-7-30) |
-| [Rule 10-65, Element with complex content has representation term when appropriate ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-65) | [7-31](#rule-7-31) |
-| [Rule 10-66, Element with complex content has representation term only when appropriate ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-66) | [7-32](#rule-7-32) |
-| [Rule 10-67, Machine-readable annotations are valid ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-67) | *no matching NIEM6 rule* |
-| [Rule 10-68, Component marked as deprecated is deprecated component ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-68) | [9-75](#rule-9-75) |
-| [Rule 10-69, Deprecated annotates schema component ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-69) | [9-71](#rule-9-71) |
-| [Rule 10-70, External import indicator annotates import ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-70) | *no matching NIEM6 rule* |
-| [Rule 10-71, External adapter type indicator annotates complex type ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-71) | *no matching NIEM6 rule* |
-| [Rule 10-72, appinfo:appliesToTypes annotates metadata element ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-72) | *no matching NIEM6 rule* |
-| [Rule 10-73, appinfo:appliesToTypes references types ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-73) | *no matching NIEM6 rule* |
-| [Rule 10-74, appinfo:appliesToElements annotates metadata element ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-74) | *no matching NIEM6 rule* |
-| [Rule 10-75, appinfo:appliesToElements references elements ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-75) | *no matching NIEM6 rule* |
-| [Rule 10-76, appinfo:LocalTerm annotates schema ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-76) | [9-76](#rule-9-76) |
-| [Rule 10-77, appinfo:LocalTerm has literal or definition ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-77) | [7-35](#rule-7-35) |
-| [Rule 10-78, Use structures consistent with specification ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-78) | [10-10](#rule-10-10) |
-| [Rule 11-1, Name of type ends in Type ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-1) | [7-1](#rule-7-1) |
-| [Rule 11-2, Only types have name ending in Type or SimpleType ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-2) | [7-1](#rule-7-1), [9-25](#rule-9-25) |
-| [Rule 11-3, Base type definition defined by conformant schema ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-3) | [9-37](#rule-9-37) |
-| [Rule 11-4, Name of simple type ends in SimpleType ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-4) | [9-26](#rule-9-26) |
-| [Rule 11-5, Use lists only when data is uniform ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-5) | *no matching NIEM6 rule* |
-| [Rule 11-6, List item type defined by conformant schemas ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-6) | [9-41](#rule-9-41) |
-| [Rule 11-7, Union member types defined by conformant schemas ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-7) | [9-42](#rule-9-42) |
-| [Rule 11-8, Name of a code simple type ends in CodeSimpleType ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-8) | [7-7](#rule-7-7) |
-| [Rule 11-9, Code simple type corresponds to a code list ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-9) | [7-7](#rule-7-7) |
-| [Rule 11-10, Attribute of code simple type has code representation term ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-10) | [7-11](#rule-7-11) |
-| [Rule 11-11, Complex type with simple content has structures:SimpleObjectAttributeGroup ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-11) | [9-36](#rule-9-36) |
-| [Rule 11-12, Element type does not have a simple type name ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-12) | [9-45](#rule-9-45) |
-| [Rule 11-13, Element type is from conformant namespace ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-13) | [9-46](#rule-9-46) |
-| [Rule 11-14, Name of element that ends in Abstract is abstract ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-14) | [7-9](#rule-7-9) |
-| [Rule 11-15, Name of element declaration with simple content has representation term ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-15) | [7-30](#rule-7-30) |
-| [Rule 11-16, Name of element declaration with simple content has representation term ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-16) | [7-30](#rule-7-30) |
-| [Rule 11-17, Element substitution group defined by conformant schema ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-17) | [9-47](#rule-9-47) |
-| [Rule 11-18, Attribute type defined by conformant schema ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-18) | [9-46](#rule-9-46) |
-| [Rule 11-19, Attribute name uses representation term ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-19) | [7-30](#rule-7-30) |
-| [Rule 11-20, Element or attribute declaration introduced only once into a type ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-20) | *no matching NIEM6 rule* |
-| [Rule 11-21, Element reference defined by conformant schema ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-21) | [9-38](#rule-9-38) |
-| [Rule 11-22, Referenced attribute defined by conformant schemas ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-22) | [9-38](#rule-9-38) |
-| [Rule 11-23, Schema uses only known attribute groups ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-23) | [9-39](#rule-9-39) |
-| [Rule 11-24, Data definition does not introduce ambiguity ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-24) | [7-40](#rule-7-40) |
-| [Rule 11-25, Object class has only one meaning ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-25) | [7-41](#rule-7-41) |
-| [Rule 11-26, Data definition of a part does not redefine the whole ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-26) | [7-42](#rule-7-42) |
-| [Rule 11-27, Do not leak representation into data definition ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-27) | [7-43](#rule-7-43) |
-| [Rule 11-28, Data definition follows 11179-4 requirements ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-28) | [7-44](#rule-7-44) |
-| [Rule 11-29, Data definition follows 11179-4 recommendations ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-29) | [7-45](#rule-7-45) |
-| [Rule 11-30, xs:documentation has xml:lang ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-30) | [8-5](#rule-8-5) |
-| [Rule 11-31, Standard opening phrase for augmentation point element data definition ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-31) | [9-62](#rule-9-62) |
-| [Rule 11-32, Standard opening phrase for augmentation element data definition ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-32) | [9-63](#rule-9-63) |
-| [Rule 11-33, Standard opening phrase for metadata element data definition ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-33) | *no matching NIEM6 rule* |
-| [Rule 11-34, Standard opening phrase for association element data definition ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-34) | [7-47](#rule-7-47) |
-| [Rule 11-35, Standard opening phrase for abstract element data definition ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-35) | [7-46](#rule-7-46) |
-| [Rule 11-36, Standard opening phrase for date element or attribute data definition ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-36) | [7-48](#rule-7-48) |
-| [Rule 11-37, Standard opening phrase for quantity element or attribute data definition ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-37) | [7-49](#rule-7-49) |
-| [Rule 11-38, Standard opening phrase for picture element or attribute data definition ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-38) | [7-50](#rule-7-50) |
-| [Rule 11-39, Standard opening phrase for indicator element or attribute data definition ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-39) | [7-51](#rule-7-51) |
-| [Rule 11-40, Standard opening phrase for identification element or attribute data definition ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-40) | [7-52](#rule-7-52) |
-| [Rule 11-41, Standard opening phrase for name element or attribute data definition ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-41) | [7-53](#rule-7-53) |
-| [Rule 11-42, Standard opening phrase for element or attribute data definition ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-42) | [7-54](#rule-7-54) |
-| [Rule 11-43, Standard opening phrase for association type data definition ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-43) | [7-55](#rule-7-55) |
-| [Rule 11-44, Standard opening phrase for augmentation type data definition ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-44) | [9-64](#rule-9-64) |
-| [Rule 11-45, Standard opening phrase for metadata type data definition ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-45) | *no matching NIEM6 rule* |
-| [Rule 11-46, Standard opening phrase for complex type data definition ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-46) | [7-56](#rule-7-56) |
-| [Rule 11-47, Standard opening phrase for simple type data definition ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-47) | [7-56](#rule-7-56) |
-| [Rule 11-48, Same namespace means same components ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-48) | *no matching NIEM6 rule* |
-| [Rule 11-49, Different version means different view ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-49) | *no matching NIEM6 rule* |
-| [Rule 11-50, Reference schema document imports reference schema document ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-50) | [8-9](#rule-8-9) |
-| [Rule 11-51, Extension schema document imports reference or extension schema document ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-51) | *no matching NIEM6 rule* |
-| [Rule 11-52, Structures imported as conformant ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-52) | *no matching NIEM6 rule* |
-| [Rule 11-53, XML namespace imported as conformant ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-53) | *no matching NIEM6 rule* |
-| [Rule 11-54, Each namespace may have only a single root schema in a schema set ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-54) | [10-5](#rule-10-5) |
-| [Rule 11-55, Consistently marked namespace imports ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-55) | [10-6](#rule-10-6) |
-| [Rule 12-1, Instance must be schema-valid ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_12-1) | [12-1](#rule-12-1) |
-| [Rule 12-2, Empty content has no meaning ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_12-2) | *no matching NIEM6 rule* |
-| [Rule 12-3, Element has only one resource identifying attribute ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_12-3) | [12-6](#rule-12-6), [12-10](#rule-12-10) |
-| [Rule 12-4, Attribute structures:ref must reference structures:id ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_12-4) | [12-7](#rule-12-7), [12-11](#rule-12-11) |
-| [Rule 12-5, Linked elements have same validation root ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_12-5) | [12-8](#rule-12-8), [12-12](#rule-12-12) |
-| [Rule 12-6, Attribute structures:ref references element of correct type ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_12-6) | [12-9](#rule-12-9), [12-13](#rule-12-13) |
-| [Rule 12-7, structures:uri denotes resource identifier ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_12-7) | [12-14](#rule-12-14) |
-| [Rule 12-8, structures:id and structures:ref denote resource identifier ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_12-8) | [12-16](#rule-12-16) |
-| [Rule 12-9, Nested elements and references have the same meaning. ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_12-9) | [12-17](#rule-12-17) |
-| [Rule 12-10, Order of properties is expressed via structures:sequenceID ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_12-10) | *no matching NIEM6 rule* |
-| [Rule 12-11, Metadata applies to referring entity ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_12-11) | *no matching NIEM6 rule* |
-| [Rule 12-12, Referent of structures:relationshipMetadata annotates relationship ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_12-12) | *no matching NIEM6 rule* |
-| [Rule 12-13, Values of structures:metadata refer to values of structures:id ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_12-13) | *no matching NIEM6 rule* |
-| [Rule 12-14, Values of structures:relationshipMetadata refer to values of structures:id ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_12-14) | *no matching NIEM6 rule* |
-| [Rule 12-15, structures:metadata and structures:relationshipMetadata refer to metadata elements ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_12-15) | *no matching NIEM6 rule* |
-| [Rule 12-16, Attribute structures:metadata references metadata element ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_12-16) | *no matching NIEM6 rule* |
-| [Rule 12-17, Attribute structures:relationshipMetadata references metadata element ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_12-17) | *no matching NIEM6 rule* |
-| [Rule 12-18, Metadata is applicable to element ](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_12-18) | *no matching NIEM6 rule* |
+| [Rule 4-1, Schema marked as reference schema document must conform](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_4-1) | [8-6](#rule-8-6) |
+| [Rule 4-2, Schema marked as extension schema document must conform](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_4-2) | [8-10](#rule-8-10) |
+| [Rule 4-3, Schema is CTAS-conformant](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_4-3) | [9-1](#rule-9-1) |
+| [Rule 4-4, Document element has attribute ct:conformanceTargets](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_4-4) | [9-2](#rule-9-2) |
+| [Rule 4-5, Schema claims reference schema conformance target](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_4-5) | [8-6](#rule-8-6), [8-12](#rule-8-12) |
+| [Rule 4-6, Schema claims extension conformance target](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_4-6) | [8-10](#rule-8-10) |
+| [Rule 5-1, structures:uri denotes resource identifier](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_5-1) | *no matching NIEM6 rule* |
+| [Rule 7-1, Document is an XML document](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_7-1) | [9-3](#rule-9-3) |
+| [Rule 7-2, Document uses XML namespaces properly](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_7-2) | [9-3](#rule-9-3) |
+| [Rule 7-3, Document is a schema document](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_7-3) | [9-3](#rule-9-3) |
+| [Rule 7-4, Document element is xs:schema](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_7-4) | [9-4](#rule-9-4) |
+| [Rule 7-5, Component name follows ISO 11179 Part 5 Annex A](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_7-5) | [7-23](#rule-7-23) |
+| [Rule 9-1, No base type in the XML namespace](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-1) | [9-6](#rule-9-6) |
+| [Rule 9-2, No base type of xs:ID](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-2) | [9-6](#rule-9-6) |
+| [Rule 9-3, No base type of xs:IDREF](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-3) | [9-6](#rule-9-6) |
+| [Rule 9-4, No base type of xs:IDREFS](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-4) | [9-6](#rule-9-6) |
+| [Rule 9-5, No base type of xs:anyType](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-5) | [9-6](#rule-9-6) |
+| [Rule 9-6, No base type of xs:anySimpleType](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-6) | [9-6](#rule-9-6) |
+| [Rule 9-7, No base type of xs:NOTATION](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-7) | [9-6](#rule-9-6) |
+| [Rule 9-8, No base type of xs:ENTITY](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-8) | [9-6](#rule-9-6) |
+| [Rule 9-9, No base type of xs:ENTITIES](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-9) | [9-6](#rule-9-6) |
+| [Rule 9-10, Simple type definition is top-level](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-10) | [9-30](#rule-9-30) |
+| [Rule 9-11, No simple type disallowed derivation](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-11) | [9-77](#rule-9-77) |
+| [Rule 9-12, Simple type has data definition](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-12) | [7-37](#rule-7-37) |
+| [Rule 9-13, No use of fixed on simple type facets](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-13) | [9-78](#rule-9-78) |
+| [Rule 9-14, Enumeration has data definition](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-14) | [7-38](#rule-7-38) |
+| [Rule 9-15, No list item type of xs:ID](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-15) | [9-7](#rule-9-7) |
+| [Rule 9-16, No list item type of xs:IDREF](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-16) | [9-7](#rule-9-7) |
+| [Rule 9-17, No list item type of xs:anySimpleType](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-17) | [9-7](#rule-9-7) |
+| [Rule 9-18, No list item type of xs:ENTITY](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-18) | [9-7](#rule-9-7) |
+| [Rule 9-19, No union member types of xs:ID](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-19) | [9-8](#rule-9-8) |
+| [Rule 9-20, No union member types of xs:IDREF](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-20) | [9-8](#rule-9-8) |
+| [Rule 9-21, No union member types of xs:IDREFS](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-21) | [9-8](#rule-9-8) |
+| [Rule 9-22, No union member types of xs:anySimpleType](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-22) | [9-8](#rule-9-8) |
+| [Rule 9-23, No union member types of xs:ENTITY](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-23) | [9-8](#rule-9-8) |
+| [Rule 9-24, No union member types of xs:ENTITIES](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-24) | [9-8](#rule-9-8) |
+| [Rule 9-25, Complex type definition is top-level](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-25) | [9-30](#rule-9-30) |
+| [Rule 9-26, Complex type has data definition](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-26) | [7-37](#rule-7-37) |
+| [Rule 9-27, No mixed content on complex type](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-27) | [9-10](#rule-9-10) |
+| [Rule 9-28, No mixed content on complex content](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-28) | [9-10](#rule-9-10) |
+| [Rule 9-29, Complex type content is explicitly simple or complex](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-29) | [9-11](#rule-9-11) |
+| [Rule 9-30, Complex content uses extension](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-30) | *no matching NIEM6 rule* |
+| [Rule 9-31, Base type of complex type with complex content must have complex content](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-31) | [9-12](#rule-9-12) |
+| [Rule 9-32, Base type of complex type with complex content must have complex content](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-32) | [9-12](#rule-9-12) |
+| [Rule 9-33, Simple content uses extension](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-33) | [9-79](#rule-9-79) |
+| [Rule 9-34, No complex type disallowed substitutions](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-34) | [9-80](#rule-9-80) |
+| [Rule 9-35, No complex type disallowed derivation](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-35) | [9-81](#rule-9-81) |
+| [Rule 9-36, Element declaration is top-level](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-36) | [9-44](#rule-9-44) |
+| [Rule 9-37, Element declaration has data definition](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-37) | [7-37](#rule-7-37) |
+| [Rule 9-38, Untyped element is abstract](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-38) | [9-13](#rule-9-13) |
+| [Rule 9-39, Element of type xs:anySimpleType is abstract](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-39) | [9-13](#rule-9-13) |
+| [Rule 9-40, Element type not in the XML Schema namespace](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-40) | [9-14](#rule-9-14) |
+| [Rule 9-41, Element type not in the XML namespace](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-41) | [9-14](#rule-9-14) |
+| [Rule 9-42, Element type is not simple type](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-42) | [9-15](#rule-9-15), [9-45](#rule-9-45) |
+| [Rule 9-43, No element disallowed substitutions](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-43) | [9-80](#rule-9-80) |
+| [Rule 9-44, No element disallowed derivation](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-44) | [9-81](#rule-9-81) |
+| [Rule 9-45, No element default value](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-45) | [9-17](#rule-9-17) |
+| [Rule 9-46, No element fixed value](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-46) | [9-17](#rule-9-17) |
+| [Rule 9-47, Element declaration is nillable](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-47) | [9-82](#rule-9-82), [9-84](#rule-9-84) |
+| [Rule 9-48, Attribute declaration is top-level](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-48) | [9-44](#rule-9-44) |
+| [Rule 9-49, Attribute declaration has data definition](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-49) | [7-37](#rule-7-37) |
+| [Rule 9-50, Attribute declaration has type](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-50) | [9-16](#rule-9-16) |
+| [Rule 9-51, No attribute type of xs:ID](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-51) | [9-9](#rule-9-9) |
+| [Rule 9-52, No attribute type of xs:IDREF](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-52) | [9-9](#rule-9-9) |
+| [Rule 9-53, No attribute type of xs:IDREFS](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-53) | [9-9](#rule-9-9) |
+| [Rule 9-54, No attribute type of xs:ENTITY](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-54) | [9-9](#rule-9-9) |
+| [Rule 9-55, No attribute type of xs:ENTITIES](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-55) | [9-9](#rule-9-9) |
+| [Rule 9-56, No attribute type of xs:anySimpleType](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-56) | [9-9](#rule-9-9) |
+| [Rule 9-57, No attribute default values](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-57) | [9-17](#rule-9-17) |
+| [Rule 9-58, No fixed values for optional attributes](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-58) | [9-17](#rule-9-17) |
+| [Rule 9-59, No use of element xs:notation](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-59) | [9-5](#rule-9-5) |
+| [Rule 9-60, Model group does not affect meaning](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-60) | *no matching NIEM6 rule* |
+| [Rule 9-61, No xs:all](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-61) | [9-5](#rule-9-5) |
+| [Rule 9-62, xs:sequence must be child of xs:extension](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-62) | [9-28](#rule-9-28) |
+| [Rule 9-63, xs:sequence must be child of xs:extension or xs:restriction](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-63) | [9-29](#rule-9-29) |
+| [Rule 9-64, No xs:choice](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-64) | [9-83](#rule-9-83) |
+| [Rule 9-65, xs:choice must be child of xs:sequence](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-65) | [9-19](#rule-9-19) |
+| [Rule 9-66, Sequence has minimum cardinality 1](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-66) | [9-18](#rule-9-18) |
+| [Rule 9-67, Sequence has maximum cardinality 1](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-67) | [9-18](#rule-9-18) |
+| [Rule 9-68, Choice has minimum cardinality 1](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-68) | [9-20](#rule-9-20) |
+| [Rule 9-69, Choice has maximum cardinality 1](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-69) | [9-20](#rule-9-20) |
+| [Rule 9-70, No use of xs:any](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-70) | [8-7](#rule-8-7) |
+| [Rule 9-71, No use of xs:anyAttribute](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-71) | [8-7](#rule-8-7) |
+| [Rule 9-72, No use of xs:unique](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-72) | [9-5](#rule-9-5) |
+| [Rule 9-73, No use of xs:key](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-73) | [9-5](#rule-9-5) |
+| [Rule 9-74, No use of xs:keyref](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-74) | [9-5](#rule-9-5) |
+| [Rule 9-75, No use of xs:group](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-75) | [9-5](#rule-9-5) |
+| [Rule 9-76, No definition of attribute groups](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-76) | [9-5](#rule-9-5) |
+| [Rule 9-77, Comment is not recommended](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-77) | [9-21](#rule-9-21) |
+| [Rule 9-78, Documentation element has no element children](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-78) | [9-22](#rule-9-22) |
+| [Rule 9-79, xs:appinfo children are comments, elements, or whitespace](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-79) | [9-72](#rule-9-72) |
+| [Rule 9-80, Appinfo child elements have namespaces](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-80) | [9-73](#rule-9-73) |
+| [Rule 9-81, Appinfo descendants are not XML Schema elements](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-81) | [9-74](#rule-9-74) |
+| [Rule 9-82, Schema has data definition](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-82) | [7-36](#rule-7-36) |
+| [Rule 9-83, Schema document defines target namespace](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-83) | [8-1](#rule-8-1) |
+| [Rule 9-84, Target namespace is absolute URI](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-84) | [8-1](#rule-8-1) |
+| [Rule 9-85, Schema has version](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-85) | [8-4](#rule-8-4) |
+| [Rule 9-86, No disallowed substitutions](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-86) | [9-80](#rule-9-80) |
+| [Rule 9-87, No disallowed derivations](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-87) | [9-81](#rule-9-81) |
+| [Rule 9-88, No use of xs:redefine](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-88) | [9-5](#rule-9-5) |
+| [Rule 9-89, No use of xs:include](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-89) | [9-5](#rule-9-5) |
+| [Rule 9-90, xs:import must have namespace](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-90) | [9-23](#rule-9-23) |
+| [Rule 9-91, XML Schema document set must be complete](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-91) | [10-9](#rule-10-9) |
+| [Rule 9-92, Namespace referenced by attribute type is imported](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-92) | *no matching NIEM6 rule* |
+| [Rule 9-93, Namespace referenced by attribute base is imported](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-93) | *no matching NIEM6 rule* |
+| [Rule 9-94, Namespace referenced by attribute itemType is imported](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-94) | *no matching NIEM6 rule* |
+| [Rule 9-95, Namespaces referenced by attribute memberTypes is imported](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-95) | *no matching NIEM6 rule* |
+| [Rule 9-96, Namespace referenced by attribute ref is imported](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-96) | *no matching NIEM6 rule* |
+| [Rule 9-97, Namespace referenced by attribute substitutionGroup is imported](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-97) | *no matching NIEM6 rule* |
+| [Rule 10-1, Complex type has a category](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-1) | [9-31](#rule-9-31) |
+| [Rule 10-2, Object type with complex content is derived from structures:ObjectType](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-2) | [9-32](#rule-9-32) |
+| [Rule 10-3, RoleOf element type is an object type](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-3) | *no matching NIEM6 rule* |
+| [Rule 10-4, Only object type has RoleOf element](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-4) | *no matching NIEM6 rule* |
+| [Rule 10-5, RoleOf elements indicate the base types of a role type](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-5) | *no matching NIEM6 rule* |
+| [Rule 10-6, Instance of RoleOf element indicates a role object](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-6) | *no matching NIEM6 rule* |
+| [Rule 10-7, Import of external namespace has data definition](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-7) | [9-49](#rule-9-49) |
+| [Rule 10-8, External adapter type has indicator](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-8) | [9-50](#rule-9-50) |
+| [Rule 10-9, Structure of external adapter type definition follows pattern](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-9) | [9-51](#rule-9-51) |
+| [Rule 10-10, Element use from external adapter type defined by external schema documents](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-10) | [9-52](#rule-9-52) |
+| [Rule 10-11, External adapter type not a base type](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-11) | [9-53](#rule-9-53) |
+| [Rule 10-12, External adapter type not a base type](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-12) | [9-53](#rule-9-53) |
+| [Rule 10-13, External attribute use only in external adapter type](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-13) | *no matching NIEM6 rule* |
+| [Rule 10-14, External attribute use has data definition](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-14) | [9-54](#rule-9-54) |
+| [Rule 10-15, External attribute use not an ID](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-15) | [9-55](#rule-9-55) |
+| [Rule 10-16, External element use has data definition](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-16) | [9-56](#rule-9-56) |
+| [Rule 10-17, Name of code type ends in CodeType](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-17) | [7-5](#rule-7-5), [7-8](#rule-7-8) |
+| [Rule 10-18, Code type corresponds to a code list](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-18) | [7-5](#rule-7-5), [7-8](#rule-7-8) |
+| [Rule 10-19, Element of code type has code representation term](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-19) | [7-11](#rule-7-11) |
+| [Rule 10-20, Proxy type has designated structure](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-20) | [9-57](#rule-9-57), [9-58](#rule-9-58) |
+| [Rule 10-21, Association type derived from structures:AssociationType](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-21) | [7-4](#rule-7-4), [9-34](#rule-9-34) |
+| [Rule 10-22, Association element type is an association type](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-22) | [7-10](#rule-7-10) |
+| [Rule 10-23, Augmentable type has augmentation point element](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-23) | *no matching NIEM6 rule* |
+| [Rule 10-24, Augmentable type has at most one augmentation point element](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-24) | *no matching NIEM6 rule* |
+| [Rule 10-25, Augmentation point element corresponds to its base type](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-25) | [9-65](#rule-9-65) |
+| [Rule 10-26, An augmentation point element has no type](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-26) | [9-66](#rule-9-66) |
+| [Rule 10-27, An augmentation point element has no substitution group](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-27) | [9-67](#rule-9-67) |
+| [Rule 10-28, Augmentation point element is only referenced by its base type](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-28) | [9-68](#rule-9-68) |
+| [Rule 10-29, Augmentation point element use is optional](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-29) | [9-69](#rule-9-69) |
+| [Rule 10-30, Augmentation point element use is unbounded](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-30) | [9-69](#rule-9-69) |
+| [Rule 10-31, Augmentation point element use must be last element in its base type](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-31) | [9-70](#rule-9-70) |
+| [Rule 10-32, Element within instance of augmentation type modifies base](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-32) | *no matching NIEM6 rule* |
+| [Rule 10-33, Only an augmentation type name ends in AugmentationType](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-33) | [9-59](#rule-9-59) |
+| [Rule 10-34, Schema component with name ending in AugmentationType is an augmentation type](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-34) | [9-59](#rule-9-59) |
+| [Rule 10-35, Type derived from structures:AugmentationType is an augmentation type](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-35) | [9-35](#rule-9-35) |
+| [Rule 10-36, Augmentation element type is an augmentation type](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-36) | [9-60](#rule-9-60) |
+| [Rule 10-37, Augmentation elements are not used directly](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-37) | [9-40](#rule-9-40) |
+| [Rule 10-38, Metadata type has data about data](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-38) | *no matching NIEM6 rule* |
+| [Rule 10-39, Metadata types are derived from structures:MetadataType](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-39) | *no matching NIEM6 rule* |
+| [Rule 10-40, Metadata element declaration type is a metadata type](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-40) | *no matching NIEM6 rule* |
+| [Rule 10-41, Metadata element has applicable elements](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-41) | *no matching NIEM6 rule* |
+| [Rule 10-42, Name of element that ends in Representation is abstract](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-42) | [7-9](#rule-7-9) |
+| [Rule 10-43, A substitution for a representation element declaration is a value for a type](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-43) | *no matching NIEM6 rule* |
+| [Rule 10-44, Schema component name composed of English words](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-44) | [7-14](#rule-7-14) |
+| [Rule 10-45, Schema component name has xml:lang](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-45) | [8-5](#rule-8-5) |
+| [Rule 10-46, Schema component names have only specific characters](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-46) | [7-15](#rule-7-15) |
+| [Rule 10-47, Punctuation in component name is a separator](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-47) | [7-19](#rule-7-19) |
+| [Rule 10-48, Names use camel case](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-48) | [7-16](#rule-7-16) |
+| [Rule 10-49, Attribute name begins with lower case letter](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-49) | [7-17](#rule-7-17) |
+| [Rule 10-50, Name of schema component other than attribute and proxy type begins with upper case letter](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-50) | [7-18](#rule-7-18) |
+| [Rule 10-51, Names use common abbreviations](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-51) | [7-33](#rule-7-33) |
+| [Rule 10-52, Local term declaration is local to its schema document](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-52) | [7-34](#rule-7-34) |
+| [Rule 10-53, Local terminology interpretation](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-53) | *no matching NIEM6 rule* |
+| [Rule 10-54, Singular form is preferred in name](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-54) | [7-20](#rule-7-20) |
+| [Rule 10-55, Present tense is preferred in name](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-55) | [7-21](#rule-7-21) |
+| [Rule 10-56, Name does not have nonessential words](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-56) | [7-22](#rule-7-22) |
+| [Rule 10-57, Element or attribute name follows pattern](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-57) | [7-23](#rule-7-23) |
+| [Rule 10-58, Object-class term identifies concrete category](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-58) | [7-24](#rule-7-24) |
+| [Rule 10-59, Property term describes characteristic or subpart](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-59) | [7-25](#rule-7-25) |
+| [Rule 10-60, Name may have multiple qualifier terms](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-60) | [7-26](#rule-7-26) |
+| [Rule 10-61, Name has minimum necessary number of qualifier terms](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-61) | [7-27](#rule-7-27) |
+| [Rule 10-62, Order of qualifiers is not significant](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-62) | [7-28](#rule-7-28) |
+| [Rule 10-63, Redundant term in name is omitted](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-63) | [7-29](#rule-7-29) |
+| [Rule 10-64, Element with simple content has representation term](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-64) | [7-30](#rule-7-30) |
+| [Rule 10-65, Element with complex content has representation term when appropriate](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-65) | [7-31](#rule-7-31) |
+| [Rule 10-66, Element with complex content has representation term only when appropriate](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-66) | [7-32](#rule-7-32) |
+| [Rule 10-67, Machine-readable annotations are valid](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-67) | *no matching NIEM6 rule* |
+| [Rule 10-68, Component marked as deprecated is deprecated component](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-68) | [9-75](#rule-9-75) |
+| [Rule 10-69, Deprecated annotates schema component](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-69) | [9-71](#rule-9-71) |
+| [Rule 10-70, External import indicator annotates import](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-70) | *no matching NIEM6 rule* |
+| [Rule 10-71, External adapter type indicator annotates complex type](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-71) | *no matching NIEM6 rule* |
+| [Rule 10-72, appinfo:appliesToTypes annotates metadata element](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-72) | *no matching NIEM6 rule* |
+| [Rule 10-73, appinfo:appliesToTypes references types](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-73) | *no matching NIEM6 rule* |
+| [Rule 10-74, appinfo:appliesToElements annotates metadata element](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-74) | *no matching NIEM6 rule* |
+| [Rule 10-75, appinfo:appliesToElements references elements](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-75) | *no matching NIEM6 rule* |
+| [Rule 10-76, appinfo:LocalTerm annotates schema](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-76) | [9-76](#rule-9-76) |
+| [Rule 10-77, appinfo:LocalTerm has literal or definition](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-77) | [7-35](#rule-7-35) |
+| [Rule 10-78, Use structures consistent with specification](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-78) | [10-10](#rule-10-10) |
+| [Rule 11-1, Name of type ends in Type](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-1) | [7-1](#rule-7-1) |
+| [Rule 11-2, Only types have name ending in Type or SimpleType](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-2) | [7-1](#rule-7-1), [9-25](#rule-9-25) |
+| [Rule 11-3, Base type definition defined by conformant schema](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-3) | [9-37](#rule-9-37) |
+| [Rule 11-4, Name of simple type ends in SimpleType](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-4) | [9-26](#rule-9-26) |
+| [Rule 11-5, Use lists only when data is uniform](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-5) | *no matching NIEM6 rule* |
+| [Rule 11-6, List item type defined by conformant schemas](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-6) | [9-41](#rule-9-41) |
+| [Rule 11-7, Union member types defined by conformant schemas](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-7) | [9-42](#rule-9-42) |
+| [Rule 11-8, Name of a code simple type ends in CodeSimpleType](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-8) | [7-7](#rule-7-7) |
+| [Rule 11-9, Code simple type corresponds to a code list](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-9) | [7-7](#rule-7-7) |
+| [Rule 11-10, Attribute of code simple type has code representation term](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-10) | [7-11](#rule-7-11) |
+| [Rule 11-11, Complex type with simple content has structures:SimpleObjectAttributeGroup](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-11) | [9-36](#rule-9-36) |
+| [Rule 11-12, Element type does not have a simple type name](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-12) | [9-45](#rule-9-45) |
+| [Rule 11-13, Element type is from conformant namespace](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-13) | [9-46](#rule-9-46) |
+| [Rule 11-14, Name of element that ends in Abstract is abstract](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-14) | [7-9](#rule-7-9) |
+| [Rule 11-15, Name of element declaration with simple content has representation term](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-15) | [7-30](#rule-7-30) |
+| [Rule 11-16, Name of element declaration with simple content has representation term](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-16) | [7-30](#rule-7-30) |
+| [Rule 11-17, Element substitution group defined by conformant schema](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-17) | [9-47](#rule-9-47) |
+| [Rule 11-18, Attribute type defined by conformant schema](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-18) | [9-46](#rule-9-46) |
+| [Rule 11-19, Attribute name uses representation term](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-19) | [7-30](#rule-7-30) |
+| [Rule 11-20, Element or attribute declaration introduced only once into a type](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-20) | *no matching NIEM6 rule* |
+| [Rule 11-21, Element reference defined by conformant schema](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-21) | [9-38](#rule-9-38) |
+| [Rule 11-22, Referenced attribute defined by conformant schemas](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-22) | [9-38](#rule-9-38) |
+| [Rule 11-23, Schema uses only known attribute groups](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-23) | [9-39](#rule-9-39) |
+| [Rule 11-24, Data definition does not introduce ambiguity](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-24) | [7-40](#rule-7-40) |
+| [Rule 11-25, Object class has only one meaning](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-25) | [7-41](#rule-7-41) |
+| [Rule 11-26, Data definition of a part does not redefine the whole](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-26) | [7-42](#rule-7-42) |
+| [Rule 11-27, Do not leak representation into data definition](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-27) | [7-43](#rule-7-43) |
+| [Rule 11-28, Data definition follows 11179-4 requirements](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-28) | [7-44](#rule-7-44) |
+| [Rule 11-29, Data definition follows 11179-4 recommendations](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-29) | [7-45](#rule-7-45) |
+| [Rule 11-30, xs:documentation has xml:lang](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-30) | [8-5](#rule-8-5) |
+| [Rule 11-31, Standard opening phrase for augmentation point element data definition](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-31) | [9-62](#rule-9-62) |
+| [Rule 11-32, Standard opening phrase for augmentation element data definition](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-32) | [9-63](#rule-9-63) |
+| [Rule 11-33, Standard opening phrase for metadata element data definition](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-33) | *no matching NIEM6 rule* |
+| [Rule 11-34, Standard opening phrase for association element data definition](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-34) | [7-47](#rule-7-47) |
+| [Rule 11-35, Standard opening phrase for abstract element data definition](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-35) | [7-46](#rule-7-46) |
+| [Rule 11-36, Standard opening phrase for date element or attribute data definition](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-36) | [7-48](#rule-7-48) |
+| [Rule 11-37, Standard opening phrase for quantity element or attribute data definition](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-37) | [7-49](#rule-7-49) |
+| [Rule 11-38, Standard opening phrase for picture element or attribute data definition](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-38) | [7-50](#rule-7-50) |
+| [Rule 11-39, Standard opening phrase for indicator element or attribute data definition](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-39) | [7-51](#rule-7-51) |
+| [Rule 11-40, Standard opening phrase for identification element or attribute data definition](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-40) | [7-52](#rule-7-52) |
+| [Rule 11-41, Standard opening phrase for name element or attribute data definition](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-41) | [7-53](#rule-7-53) |
+| [Rule 11-42, Standard opening phrase for element or attribute data definition](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-42) | [7-54](#rule-7-54) |
+| [Rule 11-43, Standard opening phrase for association type data definition](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-43) | [7-55](#rule-7-55) |
+| [Rule 11-44, Standard opening phrase for augmentation type data definition](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-44) | [9-64](#rule-9-64) |
+| [Rule 11-45, Standard opening phrase for metadata type data definition](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-45) | *no matching NIEM6 rule* |
+| [Rule 11-46, Standard opening phrase for complex type data definition](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-46) | [7-56](#rule-7-56) |
+| [Rule 11-47, Standard opening phrase for simple type data definition](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-47) | [7-56](#rule-7-56) |
+| [Rule 11-48, Same namespace means same components](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-48) | *no matching NIEM6 rule* |
+| [Rule 11-49, Different version means different view](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-49) | *no matching NIEM6 rule* |
+| [Rule 11-50, Reference schema document imports reference schema document](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-50) | [8-9](#rule-8-9) |
+| [Rule 11-51, Extension schema document imports reference or extension schema document](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-51) | *no matching NIEM6 rule* |
+| [Rule 11-52, Structures imported as conformant](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-52) | *no matching NIEM6 rule* |
+| [Rule 11-53, XML namespace imported as conformant](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-53) | *no matching NIEM6 rule* |
+| [Rule 11-54, Each namespace may have only a single root schema in a schema set](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-54) | [10-5](#rule-10-5) |
+| [Rule 11-55, Consistently marked namespace imports](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-55) | [10-6](#rule-10-6) |
+| [Rule 12-1, Instance must be schema-valid](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_12-1) | [12-1](#rule-12-1) |
+| [Rule 12-2, Empty content has no meaning](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_12-2) | *no matching NIEM6 rule* |
+| [Rule 12-3, Element has only one resource identifying attribute](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_12-3) | [12-6](#rule-12-6), [12-10](#rule-12-10) |
+| [Rule 12-4, Attribute structures:ref must reference structures:id](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_12-4) | [12-7](#rule-12-7), [12-11](#rule-12-11) |
+| [Rule 12-5, Linked elements have same validation root](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_12-5) | [12-8](#rule-12-8), [12-12](#rule-12-12) |
+| [Rule 12-6, Attribute structures:ref references element of correct type](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_12-6) | [12-9](#rule-12-9), [12-13](#rule-12-13) |
+| [Rule 12-7, structures:uri denotes resource identifier](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_12-7) | [12-14](#rule-12-14) |
+| [Rule 12-8, structures:id and structures:ref denote resource identifier](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_12-8) | [12-16](#rule-12-16) |
+| [Rule 12-9, Nested elements and references have the same meaning.](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_12-9) | [12-17](#rule-12-17) |
+| [Rule 12-10, Order of properties is expressed via structures:sequenceID](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_12-10) | *no matching NIEM6 rule* |
+| [Rule 12-11, Metadata applies to referring entity](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_12-11) | *no matching NIEM6 rule* |
+| [Rule 12-12, Referent of structures:relationshipMetadata annotates relationship](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_12-12) | *no matching NIEM6 rule* |
+| [Rule 12-13, Values of structures:metadata refer to values of structures:id](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_12-13) | *no matching NIEM6 rule* |
+| [Rule 12-14, Values of structures:relationshipMetadata refer to values of structures:id](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_12-14) | *no matching NIEM6 rule* |
+| [Rule 12-15, structures:metadata and structures:relationshipMetadata refer to metadata elements](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_12-15) | *no matching NIEM6 rule* |
+| [Rule 12-16, Attribute structures:metadata references metadata element](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_12-16) | *no matching NIEM6 rule* |
+| [Rule 12-17, Attribute structures:relationshipMetadata references metadata element](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_12-17) | *no matching NIEM6 rule* |
+| [Rule 12-18, Metadata is applicable to element](https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_12-18) | *no matching NIEM6 rule* |
 
 -------
 
@@ -3831,7 +3841,7 @@ Add a reference to a NIEMOpen tools page TODO.
 * [Figure 4-34](#fig4-34): Example message showing an attribute property augmentation
 * [Figure 4-35](#fig4-35): Example complex type definition with complex content (CCC type)
 * [Figure 4-36](#fig4-36): Example LocalTerm objects in CMF and XSD
-* [Figure 5-1](#fig5-1): Meaning of NIEM data 
+* [Figure 5-1](#fig5-1): Meaning of NIEM data
 * [Figure 5-2](#fig5-2): RDF interpretation of NIEM data (Turtle syntax)
 * [Figure 5-3](#fig5-3): Diagram showing meaning of NIEM data
 * [Figure 5-4](#fig5-4): Example of object references in NIEM XML and JSON
@@ -3889,14 +3899,14 @@ The following individuals have participated in the creation of this specificatio
 | James | Cabral | Individual |
 | Tom | Carlson | GTRI |
 | Chuck | Chipman | GTRI |
-| Mike | Douklias | JS J6 | 
+| Mike | Douklias | JS J6 |
 | Katherine | Escobar | JS J6 |
 | Lavdjola | Farrington | JS J6 |
 | Dave | Hardy | JS J6 |
 | Mike | Hulme | Unisys |
 | Eric | Jahn | Alexandria Consulting |
 | Dave | Kemp | NSA |
-| Vamsi | Kondannagari | Integral Fed | 
+| Vamsi | Kondannagari | Integral Fed |
 | Shunda | Louis | JS J6 |
 | Peter | Madruga | GTRI |
 | Christina | Medlin | GTRI |
@@ -3932,7 +3942,7 @@ If revision tracking is handled in another system like github, provide a link to
 | | 2024-07-08 | Scott Renner | Conformance is a major section (new section 5), Conformance targets now apply to namespaces, not schema documents, Section 6 is now "Rules for namespaces and models" |
 | | 2024-07-10 | Scott Renner | Naming rules (section 6) complete |
 | | 2024-07-15 | Scott Renner | Rules for documentation, extension schemas and models complete, new placeholder section 5 (data modeling patterns) |
-| | 2024-07-19 | Scott Renner | All NDR 5 schema rules handled, NDR5 to NDR6 crossref appendix added, comments incorporated|
+| | 2024-07-19 | Scott Renner | All NDR 5 schema rules handled, NDR5 to NDR6 cross-ref appendix added, comments incorporated|
 
 -------
 
