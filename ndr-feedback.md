@@ -3,19 +3,19 @@
 
 ## Misc
 
-- [ ] Splitting examples that combine (CMF and XSD) or (XSD and JSON Schema) or (XML and JSON) into separate examples would allow us to use syntax highlighting on the code blocks.  Side-by-side examples might be worth keeping as is to make comparisons easier, but top-bottom combos could be split pretty easily.
-- [ ] CSpell file and add a GitHub action to run spellcheck?
+- [ ] Splitting examples that combine (CMF and XSD) or (XSD and JSON Schema) or (XML and JSON) into separate examples would allow us to use syntax highlighting on the code blocks.  Side-by-side examples might be worth keeping as is to make comparisons easier, but top-bottom combos could be split pretty easily. **Do we want syntax highlighting? It doesn't show up in PDF. I'm thinking "no".**
+- [ ] CSpell file and add a GitHub action to run spellcheck? **Sure, why not?**
 - [ ] Some CMF definitions are going to throw warnings when checked against the Schematron rules.
 
 ## Questions
 
 - [x] Add TODO for things to be updated later?  Easier to find all the unfinished places vs text descriptions.  **Doing this now**
 - [ ] Is Section 1.2.1 Definition of terms current? **Not even slightly current**
-- [ ] Does the `Constraint` vs `Interpretation` distinction add anything meaningful to rules?  Simpler without it? **Probably remove, decide later**
+- [x] Does the `Constraint` vs `Interpretation` distinction add anything meaningful to rules?  Simpler without it? **Removed in 30 October draft **
 - [x] Style convention: Get rid of smart quotes and dashes?  Avoid the mix of standard quotes and left/right quotes? **Working on the dashes (markdown likes "-", not "–"). Don't see any smart quotes - where are they?**
 - [x] How do definitions work?  Official is from the Definitions table at the top and then repeated in the text below? **That seems to be OASIS style**
 - [ ] Do we need a separate Conformance specification since the OASIS requires the NDR to have its own Conformance section? **Perhaps not. Also, *docs/template-README* suggests we may not be required to have a separate Conformance section before the appendices.**
-  - No IEPD spec to conform to any more - just guidance?
+  - No IEPD spec to conform to any more - just guidance?  **Perhaps write the "MPD specification" next.**
 - [ ] Add something about when to use NIEM and when it might be overkill?
   - Maybe in section 3.1 (Machine-to-machine data specifications)?
   - When you want to build multiple message specifications (leverage commonalities of an existing data model), already use NIEM or have exchange partners using NIEM, etc.
@@ -24,9 +24,9 @@
   - [ ] Example with [GeoJSON](https://geojson.org/)?
   - [ ] GML with `rdf:XMLLiteral` (how to do in JSON-LD)?
   - [ ] Hold for PS02 or just an example on niem.github.io?
-- [ ] Aren't CMF field names ending in "Of" missing a property or representation term? (e.g., SubPropertyOf, ListOf) **Those are object properties, which don't require a representation term**
-- [ ] "Figure #" seems like the wrong label for code examples. Use "Figure" for images and "Example" for code?
-- [ ] Section 4 tables that document classes and attributes and tables that relate CMF to XSD don't have identifiers.  Use "Table #"?
+- [x] Aren't CMF field names ending in "Of" missing a property or representation term? (e.g., SubPropertyOf, ListOf) **Those are object properties, which don't require a representation term**
+- [ ] "Figure #" seems like the wrong label for code examples. Use "Figure" for images and "Example" for code? **Fix this at the very end, if we decide to. It means a separate index of figures and index of examples. It means bin/reindex needs revising, and I already spent too much time on that :-) **
+- [ ] Section 4 tables that document classes and attributes and tables that relate CMF to XSD don't have identifiers.  Use "Table #"? **And now an index of tables? Not sure we need a caption for somthing that is never referenced.**
 
 ## Abstract
 
@@ -61,49 +61,46 @@ Reuse line from the Introduction?
 
   - Identify terminology derived from RDF?  Like Data property, datatype, class, range?
 
-- [ ] Identify synonyms?  Or pick one?
+- [x] Identify synonyms?  Or pick one?
 
-  - Data definition and documentation?
-  - Adapter class and external adapter type?
+  - Data definition and documentation? **data def**
+  - Adapter class and external adapter type? **adapter class**
 
-- [ ] Adapter class
+- [x] Adapter class
 
-  - Thought it could only wrap a single external property, not multiple properties from a single external namespace?
+  - Thought it could only wrap a single external property, not multiple properties from a single external namespace? **I don't see a rule for that. The text in NDR 5 rule 10-12 is plural; says "built from components…" 
 
-- [ ] Atomic class
+- [x] Atomic class  **Renamed "literal class"**
 
-  - Doesn't look like we've defined atomic in previous NDRs.  I've used it internally to mean a single simple type, no attributes, not a list, not a union.
-  - The definition given lines it up with NIEM simple content converted to CMF.
-
-- [ ] Attribute property
+- [x] Attribute property  **fixed**
 
   - "`isAttribute` is true doesn't describe what it is.
 
-- [ ] Augmentable class
+- [x] Augmentable class **Removed; all classes now augmentable**
 
   - Expand from "...can be augmented".  "NDR allows to be augmented"?
 
-- [ ] Augmentation
+- [x] Augmentation
 
-  - Add a more generic entry for a generic augmentation?
+  - Add a more generic entry for a generic augmentation? **Done**
 
-- [ ] Class
+- [x] Class
 
   - Not limited to messages
-  - Add a more basic description
+  - Add a more basic description **Done**
 
-- [ ] Code list
+- [x] Code list
 
-  - Is this a code property?  A property with a code datatype?
-  - Any need to distinguish from the Code Lists specification, or are those "enhanced code lists"?
+  - Is this a code property?  A property with a code datatype? **It's the set of valid code values**
+  - Any need to distinguish from the Code Lists specification, or are those "enhanced code lists"? **We may want to rewrite that spec**
 
-- [ ] Complete model
+- [x] Complete model
 
-  - Is definition overloaded?  Human readable definition vs element and type definitions / declarations?
+  - Is definition overloaded?  Human readable definition vs element and type definitions / declarations? **Removed the term **
 
-- [ ] Data definition
+- [x] Data definition
 
-  - "each component" > "a component" so it doesn't read like the full set of definitions in a model.
+  - "each component" > "a component" so it doesn't read like the full set of definitions in a model. **Done**
 
 - [ ] Data property
 
@@ -111,108 +108,108 @@ Reuse line from the Introduction?
   - Data properties can exist independently
   - Is this a property with simple content?  Literal value with optional attributes?
 
-- [ ] Document element
+- [x] Document element
 
-  - Doesn't describe that it's a root-level property for a message.
+  - Doesn't describe that it's a root-level property for a message. **Done**
 
-- [ ] Documentation
+- [x] Documentation  **Removed term**
 
   - Component or namespace?
   - How does this differ from data definition?
 
-- [ ] Facet
+- [x] Facet **Removed term**
 
   - "data type" vs "datatype"?
   - "aspect" vs "literal"
   - Add some examples for clarity?
 
-- [ ] List
+- [x] List **Removed term**
 
   - "An object that defines a datatype"?  "with a datatype"?
   - Does the use of "atomic" here conflicts with the definition of atomic class, which can contain attributes and has a single data property?
 
-- [ ] Message
+- [x] Message
 
-  - In an instance of an information exchange?  To distinguish it from the set of all data that is shared?
+  - In an instance of an information exchange?  To distinguish it from the set of all data that is shared?  **added instance of message type**
 
-- [ ] Model object
+- [x] Model object  **removed term**
 
   - Should this just be "model"?
 
-- [ ] Namespace
+- [x] Namespace
 
-  - Add "managed by an authoritative source"? To explain how components are grouped in namespaces?
+  - Add "managed by an authoritative source"? To explain how components are grouped in namespaces? **done**
 
-- [ ] Namespace URI
+- [x] Namespace URI **removed term**
 
   - Explain that is used as an identifier for a specific version of a specific namespace.
 
-- [ ] NIEM Core
+- [x] NIEM Core **removed term**
 
   - Add something like "managed collectively by the NBAC, a governance body that includes representatives of each of the NIEM domains."
 
-- [ ] NIEM Domain
+- [x] NIEM Domain **removed term**
 
   - Vertical?  Community of interest?
 
-- [ ] Object class
+- [ ] Object class **Need something for a class that is not an adapter, association, or literal class – NTAC decide**
 
   - "Class of objects"?
 
-- [ ] Object property
+- [x] Object property **removed**
 
   - ?
 
-- [ ] Property term
+- [x] Property term **removed**
 
   - ?
   - Part of a component name that describes...
 
-- [ ] Proxy type
+- [x] Proxy type **changed to match section 9.5**
 
   - Add something like "which allows for the use of NIEM attributes from the `structures` namespace which support such things as IDs and referencing, metadata, linked data, attribute augmentations, and security markup.
 
-- [ ] Qualifier term
+- [x] Qualifier term **removed**
 
   - Add "Part of a component name"
 
-- [ ] Range
+- [x] Range **removed**
 
-  - Using range from RDF but not domain?
+  - Using range from RDF but not domain? **yes. rdfs:domain doesn't do what you think it does**
   - Add something about it describes or defines the structure of a property.
 
 - [ ] Reference attribute
 
   - Need to see how this is used.  Is this `structures:ref`?
 
-- [ ] Reference data model
+- [x] Reference data model **removed**
 
   - How is this different from other data models?
 
-- [ ] Reference namespace
+- [x] Reference namespace  **changed to match section 3.6**
 
   - Not "all component in the NIEM model".  It's the full official version of a namespace as opposed to a subset instance of namespace.
-  - Can an organization define their own reference namespace?  Like in an EIEM?
+  - Can an organization define their own reference namespace?  Like in an EIEM? **anyone can define a reference namespace**
 
-- [ ] Reference property
+- [x] Reference property **removed**
 
   - How is this different from the definition of "Reference attribute"?
 
-- [ ] Representation term
+- [x] Representation term **removed**
 
   - Add "part of a component name"
 
-- [ ] Simple content
+- [x] Simple content **removed**
 
   - Has a literal value, and optional attributes
 
-- [ ] Subset
+- [x] Subset **removed**
 
   - A *something* collection.  Minimal?
   - Includes the properties from NIEM to be used in a message, plus any required dependencies.
   - Reduces the size and complexity of the NIEM schemas.
 
-- [ ] XML schema document set
+- [x] XML schema document set **now just schema document set**
 
   - A single aggregate XML Schema?  Or the set of all required XML Schemas?
 
@@ -257,7 +254,7 @@ Reuse line from the Introduction?
     - (*) Potential transformation to JSON Schema as well, but may be lossy
   - Missing Message Schema
 
-- [ ] Figure 3-4: The CMF element DataProperty has two opening brackets (`<<DataProperty`) and the `ObjectProperty` element beneath it isn't indented consistently.
+- [x] Figure 3-4: The CMF element DataProperty has two opening brackets (`<<DataProperty`) and the `ObjectProperty` element beneath it isn't indented consistently.  **FIXED**
 
 ## 3.2 Reuse of community-agreed data models
 
@@ -269,7 +266,7 @@ Reuse line from the Introduction?
 
 - [x] Could also add a following sentence: "Local extensions that could be useful to others in the community beyond the scope of the original message can be submitted for potential adoption by NIEM (https://github.com/niemopen/niem-model/issues)."
 
-- [ ] "reuse model" - We've always used the term "reference model".  Consistent with "reference namespace".  Could also mention this includes EIEMs and enterprise models that extend NIEM.
+- [ ] "reuse model" - We've always used the term "reference model".  Consistent with "reference namespace".  Could also mention this includes EIEMs and enterprise models that extend NIEM.  **OTOH we use "reference" for reference namespace and reference schema document; "reference model" isn't consistent with those meanings. Confusing? Let's vote.**
 
 ## 3.3 Reuse of open standards
 
@@ -289,7 +286,7 @@ Reuse line from the Introduction?
 
 - [x] No conceptual Type class as the parent of Class and Datatype? **Added here but not in the detailed diagram**
 
-- [ ] Figure 3-3
+- [x] Figure 3-3
 
   - Add person as a top-level object? **Changed to Request message example**
 
@@ -329,11 +326,11 @@ If a domain put out its own update independently without the other namespaces in
 
 Seems more like versions are the units of model configuration management, and as part of that, each namespace is versioned independently.
 
-- [ ] "Once published, the components...may not be removed...As a result of this rule, a change by author of namespace X does not force a change by the author of any other namespace Y...."
+- [x] "Once published, the components...may not be removed...As a result of this rule, a change by author of namespace X does not force a change by the author of any other namespace Y...."
 
 This is an important point and explains a question we get asked a lot. Not sure it stands out enough though and I'm not sure it's inclusive enough.  We want to make sure it's clear that implementers can keep using their exchanges based on old version of NIEM, not just message designers.
 
-Maybe something like...
+Maybe something like...  **used this text**
 
 > As a result of this rule, once a specific version of a namespace is published, it can no longer be modified.  Updates must go into a new version of the namespace.  All published versions of a namespace should remain available to support older exchanges.
 >
@@ -405,11 +402,11 @@ Drop section 3.6 and move the contents to the top of this section.  I think it m
 - [ ] Describe qualified names / namespace prefixes? **Maybe? Could be a paragraph right after figure 4-4?**
   - Can use aliases in JSON for issues with qualified names
 
-- [ ] Describe the need for `@context` **Goes in rules for JSON messages, I think**
+- [x] Describe the need for `@context` **In rules for JSON messages**
   - Preserve namespace information for JSON
   - Without context, you don't know that `nc` represents the NIEM Core namespace and you don't know which version
 
-- [ ] ImportDocumentationText?
+- [x] ImportDocumentationText?
   - Isn't this documentation for an external namespace?  Capture it there? **In CMF it is recorded in the Namespace object for the external namespace.  In XSD the documentation string is actually in the importing schema document.**
 
     ```
@@ -442,11 +439,29 @@ Drop section 3.6 and move the contents to the top of this section.  I think it m
 </Model>
 ```
 
+**Nope. *gml.xsd* has schema-level documentation and it's not the same as the documentation within the xs:import in *adapters/niem-gml.xsd*.  The CMF looks like this:**
+
+```
+<Namespace structures:id="gml">
+  <NamespaceURI>http://www.opengis.net/gml/3.2</NamespaceURI>
+  <NamespacePrefixText>gml</NamespacePrefixText>
+  <DocumentationText>GML Subset schema for gml:AngleType,gml:Curve,gml:Envelope,gml:AbstractFeature,gml:AbstractGeometricPrimitiveType,gml:AbstractGeoemetry,gml:LengthType,gml:LineString,gml:MultiCurve,gml:MultiGeometry,gml:MultiPoint,gml:MultiSurface,gml:Point,gml:Polygon,gml:Surface, written by
+                    gmlSubset.xslt. </DocumentationText>
+  <NamespaceKindCode>EXTERNAL</NamespaceKindCode>
+  <DocumentFilePathText>external/ogc/gml/3.2.1/gml.xsd</DocumentFilePathText>
+  <NIEMVersionText/>
+  <NamespaceVersionText>3.2.1 2010-01-28</NamespaceVersionText>
+  <ImportDocumentationText>A profile of OpenGeospatialConsortium (OpenGIS, OGC) OpenLS (Location Services) version 1.1 schemas. A profile of OpenGeospatialConsortium (OpenGIS, OGC) OpenLS (Location Services) version 1.1 schemas that have been edited to use GML version 3.2.1 schemas instead of the GML version 3.0 schemas that were current when OpenLS version 1.1 was promulgated.  See http://www.opengeospatial.org for documentation, http://schemas.opengis.net/ols/ for schemas.</ImportDocumentationText>
+</Namespace>
+```
+
 Also, if you imported two external namespaces in the same namespace, you wouldn't be able to assign or separate the documentation for each of the namespaces in one ImportDocumentationText field.
+
+**ImportDocumentationText goes with the imported namespace, so two external imports of different namespaces in one schema document is not a problem.**
 
 - [ ] `NIEMVersionText` - We use this for draft stages (alpha, beta, PSD01, etc.) **You are thinking of `NamespaceVersionText`.  This property is the version of the structures namespace in the XSD representation. For example, in the CMF representation of the core namespace in NIEM 5.2, this has the value `5`.**
 
-- Sounds more like the NDR version number, which could be pulled from the conformance target URI?
+- Sounds more like the NDR version number, which could be pulled from the conformance target URI? **I'm not sure these have to be the same.**
 
 - Better to use the full version number ("5.0", "6.0")?
 
@@ -454,17 +469,17 @@ Also, if you imported two external namespaces in the same namespace, you wouldn'
 
 - I think there several things we track for namespaces related to version numbers:
 
-  - Namespace version.  The full identifier is in `NamespaceURI`; the version number itself is embedded in the uri at the end.
+  - Namespace version.  The full identifier is in `NamespaceURI`; the version number itself is embedded in the uri at the end. **well, it's embedded in our URIs, but that's not required by any NDR. Want to add that rule to NDR6?**
 
-  - Draft version.  For example, "alpha2" or "ps01".  This is the `NamespaceVersionText` field?
+  - Draft version.  For example, "alpha2" or "ps01".  This is the `NamespaceVersionText` field? **yes**
 
   - NDR conformance target (`ConformanceTargetURI`).  This gives us the version of the NDR and structures (also in `NIEMVersionText`) and REF vs EXT.
 
-- Can you have multiple namespaces in one model that use different versions of structures? Or Core?  Do you want to support that in CMF even you can hack it?
+- Can you have multiple namespaces in one model that use different versions of structures? Or Core?  Do you want to support that in CMF even you can hack it?  **It's always been possible in NIEM, and CMFTool can cope with it.**
 
   - Could move `NIEMVersionText` out of Namespace to the Model instead to describe which version of NIEM a message model extends (e.g., "5.1" or "6.0").
 
-- [ ] `NamespaceLanguageName` - Isn't this a code? **You would think so, but when you look at RFC 4646 I believe you'll see there can't really be a code list for all the valid values**
+- [x] `NamespaceLanguageName` - Isn't this a code? **You would think so, but when you look at RFC 4646 I believe you'll see there can't really be a code list for all the valid values**
 
 - [x] `NamespaceKindCode` - NIEM uses category instead of kind. **OK, changed in my working CMF spec**
 
@@ -492,9 +507,9 @@ Does the NDR allow abstract classes?
 
 - [ ] Don't we also have an Augmentation class?  Name ends with `AugmentationType`, extends `structures:AugmentationType`, definition begins with "...", etc. **Augmentation CCCs do not have corresponding model objects**
 
-- [x] More info and subsections for the kinds of object classes? **Now have subsections for ordinary and atomic classes**
+- [x] More info and subsections for the kinds of object classes? **Now have subsections for ordinary and literal classes**
 
-- [ ] Expected an atomic class to be a simple type, not a complex type with simple content.
+- [x] Expected an atomic class to be a simple type, not a complex type with simple content.
   - `Literal class` and `datatype` instead of CSC and simple? **We could call this a "literal class" if that name seems better.**
 
 - [ ] Do we need `AugmentableIndicator`?
@@ -527,7 +542,7 @@ Does the NDR allow abstract classes?
     </xs:element>
   ```
 
-  **That's a lot of coding for something that may never be used in the compl history of the world, but oh well.**
+  **That's a lot of coding for something that may never be used in the history of the world, but oh well.**
 
 - [ ] Reorganization suggestion:
 
