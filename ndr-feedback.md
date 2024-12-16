@@ -25,7 +25,7 @@
   - [ ] GML with `rdf:XMLLiteral` (how to do in JSON-LD)?
   - [ ] Hold for PS02 or just an example on niem.github.io?
 - [x] Aren't CMF field names ending in "Of" missing a property or representation term? (e.g., SubPropertyOf, ListOf) **Those are object properties, which don't require a representation term**
-- [ ] "Figure #" seems like the wrong label for code examples. Use "Figure" for images and "Example" for code? **Fix this at the very end, if we decide to. It means a separate index of figures and index of examples. It means bin/reindex needs revising, and I already spent too much time on that :-) **
+- [x] "Figure #" seems like the wrong label for code examples. Use "Figure" for images and "Example" for code? **Fix this at the very end, if we decide to. It means a separate index of figures and index of examples. It means bin/reindex needs revising, and I already spent too much time on that :-)  Maybe in PS02. **
 - [ ] Section 4 tables that document classes and attributes and tables that relate CMF to XSD don't have identifiers.  Use "Table #"? **And now an index of tables? Not sure we need a caption for somthing that is never referenced.**
 
 ## Abstract
@@ -76,7 +76,7 @@ Reuse line from the Introduction?
 
   - "`isAttribute` is true doesn't describe what it is.
 
-- [x] Augmentable class **Removed; all classes now augmentable**
+- [x] Augmentable class **Removed; all classes now augmentable*. But not adapter classes!**
 
   - Expand from "...can be augmented".  "NDR allows to be augmented"?
 
@@ -152,7 +152,7 @@ Reuse line from the Introduction?
 
   - Vertical?  Community of interest?
 
-- [ ] Object class **Need something for a class that is not an adapter, association, or literal class – NTAC decide**
+- [x] Object class **Need something for a class that is not an adapter, association, or literal class – NTAC decided: object class!**
 
   - "Class of objects"?
 
@@ -266,7 +266,7 @@ Reuse line from the Introduction?
 
 - [x] Could also add a following sentence: "Local extensions that could be useful to others in the community beyond the scope of the original message can be submitted for potential adoption by NIEM (https://github.com/niemopen/niem-model/issues)."
 
-- [ ] "reuse model" - We've always used the term "reference model".  Consistent with "reference namespace".  Could also mention this includes EIEMs and enterprise models that extend NIEM.  **OTOH we use "reference" for reference namespace and reference schema document; "reference model" isn't consistent with those meanings. Confusing? Let's vote.**
+- [ ] "reuse model" - We've always used the term "reference model".  Consistent with "reference namespace".  Could also mention this includes EIEMs and enterprise models that extend NIEM.  **OTOH we use "reference" for reference namespace and reference schema document; "reference model" isn't consistent with those meanings. Confusing? Let's vote. REFERENCE!**
 
 ## 3.3 Reuse of open standards
 

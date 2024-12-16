@@ -21,7 +21,7 @@
 #
 # * Rules get an anchor; rule name and NIEM 5 crossref are removed:
 #   **Rule 0-0:** Rule name || Rule text. (N5R 1-1) -->
-#   <a name="rule-0-0"></a>**Rule 0-0:** Rule text.
+#   <a name="rule0-0"></a>**Rule 0-0:** Rule text.
 
 use warnings;
 use strict;
@@ -92,7 +92,7 @@ while (<>) {
   }
   # Add anchor to rules; remove rule name and (N5R) crossref
   if (m/^\*\*Rule (\d+-\d+):\*\*\s+/) {
-    my $anchor = sprintf('<a name="rule-%s"></a>',$1);
+    my $anchor = sprintf('<a name="rule%s"></a>',$1);
     s/^/$anchor/;
     s/:\*\*\s*.*\|\|\s*/:** /;
     s/\s*\(NEW\)\s*$/\n/;
