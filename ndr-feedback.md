@@ -909,6 +909,10 @@ That seems like a little bit of a leap at this point.  Maybe update the descript
 - [ ] Representation pattern (not sure about representation terms)
 - [ ] Simple type unions to fake code set extension?
 
+## 5.2.3 Comparison of object reference in NIEM XML
+
+- [ ] Maybe expand a bit on the first and last bullets?  It's not just that `structures:id` and `structures:ref` must appear in the same message, but that those ID values are local and are only meaningful as pointers within that single message.  Across different messages, objects with the same `structures:id` may be referring to different resources. Versus `structures:uri` - the same value in any message should all refer to the same resource.
+
 ## 6.2 Conformance target assertions
 
 - [ ] Should the base target namespace for this document be "https://docs.oasis-open.org/niemopen/ns/specification/XNDR/6.0/"?  We didn't go with the idea of splitting CMF and XSD versions into different documents.  Would require a change to the 6.0 schemas as well.
