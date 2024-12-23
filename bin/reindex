@@ -126,7 +126,7 @@ while (@lines) {
 print "\n";
 foreach my $rtag (@rules) {
   my $rname = $ruleName{$rtag} || "NO NAME YET";
-  print "* [Rule $rtag: $rname](#rule-$rtag).\n";
+  print "* [Rule $rtag: $rname](#rule$rtag).\n";
 }
 print "\n-------\n\n$line";
 
@@ -143,6 +143,7 @@ open(N5R, "<n5rules.txt");
 while (<N5R>) {
   chop;
   tr/\r//d;
+  s/\s+$//;
   m/(\d+-\d+)/;
   my $n5rule = $1;
   print "| [Rule $_]($niem5uri$n5rule) | ";
@@ -152,7 +153,7 @@ while (<N5R>) {
     my $sep = "";
     my @n6rules = split(m/,\s*/, $n5maps);
     foreach my $n6r (@n6rules) {
-      print "$sep","[$n6r](#rule-$n6r)";
+      print "$sep","[$n6r](#rule$n6r)";
       $sep=", ";
     }
   }

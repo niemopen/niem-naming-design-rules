@@ -28,8 +28,8 @@ fontsize=10
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>720</x>
-      <y>90</y>
+      <x>930</x>
+      <y>140</y>
       <w>130</w>
       <h>80</h>
     </coordinates>
@@ -42,8 +42,8 @@ Model
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>550</x>
-      <y>210</y>
+      <x>760</x>
+      <y>260</y>
       <w>130</w>
       <h>110</h>
     </coordinates>
@@ -58,8 +58,8 @@ Model
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>890</x>
-      <y>150</y>
+      <x>1100</x>
+      <y>200</y>
       <w>150</w>
       <h>220</h>
     </coordinates>
@@ -81,8 +81,8 @@ Namespace
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>670</x>
-      <y>280</y>
+      <x>880</x>
+      <y>330</y>
       <w>240</w>
       <h>40</h>
     </coordinates>
@@ -95,8 +95,8 @@ namespace &gt;</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>540</x>
-      <y>490</y>
+      <x>750</x>
+      <y>540</y>
       <w>150</w>
       <h>80</h>
     </coordinates>
@@ -110,8 +110,8 @@ namespace &gt;</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>650</x>
-      <y>690</y>
+      <x>860</x>
+      <y>740</y>
       <w>130</w>
       <h>80</h>
     </coordinates>
@@ -125,8 +125,8 @@ DataProperty
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>600</x>
-      <y>310</y>
+      <x>810</x>
+      <y>360</y>
       <w>30</w>
       <h>200</h>
     </coordinates>
@@ -136,8 +136,8 @@ DataProperty
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>460</x>
-      <y>690</y>
+      <x>670</x>
+      <y>740</y>
       <w>130</w>
       <h>80</h>
     </coordinates>
@@ -150,23 +150,25 @@ ObjectProperty
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>40</x>
-      <y>490</y>
+      <x>250</x>
+      <y>540</y>
       <w>130</w>
-      <h>80</h>
+      <h>90</h>
     </coordinates>
     <panel_attributes>--
 Class
 --
 -abstractIndicator
+-anyAttributeIndicator
+-anyElementIndicator
 -referenceCode</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>330</x>
-      <y>490</y>
+      <x>540</x>
+      <y>540</y>
       <w>130</w>
       <h>110</h>
     </coordinates>
@@ -182,8 +184,8 @@ ChildPropertyAssociation
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>100</x>
-      <y>310</y>
+      <x>310</x>
+      <y>360</y>
       <w>510</w>
       <h>200</h>
     </coordinates>
@@ -193,8 +195,8 @@ ChildPropertyAssociation
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>890</x>
-      <y>490</y>
+      <x>1100</x>
+      <y>540</y>
       <w>130</w>
       <h>80</h>
     </coordinates>
@@ -207,8 +209,8 @@ Datatype
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>510</x>
-      <y>560</y>
+      <x>720</x>
+      <y>610</y>
       <w>100</w>
       <h>150</h>
     </coordinates>
@@ -218,8 +220,8 @@ Datatype
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>620</x>
-      <y>560</y>
+      <x>830</x>
+      <y>610</y>
       <w>110</w>
       <h>150</h>
     </coordinates>
@@ -229,8 +231,8 @@ Datatype
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>620</x>
-      <y>310</y>
+      <x>830</x>
+      <y>360</y>
       <w>350</w>
       <h>200</h>
     </coordinates>
@@ -240,8 +242,8 @@ Datatype
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>0</x>
-      <y>440</y>
+      <x>210</x>
+      <y>490</y>
       <w>110</w>
       <h>90</h>
     </coordinates>
@@ -253,22 +255,22 @@ m2=0..1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>90</x>
-      <y>560</y>
+      <x>300</x>
+      <y>620</y>
       <w>390</w>
-      <h>200</h>
+      <h>190</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1=1
 m2=0..*
 &lt; class </panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;180.0;370.0;180.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;170.0;370.0;170.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>760</x>
-      <y>500</y>
+      <x>970</x>
+      <y>550</y>
       <w>150</w>
       <h>260</h>
     </coordinates>
@@ -282,8 +284,8 @@ r1pos=-65,140</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>890</x>
-      <y>690</y>
+      <x>1100</x>
+      <y>740</y>
       <w>130</w>
       <h>80</h>
     </coordinates>
@@ -296,8 +298,8 @@ Restriction
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>830</x>
-      <y>540</y>
+      <x>1040</x>
+      <y>590</y>
       <w>100</w>
       <h>220</h>
     </coordinates>
@@ -311,8 +313,8 @@ r1= restrictionBase</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>920</x>
-      <y>560</y>
+      <x>1130</x>
+      <y>610</y>
       <w>30</w>
       <h>150</h>
     </coordinates>
@@ -323,8 +325,8 @@ r1= restrictionBase</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1080</x>
-      <y>690</y>
+      <x>1290</x>
+      <y>740</y>
       <w>130</w>
       <h>80</h>
     </coordinates>
@@ -337,8 +339,8 @@ List
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1270</x>
-      <y>690</y>
+      <x>1480</x>
+      <y>740</y>
       <w>130</w>
       <h>80</h>
     </coordinates>
@@ -351,8 +353,8 @@ Union
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1010</x>
-      <y>530</y>
+      <x>1220</x>
+      <y>580</y>
       <w>240</w>
       <h>110</h>
     </coordinates>
@@ -364,8 +366,8 @@ m1=1..*
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1010</x>
-      <y>490</y>
+      <x>1220</x>
+      <y>540</y>
       <w>440</w>
       <h>270</h>
     </coordinates>
@@ -377,8 +379,8 @@ m1=1..*
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>950</x>
-      <y>560</y>
+      <x>1160</x>
+      <y>610</y>
       <w>210</w>
       <h>150</h>
     </coordinates>
@@ -388,8 +390,8 @@ m1=1..*
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>980</x>
-      <y>560</y>
+      <x>1190</x>
+      <y>610</y>
       <w>380</w>
       <h>150</h>
     </coordinates>
@@ -399,8 +401,8 @@ m1=1..*
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>740</x>
-      <y>860</y>
+      <x>950</x>
+      <y>910</y>
       <w>150</w>
       <h>80</h>
     </coordinates>
@@ -415,8 +417,8 @@ CodeListBinding
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>840</x>
-      <y>760</y>
+      <x>1050</x>
+      <y>810</y>
       <w>100</w>
       <h>160</h>
     </coordinates>
@@ -430,8 +432,8 @@ r1pos=-65,-73</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1030</x>
-      <y>200</y>
+      <x>1240</x>
+      <y>250</y>
       <w>170</w>
       <h>40</h>
     </coordinates>
@@ -445,8 +447,8 @@ augmentationRecord &gt;
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1180</x>
-      <y>150</y>
+      <x>1390</x>
+      <y>200</y>
       <w>160</w>
       <h>90</h>
     </coordinates>
@@ -462,8 +464,8 @@ AugmentationRecord
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>670</x>
-      <y>160</y>
+      <x>880</x>
+      <y>210</y>
       <w>100</w>
       <h>110</h>
     </coordinates>
@@ -477,8 +479,8 @@ r1pos=-8,-32</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>800</x>
-      <y>160</y>
+      <x>1010</x>
+      <y>210</y>
       <w>110</w>
       <h>110</h>
     </coordinates>
@@ -492,8 +494,8 @@ r1pos=-0,-32</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1180</x>
-      <y>250</y>
+      <x>1390</x>
+      <y>300</y>
       <w>160</w>
       <h>120</h>
     </coordinates>
@@ -510,8 +512,8 @@ LocalTerm
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1030</x>
-      <y>270</y>
+      <x>1240</x>
+      <y>320</y>
       <w>170</w>
       <h>40</h>
     </coordinates>
@@ -525,8 +527,8 @@ localTerm &gt;
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>640</x>
-      <y>440</y>
+      <x>850</x>
+      <y>490</y>
       <w>140</w>
       <h>90</h>
     </coordinates>
@@ -538,8 +540,8 @@ m2=0..1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1020</x>
-      <y>860</y>
+      <x>1230</x>
+      <y>910</y>
       <w>130</w>
       <h>80</h>
     </coordinates>
@@ -554,8 +556,8 @@ Facet
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>980</x>
-      <y>760</y>
+      <x>1190</x>
+      <y>810</y>
       <w>60</w>
       <h>160</h>
     </coordinates>
@@ -570,8 +572,8 @@ m1=1
   <element>
     <type>CustomElementImpl</type>
     <coordinates>
-      <x>130</x>
-      <y>390</y>
+      <x>340</x>
+      <y>440</y>
       <w>21</w>
       <h>21</h>
     </coordinates>
@@ -593,8 +595,8 @@ drawArcOpen(0,0,20,20,270,180);
   <element>
     <type>CustomElementImpl</type>
     <coordinates>
-      <x>460</x>
-      <y>390</y>
+      <x>670</x>
+      <y>440</y>
       <w>21</w>
       <h>21</h>
     </coordinates>
@@ -616,8 +618,8 @@ drawArcOpen(0,0,20,20,270,180);
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>130</x>
-      <y>400</y>
+      <x>340</x>
+      <y>450</y>
       <w>50</w>
       <h>110</h>
     </coordinates>
@@ -628,8 +630,8 @@ m1=0..1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>460</x>
-      <y>400</y>
+      <x>670</x>
+      <y>450</y>
       <w>140</w>
       <h>110</h>
     </coordinates>
@@ -640,8 +642,8 @@ m1=1</panel_attributes>
   <element>
     <type>CustomElementImpl</type>
     <coordinates>
-      <x>780</x>
-      <y>640</y>
+      <x>990</x>
+      <y>690</y>
       <w>41</w>
       <h>51</h>
     </coordinates>
@@ -661,8 +663,8 @@ drawPolygon(p);</custom_code>
   <element>
     <type>CustomElementImpl</type>
     <coordinates>
-      <x>830</x>
-      <y>210</y>
+      <x>1040</x>
+      <y>260</y>
       <w>51</w>
       <h>51</h>
     </coordinates>
@@ -682,8 +684,8 @@ drawPolygon(p);</custom_code>
   <element>
     <type>CustomElementImpl</type>
     <coordinates>
-      <x>720</x>
-      <y>210</y>
+      <x>930</x>
+      <y>260</y>
       <w>51</w>
       <h>51</h>
     </coordinates>
@@ -703,8 +705,8 @@ drawPolygon(p);</custom_code>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>130</x>
-      <y>0</y>
+      <x>340</x>
+      <y>50</y>
       <w>1170</w>
       <h>410</h>
     </coordinates>
@@ -716,8 +718,8 @@ m2=0..*
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>460</x>
-      <y>40</y>
+      <x>670</x>
+      <y>90</y>
       <w>790</w>
       <h>370</h>
     </coordinates>
@@ -729,8 +731,8 @@ m2=0..*
   <element>
     <type>CustomElementImpl</type>
     <coordinates>
-      <x>1220</x>
-      <y>620</y>
+      <x>1430</x>
+      <y>670</y>
       <w>51</w>
       <h>51</h>
     </coordinates>
@@ -753,8 +755,8 @@ drawArcOpen(0, 0, 20, 20, 270, 180);</custom_code>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1200</x>
-      <y>630</y>
+      <x>1410</x>
+      <y>680</y>
       <w>50</w>
       <h>130</h>
     </coordinates>
@@ -764,8 +766,8 @@ drawArcOpen(0, 0, 20, 20, 270, 180);</custom_code>
   <element>
     <type>CustomElementImpl</type>
     <coordinates>
-      <x>870</x>
-      <y>640</y>
+      <x>1080</x>
+      <y>690</y>
       <w>41</w>
       <h>51</h>
     </coordinates>
@@ -785,8 +787,8 @@ drawPolygon(p);</custom_code>
   <element>
     <type>CustomElementImpl</type>
     <coordinates>
-      <x>880</x>
-      <y>820</y>
+      <x>1090</x>
+      <y>870</y>
       <w>51</w>
       <h>51</h>
     </coordinates>
@@ -806,8 +808,8 @@ drawPolygon(p);</custom_code>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>160</x>
-      <y>510</y>
+      <x>370</x>
+      <y>560</y>
       <w>190</w>
       <h>40</h>
     </coordinates>
@@ -820,8 +822,8 @@ childPropertyAssociation &gt;</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>450</x>
-      <y>510</y>
+      <x>660</x>
+      <y>560</y>
       <w>110</w>
       <h>40</h>
     </coordinates>
@@ -834,8 +836,8 @@ property &gt;</panel_attributes>
   <element>
     <type>CustomElementImpl</type>
     <coordinates>
-      <x>1000</x>
-      <y>820</y>
+      <x>1210</x>
+      <y>870</y>
       <w>51</w>
       <h>51</h>
     </coordinates>

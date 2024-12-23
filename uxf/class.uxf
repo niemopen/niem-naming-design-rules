@@ -37,6 +37,8 @@ fontsize=10
 Class
 --
 -abstractIndicator
+-anyAttributeIndicator
+-anyElementIndicator
 -referenceCode</panel_attributes>
     <additional_attributes/>
   </element>

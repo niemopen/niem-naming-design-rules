@@ -3,6 +3,8 @@ ignorePaths: []
 dictionaryDefinitions: []
 dictionaries: []
 words:
+  - appinfo
+  - augmentable
   - BCP
   - Bollinger
   - Bradner
@@ -16,8 +18,10 @@ words:
   - Farrington
   - gml
   - Hulme
+  - IDREF
   - IDREFS
   - IEP
+  - IEPD
   - Infoset
   - IPR
   - Jahn
@@ -27,15 +31,20 @@ words:
   - Lavdjola
   - Leiba
   - Madruga
+  - metamodel
   - Mierwa
   - NDR
+  - NIEM
+  - nillable
   - nonconformant
+  - NTAC
   - Ordinality
   - PGB
   - RDFS
   - referenceable
   - Rescorla
   - RISS
+  - Schematron
   - Sparrell
   - Stathakis
   - subclassing
