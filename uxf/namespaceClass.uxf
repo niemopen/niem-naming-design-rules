@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1">
+  <help_text/>
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>440</x>
+      <y>350</y>
+      <w>200</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>--
+Namespace
+--
+-namespaceURI
+-namespacePrefix
+-documentationText
+-namespaceLanguageName
+-namespaceVersionText
+-namespaceCategoryCode
+-conformanceTargetURI
+-NIEMVersionText*
+-documentFilePathText*
+-importDocumentationText*</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>630</x>
+      <y>400</y>
+      <w>210</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-&gt;&gt;&gt;&gt;&gt;
+m1=0..*
+m2=1
+augmentationRecord &gt;
+</panel_attributes>
+    <additional_attributes>190.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>630</x>
+      <y>470</y>
+      <w>210</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-&gt;&gt;&gt;&gt;&gt;
+m1=0..*
+m2=1
+localTerm &gt;
+</panel_attributes>
+    <additional_attributes>190.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>820</x>
+      <y>350</y>
+      <w>160</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>--
+Augmentation
+--
+
+bg=LIGHT_GRAY</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>820</x>
+      <y>450</y>
+      <w>160</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>--
+LocalTerm
+--
+
+bg=LIGHT_GRAY</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

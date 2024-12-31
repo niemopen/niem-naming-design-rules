@@ -1,0 +1,148 @@
+#!/usr/bin/perl
+
+# Transforms the markdown source that you edit into an intermediate
+# markdown stream that is ready for pandoc. Don't edit the output!
+# Just give it to pandoc to produce the final HTML.
+#
+# What are the changes?
+#
+# * Defined term links are changed into <span> and <a> elements,
+#   which puts the dots before and after a defined term:
+#   [defined term](#def) -->
+#   <span class="termRef"><a href="def-defined-term"> ...
+#
+# * Defined terms in the glossary become anchors:
+#   | Defined term | definition | -->
+#   | <a name="def-defined-term">Defined term</a> | definition |
+#
+# * Rules get an anchor; rule name and NIEM 5 crossref are removed:
+#   **Rule 0-0:** Rule name || Rule text. (N5R 1-1) -->
+#   <a name="rule0-0"></a>**Rule 0-0:** Rule text.
+#
+# * Reference links are fixed:
+#   [[RFC 3986]](#ref) ->
+#   <a href="#rfc-3986"><b>[RFC 3986]</b></a>
+
+use warnings;
+use strict;
+
+my $openFence = 1;
+my $line = 0;
+my %terms;
+
+# Copy everything up to the start of the glossary section
+while (<>) {
+  $line++;
+  print;
+  last if m/^#+ .*Glossary/;
+}
+# Now skip to the glossary definitions table header: | :--- | :--- |
+while (<>) {
+  $line++;
+  print;
+  last if m/^\|\s*[:-]+\s*\|\s*[:-]+\s*\|/;
+}
+# Process and remember each line in the glossary definitions table
+my @glos;
+while (<>) {
+  $line++;
+  push(@glos,$_), last if /^#/;         # found next section; glossary all done
+  push(@glos,$_), next if /^\s*$/;      # blank line
+  push(@glos,$_), next if /^\*\*Terms/; # term import header
+  push(@glos,$_), next if /^\| Term /;  # table header
+  push(@glos,$_), next if /^\| :---/;   # table header
+  if (m/^\|([^|]*)\|([^|]*)\|/) {
+    my $def  = trim($2);
+    my $term = lc trim($1);
+    my $href = lc trim($1);
+    $href =~ s/ +/-/g;
+    $href = "def-$href";
+    push(@glos, sprintf "| <a name=\"%s\"></a>%s | %s |\n", $href, $term, $def);
+    $terms{$term} = $href;
+  }
+  else {
+    print STDERR "bad glossary format at line $line\n";
+    push(@glos,$_);
+  }
+}
+# Now reprocess the glossary lines to include definition link
+foreach my $l (@glos) {
+  print fixline($l);
+}
+# Process the rest of the markdown source
+while (<>) {
+  $line++;
+  $_ = fixline($_);
+  print;
+}
+
+sub fixline {
+  my ($ldat) = @_;
+
+  # Replace each defined term reference in the current line;
+  # for example: [atomic class](#def)
+  while ($ldat =~ m/\[([^]]+)\]\(#def\)/g) {
+    my $si    = $-[0];        # beginning index of defined term ref
+    my $ei    = $+[0];        # ending index of defined term ref
+    my $mlen  = $ei - $si;    # length of defined term ref
+    my $ttxt  = $1;           # text of defined term; eg. "atomic class"
+    my $term  = lc $1;        # defined term, all lowercase
+    $term =~ s/[^\s\w]//g;    # remove everything but spaces and word chars
+
+    if (defined $terms{$term}) { }
+    else {
+      my $try = $term;
+      $try =~ s/ies$/y/;
+      if (defined $terms{$try}) { $term = $try; }
+      else {
+        $try = $term;
+        $try =~ s/ses$/s/;
+        if (defined $terms{$try}) { $term = $try; }
+        else {
+          $try = $term;
+          $try =~ s/s$//;
+          if (defined $terms{$try}) { $term = $try; }
+        }
+      }
+    }
+    my $href = $terms{$term};
+    if (defined $href) {
+      my $rep = "[<span class=\"termRef\">$ttxt</span>](#$href)";
+      substr($ldat, $si, $mlen) = $rep;
+    }
+    else {
+      my $rep = "[<span class=\"termRef\">$ttxt</span>]()";
+      substr($ldat, $si, $mlen) = $rep;
+      printf STDERR "no definition for %s at line %d\n", $term, $line;
+    }
+  }
+  # Add anchor to rules; remove rule name and (N5R) crossref
+  if ($ldat =~ m/^\*\*Rule (\d+-\d+):\*\*\s+/) {
+    my $anchor = sprintf('<a name="rule%s"></a>',$1);
+    $ldat =~ s/^/$anchor/;
+    $ldat =~ s/:\*\*\s*.*\|\|\s*/:** /;
+    $ldat =~ s/\s*\(NEW\)\s*$/\n/;
+    $ldat =~ s/\s*\(N5R [^)]+\)\s*$/\n/;
+  }
+  # Replace each reference link in the current line;
+  # for example: [webarch](#ref)
+  while ($ldat =~ m/\[+([^]]+)\]+\(#ref\)/g) {
+    my $si    = $-[0];        # beginning index of reference
+    my $ei    = $+[0];        # ending index of reference
+    my $mlen  = $ei - $si;    # length of reference
+    my $ttxt  = $1;           # text of reference; eg. "webarch"
+    my $href  = lc $1;        # reference, all lowercase
+    $href =~ s/ /-/g;         # reference, space becomes hyphen
+
+    my $repl = sprintf("<a href=\"#%s\"><b>[%s]</b></a>", $href, $ttxt);
+    substr($ldat, $si, $mlen) = $repl;
+  }
+  return $ldat;
+}
+
+sub trim {
+  my ($rv) = @_;
+  $rv =~ s/^\s+//;
+  $rv =~ s/\s+$//;
+  return $rv;
+}

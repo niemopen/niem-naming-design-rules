@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>750</x>
+      <y>550</y>
+      <w>130</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>--
+/Component/
+--
+
+bg=LIGHT_GRAY</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>950</x>
+      <y>430</y>
+      <w>130</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>--
+Model
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1140</x>
+      <y>550</y>
+      <w>150</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>--
+Namespace
+--
+
+bg=LIGHT_GRAY</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1030</x>
+      <y>500</y>
+      <w>130</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=0..*
+m2=1
+r1= namespace
+r1pos=0,-32</panel_attributes>
+    <additional_attributes>110.0;90.0;10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>870</x>
+      <y>500</y>
+      <w>140</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=0..*
+m2=1
+r1=component
+r1pos=0,-32</panel_attributes>
+    <additional_attributes>10.0;90.0;110.0;90.0;110.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>870</x>
+      <y>620</y>
+      <w>290</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+m2=1
+m1=0:*
+namespace &gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;270.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <type>CustomElementImpl</type>
+    <coordinates>
+      <x>920</x>
+      <y>550</y>
+      <w>51</w>
+      <h>51</h>
+    </coordinates>
+    <panel_attributes>// Modify the text below and
+// observe the element preview.
+
+Hello, World! 
+Enjoy UMLet!
+bg=BLACK</panel_attributes>
+    <additional_attributes/>
+    <custom_code>Polygon p = new Polygon();
+p.addPoint(3,8);
+p.addPoint(8,18);
+p.addPoint(13,8);
+drawPolygon(p);</custom_code>
+  </element>
+  <element>
+    <type>CustomElementImpl</type>
+    <coordinates>
+      <x>1070</x>
+      <y>550</y>
+      <w>51</w>
+      <h>51</h>
+    </coordinates>
+    <panel_attributes>// Modify the text below and
+// observe the element preview.
+
+Hello, World! 
+Enjoy UMLet!
+bg=BLACK</panel_attributes>
+    <additional_attributes/>
+    <custom_code>Polygon p = new Polygon();
+p.addPoint(3,8);
+p.addPoint(8,18);
+p.addPoint(13,8);
+drawPolygon(p);</custom_code>
+  </element>
+</diagram>

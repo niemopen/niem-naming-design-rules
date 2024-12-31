@@ -1,0 +1,62 @@
+version: "0.2"
+ignorePaths: []
+dictionaryDefinitions: []
+dictionaries: []
+words:
+  - appinfo
+  - augmentable
+  - BCP
+  - Bollinger
+  - Bradner
+  - CCC
+  - CLA
+  - clsa
+  - CMF
+  - datatypes
+  - DOI
+  - Douklias
+  - Farrington
+  - gml
+  - Hulme
+  - IDREF
+  - IDREFS
+  - IEP
+  - IEPD
+  - Infoset
+  - IPR
+  - Jahn
+  - keyref
+  - Kondannagari
+  - Korver
+  - Lavdjola
+  - Leiba
+  - Madruga
+  - metamodel
+  - Mierwa
+  - NDR
+  - NIEM
+  - nillable
+  - nonconformant
+  - NTAC
+  - Ordinality
+  - PGB
+  - RDFS
+  - referenceable
+  - Rescorla
+  - RISS
+  - Schematron
+  - Sparrell
+  - Stathakis
+  - subclassing
+  - subproperties
+  - subproperty
+  - underspecified
+  - unece
+  - Unisys
+  - unitless
+  - UTF
+  - Vamsi
+  - webarch
+  - xsi
+ignoreWords: []
+import: []

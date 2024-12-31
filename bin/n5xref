@@ -1,0 +1,50 @@
+#!/usr/bin/perl
+
+use warnings;
+use strict;
+
+my %n5rs = ();
+my %xref = ();
+
+while (<>) {
+    next unless /^\*\*Rule (\d+-\d+).*\(N5R ([^)]*)\)/;
+    my $n6r = $1;
+    my @n5rl = split(/,/,$2);
+    foreach my $n5r (@n5rl) {
+        $n5r = fix($n5r);
+        $n5rs{$n5r} = '1';
+        $xref{$n5r} .= ",$n6r" if $xref{$n5r};
+        $xref{$n5r} = $n6r unless $xref{$n5r};
+    }
+}
+
+my %n5rule;
+open(N5R, "<n5rules.txt");
+while (<N5R>) {
+    chop;
+    tr/\r//d;
+    my @x = split /,\s*/;
+    my $r = fix($x[0]);
+    my $d = $x[1];
+    $n5rule{$r} = $d;
+}
+close(N5R);
+
+print "| NIEM 6 Rules | NIEM 5 Rule |\n";
+print "| ------------ | ----------- |\n";
+foreach my $n5r (sort keys %n5rs) {
+    my $xr = $xref{$n5r};
+    my $d  = $n5rule{$n5r};
+    $n5r =~ s/^0/ /;
+    printf "| %-12s | %-5s %-40s |\n", $xr, $n5r, $d;
+}
+
+sub fix {
+    my ($r) = @_;
+    $r =~ m/(\d+)-(\d+)/;
+    my $r1 = $1;
+    my $r2 = $2;
+    $r1 = "0$r1" if length($r1) < 2;
+    $r2 = "0$r2" if length($r2) < 2;
+    return "$r1-$r2";
+}

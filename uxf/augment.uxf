@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>370</x>
+      <y>530</y>
+      <w>150</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>--
+Namespace
+--
+
+bg=LIGHT_GRAY</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>680</x>
+      <y>530</y>
+      <w>220</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>--
+AugmentationRecord
+--
+-minOccurQuantity
+-maxOccursQuantity
+-augmentedGlobalComponentID
+-augmentationIndex*</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>510</x>
+      <y>580</y>
+      <w>190</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-&gt;&gt;&gt;&gt;&gt;
+m1=0..*
+m2=1
+augmentation &gt;
+</panel_attributes>
+    <additional_attributes>170.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1060</x>
+      <y>470</y>
+      <w>130</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>--
+Class
+--
+
+bg=LIGHT_GRAY</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1060</x>
+      <y>630</y>
+      <w>130</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>--
+/Property/
+--
+
+bg=LIGHT_GRAY</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>890</x>
+      <y>490</y>
+      <w>190</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=0..1
+m2=1
+r1=class
+r1pos=-20,0</panel_attributes>
+    <additional_attributes>170.0;20.0;50.0;20.0;50.0;80.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>890</x>
+      <y>600</y>
+      <w>190</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m2=1
+m1=1
+r1=property
+r1pos=-20,0</panel_attributes>
+    <additional_attributes>170.0;80.0;50.0;80.0;50.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+</diagram>
