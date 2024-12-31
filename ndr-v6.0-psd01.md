@@ -13,22 +13,21 @@
   </div>
 </div>
 
-<!---
+<!--
 If you want to check the line length in code blocks, uncomment this code block,
 set the width of your markdown preview window so that the following line does not wrap,
 and the terminal "X" is visible without the horizontal scrollbar:
 ```
 .........1.........2.........3.........4.........5.........6.........7.........8.........9.........0.........1.........2.......X
-This is the width of a code block when the OASIS-formatted HTML is printed to PDF by Microsoft Edge.
+This is the width of a code block when the OASIS-formatted HTML is printed to PDF by Microsoft Edge with 0.4 inch margins
 ```
---->
+-->
+
 -------
 
 # NIEM Naming and Design Rules (NDR) Version 6.0
 
 ## Project Specification Draft 01
-
-## 22 December 2024 draft
 
 &nbsp;
 
@@ -123,7 +122,7 @@ This document specifies principles and enforceable rules for NIEM data component
 
 | Term                 |  Definition  |
 | :----                |  :---  |
-| <a name="def-absolute-uri"></a>absolute uri | A Uniform Resource Identifier (URI) with scheme, hierarchical part, and optional query, but without a fragment; a URI matching the production `<absoluteURI>` in <a href="#rfc-3986"><b>[RFC 3986]</b></a>. |
+| <a name="def-absolute-uri"></a>absolute uri | A Uniform Resource Identifier (URI) with scheme, hierarchical part, and optional query, but without a fragment; a URI matching the grammar production `<absoluteURI>` as defined by <a href="#rfc-3986"><b>[RFC 3986]</b></a>. |
 | <a name="def-adapter-class"></a>adapter class | A class that contains only properties from a single [<span class="termRef">external namespace</span>](#def-external-namespace). [*see [§4.4](#44-class)*] |
 | <a name="def-adapter-type"></a>adapter type | An XSD type definition that encapsulates [<span class="termRef">external components</span>](#def-external-component) for use within NIEM. *(see [§9.4](#94-rules-for-adapters-and-external-components))* |
 | <a name="def-appinfo-namespace"></a>appinfo namespace | A namespace defined by a schema document that provides additional semantics for components in the XSD representation of a model. *(see [§9.7](#97-rules-for-machine-readable-annotations))* |
@@ -165,7 +164,7 @@ This document specifies principles and enforceable rules for NIEM data component
 | <a name="def-message-type"></a>message type | A specification of the information content of [<span class="termRef">messages</span>](#def-message). *(see [§3.1.3](#313-message-type))* |
 | <a name="def-model-file"></a>model file | The CMF representation of a NIEM model; a [<span class="termRef">message</span>](#def-message) that conforms to the CMF [<span class="termRef">message type</span>](#def-message-type). *(see [§3.5](#35-niem-model-representations-xsd-and-cmf), [§6.1](#61-conformance-targets))* |
 | <a name="def-namespace"></a>namespace | A collection of uniquely-named components, managed by an authoritative source. *(see [§3.6](#36-namespaces))* |
-| <a name="def-ncname"></a>ncname | A non-colonized name, matching the production `<NCName>` in <a href="#xml-namespaces"><b>[XML Namespaces]</b></a>. |
+| <a name="def-ncname"></a>ncname | A non-colonized name, matching the grammar production `<NCName>` as defined by <a href="#xml-namespaces"><b>[XML Namespaces]</b></a>. |
 | <a name="def-object-class"></a>object class | Represents a class of objects defined by a NIEM model. *(see [§4.4](#44-class))* |
 | <a name="def-proxy-type"></a>proxy type | An XSD complex type definition with simple content that extends one of the simple types in the XML Schema namespace with `structures:SimpleObjectAttributeGroup`. *(see [§9.5](#95-rules-for-proxy-types))* |
 | <a name="def-relationship-property"></a>relationship property | A property that provides information about the relationship between its parent and grandparent objects. *(see [§4.6](#46-property), [§5.5](#55-relationship-properties))* |
@@ -1842,26 +1841,26 @@ If a message designer decides to reuse `nc:NumericType`, and to remove `nc:toler
 Going the other way, augmenting a reused datatype turns it into a literal class. For example, `nc:PersonUnionCategoryCodeType` is a datatype in the NIEM model, and `nc:PersonUnionCategoryCode` is a data property with that datatype. [Figure 5-5](#fig5-5) shows the datatype representation in CMF and XSD; [figure 5-6](#fig5-6) shows the data property in an XML and JSON message.
 
 ```
-<xs:complexType name="PersonUnionCategoryCodeType">      | <Restriction structures:id="nc.PersonUnionCategoryCodeType">
-  <xs:simpleContent>                                     |   <Name>PersonUnionCategoryCodeType</Name>
-    <xs:restriction base="niem-xs:token">                |   <Namespace structures:ref="nc" xsi:nil="true"/>
-      <xs:enumeration value="civil union"/>              |   <RestrictionBase structures:ref="xs.token" xsi:nil="true"/>
-      <xs:enumeration value="common law"/>               |   <Enumeration>
-      <xs:enumeration value="domestic partnership"/>     |     <StringValue>civil union</StringValue>
-      <xs:enumeration value="married"/>                  |   </Enumeration>
-      <xs:enumeration value="unknown"/>                  |   <Enumeration>
-    </xs:restriction>                                    |     <StringValue>common law</StringValue>
-  </xs:simpleContent>                                    |   </Enumeration>
-</xs:complexType>                                        |   <Enumeration>
-                                                         |     <StringValue>domestic partnership</StringValue>
-                                                         |   </Enumeration>
-                                                         |   <Enumeration>
-                                                         |     <StringValue>married</StringValue>
-                                                         |   </Enumeration>
-                                                         |   <Enumeration>
-                                                         |     <StringValue>unknown</StringValue>
-                                                         |   </Enumeration>
-                                                         | </Restriction>
+<Restriction structures:id="nc.PersonUnionCategoryCodeType">      | <xs:complexType name="PersonUnionCategoryCodeType">
+  <Name>PersonUnionCategoryCodeType</Name>                        |   <xs:simpleContent>
+  <Namespace structures:ref="nc" xsi:nil="true"/>                 |     <xs:restriction base="niem-xs:token">
+  <RestrictionBase structures:ref="xs.token" xsi:nil="true"/>     |       <xs:enumeration value="civil union"/>
+  <Enumeration>                                                   |       <xs:enumeration value="common law"/>
+    <StringValue>civil union</StringValue>                        |       <xs:enumeration value="domestic partnership"/>
+  </Enumeration>                                                  |       <xs:enumeration value="married"/>
+  <Enumeration>                                                   |       <xs:enumeration value="unknown"/>
+    <StringValue>common law</StringValue>                         |     </xs:restriction>
+  </Enumeration>                                                  |   </xs:simpleContent>
+  <Enumeration>                                                   | </xs:complexType>
+    <StringValue>domestic partnership</StringValue>               | 
+  </Enumeration>                                                  | 
+  <Enumeration>                                                   | 
+    <StringValue>married</StringValue>                            | 
+  </Enumeration>                                                  | 
+  <Enumeration>                                                   | 
+    <StringValue>unknown</StringValue>                            | 
+  </Enumeration>                                                  | 
+</Restriction>                                                    | 
 ```
 <figcaption><a name="fig5-5">Figure 5-5: A datatype in CMF and XSD</a></figcaption>
 
@@ -1875,47 +1874,46 @@ Going the other way, augmenting a reused datatype turns it into a literal class.
 A message designer might decide to augment `nc:PersonUnionCategoryCodeType` with metadata to indicate this information is sometimes privileged. Doing so turns it into a literal class in his model subset. [Figure 5-7](#fig5-7) shows the CMF and XSD representations of that subset; [figure 5-8](#fig5-8) shows the resulting object in an XML and JSON message.
 
 ```
-<xs:simpleType name="PersonUnionCategoryCodeSimpleType">        | <Restriction structures:id="nc.PersonUnionCategoryCodeSimple
-  <xs:restriction base="xs:token">                              |   <Name>PersonUnionCategoryCodeSimpleType</Name>
-    <xs:enumeration value="civil union"/>                       |   <Namespace structures:ref="nc"/>
-    <xs:enumeration value="common law"/>                        |   <RestrictionBase structures:ref="xs.token" xsi:nil="true"/
-    <xs:enumeration value="domestic partnership"/>              |   <Enumeration>
-    <xs:enumeration value="married"/>                           |     <StringValue>civil union</StringValue>
-    <xs:enumeration value="unknown"/>                           |   </Enumeration>
-  </xs:restriction>                                             |   <Enumeration>
-</xs:simpleType>                                                |     <StringValue>common law</StringValue>
-<xs:complexType name="PersonUnionCategoryCodeType">             |   </Enumeration>
-  <xs:simpleContent>                                            |   <Enumeration>
-    <xs:extension base="nc:PersonUnionCategoryCodeSimpleType">  |     <StringValue>domestic partnership</StringValue>
-      <xs:attribute ref="my:privileged"                         |   </Enumeration>
-          appinfo:augmentingNamespace="my"/>                    |   <Enumeration>
-      <xs:attributeGroup ref="structures:SimpleObjectAttributeG |     <StringValue>married</StringValue>
-    </xs:extension>                                             |   </Enumeration>
-  </xs:simpleContent>                                           |   <Enumeration>
-</xs:complexType>                                               |     <StringValue>unknown</StringValue>
-                                                                |   </Enumeration>
-                                                                | </Restriction>
-                                                                | <DataProperty structures:id="nc.PersonCategoryCodeLiteral">
-                                                                |   <Name>PersonUnionCategoryCodeLiteral</Name>
-                                                                |   <Namespace structures:ref="nc"/>
-                                                                |   <Datatype structures:ref="nc.PersonUnionCategoryCodeSimple
-                                                                | </DataProperty>
-                                                                | <Class>
-                                                                |   <Name>PersonUnionCategoryCodeType</Name>
-                                                                |   <Namespace structures:ref="nc"/>
-                                                                |   <ChildPropertyAssociation>
-                                                                |     <DataProperty structures:ref="nc.PersonCategoryCodeLiter
-                                                                |     <MinOccursQuantity>1</MinOccursQuantity>
-                                                                |     <MaxOccursQuantity>1</MaxOccursQuantity>
-                                                                |   </ChildPropertyAssociation>
-                                                                |   <ChildPropertyAssociation>
-                                                                |     <DataProperty structures:ref="my.privileged"/>
-                                                                |     <MinOccursQuantity>0</MinOccursQuantity>
-                                                                |     <MaxOccursQuantity>1</MaxOccursQuantity>
-                                                                |     <AugmentingNamespace>my</AugmentingNamespace>
-                                                                |   </ChildPropertyAssociation>
-                                                                | </Class>
-                                                                |
+<Restriction structures:id="nc.PersonUnionCategoryCodeSimple | <xs:simpleType name="PersonUnionCategoryCodeSimpleType">
+  <Name>PersonUnionCategoryCodeSimpleType</Name>             |   <xs:restriction base="xs:token">
+  <Namespace structures:ref="nc"/>                           |     <xs:enumeration value="civil union"/>
+  <RestrictionBase structures:ref="xs.token" xsi:nil="true"/ |     <xs:enumeration value="common law"/>
+  <Enumeration>                                              |     <xs:enumeration value="domestic partnership"/>
+    <StringValue>civil union</StringValue>                   |     <xs:enumeration value="married"/>
+  </Enumeration>                                             |     <xs:enumeration value="unknown"/>
+  <Enumeration>                                              |   </xs:restriction>
+    <StringValue>common law</StringValue>                    | </xs:simpleType>
+  </Enumeration>                                             | <xs:complexType name="PersonUnionCategoryCodeType">
+  <Enumeration>                                              |   <xs:simpleContent>
+    <StringValue>domestic partnership</StringValue>          |     <xs:extension base="nc:PersonUnionCategoryCodeSimpleType">
+  </Enumeration>                                             |       <xs:attribute ref="my:privileged"
+  <Enumeration>                                              |           appinfo:augmentingNamespace="my"/>
+    <StringValue>married</StringValue>                       |       <xs:attributeGroup ref="structures:SimpleObjectAttributeG
+  </Enumeration>                                             |     </xs:extension>
+  <Enumeration>                                              |   </xs:simpleContent>
+    <StringValue>unknown</StringValue>                       | </xs:complexType>
+  </Enumeration>                                             | 
+</Restriction>                                               | 
+<DataProperty structures:id="nc.PersonCategoryCodeLiteral">  | 
+  <Name>PersonUnionCategoryCodeLiteral</Name>                | 
+  <Namespace structures:ref="nc"/>                           | 
+  <Datatype structures:ref="nc.PersonUnionCategoryCodeSimple | 
+</DataProperty>                                              | 
+<Class>                                                      | 
+  <Name>PersonUnionCategoryCodeType</Name>                   | 
+  <Namespace structures:ref="nc"/>                           | 
+  <ChildPropertyAssociation>                                 | 
+    <DataProperty structures:ref="nc.PersonCategoryCodeLiter | 
+    <MinOccursQuantity>1</MinOccursQuantity>                 | 
+    <MaxOccursQuantity>1</MaxOccursQuantity>                 | 
+  </ChildPropertyAssociation>                                | 
+  <ChildPropertyAssociation>                                 | 
+    <DataProperty structures:ref="my.privileged"/>           | 
+    <MinOccursQuantity>0</MinOccursQuantity>                 | 
+    <MaxOccursQuantity>1</MaxOccursQuantity>                 | 
+    <AugmentingNamespace>my</AugmentingNamespace>            | 
+  </ChildPropertyAssociation>                                | 
+</Class>                                                     | 
 ```
 <figcaption><a name="fig5-7">Figure 5-7: A literal class in a CMF and XSD model subset</a></figcaption>
 
@@ -2171,19 +2169,19 @@ The NIEM model contains a number of classes and properties that are suitable for
 A message designer might also want to record source and confidence in a class reused from another namespace.  This is done through augmentation, following one of two patterns.  The first is to augment the class with an object property.  [Figure 5-17](#fig5-17) shows a message example in which `nc:PersonType` is augmented with `nc:Metadata`.
 
 ```
-<nc:Person>                                                                 | "nc:Person": {
-  <nc:PersonBirthDate>                                                      |   "nc:PersonBirthDate": {
-    <nc:Date>2021-09-11</nc:Date>                                           |     "nc:Date": "2021-09-11"
-  </nc:PersonBirthDate>                                                     |   },
-  <nc:PersonName>                                                           |   "nc:PersonName": {
-    <nc:PersonFullName nc:metadataRef="m2">John Doe</nc:PersonFullName>     |     "nc:PersonFullName": "John Doe",
-  </nc:PersonName>                                                          |     "nc:metadataRef": "#m2"
-</nc:Person>                                                                |   },
-<nc:Metadata structures:id="m2">                                            |   "nc:Metadata": {
-  <nc:ConfidencePercent>75</nc:ConfidencePercent>                           |     "@id": "#m2",
-</nc:Metadata>                                                              |     "nc:ConfidencePercent": "75",
-                                                                            |   }
-                                                                            | }
+<nc:Person>                                             | "nc:Person": {
+  <nc:PersonBirthDate>                                  |   "nc:PersonBirthDate": {
+    <nc:Date>2021-09-11</nc:Date>                       |     "nc:Date": "2021-09-11"
+  </nc:PersonBirthDate>                                 |   },
+  <nc:PersonName>                                       |   "nc:PersonName": {
+    <nc:PersonFullName>John Doe</nc:PersonFullName>     |     "nc:PersonFullName": "John Doe"
+  </nc:PersonName>                                      |   },
+  <my:PersonAugmentation>                               |   "nc:Metadata": {
+    <nc:Metadata">                                      |     "nc:SourceIDText": "Tango-7"
+      <nc:SourceIDText>Tango-7</nc:SourceIDText>        |   }
+    </nc:Metadata>                                      | }
+  </my:PersonAugmentation>                              | 
+</nc:Person>                                            | 
 ```
 <figcaption><a name="fig5-17">Figure 5-17: Metadata object property augmenting a reused class</a></figcaption>
 
@@ -2687,7 +2685,7 @@ These rules apply to Class objects in CMF, and to complex type definitions in XS
 
 ## 8.1 Rules for properties of namespaces
 
-<a name="rule8-1"></a>**Rule 8-1:** The namespace MUST have an identifier, which MUST match the production `<absolute-URI>` as defined by <a href="#rfc-3986"><b>[RFC 3986]</b></a>. In CMF, the namespace identifier is the value of the NamespaceURI property in a Namespace object. In XSD, the namespace identifier is the value of `@targetNamespace` in the `<xs:schema>` element.
+<a name="rule8-1"></a>**Rule 8-1:** The namespace MUST have an identifier, which MUST match the grammar production `<absolute-URI>` as defined by <a href="#rfc-3986"><b>[RFC 3986]</b></a>. In CMF, the namespace identifier is the value of the NamespaceURI property in a Namespace object. In XSD, the namespace identifier is the value of `@targetNamespace` in the `<xs:schema>` element.
 
 <a name="rule8-2"></a>**Rule 8-2:** The namespace identifier must be a URI that is owned by the namespace author, as defined in <a href="#webarch"><b>[webarch]</b></a> [§2.2.2.1 *URI ownership*](https://www.w3.org/TR/webarch/#uri-ownership).
 
@@ -2709,7 +2707,7 @@ http://example.com/yourNS/1.1.1-alpha.7/
 
 In semantic versioning, version numbers and the way they change convey meaning about the underlying code and what has been modified from one version to the next.
 
-<a name="rule8-6"></a>**Rule 8-6:** The namespace MUST have a defined prefix, which MUST match the production `<NCName>` as defined by <a href="#xml-namespaces"><b>[XML Namespaces]</b></a>.
+<a name="rule8-6"></a>**Rule 8-6:** The namespace MUST have a defined prefix, which MUST match the grammar production `<NCName>` as defined by <a href="#xml-namespaces"><b>[XML Namespaces]</b></a>.
 
 In CMF, the prefix is the value of the NamespacePrefix property in a Namespace object. In XSD, the prefix is defined by a namespace binding for the target namespace URI.
 
@@ -3222,7 +3220,7 @@ This rule requires that the type of the element pointed to by a structures:ref a
 
 For example, an element that is the target of `nc:metadataRef` must have the type `nc:MetadataType`, or a derived type.
 
-<a name="rule12-12"></a>**Rule 12-12:** The value of an attribute with or derived from `xs:anyURI` MUST satisfy the production `<URI-reference>` as defined in <a href="#rfc-3986"><b>[RFC 3986]</b></a>.
+<a name="rule12-12"></a>**Rule 12-12:** The value of an attribute with or derived from `xs:anyURI` MUST satisfy the grammar production `<URI-reference>` as defined by <a href="#rfc-3986"><b>[RFC 3986]</b></a>.
 
 XML Schema validation does not always check the validity of URI values.  Examples of valid and invalid URI attributes:
 
@@ -3246,7 +3244,7 @@ even though this is schema-valid. Instead, all properties should be consolidated
 
 # 13. Rules for JSON messages
 
-<a name="rule13-1"></a>**Rule 13-1:** A JSON message MUST be valid according to the `<object>` production as defined by [[RFC 8259]].
+<a name="rule13-1"></a>**Rule 13-1:** A JSON message MUST be valid according to the grammar production `<object>` as defined by [[RFC 8259]].
 
 According to the JSON specification, a valid JSON text can be an object, array, number, string, or literal name. Only the first of these is allowed as a NIEM JSON message.
 
@@ -4080,9 +4078,9 @@ As stated in the OASIS IPR Policy, the following three paragraphs in brackets ap
 
 The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the owner and developer of this specification, and should be used only to refer to the organization and its official outputs. OASIS welcomes reference to, and implementation and use of, specifications, while reserving the right to enforce its marks against misleading uses. Please see https://www.oasis-open.org/policies-guidelines/trademark/ for above guidance.
 
-<!--->
+<!--
 I have copied the CSS styling from *styles/ndr-styles.css* to help your markdown previewer do the right thing.
---->
+-->
 <style>
 a { text-decoration: none; color: #000; background-color: #FFF; }
 a[href]:hover { color: #000; background-color: #F9FAD4; }

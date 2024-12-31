@@ -37,9 +37,7 @@ Design Rules (NDR) Version 6.0</a>
 <ul>
 <li><a href="#project-specification-draft-01"
 id="toc-project-specification-draft-01">Project Specification Draft
-01</a></li>
-<li><a href="#22-december-2024-draft" id="toc-22-december-2024-draft">22
-December 2024 draft</a>
+01</a>
 <ul>
 <li><a href="#this-stage" id="toc-this-stage">This stage:</a></li>
 <li><a href="#previous-stage" id="toc-previous-stage">Previous
@@ -405,22 +403,21 @@ G. Notices</a></li>
   </div>
 </div>
 
-<!---
+<!--
 If you want to check the line length in code blocks, uncomment this code block,
 set the width of your markdown preview window so that the following line does not wrap,
 and the terminal "X" is visible without the horizontal scrollbar:
 ```
 .........1.........2.........3.........4.........5.........6.........7.........8.........9.........0.........1.........2.......X
-This is the width of a code block when the OASIS-formatted HTML is printed to PDF by Microsoft Edge.
+This is the width of a code block when the OASIS-formatted HTML is printed to PDF by Microsoft Edge with 0.4 inch margins
 ```
---->
+-->
 
 <hr />
 <h1 id="niem-naming-and-design-rules-ndr-version-60">NIEM Naming and
 Design Rules (NDR) Version 6.0</h1>
 <h2 id="project-specification-draft-01">Project Specification Draft
 01</h2>
-<h2 id="22-december-2024-draft">22 December 2024 draft</h2>
 <p> </p>
 <h4 id="this-stage">This stage:</h4>
 <p><a
@@ -592,8 +589,8 @@ schemas.</p>
 uri</td>
 <td style="text-align: left;">A Uniform Resource Identifier (URI) with
 scheme, hierarchical part, and optional query, but without a fragment; a
-URI matching the production <code>&lt;absoluteURI&gt;</code> in
-<a href="#rfc-3986"><b>[RFC 3986]</b></a>.</td>
+URI matching the grammar production <code>&lt;absoluteURI&gt;</code> as
+defined by <a href="#rfc-3986"><b>[RFC 3986]</b></a>.</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a name="def-adapter-class"></a>adapter
@@ -949,8 +946,8 @@ href="#36-namespaces">§3.6</a>)</em></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a name="def-ncname"></a>ncname</td>
-<td style="text-align: left;">A non-colonized name, matching the
-production <code>&lt;NCName&gt;</code> in
+<td style="text-align: left;">A non-colonized name, matching the grammar
+production <code>&lt;NCName&gt;</code> as defined by
 <a href="#xml-namespaces"><b>[XML Namespaces]</b></a>.</td>
 </tr>
 <tr class="even">
@@ -4818,26 +4815,26 @@ is a datatype in the NIEM model, and
 datatype. <a href="#fig5-5">Figure 5-5</a> shows the datatype
 representation in CMF and XSD; <a href="#fig5-6">figure 5-6</a> shows
 the data property in an XML and JSON message.</p>
-<pre><code>&lt;xs:complexType name=&quot;PersonUnionCategoryCodeType&quot;&gt;      | &lt;Restriction structures:id=&quot;nc.PersonUnionCategoryCodeType&quot;&gt;
-  &lt;xs:simpleContent&gt;                                     |   &lt;Name&gt;PersonUnionCategoryCodeType&lt;/Name&gt;
-    &lt;xs:restriction base=&quot;niem-xs:token&quot;&gt;                |   &lt;Namespace structures:ref=&quot;nc&quot; xsi:nil=&quot;true&quot;/&gt;
-      &lt;xs:enumeration value=&quot;civil union&quot;/&gt;              |   &lt;RestrictionBase structures:ref=&quot;xs.token&quot; xsi:nil=&quot;true&quot;/&gt;
-      &lt;xs:enumeration value=&quot;common law&quot;/&gt;               |   &lt;Enumeration&gt;
-      &lt;xs:enumeration value=&quot;domestic partnership&quot;/&gt;     |     &lt;StringValue&gt;civil union&lt;/StringValue&gt;
-      &lt;xs:enumeration value=&quot;married&quot;/&gt;                  |   &lt;/Enumeration&gt;
-      &lt;xs:enumeration value=&quot;unknown&quot;/&gt;                  |   &lt;Enumeration&gt;
-    &lt;/xs:restriction&gt;                                    |     &lt;StringValue&gt;common law&lt;/StringValue&gt;
-  &lt;/xs:simpleContent&gt;                                    |   &lt;/Enumeration&gt;
-&lt;/xs:complexType&gt;                                        |   &lt;Enumeration&gt;
-                                                         |     &lt;StringValue&gt;domestic partnership&lt;/StringValue&gt;
-                                                         |   &lt;/Enumeration&gt;
-                                                         |   &lt;Enumeration&gt;
-                                                         |     &lt;StringValue&gt;married&lt;/StringValue&gt;
-                                                         |   &lt;/Enumeration&gt;
-                                                         |   &lt;Enumeration&gt;
-                                                         |     &lt;StringValue&gt;unknown&lt;/StringValue&gt;
-                                                         |   &lt;/Enumeration&gt;
-                                                         | &lt;/Restriction&gt;</code></pre>
+<pre><code>&lt;Restriction structures:id=&quot;nc.PersonUnionCategoryCodeType&quot;&gt;      | &lt;xs:complexType name=&quot;PersonUnionCategoryCodeType&quot;&gt;
+  &lt;Name&gt;PersonUnionCategoryCodeType&lt;/Name&gt;                        |   &lt;xs:simpleContent&gt;
+  &lt;Namespace structures:ref=&quot;nc&quot; xsi:nil=&quot;true&quot;/&gt;                 |     &lt;xs:restriction base=&quot;niem-xs:token&quot;&gt;
+  &lt;RestrictionBase structures:ref=&quot;xs.token&quot; xsi:nil=&quot;true&quot;/&gt;     |       &lt;xs:enumeration value=&quot;civil union&quot;/&gt;
+  &lt;Enumeration&gt;                                                   |       &lt;xs:enumeration value=&quot;common law&quot;/&gt;
+    &lt;StringValue&gt;civil union&lt;/StringValue&gt;                        |       &lt;xs:enumeration value=&quot;domestic partnership&quot;/&gt;
+  &lt;/Enumeration&gt;                                                  |       &lt;xs:enumeration value=&quot;married&quot;/&gt;
+  &lt;Enumeration&gt;                                                   |       &lt;xs:enumeration value=&quot;unknown&quot;/&gt;
+    &lt;StringValue&gt;common law&lt;/StringValue&gt;                         |     &lt;/xs:restriction&gt;
+  &lt;/Enumeration&gt;                                                  |   &lt;/xs:simpleContent&gt;
+  &lt;Enumeration&gt;                                                   | &lt;/xs:complexType&gt;
+    &lt;StringValue&gt;domestic partnership&lt;/StringValue&gt;               | 
+  &lt;/Enumeration&gt;                                                  | 
+  &lt;Enumeration&gt;                                                   | 
+    &lt;StringValue&gt;married&lt;/StringValue&gt;                            | 
+  &lt;/Enumeration&gt;                                                  | 
+  &lt;Enumeration&gt;                                                   | 
+    &lt;StringValue&gt;unknown&lt;/StringValue&gt;                            | 
+  &lt;/Enumeration&gt;                                                  | 
+&lt;/Restriction&gt;                                                    | </code></pre>
 <figcaption><a name="fig5-5">Figure 5-5: A datatype in CMF and XSD</a></figcaption>
 
 <pre><code>&lt;nc:Person&gt;                                                            | &quot;nc:Person&quot;: {
@@ -4852,47 +4849,46 @@ literal class in his model subset. <a href="#fig5-7">Figure 5-7</a>
 shows the CMF and XSD representations of that subset; <a
 href="#fig5-8">figure 5-8</a> shows the resulting object in an XML and
 JSON message.</p>
-<pre><code>&lt;xs:simpleType name=&quot;PersonUnionCategoryCodeSimpleType&quot;&gt;        | &lt;Restriction structures:id=&quot;nc.PersonUnionCategoryCodeSimple
-  &lt;xs:restriction base=&quot;xs:token&quot;&gt;                              |   &lt;Name&gt;PersonUnionCategoryCodeSimpleType&lt;/Name&gt;
-    &lt;xs:enumeration value=&quot;civil union&quot;/&gt;                       |   &lt;Namespace structures:ref=&quot;nc&quot;/&gt;
-    &lt;xs:enumeration value=&quot;common law&quot;/&gt;                        |   &lt;RestrictionBase structures:ref=&quot;xs.token&quot; xsi:nil=&quot;true&quot;/
-    &lt;xs:enumeration value=&quot;domestic partnership&quot;/&gt;              |   &lt;Enumeration&gt;
-    &lt;xs:enumeration value=&quot;married&quot;/&gt;                           |     &lt;StringValue&gt;civil union&lt;/StringValue&gt;
-    &lt;xs:enumeration value=&quot;unknown&quot;/&gt;                           |   &lt;/Enumeration&gt;
-  &lt;/xs:restriction&gt;                                             |   &lt;Enumeration&gt;
-&lt;/xs:simpleType&gt;                                                |     &lt;StringValue&gt;common law&lt;/StringValue&gt;
-&lt;xs:complexType name=&quot;PersonUnionCategoryCodeType&quot;&gt;             |   &lt;/Enumeration&gt;
-  &lt;xs:simpleContent&gt;                                            |   &lt;Enumeration&gt;
-    &lt;xs:extension base=&quot;nc:PersonUnionCategoryCodeSimpleType&quot;&gt;  |     &lt;StringValue&gt;domestic partnership&lt;/StringValue&gt;
-      &lt;xs:attribute ref=&quot;my:privileged&quot;                         |   &lt;/Enumeration&gt;
-          appinfo:augmentingNamespace=&quot;my&quot;/&gt;                    |   &lt;Enumeration&gt;
-      &lt;xs:attributeGroup ref=&quot;structures:SimpleObjectAttributeG |     &lt;StringValue&gt;married&lt;/StringValue&gt;
-    &lt;/xs:extension&gt;                                             |   &lt;/Enumeration&gt;
-  &lt;/xs:simpleContent&gt;                                           |   &lt;Enumeration&gt;
-&lt;/xs:complexType&gt;                                               |     &lt;StringValue&gt;unknown&lt;/StringValue&gt;
-                                                                |   &lt;/Enumeration&gt;
-                                                                | &lt;/Restriction&gt;
-                                                                | &lt;DataProperty structures:id=&quot;nc.PersonCategoryCodeLiteral&quot;&gt;
-                                                                |   &lt;Name&gt;PersonUnionCategoryCodeLiteral&lt;/Name&gt;
-                                                                |   &lt;Namespace structures:ref=&quot;nc&quot;/&gt;
-                                                                |   &lt;Datatype structures:ref=&quot;nc.PersonUnionCategoryCodeSimple
-                                                                | &lt;/DataProperty&gt;
-                                                                | &lt;Class&gt;
-                                                                |   &lt;Name&gt;PersonUnionCategoryCodeType&lt;/Name&gt;
-                                                                |   &lt;Namespace structures:ref=&quot;nc&quot;/&gt;
-                                                                |   &lt;ChildPropertyAssociation&gt;
-                                                                |     &lt;DataProperty structures:ref=&quot;nc.PersonCategoryCodeLiter
-                                                                |     &lt;MinOccursQuantity&gt;1&lt;/MinOccursQuantity&gt;
-                                                                |     &lt;MaxOccursQuantity&gt;1&lt;/MaxOccursQuantity&gt;
-                                                                |   &lt;/ChildPropertyAssociation&gt;
-                                                                |   &lt;ChildPropertyAssociation&gt;
-                                                                |     &lt;DataProperty structures:ref=&quot;my.privileged&quot;/&gt;
-                                                                |     &lt;MinOccursQuantity&gt;0&lt;/MinOccursQuantity&gt;
-                                                                |     &lt;MaxOccursQuantity&gt;1&lt;/MaxOccursQuantity&gt;
-                                                                |     &lt;AugmentingNamespace&gt;my&lt;/AugmentingNamespace&gt;
-                                                                |   &lt;/ChildPropertyAssociation&gt;
-                                                                | &lt;/Class&gt;
-                                                                |</code></pre>
+<pre><code>&lt;Restriction structures:id=&quot;nc.PersonUnionCategoryCodeSimple | &lt;xs:simpleType name=&quot;PersonUnionCategoryCodeSimpleType&quot;&gt;
+  &lt;Name&gt;PersonUnionCategoryCodeSimpleType&lt;/Name&gt;             |   &lt;xs:restriction base=&quot;xs:token&quot;&gt;
+  &lt;Namespace structures:ref=&quot;nc&quot;/&gt;                           |     &lt;xs:enumeration value=&quot;civil union&quot;/&gt;
+  &lt;RestrictionBase structures:ref=&quot;xs.token&quot; xsi:nil=&quot;true&quot;/ |     &lt;xs:enumeration value=&quot;common law&quot;/&gt;
+  &lt;Enumeration&gt;                                              |     &lt;xs:enumeration value=&quot;domestic partnership&quot;/&gt;
+    &lt;StringValue&gt;civil union&lt;/StringValue&gt;                   |     &lt;xs:enumeration value=&quot;married&quot;/&gt;
+  &lt;/Enumeration&gt;                                             |     &lt;xs:enumeration value=&quot;unknown&quot;/&gt;
+  &lt;Enumeration&gt;                                              |   &lt;/xs:restriction&gt;
+    &lt;StringValue&gt;common law&lt;/StringValue&gt;                    | &lt;/xs:simpleType&gt;
+  &lt;/Enumeration&gt;                                             | &lt;xs:complexType name=&quot;PersonUnionCategoryCodeType&quot;&gt;
+  &lt;Enumeration&gt;                                              |   &lt;xs:simpleContent&gt;
+    &lt;StringValue&gt;domestic partnership&lt;/StringValue&gt;          |     &lt;xs:extension base=&quot;nc:PersonUnionCategoryCodeSimpleType&quot;&gt;
+  &lt;/Enumeration&gt;                                             |       &lt;xs:attribute ref=&quot;my:privileged&quot;
+  &lt;Enumeration&gt;                                              |           appinfo:augmentingNamespace=&quot;my&quot;/&gt;
+    &lt;StringValue&gt;married&lt;/StringValue&gt;                       |       &lt;xs:attributeGroup ref=&quot;structures:SimpleObjectAttributeG
+  &lt;/Enumeration&gt;                                             |     &lt;/xs:extension&gt;
+  &lt;Enumeration&gt;                                              |   &lt;/xs:simpleContent&gt;
+    &lt;StringValue&gt;unknown&lt;/StringValue&gt;                       | &lt;/xs:complexType&gt;
+  &lt;/Enumeration&gt;                                             | 
+&lt;/Restriction&gt;                                               | 
+&lt;DataProperty structures:id=&quot;nc.PersonCategoryCodeLiteral&quot;&gt;  | 
+  &lt;Name&gt;PersonUnionCategoryCodeLiteral&lt;/Name&gt;                | 
+  &lt;Namespace structures:ref=&quot;nc&quot;/&gt;                           | 
+  &lt;Datatype structures:ref=&quot;nc.PersonUnionCategoryCodeSimple | 
+&lt;/DataProperty&gt;                                              | 
+&lt;Class&gt;                                                      | 
+  &lt;Name&gt;PersonUnionCategoryCodeType&lt;/Name&gt;                   | 
+  &lt;Namespace structures:ref=&quot;nc&quot;/&gt;                           | 
+  &lt;ChildPropertyAssociation&gt;                                 | 
+    &lt;DataProperty structures:ref=&quot;nc.PersonCategoryCodeLiter | 
+    &lt;MinOccursQuantity&gt;1&lt;/MinOccursQuantity&gt;                 | 
+    &lt;MaxOccursQuantity&gt;1&lt;/MaxOccursQuantity&gt;                 | 
+  &lt;/ChildPropertyAssociation&gt;                                | 
+  &lt;ChildPropertyAssociation&gt;                                 | 
+    &lt;DataProperty structures:ref=&quot;my.privileged&quot;/&gt;           | 
+    &lt;MinOccursQuantity&gt;0&lt;/MinOccursQuantity&gt;                 | 
+    &lt;MaxOccursQuantity&gt;1&lt;/MaxOccursQuantity&gt;                 | 
+    &lt;AugmentingNamespace&gt;my&lt;/AugmentingNamespace&gt;            | 
+  &lt;/ChildPropertyAssociation&gt;                                | 
+&lt;/Class&gt;                                                     | </code></pre>
 <figcaption><a name="fig5-7">Figure 5-7: A literal class in a CMF and XSD model subset</a></figcaption>
 
 <pre><code>&lt;nc:Person&gt;                                                         | &quot;nc:Person&quot;: {
@@ -5283,19 +5279,19 @@ augmentation, following one of two patterns. The first is to augment the
 class with an object property. <a href="#fig5-17">Figure 5-17</a> shows
 a message example in which <code>nc:PersonType</code> is augmented with
 <code>nc:Metadata</code>.</p>
-<pre><code>&lt;nc:Person&gt;                                                                 | &quot;nc:Person&quot;: {
-  &lt;nc:PersonBirthDate&gt;                                                      |   &quot;nc:PersonBirthDate&quot;: {
-    &lt;nc:Date&gt;2021-09-11&lt;/nc:Date&gt;                                           |     &quot;nc:Date&quot;: &quot;2021-09-11&quot;
-  &lt;/nc:PersonBirthDate&gt;                                                     |   },
-  &lt;nc:PersonName&gt;                                                           |   &quot;nc:PersonName&quot;: {
-    &lt;nc:PersonFullName nc:metadataRef=&quot;m2&quot;&gt;John Doe&lt;/nc:PersonFullName&gt;     |     &quot;nc:PersonFullName&quot;: &quot;John Doe&quot;,
-  &lt;/nc:PersonName&gt;                                                          |     &quot;nc:metadataRef&quot;: &quot;#m2&quot;
-&lt;/nc:Person&gt;                                                                |   },
-&lt;nc:Metadata structures:id=&quot;m2&quot;&gt;                                            |   &quot;nc:Metadata&quot;: {
-  &lt;nc:ConfidencePercent&gt;75&lt;/nc:ConfidencePercent&gt;                           |     &quot;@id&quot;: &quot;#m2&quot;,
-&lt;/nc:Metadata&gt;                                                              |     &quot;nc:ConfidencePercent&quot;: &quot;75&quot;,
-                                                                            |   }
-                                                                            | }</code></pre>
+<pre><code>&lt;nc:Person&gt;                                             | &quot;nc:Person&quot;: {
+  &lt;nc:PersonBirthDate&gt;                                  |   &quot;nc:PersonBirthDate&quot;: {
+    &lt;nc:Date&gt;2021-09-11&lt;/nc:Date&gt;                       |     &quot;nc:Date&quot;: &quot;2021-09-11&quot;
+  &lt;/nc:PersonBirthDate&gt;                                 |   },
+  &lt;nc:PersonName&gt;                                       |   &quot;nc:PersonName&quot;: {
+    &lt;nc:PersonFullName&gt;John Doe&lt;/nc:PersonFullName&gt;     |     &quot;nc:PersonFullName&quot;: &quot;John Doe&quot;
+  &lt;/nc:PersonName&gt;                                      |   },
+  &lt;my:PersonAugmentation&gt;                               |   &quot;nc:Metadata&quot;: {
+    &lt;nc:Metadata&quot;&gt;                                      |     &quot;nc:SourceIDText&quot;: &quot;Tango-7&quot;
+      &lt;nc:SourceIDText&gt;Tango-7&lt;/nc:SourceIDText&gt;        |   }
+    &lt;/nc:Metadata&gt;                                      | }
+  &lt;/my:PersonAugmentation&gt;                              | 
+&lt;/nc:Person&gt;                                            | </code></pre>
 <figcaption><a name="fig5-17">Figure 5-17: Metadata object property augmenting a reused class</a></figcaption>
 
 <p>The above augmentation pattern only works for a class with element
@@ -6282,7 +6278,7 @@ object MUST NOT contain two Facet objects with a FacetCategoryCode of
 <h2 id="81-rules-for-properties-of-namespaces">8.1 Rules for properties
 of namespaces</h2>
 <p><a name="rule8-1"></a><strong>Rule 8-1:</strong> The namespace MUST
-have an identifier, which MUST match the production
+have an identifier, which MUST match the grammar production
 <code>&lt;absolute-URI&gt;</code> as defined by
 <a href="#rfc-3986"><b>[RFC 3986]</b></a>. In CMF, the namespace
 identifier is the value of the NamespaceURI property in a Namespace
@@ -6316,7 +6312,7 @@ identifier in a namespace identifier SHOULD conform to the
 convey meaning about the underlying code and what has been modified from
 one version to the next.</p>
 <p><a name="rule8-6"></a><strong>Rule 8-6:</strong> The namespace MUST
-have a defined prefix, which MUST match the production
+have a defined prefix, which MUST match the grammar production
 <code>&lt;NCName&gt;</code> as defined by
 <a href="#xml-namespaces"><b>[XML Namespaces]</b></a>.</p>
 <p>In CMF, the prefix is the value of the NamespacePrefix property in a
@@ -7402,7 +7398,7 @@ QName of the property, with the local part capitalized, and the trailing
 <code>nc:MetadataType</code>, or a derived type.</p>
 <p><a name="rule12-12"></a><strong>Rule 12-12:</strong> The value of an
 attribute with or derived from <code>xs:anyURI</code> MUST satisfy the
-production <code>&lt;URI-reference&gt;</code> as defined in
+grammar production <code>&lt;URI-reference&gt;</code> as defined by
 <a href="#rfc-3986"><b>[RFC 3986]</b></a>.</p>
 <p>XML Schema validation does not always check the validity of URI
 values. Examples of valid and invalid URI attributes:</p>
@@ -7425,8 +7421,8 @@ consolidated into a single <code>j:PersonAugmentation</code>
 element.</p>
 <h1 id="13-rules-for-json-messages">13. Rules for JSON messages</h1>
 <p><a name="rule13-1"></a><strong>Rule 13-1:</strong> A JSON message
-MUST be valid according to the <code>&lt;object&gt;</code> production as
-defined by [[RFC 8259]].</p>
+MUST be valid according to the grammar production
+<code>&lt;object&gt;</code> as defined by [[RFC 8259]].</p>
 <p>According to the JSON specification, a valid JSON text can be an
 object, array, number, string, or literal name. Only the first of these
 is allowed as a NIEM JSON message.</p>
@@ -10025,9 +10021,9 @@ implementation and use of, specifications, while reserving the right to
 enforce its marks against misleading uses. Please see <a
 href="https://www.oasis-open.org/policies-guidelines/trademark/">https://www.oasis-open.org/policies-guidelines/trademark/</a>
 for above guidance.</p>
-<!--->
+<!--
 I have copied the CSS styling from *styles/ndr-styles.css* to help your markdown previewer do the right thing.
---->
+-->
 
 <style>
 a { text-decoration: none; color: #000; background-color: #FFF; }
