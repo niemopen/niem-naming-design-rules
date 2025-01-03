@@ -375,17 +375,22 @@ id="toc-appendix-c-index-of-rules">Appendix C. Index of rules</a></li>
 <li><a href="#appendix-d-mapping-niem-5-rules-to-niem-6"
 id="toc-appendix-d-mapping-niem-5-rules-to-niem-6">Appendix D. Mapping
 NIEM 5 rules to NIEM 6</a></li>
-<li><a href="#appendix-e-index-of-figures"
-id="toc-appendix-e-index-of-figures">Appendix E. Index of
+<li><a href="#appendix-e-table-of-examples"
+id="toc-appendix-e-table-of-examples">Appendix E. Table of
+examples</a></li>
+<li><a href="#appendix-f-table-of-figures"
+id="toc-appendix-f-table-of-figures">Appendix F. Table of
 figures</a></li>
-<li><a href="#appendix-f-acknowledgments"
-id="toc-appendix-f-acknowledgments">Appendix F. Acknowledgments</a>
+<li><a href="#appendix-g-table-of-tables"
+id="toc-appendix-g-table-of-tables">Appendix G. Table of tables</a></li>
+<li><a href="#appendix-h-acknowledgments"
+id="toc-appendix-h-acknowledgments">Appendix H. Acknowledgments</a>
 <ul>
-<li><a href="#f1-participants" id="toc-f1-participants">F.1
+<li><a href="#h1-participants" id="toc-h1-participants">H.1
 Participants</a></li>
 </ul></li>
-<li><a href="#appendix-g-notices" id="toc-appendix-g-notices">Appendix
-G. Notices</a></li>
+<li><a href="#appendix-i-notices" id="toc-appendix-i-notices">Appendix
+I. Notices</a></li>
 </ul>
 </nav>
 <link rel="stylesheet" href="https://docs.oasis-open.org/templates/css/markdown-styles-v1.7.3a.css" />
@@ -1539,6 +1544,8 @@ messages</td>
 </tr>
 </tbody>
 </table>
+<figcaption><a name="tab2-2">Table 2-2: Relevant document sections by user role</a></figcaption>
+
 <h2 id="21-document-references">2.1 Document references</h2>
 <p>This document relies on references to many outside documents. Such
 references are noted by bold, bracketed inline terms. For example, a
@@ -1692,7 +1699,7 @@ or consumes conforming messages.</p>
 href="#def-message"><span class="termRef">message</span></a>. This data
 is arranged according to a supported serialization. The result is a
 sequence of bits that represents the information content of the message.
-<a href="#fig3-2">Figure 3-2</a> shows two messages representing the
+<a href="#ex3-2">Example 3-2</a> shows two messages representing the
 same information, one serialized in XML, the other in JSON. Each message
 in this example is a request for a quantity of some item. (In all
 examples, closing tags and brackets may be omitted, long lines may be
@@ -1711,14 +1718,14 @@ truncated, and some portions omitted and/or replaced with ellipses
                                                               |      }
                                                               |   }
                                                               | }</code></pre>
-<figcaption><a name="fig3-2">Figure 3-2: Example of messages in XML and JSON syntax</a></figcaption>
+<figcaption><a name="ex3-2">Example 3-2: Example of messages in XML and JSON syntax</a></figcaption>
 
 <p>The data structure of a NIEM message appears to be a tree with a root
 node. It is actually a directed graph with an initial node called the <a
 href="#def-message-object"><span class="termRef">message
 object</span></a>. For example, the <a
 href="#def-message-object"><span class="termRef">message
-object</span></a> in <a href="#fig3-2">figure 3-2</a> is the
+object</span></a> in <a href="#ex3-2">example 3-2</a> is the
 <code>msg:Request</code> element in the XML message. In the JSON message
 it is the value for the <code>msg:Request</code> key.</p>
 <p>Every NIEM serialization has a mechanism for references; that is, a
@@ -1756,8 +1763,8 @@ used to assess the validity of a <a
 href="#def-message"><span class="termRef">message</span></a>. This <a
 href="#def-schema"><span class="termRef">schema</span></a> is expressed
 in XML Schema (XSD) for XML message formats, and JSON Schema for JSON
-message formats. <a href="#fig3-3">Figure 3-3</a> shows a portion of the
-schemas for the two example messages in <a href="#fig3-2">figure
+message formats. <a href="#ex3-3">Example 3-3</a> shows a portion of the
+schemas for the two example messages in <a href="#ex3-2">example
 3-2</a>.</p>
 <pre><code>&lt;xs:complexType name=&quot;RequestType&quot;&gt;                    | {
   &lt;xs:sequence&gt;                                        |   &quot;msg:RequestType&quot;: {
@@ -1775,7 +1782,7 @@ schemas for the two example messages in <a href="#fig3-2">figure
                                                        |     &quot;$ref&quot;: &quot;#/definitions/msg:RequestType&quot;
                                                        |   }
                                                        | }</code></pre>
-<figcaption><a name="fig3-3">Figure 3-3: Example message format schemas</a></figcaption>
+<figcaption><a name="ex3-3">Example 3-3: Example message format schemas</a></figcaption>
 
 <p>Producing and consuming systems may use the message format schema to
 validate the syntax of messages at runtime, but are not obligated to do
@@ -1804,7 +1811,7 @@ different <a href="#def-message-format"><span class="termRef">message
 format</span></a>, but have the same <a
 href="#def-message-type"><span class="termRef">message type</span></a>.
 For example, the XML message and the JSON message in <a
-href="#fig3-2">figure 3-2</a> above are equivalent. They represent the
+href="#ex3-2">example 3-2</a> above are equivalent. They represent the
 same information content, and can be converted one to the other without
 loss of information.</p>
 <p>A <a href="#def-message-type"><span class="termRef">message
@@ -1819,8 +1826,8 @@ either of NIEM's two model representations, which are described in <a
 href="#34-the-niem-metamodel">section 3.4</a> and <a
 href="#35-niem-model-representations-xsd-and-cmf">section 3.5</a>, and
 fully defined in <a href="#4-data-models-in-niem">section 4</a>. <a
-href="#fig3-4">Figure 3-4</a> shows a portion of the message model for
-the two message formats in <a href="#fig3-3">figure 3-3</a>.</p>
+href="#ex3-4">Example 3-4</a> shows a portion of the message model for
+the two message formats in <a href="#ex3-3">example 3-3</a>.</p>
 <pre><code>&lt;xs:complexType name=&quot;ItemType&quot; appinfo:referenceCode=&quot;NONE&quot;&gt; | &lt;Class structures:id=&quot;nc.ItemType&quot;&gt;
   &lt;xs:annotation&gt;                                             |   &lt;Name&gt;ItemType&lt;/Name&gt;
     &lt;xs:documentation&gt;A data type for an article or thing.    |   &lt;Namespace structures:ref=&quot;nc&quot; xsi:nil=&quot;true&quot;/&gt;
@@ -1850,7 +1857,7 @@ the two message formats in <a href="#fig3-3">figure 3-3</a>.</p>
                                                               |   &lt;Class structures:ref=&quot;nc.ItemType&quot; xsi:nil=&quot;true&quot;/&gt;
                                                               |   &lt;ReferenceCode&gt;NONE&lt;/ReferenceCode&gt;
                                                               | &lt;/ObjectProperty&gt;</code></pre>
-<figcaption><a name="fig3-4">Figure 3-4: Example message model in XSD and CMF</a></figcaption>
+<figcaption><a name="ex3-4">Example 3-4: Example message model in XSD and CMF</a></figcaption>
 
 <p>In addition to the <a
 href="#def-message-model"><span class="termRef">message
@@ -1863,7 +1870,7 @@ object</span></a> is always the value of the initial property. For
 example, the <a href="#def-message-type"><span class="termRef">message
 type</span></a> for the <a
 href="#def-message"><span class="termRef">message</span></a> in <a
-href="#fig3-2">figure 3-2</a> declares that the initial property is
+href="#ex3-2">example 3-2</a> declares that the initial property is
 <code>msg:Request</code>.</p>
 <p>A <a href="#def-message-type"><span class="termRef">message
 type</span></a> provides all of the information needed to generate the
@@ -1888,10 +1895,10 @@ message type as part of a request/response protocol. Those two message
 types could be collected into a <a
 href="#def-message-specification"><span class="termRef">message
 specification</span></a> for the protocol, as illustrated below in <a
-href="#fig3-5">figure 3-5</a>.</p>
+href="#ex3-5">example 3-5</a>.</p>
 <figure>
   <img src="images/messageSpec.png" alt="figure" style="zoom:100%"/>
-  <figcaption><a name="fig3-5">Figure 3-5: Message specifications, types, and formats</a></figcaption>
+  <figcaption><a name="ex3-5">Example 3-5: Message specifications, types, and formats</a></figcaption>
 </figure>
 
 <p><strong>Summary:</strong></p>
@@ -2008,7 +2015,7 @@ illustration.</p>
 field that may appear in a <a
 href="#def-message"><span class="termRef">message</span></a> and can
 contain subfields (for objects / object properties) or a value (for
-literals / data properties). For example, in <a href="#fig3-4">figure
+literals / data properties). For example, in <a href="#ex3-4">example
 3-4</a>, <code>req:RequestedItem</code> and <code>nc:ItemName</code> are
 names of properties. <code>req:RequestedItem</code> is an object
 property for the requested item; <code>nc:ItemName</code> is a data
@@ -2020,12 +2027,12 @@ href="#def-message"><span class="termRef">message</span></a>. A class
 has one or more <em>properties</em>. An <em>object property</em> in a
 class defines a subject-property-value relationship between two objects.
 A <em>data property</em> defines a relationship between an object and a
-literal value. In <a href="#fig3-4">figure 3-4</a>,
+literal value. In <a href="#ex3-4">example 3-4</a>,
 <code>nc:ItemType</code> is the name of a class.</p></li>
 <li><p>A <em>datatype</em> defines the allowed values of a corresponding
 <em>literal value</em> in a <a
 href="#def-message"><span class="termRef">message</span></a>. In <a
-href="#fig3-4">figure 3-4</a>, <code>nc:TextType</code> is the name of a
+href="#ex3-4">example 3-4</a>, <code>nc:TextType</code> is the name of a
 datatype.</p></li>
 <li><p>Classes and datatypes are the two kinds of <em>type</em> in the
 metamodel. For historical reasons, the name of every class and datatype
@@ -2104,8 +2111,8 @@ messages, and into JSON Schema for validation of JSON messages.</p></li>
 <li><p>A CMF model can itself be represented in XML or JSON, according
 to developer preference. That is, like any other NIEM message, the CMF
 representation of a model can be serialized in either XML or JSON. For
-example, <a href="#fig3-9">figure 3-9</a> shows a portion of the message
-model from <a href="#fig3-4">figure 3-4</a> in both XML and JSON
+example, <a href="#ex3-9">example 3-9</a> shows a portion of the message
+model from <a href="#ex3-4">example 3-4</a> in both XML and JSON
 syntax.</p></li>
 </ul>
 <pre><code>&lt;Class structures:id=&quot;nc.ItemType&quot;&gt;                              | {
@@ -2126,7 +2133,7 @@ syntax.</p></li>
 &lt;/Class&gt;                                                         |     }
                                                                  |   }
                                                                  | }</code></pre>
-<figcaption><a name="fig3-9">Figure 3-9: CMF model in XML and JSON syntax</a></figcaption>
+<figcaption><a name="ex3-9">Example 3-9: CMF model in XML and JSON syntax</a></figcaption>
 
 <p><a href="#4-data-models-in-niem">Section 4</a> defines the mappings
 between the metamodel, NIEM XSD, and CMF.</p>
@@ -2378,6 +2385,8 @@ object is significant</td>
 </tr>
 </tbody>
 </table>
+<figcaption><a name="tab4-2">Table 4-2: Definition of columns in metamodel property tables</a></figcaption>
+
 <p>Classes, attributes, and relationships have the same names in the
 metamodel and in CMF. (Attributes and relationship names have lower
 camel case in the diagram and tables, following the UML convention. The
@@ -2416,12 +2425,14 @@ in each section below, with these columns:</p>
 </tr>
 </tbody>
 </table>
+<figcaption><a name="tab4-3">Table 4-3: Definition of columns in CMF-XSD mapping tabless</a></figcaption>
+
 <h2 id="41-model">4.1 Model</h2>
 <p>A Model object represents a NIEM model.</p>
 <figure>
   <a name="fig4-2"/></a>
   <img src="images/modelClass.png" style="zoom:100%"/>
-  <figcaption><a name="fig4-2">Figure 4-2: Model class diagram</a></figcaption>
+  <figcaption><a name="fig4-4">Figure 4-4: Model class diagram</a></figcaption>
 </figure>
 
 <table>
@@ -2458,6 +2469,8 @@ in each section below, with these columns:</p>
 </tr>
 </tbody>
 </table>
+<figcaption><a name="tab4-5">Table 4-5: Properties of the Model object class</a></figcaption>
+
 <p>In XSD, an instance of the Model class is represented by a <a
 href="#def-schema-document-set"><span class="termRef">schema document
 set</span></a>.</p>
@@ -2469,7 +2482,7 @@ is a namespace in the NIEM 6.0 model.</p>
 <figure class="image">
   <a name="fig4-3"/></a>
   <img src="images/namespaceClass.png" style="zoom:100%"/>
-  <figcaption><a name="fig4-3">Figure 4-3: Namespace class diagram</a></figcaption>
+  <figcaption><a name="fig4-6">Figure 4-6: Namespace class diagram</a></figcaption>
 </figure>
 
 <table>
@@ -2585,9 +2598,11 @@ name of a model component.</td>
 </tr>
 </tbody>
 </table>
+<figcaption><a name="tab4-7">Table 4-7: Properties of the Namespace object class</a></figcaption>
+
 <p>In XSD, an instance of the Namespace class is represented by the
 <code>&lt;xs:schema&gt;</code> element in a schema document. <a
-href="#fig4-4">Figure 4-4</a> shows the representation of a Namespace
+href="#ex4-8">Example 4-8</a> shows the representation of a Namespace
 object in CMF and in the corresponding XSD.</p>
 <pre><code>&lt;Namespace&gt;
   &lt;NamespaceURI&gt;https://docs.oasis-open.org/niemopen/ns/model/niem-core/6.0/&lt;/NamespaceURI&gt;
@@ -2612,7 +2627,7 @@ object in CMF and in the corresponding XSD.</p>
     &lt;xs:documentation&gt;NIEM Core.&lt;/xs:documentation&gt;
   &lt;/xs:annotation&gt;
 &lt;/xs:schema&gt;</code></pre>
-<figcaption><a name="fig4-4">Figure 4-4: Namespace object in CMF and XSD</a></figcaption>
+<figcaption><a name="ex4-8">Example 4-8: Namespace object in CMF and XSD</a></figcaption>
 
 <p>The following table shows the mapping between Namespace object
 representations in CMF and XSD.</p>
@@ -2652,6 +2667,8 @@ namespace</td>
 </tr>
 </tbody>
 </table>
+<figcaption><a name="tab4-9">Table 4-9: Namespace object properties in CMF and XSD</a></figcaption>
+
 <h2 id="43-component">4.3 Component</h2>
 <p>A Component is either a Class object, a Property object, or a
 Datatype object in a NIEM model. This abstract class defines the common
@@ -2659,7 +2676,7 @@ properties of those three concrete subclasses.</p>
 <figure class="image">
   <a name="fig4-4"/></a>
   <img src="images/component.png" style="zoom:100%"/>
-  <figcaption><a name="fig4-5">Figure 4-5: Component class diagram</a></figcaption>
+  <figcaption><a name="fig4-10">Figure 4-10: Component class diagram</a></figcaption>
 </figure>
 
 <table>
@@ -2712,9 +2729,11 @@ provided, but the use of which is not recommended.</td>
 </tr>
 </tbody>
 </table>
+<figcaption><a name="tab4-11">Table 4-11: Properties of the Component abstract class</a></figcaption>
+
 <p>In XSD, the common properties of a Component object are represented
 by a complex type definition or an element or attribute declaration. <a
-href="#fig4-6">Figure 4-6</a> shows the representation of those common
+href="#ex4-12">Example 4-12</a> shows the representation of those common
 properties in CMF and XSD.</p>
 <pre><code>&lt;DataProperty&gt;
   &lt;Name&gt;ActivityCompletedIndicator&lt;/Name&gt;
@@ -2727,10 +2746,10 @@ properties in CMF and XSD.</p>
     &lt;xs:documentation&gt;True if an activity has ended; false otherwise.&lt;/xs:documentation&gt;
   &lt;/xs:annotation&gt;
 &lt;/xs:element&gt;</code></pre>
-<figcaption><a name="fig4-6">Figure 4-6: Component object (abstract) in CMF and XSD</a></figcaption>
+<figcaption><a name="ex4-12">Example 4-12: Component object (abstract) in CMF and XSD</a></figcaption>
 
-<p>The following table shows the mapping between Component properties in
-CMF and XSD.</p>
+<p>The following table shows the mapping between Component object
+properties in CMF and XSD.</p>
 <table>
 <thead>
 <tr class="header">
@@ -2758,6 +2777,8 @@ declaration</td>
 </tr>
 </tbody>
 </table>
+<figcaption><a name="tab4-13">Table 4-13: Component object properties in CMF and XSD</a></figcaption>
+
 <h2 id="44-class">4.4 Class</h2>
 <p>A Class object represents a class of message objects defined by a
 NIEM model. For example, <code>nc:ItemType</code> is a Class object in
@@ -2765,7 +2786,7 @@ the NIEM Core model.</p>
 <figure class="image">
   <a name="fig4-6"/></a>
   <img src="images/class.png" style="zoom:100%"/>
-  <figcaption><a name="fig4-7">Figure 4-7: Class and ChildPropertyAssociation class diagram</a></figcaption>
+  <figcaption><a name="fig4-14">Figure 4-14: Class and ChildPropertyAssociation class diagram</a></figcaption>
 </figure>
 
 <table>
@@ -2839,6 +2860,8 @@ class.</td>
 </tr>
 </tbody>
 </table>
+<figcaption><a name="tab4-15">Table 4-15: Properties of the Class object class</a></figcaption>
+
 <p>The range of the <code>ReferenceCode</code> property is a <a
 href="#def-code-list"><span class="termRef">code list</span></a> with
 the following codes and meanings:</p>
@@ -2871,6 +2894,8 @@ inline.</td>
 </tr>
 </tbody>
 </table>
+<figcaption><a name="tab4-16">Table 4-16: ReferenceCode code list</a></figcaption>
+
 <p>Class objects may be categorized into four groups, as follows:</p>
 <ul>
 <li><p>An <a href="#def-object-class"><span class="termRef">object
@@ -2909,19 +2934,19 @@ has a name ending in "Type".</p></li>
 <p>The instances of most classes (including adapter and association
 classes) are represented in XML as an element with complex content; that
 is, with child elements, and sometimes with attributes. For example, <a
-href="#fig4-8">figure 4-8</a> shows an XML element with complex content,
-and also the equivalent in a JSON message.</p>
+href="#ex4-17">example 4-17</a> shows an XML element with complex
+content, and also the equivalent in a JSON message.</p>
 <pre><code>&lt;ex:ItemWeightMeasure&gt;                                      | {
   &lt;ex:MassUnitCode&gt;KGM&lt;/unece:MassUnitCode&gt;                 |   &quot;ex:ItemWeightMeasure&quot;: {
   &lt;ex:MeasureDecimalValue&gt;22.5&lt;/ex:MeasureDecimalValue&gt;     |     &quot;ex:MassUnitCode&quot;: &quot;KGM&quot;,
 &lt;/ex:ItemWeightMeasure&gt;                                     |     &quot;ex:MeasureDecimalValue&quot;: 22.5
                                                             |   }
                                                             | }</code></pre>
-<figcaption><a name="fig4-8">Figure 4-8: Instance of a class in XML and JSON</a></figcaption>
+<figcaption><a name="ex4-17">Example 4-17: Instance of a class in XML and JSON</a></figcaption>
 
 <p>These classes are represented in XSD as a complex type with complex
 content ("CCC type"); that is, a type with child elements. <a
-href="#fig4-9">Figure 4-9</a> below shows a ordinary Class object
+href="#ex4-18">Example 4-18</a> below shows a ordinary Class object
 defining the class of the <code>ItemWeightMeasure</code> property in the
 example above, represented first in CMF, and then in XSD as a complex
 type with child elements.</p>
@@ -2950,7 +2975,7 @@ type with child elements.</p>
     &lt;/xs:extension&gt;
   &lt;/xs:complexContent&gt;
 &lt;/xs:complexType&gt;</code></pre>
-<figcaption><a name="fig4-9">Figure 4-9: A Class object in CMF and XSD (CCC type)</a></figcaption>
+<figcaption><a name="ex4-18">Example 4-18: A Class object in CMF and XSD (CCC type)</a></figcaption>
 
 <p>The following table shows the mapping between Class object
 representations in CMF and XSD.</p>
@@ -2990,10 +3015,12 @@ or
 </tr>
 </tbody>
 </table>
+<figcaption><a name="tab4-19">Table 4-19: Class object object properties in CMF and XSD</a></figcaption>
+
 <p>Instances of a <a
 href="#def-literal-class"><span class="termRef">literal class</span></a>
 are represented as an element with simple content and attributes in XML.
-<a href="#fig4-10">Figure 4-10</a> below shows an XML and JSON instance
+<a href="#ex4-20">Example 4-20</a> below shows an XML and JSON instance
 of a literal class.</p>
 <pre><code>&lt;ex:ItemWeightMeasure ex:massUnitCode=&quot;KGM&quot;&gt;     | {
   22.5                                           |   &quot;ex:ItemWeightMeasure&quot;: {
@@ -3001,14 +3028,14 @@ of a literal class.</p>
                                                  |     &quot;ex:WeightMeasureLiteral&quot;: 22.5
                                                  |   }
                                                  | }</code></pre>
-<figcaption><a name="fig4-10">Figure 4-10: Instance of a literal class in XML and JSON</a></figcaption>
+<figcaption><a name="ex4-20">Example 4-20: Instance of a literal class in XML and JSON</a></figcaption>
 
 <p>A literal class is represented in XSD as a complex type with simple
 content ("CSC type") and attributes. This is illustrated in <a
-href="#fig4-11">figure 4-11</a> below, which shows a <a
+href="#ex4-21">example 4-21</a> below, which shows a <a
 href="#def-literal-class"><span class="termRef">literal class</span></a>
 defining the class of the <code>ItemWeightMeasure</code> property in <a
-href="#fig4-10">figure 4-10</a> above.</p>
+href="#ex4-20">example 4-20</a> above.</p>
 <pre><code>  &lt;Class structures:id=&quot;ex.WeightMeasureType&quot;&gt;
     &lt;Name&gt;WeightMeasureType&lt;/Name&gt;
     &lt;Namespace structures:ref=&quot;ex&quot; xsi:nil=&quot;true&quot;/&gt;
@@ -3032,7 +3059,7 @@ href="#fig4-10">figure 4-10</a> above.</p>
     &lt;/xs:extension&gt;
   &lt;/xs:simpleContent&gt;
 &lt;/xs:complexType&gt;</code></pre>
-<figcaption><a name="fig4-11">Figure 4-11: A literal class object in CMF and XSD (CSC type)</a></figcaption>
+<figcaption><a name="ex4-21">Example 4-21: A literal class object in CMF and XSD (CSC type)</a></figcaption>
 
 <p>A <a href="#def-literal-class"><span class="termRef">literal
 class</span></a> always has one DataProperty that is not an <a
@@ -3112,9 +3139,11 @@ significant.</td>
 </tr>
 </tbody>
 </table>
+<figcaption><a name="tab4-22">Table 4-22: Properties of the ChildPropertyAssociation object class</a></figcaption>
+
 <p>A ChildPropertyAssociation object is represented in XSD as an element
 or attribute reference within a complex type definition. <a
-href="#fig4-12">Figure 4-12</a> shows the representation of two
+href="#ex4-23">Example 4-23</a> shows the representation of two
 PropertyAssociation objects, first in CMF, and then in XSD.</p>
 <pre><code>&lt;ChildPropertyAssociation&gt;
   &lt;ObjectProperty structures:ref=&quot;nc.PersonMiddleName&quot; xsi:nil=&quot;true&quot;/&gt;
@@ -3142,7 +3171,7 @@ PropertyAssociation objects, first in CMF, and then in XSD.</p>
   &lt;/xs:element&gt;
 &lt;/xs:sequence&gt;
 &lt;xs:attribute ref=&quot;nc:personNameCommentText&quot; use=&quot;optional&quot;/&gt;</code></pre>
-<figcaption><a name="fig4-12">Figure 4-12: PropertyAssociation object in CMF and XSD</a></figcaption>
+<figcaption><a name="ex4-23">Example 4-23: PropertyAssociation object in CMF and XSD</a></figcaption>
 
 <p>The following table shows the mapping between PropertyAssociation
 representations in CMF and XSD.</p>
@@ -3184,13 +3213,15 @@ representations in CMF and XSD.</p>
 </tr>
 </tbody>
 </table>
+<figcaption><a name="tab4-24">Table 4-24: ChildPropertyAssociation object properties in CMF and XSD</a></figcaption>
+
 <h2 id="46-property">4.6 Property</h2>
 <p>A Property object is either an ObjectProperty or a DataProperty in a
 NIEM model. This abstract class defines the common properties of those
 two concrete subclasses.</p>
 <figure class="image">
   <img src="images/property.png" style="zoom:100%"/>
-  <figcaption><a name="fig4-13">Figure 4-13: Property class diagram</a></figcaption>
+  <figcaption><a name="fig4-25">Figure 4-25: Property class diagram</a></figcaption>
 </figure>
 
 <table>
@@ -3238,6 +3269,8 @@ its parent and grandparent objects.</td>
 </tr>
 </tbody>
 </table>
+<figcaption><a name="tab4-26">Table 4-26: Properties of the Property abstract class</a></figcaption>
+
 <p>Apart from the <a
 href="#def-message-object"><span class="termRef">message
 object</span></a>, every object in a message is a child property of
@@ -3293,9 +3326,11 @@ inline).</td>
 </tr>
 </tbody>
 </table>
+<figcaption><a name="tab4-27">Table 4-27: Properties of the ObjectProperty object class</a></figcaption>
+
 <p>An ObjectProperty object is represented in XSD as an element
 declaration with a type that is a Class object. <a
-href="#fig4-14">Figure 4-14</a> shows an ObjectProperty object,
+href="#ex4-28">Example 4-28</a> shows an ObjectProperty object,
 represented first in CMF, and then in XSD.</p>
 <pre><code>&lt;ObjectProperty structures:id=&quot;ex.ExampleObjectProperty&quot;&gt;
   &lt;Name&gt;ExampleObjectProperty&lt;/Name&gt;
@@ -3312,7 +3347,7 @@ represented first in CMF, and then in XSD.</p>
     &lt;xs:documentation&gt;Documentation text for ExampleObjectProperty.&lt;/xs:documentation&gt;
   &lt;/xs:annotation&gt;
 &lt;/xs:element&gt;</code></pre>
-<figcaption><a name="fig4-14">Figure 4-14: ObjectProperty object in CMF and XSD</a></figcaption>
+<figcaption><a name="ex4-28">Example 4-28: ObjectProperty object in CMF and XSD</a></figcaption>
 
 <p>The following table shows the mapping between ObjectProperty object
 representations in CMF and XSD.</p>
@@ -3363,6 +3398,8 @@ representations in CMF and XSD.</p>
 </tr>
 </tbody>
 </table>
+<figcaption><a name="tab4-29">Table 4-29: ObjectProperty object properties in CMF and XSD</a></figcaption>
+
 <h2 id="48-dataproperty">4.8 DataProperty</h2>
 <p>An instance of the DataProperty class represents a property in a NIEM
 model with a range that is a datatype. For example, the
@@ -3411,6 +3448,8 @@ attribute property</span></a>.</td>
 </tr>
 </tbody>
 </table>
+<figcaption><a name="tab4-30">Table 4-30: Properties of the DataProperty object class</a></figcaption>
+
 <p>An <a href="#def-attribute-property"><span class="termRef">attribute
 property</span></a> is a data property in which
 <code>AttributeIndicator</code> is true. These are represented in XSD as
@@ -3428,7 +3467,7 @@ and reference attribute properties in <a
 href="#536-reference-attribute-properties">section 5.3.6</a>.</p>
 <p>A DataProperty object is represented in XSD as an attribute
 declaration, or as an element declaration with a type that is a Datatype
-object. <a href="#fig4-15">Figure 4-15</a> shows the representations of
+object. <a href="#ex4-31">Example 4-31</a> shows the representations of
 two DataProperty objects, first in CMF, and then in the corresponding
 XSD.</p>
 <pre><code>&lt;DataProperty structures:id=&quot;ex.ExampleDataProperty&quot;&gt;
@@ -3460,7 +3499,7 @@ XSD.</p>
     &lt;xs:documentation&gt;Documentation text for ExampleDataProperty.&lt;/xs:documentation&gt;
   &lt;/xs:annotation&gt;
 &lt;/xs:attribute&gt;</code></pre>
-<figcaption><a name="fig4-15">Figure 4-15: DataProperty object in CMF and XSD</a></figcaption>
+<figcaption><a name="ex4-31">Example 4-31: DataProperty object in CMF and XSD</a></figcaption>
 
 <p>The following table shows the mapping between DataProperty
 representations in CMF and XSD.</p>
@@ -3515,13 +3554,13 @@ representations in CMF and XSD.</p>
 </tr>
 </tbody>
 </table>
-</br>
+<figcaption><a name="tab4-32">Table 4-32: DataProperty object properties in CMF and XSD</a></figcaption>
 
 <h2 id="49-datatype">4.9 Datatype</h2>
 <figure class="image">
   <a name="fig4-13"/></a>
   <img src="images/datatype.png" style="zoom:100%"/>
-  <figcaption><a name="fig4-16">Figure 4-16: Datatype classes</a></figcaption>
+  <figcaption><a name="fig4-33">Figure 4-33: Datatype classes</a></figcaption>
 </figure>
 
 <p>An instance of the Datatype class defines the allowed values of a
@@ -3530,14 +3569,14 @@ href="#def-message"><span class="termRef">message</span></a>. Objects
 for primitive data types, corresponding to the XSD data types, have only
 the <em>name</em>, <em>namespace</em>, and <em>documentation</em>
 properties inherited from the Component class. For example, <a
-href="#fig4-17">figure 4-17</a> shows the CMF representation of the
+href="#ex4-34">example 4-34</a> shows the CMF representation of the
 <code>xs:string</code> primitive data type. All other datatypes are
 represented by either a Restriction, List, or Union object.</p>
 <pre><code>&lt;Datatype&gt;
   &lt;Name&gt;string&lt;/Name&gt;
   &lt;Namespace structures:ref=&quot;xs&quot; xsi:nil=&quot;true&quot;/&gt;
 &lt;/Datatype&gt;</code></pre>
-<figcaption><a name="fig4-17">Figure 4-17: Plain CMF datatype object for `xs:string`</a></figcaption>
+<figcaption><a name="ex4-34">Example 4-34: Plain CMF datatype object for `xs:string`</a></figcaption>
 
 <h2 id="410-list">4.10 List</h2>
 <p>An instance of the List class represents a NIEM model datatype with
@@ -3578,9 +3617,11 @@ significant.</td>
 </tr>
 </tbody>
 </table>
+<figcaption><a name="tab4-35">Table 4-35: Properties of the List object class </a></figcaption>
+
 <p>A List object is represented in XSD as a complex type definition that
 extends a simple type definition that has an <code>xs:list</code>
-element. <a href="#fig4-18">Figure 4-18</a> shows the CMF and XSD
+element. <a href="#ex4-36">Example 4-36</a> shows the CMF and XSD
 representation of a List object.</p>
 <pre><code>&lt;List structures:id=&quot;ex.ExListType&quot;&gt;
   &lt;Name&gt;ExListType&lt;/Name&gt;
@@ -3603,7 +3644,7 @@ representation of a List object.</p>
     &lt;/xs:extension&gt;
   &lt;/xs:simpleContent&gt;
 &lt;/xs:complexType&gt;</code></pre>
-<figcaption><a name="fig4-18">Figure 4-18: List object in CMF and XSD</a></figcaption>
+<figcaption><a name="ex4-36">Example 4-36: List object in CMF and XSD</a></figcaption>
 
 <p>The following table shows the mapping between List object
 representations in CMF and XSD.</p>
@@ -3641,7 +3682,7 @@ representations in CMF and XSD.</p>
 </tr>
 </tbody>
 </table>
-</br>
+<figcaption><a name="tab4-37">Table 4-37: List object properties in CMF and XSD</a></figcaption>
 
 <h2 id="411-union">4.11 Union</h2>
 <p>An instance of the Union class represents a NIEM model datatype that
@@ -3674,9 +3715,11 @@ datatypes.</td>
 </tr>
 </tbody>
 </table>
+<figcaption><a name="tab4-38">Table 4-38: Properties of the Union object class</a></figcaption>
+
 <p>A Union object is represented in XSD as a complex type definition
 that extends a simple type definition that has an <code>xs:union</code>
-element. <a href="#fig4-19">Figure 4-19</a> shows the XSD and CMF
+element. <a href="#ex4-39">Example 4-39</a> shows the XSD and CMF
 representations of a Union object.</p>
 <pre><code>&lt;Union structures:id=&quot;ex.UnionType&quot;&gt;
   &lt;Name&gt;UnionType&lt;/Name&gt;
@@ -3698,7 +3741,7 @@ representations of a Union object.</p>
     &lt;/xs:extension&gt;
   &lt;/xs:simpleContent&gt;
 &lt;/xs:complexType&gt;</code></pre>
-<figcaption><a name="fig4-19">Figure 4-19: Union object in CMF and XSD</a></figcaption>
+<figcaption><a name="ex4-39">Example 4-39: Union object in CMF and XSD</a></figcaption>
 
 <p>The following table shows the mapping between UnionDatatype object
 representations in CMF and XSD.</p>
@@ -3732,7 +3775,7 @@ representations in CMF and XSD.</p>
 </tr>
 </tbody>
 </table>
-</br>
+<figcaption><a name="tab4-40">Table 4-40: Union object properties in CMF and XSD</a></figcaption>
 
 <h2 id="412-restriction">4.12 Restriction</h2>
 <p>An instance of the Restriction class represents a NIEM model datatype
@@ -3780,9 +3823,11 @@ list</span></a>.</td>
 </tr>
 </tbody>
 </table>
+<figcaption><a name="tab4-41">Table 4-41: Properties of the Restriction object class</a></figcaption>
+
 <p>A Restriction object is represented in XSD as a complex type with
 simple content that contains an <code>xs:restriction</code> element. <a
-href="#fig4-20">Figure 4-20</a> shows the CMF and XSD representations of
+href="#ex4-42">Example 4-42</a> shows the CMF and XSD representations of
 a Restriction object.</p>
 <pre><code>&lt;Restriction structures:id=&quot;test.RestrictionType&quot;&gt;
   &lt;Name&gt;RestrictionType&lt;/Name&gt;
@@ -3818,7 +3863,7 @@ a Restriction object.</p>
     &lt;/xs:restriction&gt;
   &lt;/xs:simpleContent&gt;
 &lt;/xs:complexType&gt;</code></pre>
-<figcaption><a name="fig4-20">Figure 4-20: Restriction object in CMF and XSD</a></figcaption>
+<figcaption><a name="ex4-42">Example 4-42: Restriction object in CMF and XSD</a></figcaption>
 
 <p>The following table shows the mapping between Restriction object
 representations in CMF and XSD.</p>
@@ -3861,6 +3906,8 @@ representations in CMF and XSD.</p>
 </tr>
 </tbody>
 </table>
+<figcaption><a name="tab4-43">Table 4-43: Restriction object properties in CMF and XSD</a></figcaption>
+
 <p>A <a href="#def-code-list"><span class="termRef">code list</span></a>
 is a set of string values, each having a known meaning beyond its value,
 each representing a distinct conceptual entity. These code values may be
@@ -3924,6 +3971,8 @@ datatype.</td>
 </tr>
 </tbody>
 </table>
+<figcaption><a name="tab4-44">Table 4-44: Properties of the Facet object class</a></figcaption>
+
 <p>The range of the <code>FacetCategoryCode</code> property is a <a
 href="#def-code-list"><span class="termRef">code list</span></a>. The
 twelve codes correspond to the twelve constraining facets in
@@ -3932,7 +3981,7 @@ that is, the code <code>length</code> corresponds to the
 <code>xs:length</code> constraining facet in XSD, and constrains the
 valid values of the base datatype in the same way as the XSD facet.</p>
 <p>A Facet object is represented in XSD as a constraining facet on a
-simple type. <a href="#fig4-21">Figure 4-21</a> shows the representation
+simple type. <a href="#ex4-45">Example 4-45</a> shows the representation
 of two Facet objects, first in CMF, then in XSD:</p>
 <pre><code>&lt;Facet&gt;
   &lt;FacetCategoryCode&gt;minInclusive&lt;/FacetCategoryCode&gt;
@@ -3947,7 +3996,7 @@ of two Facet objects, first in CMF, then in XSD:</p>
   &lt;xs:minInclusive value=&quot;0&quot;/&gt;
   &lt;xs:maxExclusive value=&quot;360&quot;/&gt;
 &lt;/xs:restriction&gt;</code></pre>
-<figcaption><a name="fig4-21">Figure 4-21: Facet object in CMF and XSD</a></figcaption>
+<figcaption><a name="ex4-45">Example 4-45: Facet object in CMF and XSD</a></figcaption>
 
 <p>The following table shows the mapping between Facet representations
 in CMF and XSD:</p>
@@ -3974,6 +4023,8 @@ e.g.</em><code>minInclusive</code></td>
 </tr>
 </tbody>
 </table>
+<figcaption><a name="tab4-46">Table 4-46: Facet object properties in CMF and XSD</a></figcaption>
+
 <h2 id="414-codelistbinding">4.14 CodeListBinding</h2>
 <p>An instance of the CodeListBinding class establishes a relationship
 between a Restriction object and a <a
@@ -4023,9 +4074,11 @@ value, false otherwise.</td>
 </tr>
 </tbody>
 </table>
+<figcaption><a name="tab4-47">Table 4-47: Properties of the CodeListBinding object class</a></figcaption>
+
 <p>A CodeListBinding object is represented in XSD as a
 <code>clsa:SimpleCodeListBinding</code> element in an
-<code>xs:appinfo</code> element. <a href="#fig4-22">Figure 4-22</a>
+<code>xs:appinfo</code> element. <a href="#ex4-48">Example 4-48</a>
 shows the representation of a CodeListBinding object, first in CMF, then
 in XSD.</p>
 <pre><code>&lt;CodeListBinding&gt;
@@ -4039,7 +4092,7 @@ in XSD.</p>
     &lt;xs:appinfo&gt;
       &lt;clsa:SimpleCodeListBinding codeListURI=&quot;http://api.nsgreg.nga.mil/geo-political/GENC/2/3-11&quot;constrainingIndicator=&quot;false&quot;/&gt;
     &lt;/xs:appinfo&gt;</code></pre>
-<figcaption><a name="fig4-22">Figure 4-22: CodeListBinding object in CMF and XSD</a></figcaption>
+<figcaption><a name="ex4-48">Example 4-48: CodeListBinding object in CMF and XSD</a></figcaption>
 
 <p>The following table shows the mapping between CodeListBinding
 representations in CMF and XSD.</p>
@@ -4065,11 +4118,13 @@ representations in CMF and XSD.</p>
 </tr>
 </tbody>
 </table>
+<figcaption><a name="tab4-49">Table 4-49: CodeListBinding object properties in CMF and XSD</a></figcaption>
+
 <h2 id="415-augmentation-class">4.15 Augmentation class</h2>
 <figure class="image">
   <a name="fig4-18"/></a>
   <img src="images/augment.png" style="zoom:100%"/>
-  <figcaption><a name="fig4-23">Figure 4-23: Augmentation class diagram</a></figcaption>
+  <figcaption><a name="fig4-50">Figure 4-50: Augmentation class diagram</a></figcaption>
 </figure>
 
 <p>Augmentation is the NIEM mechanism allowing the author of one
@@ -4165,6 +4220,8 @@ property</td>
 </tr>
 </tbody>
 </table>
+<figcaption><a name="tab4-51">Table 4-51: Properties of the Augmentation object class</a></figcaption>
+
 <p>For example, augmentation of <code>nc:PersonType</code> with
 <code>j:PersonAdultIndicator</code> and
 <code>j:PersonSightedIndicator</code> by the justice namespace results
@@ -4187,7 +4244,7 @@ in the following CMF for the augmenting namespace.</p>
     &lt;AugmentationIndex&gt;1&lt;/AugmentationIndex&gt;
   &lt;/AugmentationRecord&gt;
 &lt;/Namespace&gt;</code></pre>
-<figcaption><a name="fig4-24">Figure 4-24: Augmentation object in CMF</a></figcaption>
+<figcaption><a name="ex4-52">Example 4-52: Augmentation object in CMF</a></figcaption>
 
 <p>A <em>global augmentation</em> adds a property to every class of a
 specified kind in the model. In CMF, a global augmentation is
@@ -4207,7 +4264,7 @@ results in the following CMF for the augmenting namespace.</p>
     &lt;GlobalClassCode&gt;OBJECT&lt;/GlobalClassCode&gt;
   &lt;/AugmentationRecord&gt;
 &lt;/Namespace&gt;</code></pre>
-<figcaption><a name="fig4-25">Figure 4-25: Global augmentation in CMF</a></figcaption>
+<figcaption><a name="ex4-53">Example 4-53: Global augmentation in CMF</a></figcaption>
 
 <p>A global AugmentationRecord object has no Class property (because it
 applies to every class). The range of the <code>GlobalClassCode</code>
@@ -4248,6 +4305,8 @@ href="#4155-global-augmentations-in-xsd">§4.15.5</a>)</em></td>
 </tr>
 </tbody>
 </table>
+<figcaption><a name="tab4-54">Table 4-54: GlobalClassCode code list</a></figcaption>
+
 <h3 id="4151-augmentations-in-niem-xsd">4.15.1 Augmentations in NIEM
 XSD</h3>
 <p>The XSD representation of an augmentation is complex, and varies
@@ -4288,7 +4347,7 @@ definition (some properties are omitted for simplicity):</p>
     &lt;/xs:extension&gt;
   &lt;/xs:complexContent&gt;
 &lt;/xs:complexType&gt;</code></pre>
-<figcaption><a name="fig4-26">Figure 4-26: Example complex type definition with complex content (CCC type)</a></figcaption>
+<figcaption><a name="ex4-55">Example 4-55: Example complex type definition with complex content (CCC type)</a></figcaption>
 
 <p>Every CCC type contains an <a
 href="#def-augmentation-point-element"><span class="termRef">augmentation
@@ -4307,7 +4366,7 @@ point element</span></a> for <code>nc:PersonType</code>.</p>
     &lt;xs:documentation&gt;An augmentation point for PersonType&lt;/xs:documentation&gt;
   &lt;/xs:annotation&gt;
 &lt;/xs:element&gt;</code></pre>
-<figcaption><a name="fig4-27">Figure 4-27: Example augmentation point element declaration</a></figcaption>
+<figcaption><a name="ex4-56">Example 4-56: Example augmentation point element declaration</a></figcaption>
 
 <p>In the XSD representation of a model, a namespace augments a CCC type
 with an <a href="#def-element-property"><span class="termRef">element
@@ -4320,12 +4379,12 @@ desired <a
 href="#def-augmentation-property"><span class="termRef">augmentation
 properties</span></a> that is substitutable for the <a
 href="#def-augmentation-point-element"><span class="termRef">augmentation
-point element</span></a>. For example, <a href="#fig4-27">figure
-4-27</a> shows the XSD for the NIEM Justice namespace augmenting
+point element</span></a>. For example, <a href="#ex4-56">example
+4-56</a> shows the XSD for the NIEM Justice namespace augmenting
 <code>nc:PersonType</code> with two properties, and <a
-href="#fig4-28">figure 4-28</a> shows an XML message with that
+href="#ex4-57">example 4-57</a> shows an XML message with that
 augmentation. (The CMF corresponding to the XSD is shown in <a
-href="#fig4-24">figure 4-24</a>.)</p>
+href="#ex4-52">example 4-52</a>.)</p>
 <pre><code>&lt;xs:complexType name=&quot;PersonAugmentationType&quot;&gt;
   &lt;xs:complexContent&gt;
     &lt;xs:extension base=&quot;structures:AugmentationType&quot;&gt;
@@ -4337,7 +4396,7 @@ href="#fig4-24">figure 4-24</a>.)</p>
   &lt;/xs:complexContent&gt;
 &lt;/xs:complexType&gt;
 &lt;xs:element name=&quot;PersonAugmentation&quot; type=&quot;j:ExampleAugmentationType&quot; substitutionGroup=&quot;nc:PersonAugmentationPoint&quot;/&gt;</code></pre>
-<figcaption><a name="fig4-28">Figure 4-28: Augmenting a class with an augmentation type and element in XSD</a></figcaption>
+<figcaption><a name="ex4-57">Example 4-57: Augmenting a class with an augmentation type and element in XSD</a></figcaption>
 
 <pre><code>&lt;nc:Person&gt;
   &lt;nc:PersonBirthDate&gt;
@@ -4351,7 +4410,7 @@ href="#fig4-24">figure 4-24</a>.)</p>
     &lt;j:PersonSightedIndicator&gt;true&lt;/j:PersonSightedIndicator&gt;
   &lt;/j:PersonAugmentation&gt;
 &lt;/nc:Person&gt;</code></pre>
-<figcaption><a name="fig4-29">Figure 4-29: Example message with an augmentation element</a></figcaption>
+<figcaption><a name="ex4-58">Example 4-58: Example message with an augmentation element</a></figcaption>
 
 <p>All of the augmentations in the XSD representation of the NIEM model
 use the above approach. There is an alternative approach, in which a
@@ -4365,14 +4424,14 @@ point element</span></a>. For example, the namespace
 <code>http://example.com/Characters</code> could augment
 <code>nc:PersonType</code> with a
 <code>PersonFictionalCharacterIndicator</code> property via the XSD in
-<a href="#fig4-30">figure 4-30</a>.</p>
+<a href="#ex4-59">example 4-59</a>.</p>
 <pre><code>&lt;xs:element name=&quot;PersonFictionalCharacterIndicator&quot; type=&quot;niem-xs:boolean&quot;
     substitutionGroup=&quot;nc:PersonAugmentationPoint&quot;&gt;
   &lt;xs:annotation&gt;
     &lt;xs:documentation&gt;True if a person is a character in a work of fiction.&lt;/xs:documentation&gt;
   &lt;/xs:annotation&gt;
 &lt;/xs:element&gt;</code></pre>
-<figcaption><a name="fig4-30">Figure 4-30: Augmenting a class with an element property in XSD</a></figcaption>
+<figcaption><a name="ex4-59">Example 4-59: Augmenting a class with an element property in XSD</a></figcaption>
 
 <pre><code>&lt;nc:Person&gt;
   &lt;nc:PersonBirthDate&gt;
@@ -4383,10 +4442,10 @@ point element</span></a>. For example, the namespace
   &lt;/nc:PersonName&gt;
   &lt;chars:PersonFictionalCharacterIndicator&gt;true&lt;/nc:PersonFictionalCharacterIndicator&gt;
 &lt;/nc:Person&gt;</code></pre>
-<figcaption><a name="fig4-31">Figure 4-31: Example message showing augmentation with an element property</a></figcaption>
+<figcaption><a name="ex4-60">Example 4-60: Example message showing augmentation with an element property</a></figcaption>
 
-<p>The CMF corresponding to the XSD in <a href="#fig4-30">figure
-4-30</a> is shown below. Since there is no <a
+<p>The CMF corresponding to the XSD in <a href="#ex4-59">example
+4-59</a> is shown below. Since there is no <a
 href="#def-augmentation-type"><span class="termRef">augmentation
 type</span></a> in the XSD, the AugmentationRecord object does not have
 an AugmentationIndex property to show the position of the <a
@@ -4403,7 +4462,7 @@ property</span></a> within that type.</p>
     &lt;MaxOccursQuantity&gt;1&lt;/MaxOccursQuantity&gt;
   &lt;/AugmentationRecord&gt;
 &lt;/Namespace&gt;</code></pre>
-<figcaption><a name="fig4-32">Figure 4-32: CMF for an element property augmentation</a></figcaption>
+<figcaption><a name="ex4-61">Example 4-61: CMF for an element property augmentation</a></figcaption>
 
 <h3
 id="4153-augmenting-a-literal-class-or-datatype-with-an-element-property-in-xsd">4.15.3
@@ -4429,12 +4488,12 @@ Augmenting a class with an attribute property in XSD</h3>
 with an <a
 href="#def-attribute-property"><span class="termRef">attribute
 property</span></a> by writing application information into the
-namespace schema document. For example, <a href="#fig4-33">figure
-4-33</a> shows the XSD for the <em>Characters</em> namespace augmenting
+namespace schema document. For example, <a href="#ex4-62">example
+4-62</a> shows the XSD for the <em>Characters</em> namespace augmenting
 <code>nc:PersonType</code> with the <a
 href="#def-attribute-property"><span class="termRef">attribute
 property</span></a> <code>chars:genre</code>, and <a
-href="#fig4-34">figure 4-34</a> shows an XML message with that
+href="#ex4-63">example 4-63</a> shows an XML message with that
 augmentation.</p>
 <pre><code>&lt;xs:schema
   targetNamespace=&quot;http://example.com/Characters/1.0/&quot;
@@ -4456,7 +4515,7 @@ augmentation.</p>
     &lt;/xs:annotation&gt;
   &lt;/xs:attribute&gt;
 &lt;/xs:schema&gt;</code></pre>
-<figcaption><a name="fig4-33">Figure 4-33: Augmenting a class with an attribute property in XSD</a></figcaption>
+<figcaption><a name="ex4-62">Example 4-62: Augmenting a class with an attribute property in XSD</a></figcaption>
 
 <pre><code>&lt;nc:Person myChars:genre=&quot;mystery&quot;&gt;
   &lt;nc:PersonBirthDate&gt;
@@ -4467,7 +4526,7 @@ augmentation.</p>
   &lt;/nc:PersonName&gt;
   &lt;chars:PersonFictionalCharacterIndicator&gt;true&lt;/nc:PersonFictionalCharacterIndicator&gt;
 &lt;/nc:Person&gt;</code></pre>
-<figcaption><a name="fig4-34">Figure 4-34: Example message showing an attribute property augmentation</a></figcaption>
+<figcaption><a name="ex4-63">Example 4-63: Example message showing an attribute property augmentation</a></figcaption>
 
 <h3 id="4155-global-augmentations-in-xsd">4.15.5 Global augmentations in
 XSD</h3>
@@ -4478,12 +4537,12 @@ href="#def-augmentation-element"><span class="termRef">augmentation
 element</span></a></em> substitutable for
 <code>structures:ObjectAugmentationPoint</code> or
 <code>structures:AssociationAugmentationPoint</code>. For example, <a
-href="#fig4-35">figure 4-35</a> shows the XSD for the <em>Privacy</em>
+href="#ex4-64">example 4-64</a> shows the XSD for the <em>Privacy</em>
 namespace augmenting all <a
 href="#def-object-class"><span class="termRef">object classes</span></a>
 with the <code>priv:Restriction</code> <a
 href="#def-element-property"><span class="termRef">element
-property</span></a>; <a href="#fig4-36">figure 4-36</a> shows part of an
+property</span></a>; <a href="#ex4-65">example 4-65</a> shows part of an
 XML message with that augmentation.</p>
 <pre><code>&lt;xs:complexType name=&quot;ObjectAugmentationType&quot;&gt;
   &lt;xs:annotation&gt;
@@ -4502,7 +4561,7 @@ XML message with that augmentation.</p>
     &lt;xs:documentation&gt;Additional information about an object.&lt;/xs:documentation&gt;
   &lt;/xs:annotation&gt;
 &lt;/xs:element&gt;</code></pre>
-<figcaption><a name="fig4-35">Figure 4-35: Global augmentation with an element property in XSD</a></figcaption>
+<figcaption><a name="ex4-64">Example 4-64: Global augmentation with an element property in XSD</a></figcaption>
 
 <pre><code>&lt;nc:Person&gt;
   &lt;priv:ObjectAugmentation&gt;
@@ -4512,7 +4571,7 @@ XML message with that augmentation.</p>
     &lt;nc:PersonFullName&gt;John Doe&lt;/nc:PersonFullName&gt;
   &lt;/nc:PersonName&gt;
 &lt;/nc:Person&gt;</code></pre>
-<figcaption><a name="fig4-36">Figure 4-36: Global augmentation with an element property in XSD</a></figcaption>
+<figcaption><a name="ex4-65">Example 4-65: Global augmentation with an element property in XSD</a></figcaption>
 
 <p>Global augmentation with an <a
 href="#def-attribute-property"><span class="termRef">attribute
@@ -4520,7 +4579,7 @@ property</span></a> is represented in XSD by writing application
 information into the augmenting namespace schema document. Instead of
 specifying the augmented class, this appinfo provides a code from
 <code>GlobalAugmentationCodeType</code>. For example, <a
-href="#fig4-37">figure 4-37</a> shows the XSD for the <em>Privacy</em>
+href="#ex4-66">example 4-66</a> shows the XSD for the <em>Privacy</em>
 namespace augmenting all <a
 href="#def-object-class"><span class="termRef">object classes</span></a>
 with the <code>priv:classification</code> <a
@@ -4541,7 +4600,7 @@ property</span></a>.</p>
     &lt;/xs:appinfo&gt;
   &lt;/xs:annotation&gt;
 &lt;/xs:schema&gt;</code></pre>
-<figcaption><a name="fig4-37">Figure 4-37: Global augmentation with an attribute property in XSD</a></figcaption>
+<figcaption><a name="ex4-66">Example 4-66: Global augmentation with an attribute property in XSD</a></figcaption>
 
 <h3 id="4156-attribute-augmentations-in-message-models">4.15.6 Attribute
 augmentations in message models</h3>
@@ -4550,7 +4609,7 @@ all conforming messages. This means the augmented type definition has to
 include the augmenting <a
 href="#def-attribute-property"><span class="termRef">attribute
 property</span></a>. For example, the highlighted line in <a
-href="#fig4-38">figure 4-38</a> shows how the type definition of
+href="#ex4-67">example 4-67</a> shows how the type definition of
 <code>nc:PersonType</code> would include the <a
 href="#def-augmentation-property"><span class="termRef">augmentation
 property</span></a> <code>chars:genre</code>.</p>
@@ -4571,7 +4630,7 @@ property</span></a> <code>chars:genre</code>.</p>
 &lt;/xs:complexType&gt;
 </code></pre>
 
-<figcaption><a name="fig4-38">Figure 4-38: Example complex type definition with complex content (CCC type)</a></figcaption>
+<figcaption><a name="ex4-67">Example 4-67: Example complex type definition with complex content (CCC type)</a></figcaption>
 
 <p>The <code>appinfo:augmentingNamespace</code> attribute is required;
 it declares that this attribute reference is an augmentation. The value
@@ -4645,10 +4704,12 @@ an originating or authoritative document defining a local term.</td>
 </tr>
 </tbody>
 </table>
+<figcaption><a name="tab4-68">Table 4-68: Properties of the LocalTerm object class</a></figcaption>
+
 <p>A LocalTerm object is represented in XSD by a
 <code>appinfo:LocalTerm</code> element within <code>xs:appinfo</code>
-element in the <code>xs:schema</code> element. <a href="#fig4-39">Figure
-4-39</a> shows the representation of a LocalTerm object in CMF and
+element in the <code>xs:schema</code> element. <a href="#ex4-69">Example
+4-69</a> shows the representation of a LocalTerm object in CMF and
 XSD.</p>
 <pre><code>&lt;LocalTerm&gt;
   &lt;TermName&gt;2D&lt;/TermName&gt;
@@ -4674,7 +4735,7 @@ XSD.</p>
     &lt;appinfo:SourceText&gt;citation #2&lt;/appinfo:SourceText&gt;
   &lt;/appinfo:LocalTerm&gt;
 &lt;/xs:appinfo&gt;</code></pre>
-<figcaption><a name="fig4-39">Figure 4-39: Example LocalTerm objects in CMF and XSD</a></figcaption>
+<figcaption><a name="ex4-69">Example 4-69: Example LocalTerm objects in CMF and XSD</a></figcaption>
 
 <p>The following table shows the mapping between LocalTerm object
 representations in CMF and XSD.</p>
@@ -4708,6 +4769,8 @@ representations in CMF and XSD.</p>
 </tr>
 </tbody>
 </table>
+<figcaption><a name="tab4-70">Table 4-70: LocalTerm object properties in CMF and XSD</a></figcaption>
+
 <h2 id="417-texttype">4.17 TextType</h2>
 <p>An instance of the TextType class combines a string property with a
 language property.</p>
@@ -4745,7 +4808,7 @@ language property.</p>
 </tr>
 </tbody>
 </table>
-</br>
+<figcaption><a name="tab4-71">Table 4-71: Properties of the TextType object class</a></figcaption>
 
 <hr />
 <h1 id="5-data-modeling-patterns">5. Data modeling patterns</h1>
@@ -4763,8 +4826,8 @@ message model. In the NIEM model, <code>nc:NumericType</code> has one <a
 href="#def-element-property"><span class="termRef">element
 property</span></a> and one <a
 href="#def-attribute-property"><span class="termRef">attribute
-property</span></a>. <a href="#fig5-1">Figure 5-1</a> shows the class
-representation in CMF and XSD; <a href="#fig5-2">figure 5-2</a> shows an
+property</span></a>. <a href="#ex5-1">Example 5-1</a> shows the class
+representation in CMF and XSD; <a href="#ex5-2">example 5-2</a> shows an
 object of the class in an XML and JSON message.</p>
 <pre><code>&lt;Class structures:id=&quot;nc.NumericType&quot;&gt;                       | &lt;xs:complexType name=&quot;NumericType&quot;&gt;
   &lt;Name&gt;NumericType&lt;/Name&gt;                                   |   &lt;xs:simpleContent&gt;
@@ -4780,7 +4843,7 @@ object of the class in an XML and JSON message.</p>
     &lt;MaxOccursQuantity&gt;1&lt;/MaxOccursQuantity&gt;                 |
   &lt;/ChildPropertyAssociation&gt;                                |
 &lt;/Class&gt;                                                     |</code></pre>
-<figcaption><a name="fig5-1">Figure 5-1: A literal class in CMF and XSD</a></figcaption>
+<figcaption><a name="ex5-1">Example 5-1: A literal class in CMF and XSD</a></figcaption>
 
 <pre><code>&lt;my:Message&gt;                                                        | &quot;my:Message&quot;: {
   &lt;my:MaximumNumber nc:toleranceNumeric=&quot;2&quot;&gt;7&lt;my:MaximumNumber&gt;     |   &quot;my:MaximumNumber&quot;: {
@@ -4788,32 +4851,32 @@ object of the class in an XML and JSON message.</p>
                                                                     |     &quot;nc:toleranceNumeric&quot;: &quot;2&quot;
                                                                     |   }
                                                                     | }</code></pre>
-<figcaption><a name="fig5-2">Figure 5-2: Objects of a literal class in an XML and JSON message</a></figcaption>
+<figcaption><a name="ex5-2">Example 5-2: Objects of a literal class in an XML and JSON message</a></figcaption>
 
 <p>If a message designer decides to reuse <code>nc:NumericType</code>,
 and to remove <code>nc:toleranceNumeric</code> from the class in his
 model subset, then <code>nc:NumericType</code> becomes a datatype in the
-subset. <a href="#fig5-3">Figure 5-3</a> shows the CMF and XSD
-representations of that subset; <a href="#fig5-4">figure 5-12</a> shows
+subset. <a href="#ex5-3">Example 5-3</a> shows the CMF and XSD
+representations of that subset; <a href="#ex5-4">example 5-4</a> shows
 the resulting data property in an XML and JSON message.</p>
 <pre><code>&lt;Restriction structures:id=&quot;nc.NumericType&quot;&gt;         | &lt;xs:complexType name=&quot;NumericType&quot;&gt;
   &lt;Name&gt;NumericType&lt;/Name&gt;                           |   &lt;xs:simpleContent&gt;
   &lt;Namespace structures:ref=&quot;nc&quot;                     |     &lt;xs:extension base=&quot;niem-xs:decimal&quot;/&gt;
   &lt;RestrictionBase structures:ref=&quot;xs:decimal&quot;/&gt;     |   &lt;/xs:simpleContent&gt;
 &lt;/Restriction&gt;                                       | &lt;/xs:complexType&gt;</code></pre>
-<figcaption><a name="fig5-3">Figure 5-3: A restriction datatype in a CMF and XSD model subset</a></figcaption>
+<figcaption><a name="ex5-3">Example 5-3: A restriction datatype in a CMF and XSD model subset</a></figcaption>
 
 <pre><code>&lt;my:Message&gt;                                         | &quot;my:Message&quot;: {
   &lt;my:MaximumNumber&gt;7&lt;my:MaximumNumber&gt;              |   &quot;my:MaximumNumber&quot;: &quot;7&quot;
 &lt;/my:Message&gt;                                        | }</code></pre>
-<figcaption><a name="fig5-4">Figure 5-4: A data property in an XML and JSON message</a></figcaption>
+<figcaption><a name="ex5-4">Example 5-4: A data property in an XML and JSON message</a></figcaption>
 
 <p>Going the other way, augmenting a reused datatype turns it into a
 literal class. For example, <code>nc:PersonUnionCategoryCodeType</code>
 is a datatype in the NIEM model, and
 <code>nc:PersonUnionCategoryCode</code> is a data property with that
-datatype. <a href="#fig5-5">Figure 5-5</a> shows the datatype
-representation in CMF and XSD; <a href="#fig5-6">figure 5-6</a> shows
+datatype. <a href="#ex5-5">Example 5-5</a> shows the datatype
+representation in CMF and XSD; <a href="#ex5-6">example 5-6</a> shows
 the data property in an XML and JSON message.</p>
 <pre><code>&lt;Restriction structures:id=&quot;nc.PersonUnionCategoryCodeType&quot;&gt;      | &lt;xs:complexType name=&quot;PersonUnionCategoryCodeType&quot;&gt;
   &lt;Name&gt;PersonUnionCategoryCodeType&lt;/Name&gt;                        |   &lt;xs:simpleContent&gt;
@@ -4835,19 +4898,19 @@ the data property in an XML and JSON message.</p>
     &lt;StringValue&gt;unknown&lt;/StringValue&gt;                            | 
   &lt;/Enumeration&gt;                                                  | 
 &lt;/Restriction&gt;                                                    | </code></pre>
-<figcaption><a name="fig5-5">Figure 5-5: A datatype in CMF and XSD</a></figcaption>
+<figcaption><a name="ex5-5">Example 5-5: A datatype in CMF and XSD</a></figcaption>
 
 <pre><code>&lt;nc:Person&gt;                                                            | &quot;nc:Person&quot;: {
   &lt;nc:PersonUnionCategoryCode&gt;married&lt;/nc:PersonUnionCategoryCode&gt;     |   &quot;nc:PersonUnionCategoryCode&quot;: &quot;married&quot;
 &lt;/nc:Person&gt;                                                           | }</code></pre>
-<figcaption><a name="fig5-6">Figure 5-6: A data property in an XML and JSON message</a></figcaption>
+<figcaption><a name="ex5-6">Example 5-6: A data property in an XML and JSON message</a></figcaption>
 
 <p>A message designer might decide to augment
 <code>nc:PersonUnionCategoryCodeType</code> with metadata to indicate
 this information is sometimes privileged. Doing so turns it into a
-literal class in his model subset. <a href="#fig5-7">Figure 5-7</a>
+literal class in his model subset. <a href="#ex5-7">Example 5-7</a>
 shows the CMF and XSD representations of that subset; <a
-href="#fig5-8">figure 5-8</a> shows the resulting object in an XML and
+href="#ex5-8">example 5-8</a> shows the resulting object in an XML and
 JSON message.</p>
 <pre><code>&lt;Restriction structures:id=&quot;nc.PersonUnionCategoryCodeSimple | &lt;xs:simpleType name=&quot;PersonUnionCategoryCodeSimpleType&quot;&gt;
   &lt;Name&gt;PersonUnionCategoryCodeSimpleType&lt;/Name&gt;             |   &lt;xs:restriction base=&quot;xs:token&quot;&gt;
@@ -4889,7 +4952,7 @@ JSON message.</p>
     &lt;AugmentingNamespace&gt;my&lt;/AugmentingNamespace&gt;            | 
   &lt;/ChildPropertyAssociation&gt;                                | 
 &lt;/Class&gt;                                                     | </code></pre>
-<figcaption><a name="fig5-7">Figure 5-7: A literal class in a CMF and XSD model subset</a></figcaption>
+<figcaption><a name="ex5-7">Example 5-7: A literal class in a CMF and XSD model subset</a></figcaption>
 
 <pre><code>&lt;nc:Person&gt;                                                         | &quot;nc:Person&quot;: {
   &lt;nc:PersonUnionCategoryCode                                       |   &quot;nc:PersonUnionCategoryCode&quot;: {
@@ -4898,7 +4961,7 @@ JSON message.</p>
                                                                     |   }
                                                                     | }
                                                                     |</code></pre>
-<figcaption><a name="fig5-8">Figure 5-8: An object property with a code list class in an XML and JSON message</a></figcaption>
+<figcaption><a name="ex5-8">Example 5-8: An object property with a code list class in an XML and JSON message</a></figcaption>
 
 <p>The representation of a literal class is complex when compared to the
 datatype. The JSON message is likewise complicated. Best practice is
@@ -4907,8 +4970,8 @@ therefore to avoid augmenting a datatype whenever possible.</p>
 <p>The meaning of NIEM data is partly expressed through the hierarchy of
 nested objects in a message, and partly through the message model's
 definition of those objects. For example, the meaning of the two
-equivalent messages in <a href="#fig3-2">figure 3-2</a> (reproduced
-below) is described in <a href="#fig5-9">figure 5-2</a>.</p>
+equivalent messages in <a href="#ex3-2">example 3-2</a> (reproduced
+below) is described in <a href="#tab5-9">table 5-9</a>.</p>
 <pre><code>&lt;msg:Request                                                  | {
  xmlns:nc=&quot;https://docs.oasis-open.org/niemopen/ns/model/niem |   &quot;@context&quot;: {
  xmlns:msg=&quot;http://example.com/ReqRes/1.0/&quot;&gt;                  |     &quot;nc&quot;: &quot;https://docs.oasis-open.org/niemopen/ns/model/niem-
@@ -4980,11 +5043,11 @@ defines the range of this data property as the
 </tr>
 </tbody>
 </table>
-<figcaption><a name="fig5-9">Figure 5-9: Meaning of NIEM data</a></figcaption>
+<figcaption><a name="tab5-9">Table 5-9: Meaning of NIEM data</a></figcaption>
 
 <p>NIEM is designed so that NIEM data is a form of RDF data. For
 example, the message data above corresponds to the RDF shown in <a
-href="#fig5-10">figure 5-10</a></p>
+href="#ex5-10">example 5-10</a></p>
 <pre><code>@prefix nc: &lt;https://docs.oasis-open.org/niemopen/ns/model/adapters/niem-xs/6.0/&gt; .
 @prefix msg: &lt;http://example.com/ReqRes/1.0/&gt; .
 _:n1 a msg:RequestType .
@@ -4993,7 +5056,7 @@ _:n1 msg:RequestedItem _:n2 .
 _:n2 a nc:ItemType .
 _:n2 nc:ItemName &quot;Wrench&quot; .
 _:n2 nc:ItemQuantity &quot;10&quot; .</code></pre>
-<figcaption><a name="fig5-10">Figure 5-10: RDF interpretation of NIEM data (Turtle syntax)</a></figcaption>
+<figcaption><a name="ex5-10">Example 5-10: RDF interpretation of NIEM data (Turtle syntax)</a></figcaption>
 
 <p>That RDF data expresses a graph, illustrated by the diagram in <a
 href="#fig5-11">figure 5-11</a>.</p>
@@ -5034,7 +5097,7 @@ references. Any object may have an identifier. An object reference can
 take the place of any object in a message, and is interpreted as if the
 object with the same identifier actually appeared in that place. The
 resulting data structure is a graph, not a tree.</p>
-<p>For example, in <a href="#fig5-12">figure 5-12</a> below, there is
+<p>For example, in <a href="#ex5-12">example 5-12</a> below, there is
 only one Person object in the message; it has the identifier
 <code>JD</code>, and is a child property of
 <code>nc:PersonLocationAssociation</code>. The <code>nc:Person</code>
@@ -5060,7 +5123,7 @@ the Pentagon is also the person associated with the US Army.</p>
                                                            |     &quot;nc:OrganizationName&quot;: &quot;US Army&quot;
                                                            |   }
                                                            | }</code></pre>
-<figcaption><a name="fig5-12">Figure 5-12: Example of object references in NIEM XML and JSON</a></figcaption>
+<figcaption><a name="ex5-12">Example 5-12: Example of object references in NIEM XML and JSON</a></figcaption>
 
 <h3
 id="531-object-references-in-niem-xml-using-structuresid-and-structuresref">5.3.1
@@ -5072,7 +5135,7 @@ way to reference data across data objects.</p>
 <ul>
 <li><p><code>structures:id</code> is an ID attribute. Its value is an
 identifier for the object in which it appears. For example, in <a
-href="#fig5-12">figure 5-12</a> the value <code>JD</code> is an
+href="#ex5-12">example 5-12</a> the value <code>JD</code> is an
 identifier for the <code>nc:Person</code> object. According to the rules
 of XML, an ID value must be unique within the XML document.</p>
 <p>An ID attribute is a <em>fragment identifier</em> within the XML
@@ -5082,7 +5145,7 @@ document. For example, if the message as a whole has the URI
 <code>http://example.com/MSG/#JD</code>.</p></li>
 <li><p><code>structures:ref</code> is an IDREF attribute. An object with
 this attribute is a reference to the object with that identifier. For
-example, in <a href="#fig5-12">figure 5-12</a>, the element
+example, in <a href="#ex5-12">example 5-12</a>, the element
 <code>&lt;nc:Person structures:ref="JD" xsi:nil="true"/&gt;</code> is a
 reference to the <code>&lt;nc:Person&gt;</code> object that has the
 identifier <code>JD</code>.</p>
@@ -5109,7 +5172,7 @@ identifier is a resource identifier.</p>
 identifier to the element in which it appears. All of the elements
 having the same identifier refer to a single object, and all of those
 elements provide property values for that one object. For example, in <a
-href="#fig5-13">figure 5-13</a> below, there is only one Person object
+href="#ex5-13">example 5-13</a> below, there is only one Person object
 in the message. The person located at the Pentagon is also the person
 associated with the US Army; that person is named "John Doe" and also
 has red hair.</p>
@@ -5133,7 +5196,7 @@ has red hair.</p>
 &lt;/nc:PersonOrganizationAssociation&gt;                          |     &quot;nc:OrganizationName&quot;: &quot;US Army&quot;
                                                              |   }
                                                              | }</code></pre>
-<figcaption><a name="fig5-13">Figure 5-13: Example of URI object references in NIEM XML and JSON</a></figcaption>
+<figcaption><a name="ex5-13">Example 5-13: Example of URI object references in NIEM XML and JSON</a></figcaption>
 
 <p>The <code>structures:uri</code> attribute has the type
 <code>xs:anyURI</code>. Values can be either a <em>URI-reference</em> or
@@ -5180,7 +5243,7 @@ thing and are interpreted in the same way. (There is no JSON equivalent
 to XML's ID/IDREF attributes.)</p>
 <pre><code>&lt;nc:Person structures:uri=&quot;#JD&quot;&gt;
 &quot;nc:Person&quot;: { &quot;@id&quot;: &quot;#JD&quot; }</code></pre>
-<p>The two JSON objects in <a href="#fig5-13">figure 5-13</a> that are
+<p>The two JSON objects in <a href="#ex5-13">example 5-13</a> that are
 values of a <code>nc:Person</code> key have the same <code>#JD</code>
 value for <code>@id</code>. That means the two JSON objects contain
 properties of a single NIEM message object, representing a person named
@@ -5209,7 +5272,7 @@ is interpreted as an object reference to each of the objects thus
 identified, each a child property of the object containing the <a
 href="#def-reference-attribute-property"><span class="termRef">reference
 attribute property</span></a>. For example, the two XML messages in <a
-href="#fig5-14">figure 5-14</a> have the same meaning.</p>
+href="#ex5-14">example 5-14</a> have the same meaning.</p>
 <pre><code>&lt;my:Thing nc:metadataRef=&quot;m6 m7&quot;&gt;                        | &lt;my:Thing&gt;
   &lt;my:ThingName&gt;The Snark&lt;/my:ThingName&gt;                 |   &lt;my:ThingName&gt;The Snark&lt;/my:ThingName&gt;
   &lt;my:ThingLocation&gt;Dismal Valley&lt;/my:ThingLocation&gt;     |   &lt;my:ThingLocation&gt;Dismal Valley&lt;/my:ThingLocation&gt;
@@ -5220,9 +5283,9 @@ href="#fig5-14">figure 5-14</a> have the same meaning.</p>
 &lt;nc:Metadata structures:id=&quot;m7&quot;&gt;                         |     &lt;nc:SourceIDText&gt;Bingo-7&lt;/nc:SourceIDText&gt;
   &lt;nc:SourceIDText&gt;Bingo-7&lt;/nc:SourceIDText&gt;             |   &lt;/nc:Metadata&gt;
 &lt;/nc:Metadata&gt;                                           | &lt;/my:Thing&gt;</code></pre>
-<figcaption><a name="fig5-14">Figure 5-14: Reference attribute property and equivalent message in XML</a></figcaption>
+<figcaption><a name="ex5-14">Example 5-14: Reference attribute property and equivalent message in XML</a></figcaption>
 
-<p><a href="#fig5-15">Figure 5-15</a> shows the equivalent JSON
+<p><a href="#ex5-15">Example 5-15</a> shows the equivalent JSON
 message.</p>
 <pre><code>&quot;my:Thing&quot;: {
   &quot;my:ThingName&quot;: &quot;The Snark&quot;,
@@ -5242,7 +5305,7 @@ message.</p>
     &quot;@id&quot;: &quot;#m7&quot;
   }
 ]</code></pre>
-<figcaption><a name="fig5-15">Figure 5-15: Reference attribute property in JSON message</a></figcaption>
+<figcaption><a name="ex5-15">Example 5-15: Reference attribute property in JSON message</a></figcaption>
 
 <p>The class of these objects is determined by the name of the reference
 attribute property. For example, an object reference belonging to
@@ -5271,12 +5334,12 @@ his own <code>my:ThingType</code> class.</p>
   &lt;nc:Metadata&gt;
     &lt;nc:ConfidencePercent&gt;75&lt;/nc:ConfidencePercent&gt;
     &lt;nc:SourceIDText&gt;Bingo-7&lt;/nc:SourceIDText&gt;</code></pre>
-<figcaption><a name="fig5-16">Figure 5-16: Metadata properties used in a designer's own class</a></figcaption>
+<figcaption><a name="ex5-16">Example 5-16: Metadata properties used in a designer's own class</a></figcaption>
 
 <p>A message designer might also want to record source and confidence in
 a class reused from another namespace. This is done through
 augmentation, following one of two patterns. The first is to augment the
-class with an object property. <a href="#fig5-17">Figure 5-17</a> shows
+class with an object property. <a href="#ex5-17">Example 5-17</a> shows
 a message example in which <code>nc:PersonType</code> is augmented with
 <code>nc:Metadata</code>.</p>
 <pre><code>&lt;nc:Person&gt;                                             | &quot;nc:Person&quot;: {
@@ -5292,14 +5355,14 @@ a message example in which <code>nc:PersonType</code> is augmented with
     &lt;/nc:Metadata&gt;                                      | }
   &lt;/my:PersonAugmentation&gt;                              | 
 &lt;/nc:Person&gt;                                            | </code></pre>
-<figcaption><a name="fig5-17">Figure 5-17: Metadata object property augmenting a reused class</a></figcaption>
+<figcaption><a name="ex5-17">Example 5-17: Metadata object property augmenting a reused class</a></figcaption>
 
 <p>The above augmentation pattern only works for a class with element
 properties. To add metadata properties to a <a
 href="#def-literal-class"><span class="termRef">literal
 class</span></a>, the message designer must augment the class with a <a
 href="#def-reference-attribute-property"><span class="termRef">reference
-attribute property</span></a>. <a href="#fig5-18">Figure 5-18</a> shows
+attribute property</span></a>. <a href="#ex5-18">Example 5-18</a> shows
 a message example in which <code>nc:PersonNameTextType</code> is
 augmented with <code>nc:metadataRef</code>.</p>
 <pre><code>&lt;nc:Person&gt;                                                                 | &quot;nc:Person&quot;: {
@@ -5315,12 +5378,12 @@ augmented with <code>nc:metadataRef</code>.</p>
 &lt;/nc:Metadata&gt;                                                              |     &quot;nc:ConfidencePercent&quot;: &quot;75&quot;,
                                                                             |   }
                                                                             | }</code></pre>
-<figcaption><a name="fig5-18">Figure 5-18: Metadata reference attribute augmenting a reused class</a></figcaption>
+<figcaption><a name="ex5-18">Example 5-18: Metadata reference attribute augmenting a reused class</a></figcaption>
 
 <h2 id="55-relationship-properties">5.5 Relationship properties</h2>
 <p>The value of a property usually provides information about its parent
 object. For example, the value of <code>nc:personNameCommentText</code>
-in <a href="#fig5-19">figure 5-19</a> tells us something about the
+in <a href="#ex5-19">example 5-19</a> tells us something about the
 parent object; namely, that this name is a silly name.</p>
 <pre><code>&lt;nc:Person&gt;                                                          | &quot;nc:Person&quot;: {
   &lt;nc:PersonName nc:personNameCommentText=&quot;This is a silly name&quot;&gt;    |   &quot;nc:PersonName&quot;: {
@@ -5328,10 +5391,10 @@ parent object; namely, that this name is a silly name.</p>
   &lt;/nc:PersonName&gt;                                                   |     &quot;nc:PersonFullName&quot;: &quot;Bozo the Clown&quot;
 &lt;/nc:Person&gt;                                                         |   }
                                                                      | }</code></pre>
-<figcaption><a name="fig5-19">Figure 5-19: Example of an ordinary property</a></figcaption>
+<figcaption><a name="ex5-19">Example 5-19: Example of an ordinary property</a></figcaption>
 
 <p>Sometimes that is not what is needed. For example, in <a
-href="#fig5-20">figure 5-20</a>, the <a
+href="#ex5-20">example 5-20</a>, the <a
 href="#def-relationship-property"><span class="termRef">relationship
 property</span></a> <code>my:isSecret</code> is not telling us the name
 "Superman" is a secret. Everybody knows that name! Instead,
@@ -5350,17 +5413,17 @@ kept secret.</p>
                                                           |     }
                                                           |   }
                                                           | }</code></pre>
-<figcaption><a name="fig5-20">Figure 5-20: Example of a relationship property</a></figcaption>
+<figcaption><a name="ex5-20">Example 5-20: Example of a relationship property</a></figcaption>
 
 <p>NIEM uses RDF-star to represent relationship properties. <a
-href="#fig5-21">Figure 5-21</a> shows the RDF equivalent for the message
-in <a href="#fig5-20">figure 5-20</a>. <a href="#fig5-22">Figure
+href="#ex5-21">Example 5-21</a> shows the RDF equivalent for the message
+in <a href="#ex5-20">example 5-20</a>. <a href="#fig5-22">Figure
 5-22</a> provides a diagram of that RDF graph.</p>
 <pre><code>_:n1 nc:PersonName _:n2 .
 _:n1 nc:PersonName _:n2 {| &quot;my:isSecret&quot;: &quot;true&quot; |} .
 _:n2 nc:PersonFullName &quot;Superman&quot; .
 _:n3 nc:PersonFullName &quot;Clark Kent&quot; .</code></pre>
-<figcaption><a name="fig5-21">Figure 5-21: RDF-star equivalent for a relationship property</a></figcaption>
+<figcaption><a name="ex5-21">Example 5-21: RDF-star equivalent for a relationship property</a></figcaption>
 
 <figure>
   <img src="images/relProp.png" style="zoom: 100%;" />
@@ -5534,7 +5597,7 @@ document</span></a> is intended to represent a reference, extension, or
 subset namespace. For example, a <a
 href="#def-reference-schema-document"><span class="termRef">reference
 schema document</span></a> contains the conformance target assertion
-shown in <a href="#fig6-1">figure 6-1</a> below:</p>
+shown in <a href="#ex6-1">example 6-1</a> below:</p>
 <pre><code>&lt;xs:schema
   targetNamespace=&quot;https://docs.oasis-open.org/niemopen/ns/model/niem-core/6.0/&quot;
   xmlns:ct=&quot;https://docs.oasis-open.org/niemopen/ns/specification/conformanceTargets/6.0/&quot;
@@ -5542,12 +5605,12 @@ shown in <a href="#fig6-1">figure 6-1</a> below:</p>
   ct:conformanceTargets=&quot;https://docs.oasis-open.org/niemopen/ns/specification/NDR/6.0/#ReferenceSchemaDocument&quot;
   version=&quot;1&quot;
   xml:lang=&quot;en-US&quot;&gt;</code></pre>
-<figcaption><a name="fig6-1">Figure 6-1: Conformance target assertion in XSD</a></figcaption>
+<figcaption><a name="ex6-1">Example 6-1: Conformance target assertion in XSD</a></figcaption>
 
 <p>In CMF, the <code>ConformanceTargetURI</code> property indicates
 whether a Namespace object represents a reference, extension, or subset
 namespace. For example, the Namespace object equivalent to the namespace
-in <a href="#fig6-1">figure 6-1</a> is shown below:</p>
+in <a href="#ex6-1">example 6-1</a> is shown below:</p>
 <pre><code>&lt;Namespace structures:id=&quot;nc&quot;&gt;
   &lt;NamespaceURI&gt;https://docs.oasis-open.org/niemopen/ns/model/niem-core/6.0/&lt;/NamespaceURI&gt;
   &lt;NamespacePrefixText&gt;nc&lt;/NamespacePrefixText&gt;
@@ -5559,7 +5622,7 @@ in <a href="#fig6-1">figure 6-1</a> is shown below:</p>
   &lt;NamespaceVersionText&gt;1&lt;/NamespaceVersionText&gt;
   &lt;NamespaceLanguageName&gt;en-US&lt;/NamespaceLanguageName&gt;
 &lt;/Namespace&gt;</code></pre>
-<figcaption><a name="fig6-2">Figure 6-2: Conformance target assertion in CMF</a></figcaption>
+<figcaption><a name="ex6-2">Example 6-2: Conformance target assertion in CMF</a></figcaption>
 
 <h2 id="63-conformance-testing">6.3 Conformance testing</h2>
 <p>Automated testing of most rules is possible. Some rules require human
@@ -6033,7 +6096,7 @@ representations of the value of a type</td>
 </tr>
 </tbody>
 </table>
-<center><i><a name="tab7-1"></a>Table 7-1: Property representation terms</i></center><p/>
+<figcaption><a name="tab7-1">Table 7-1: Property representation terms</a></figcaption>
 
 <p><a name="rule7-30"></a><strong>Rule 7-30:</strong> If any word in the
 representation term is redundant with any word in the property term, one
@@ -7440,7 +7503,7 @@ URI</span></a>.</p>
 defined in <a href="#json-ld"><b>[JSON-LD]</b></a> <a
 href="https://www.w3.org/TR/json-ld11/#the-context">§3.1: The
 Context</a>.</p>
-<p>For example, the JSON message in <a href="#fig3-2">figure 3-2</a> has
+<p>For example, the JSON message in <a href="#ex3-2">example 3-2</a> has
 a context that maps the prefixes <code>nc</code> and <code>msg</code> to
 their corresponding URIs.</p>
 <p><a name="rule13-4"></a><strong>Rule 13-4:</strong> The name in a
@@ -8040,38 +8103,38 @@ NIEM 5 rules to NIEM 6</h1>
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_4-1">Rule
 4-1, Schema marked as reference schema document must conform</a></td>
-<td style="text-align: left;"><a href="#rule8-9">8-9</a></td>
+<td style="text-align: left;"><a href="#rule8-9">rule8-9</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_4-2">Rule
 4-2, Schema marked as extension schema document must conform</a></td>
-<td style="text-align: left;"><a href="#rule8-13">8-13</a></td>
+<td style="text-align: left;"><a href="#rule8-13">rule8-13</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_4-3">Rule
 4-3, Schema is CTAS-conformant</a></td>
-<td style="text-align: left;"><a href="#rule9-1">9-1</a></td>
+<td style="text-align: left;"><a href="#rule9-1">rule9-1</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_4-4">Rule
 4-4, Document element has attribute ct:conformanceTargets</a></td>
-<td style="text-align: left;"><a href="#rule9-2">9-2</a></td>
+<td style="text-align: left;"><a href="#rule9-2">rule9-2</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_4-5">Rule
 4-5, Schema claims reference schema conformance target</a></td>
-<td style="text-align: left;"><a href="#rule8-9">8-9</a>, <a
-href="#rule8-15">8-15</a></td>
+<td style="text-align: left;"><a href="#rule8-9">rule8-9</a>, <a
+href="#rule8-15">rule8-15</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_4-6">Rule
 4-6, Schema claims extension conformance target</a></td>
-<td style="text-align: left;"><a href="#rule8-13">8-13</a></td>
+<td style="text-align: left;"><a href="#rule8-13">rule8-13</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
@@ -8083,205 +8146,205 @@ href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_7-1">Rule
 7-1, Document is an XML document</a></td>
-<td style="text-align: left;"><a href="#rule9-3">9-3</a></td>
+<td style="text-align: left;"><a href="#rule9-3">rule9-3</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_7-2">Rule
 7-2, Document uses XML namespaces properly</a></td>
-<td style="text-align: left;"><a href="#rule9-3">9-3</a></td>
+<td style="text-align: left;"><a href="#rule9-3">rule9-3</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_7-3">Rule
 7-3, Document is a schema document</a></td>
-<td style="text-align: left;"><a href="#rule9-3">9-3</a></td>
+<td style="text-align: left;"><a href="#rule9-3">rule9-3</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_7-4">Rule
 7-4, Document element is xs:schema</a></td>
-<td style="text-align: left;"><a href="#rule9-4">9-4</a></td>
+<td style="text-align: left;"><a href="#rule9-4">rule9-4</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_7-5">Rule
 7-5, Component name follows ISO 11179 Part 5 Annex A</a></td>
-<td style="text-align: left;"><a href="#rule7-24">7-24</a></td>
+<td style="text-align: left;"><a href="#rule7-24">rule7-24</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-1">Rule
 9-1, No base type in the XML namespace</a></td>
-<td style="text-align: left;"><a href="#rule9-6">9-6</a></td>
+<td style="text-align: left;"><a href="#rule9-6">rule9-6</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-2">Rule
 9-2, No base type of xs:ID</a></td>
-<td style="text-align: left;"><a href="#rule9-6">9-6</a></td>
+<td style="text-align: left;"><a href="#rule9-6">rule9-6</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-3">Rule
 9-3, No base type of xs:IDREF</a></td>
-<td style="text-align: left;"><a href="#rule9-6">9-6</a></td>
+<td style="text-align: left;"><a href="#rule9-6">rule9-6</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-4">Rule
 9-4, No base type of xs:IDREFS</a></td>
-<td style="text-align: left;"><a href="#rule9-6">9-6</a></td>
+<td style="text-align: left;"><a href="#rule9-6">rule9-6</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-5">Rule
 9-5, No base type of xs:anyType</a></td>
-<td style="text-align: left;"><a href="#rule9-6">9-6</a></td>
+<td style="text-align: left;"><a href="#rule9-6">rule9-6</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-6">Rule
 9-6, No base type of xs:anySimpleType</a></td>
-<td style="text-align: left;"><a href="#rule9-6">9-6</a></td>
+<td style="text-align: left;"><a href="#rule9-6">rule9-6</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-7">Rule
 9-7, No base type of xs:NOTATION</a></td>
-<td style="text-align: left;"><a href="#rule9-6">9-6</a></td>
+<td style="text-align: left;"><a href="#rule9-6">rule9-6</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-8">Rule
 9-8, No base type of xs:ENTITY</a></td>
-<td style="text-align: left;"><a href="#rule9-6">9-6</a></td>
+<td style="text-align: left;"><a href="#rule9-6">rule9-6</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-9">Rule
 9-9, No base type of xs:ENTITIES</a></td>
-<td style="text-align: left;"><a href="#rule9-6">9-6</a></td>
+<td style="text-align: left;"><a href="#rule9-6">rule9-6</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-10">Rule
 9-10, Simple type definition is top-level</a></td>
-<td style="text-align: left;"><a href="#rule9-30">9-30</a></td>
+<td style="text-align: left;"><a href="#rule9-30">rule9-30</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-11">Rule
 9-11, No simple type disallowed derivation</a></td>
-<td style="text-align: left;"><a href="#rule9-79">9-79</a></td>
+<td style="text-align: left;"><a href="#rule9-79">rule9-79</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-12">Rule
 9-12, Simple type has data definition</a></td>
-<td style="text-align: left;"><a href="#rule7-38">7-38</a></td>
+<td style="text-align: left;"><a href="#rule7-38">rule7-38</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-13">Rule
 9-13, No use of fixed on simple type facets</a></td>
-<td style="text-align: left;"><a href="#rule9-80">9-80</a></td>
+<td style="text-align: left;"><a href="#rule9-80">rule9-80</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-14">Rule
 9-14, Enumeration has data definition</a></td>
-<td style="text-align: left;"><a href="#rule7-39">7-39</a></td>
+<td style="text-align: left;"><a href="#rule7-39">rule7-39</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-15">Rule
 9-15, No list item type of xs:ID</a></td>
-<td style="text-align: left;"><a href="#rule9-7">9-7</a></td>
+<td style="text-align: left;"><a href="#rule9-7">rule9-7</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-16">Rule
 9-16, No list item type of xs:IDREF</a></td>
-<td style="text-align: left;"><a href="#rule9-7">9-7</a></td>
+<td style="text-align: left;"><a href="#rule9-7">rule9-7</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-17">Rule
 9-17, No list item type of xs:anySimpleType</a></td>
-<td style="text-align: left;"><a href="#rule9-7">9-7</a></td>
+<td style="text-align: left;"><a href="#rule9-7">rule9-7</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-18">Rule
 9-18, No list item type of xs:ENTITY</a></td>
-<td style="text-align: left;"><a href="#rule9-7">9-7</a></td>
+<td style="text-align: left;"><a href="#rule9-7">rule9-7</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-19">Rule
 9-19, No union member types of xs:ID</a></td>
-<td style="text-align: left;"><a href="#rule9-8">9-8</a></td>
+<td style="text-align: left;"><a href="#rule9-8">rule9-8</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-20">Rule
 9-20, No union member types of xs:IDREF</a></td>
-<td style="text-align: left;"><a href="#rule9-8">9-8</a></td>
+<td style="text-align: left;"><a href="#rule9-8">rule9-8</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-21">Rule
 9-21, No union member types of xs:IDREFS</a></td>
-<td style="text-align: left;"><a href="#rule9-8">9-8</a></td>
+<td style="text-align: left;"><a href="#rule9-8">rule9-8</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-22">Rule
 9-22, No union member types of xs:anySimpleType</a></td>
-<td style="text-align: left;"><a href="#rule9-8">9-8</a></td>
+<td style="text-align: left;"><a href="#rule9-8">rule9-8</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-23">Rule
 9-23, No union member types of xs:ENTITY</a></td>
-<td style="text-align: left;"><a href="#rule9-8">9-8</a></td>
+<td style="text-align: left;"><a href="#rule9-8">rule9-8</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-24">Rule
 9-24, No union member types of xs:ENTITIES</a></td>
-<td style="text-align: left;"><a href="#rule9-8">9-8</a></td>
+<td style="text-align: left;"><a href="#rule9-8">rule9-8</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-25">Rule
 9-25, Complex type definition is top-level</a></td>
-<td style="text-align: left;"><a href="#rule9-30">9-30</a></td>
+<td style="text-align: left;"><a href="#rule9-30">rule9-30</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-26">Rule
 9-26, Complex type has data definition</a></td>
-<td style="text-align: left;"><a href="#rule7-38">7-38</a></td>
+<td style="text-align: left;"><a href="#rule7-38">rule7-38</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-27">Rule
 9-27, No mixed content on complex type</a></td>
-<td style="text-align: left;"><a href="#rule9-10">9-10</a></td>
+<td style="text-align: left;"><a href="#rule9-10">rule9-10</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-28">Rule
 9-28, No mixed content on complex content</a></td>
-<td style="text-align: left;"><a href="#rule9-10">9-10</a></td>
+<td style="text-align: left;"><a href="#rule9-10">rule9-10</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-29">Rule
 9-29, Complex type content is explicitly simple or complex</a></td>
-<td style="text-align: left;"><a href="#rule9-11">9-11</a></td>
+<td style="text-align: left;"><a href="#rule9-11">rule9-11</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
@@ -8294,14 +8357,14 @@ href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-31">Rule
 9-31, Base type of complex type with complex content must have complex
 content</a></td>
-<td style="text-align: left;"><a href="#rule9-12">9-12</a></td>
+<td style="text-align: left;"><a href="#rule9-12">rule9-12</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-32">Rule
 9-32, Base type of complex type with complex content must have complex
 content</a></td>
-<td style="text-align: left;"><a href="#rule9-12">9-12</a></td>
+<td style="text-align: left;"><a href="#rule9-12">rule9-12</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
@@ -8313,159 +8376,159 @@ href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-34">Rule
 9-34, No complex type disallowed substitutions</a></td>
-<td style="text-align: left;"><a href="#rule9-81">9-81</a></td>
+<td style="text-align: left;"><a href="#rule9-81">rule9-81</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-35">Rule
 9-35, No complex type disallowed derivation</a></td>
-<td style="text-align: left;"><a href="#rule9-82">9-82</a></td>
+<td style="text-align: left;"><a href="#rule9-82">rule9-82</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-36">Rule
 9-36, Element declaration is top-level</a></td>
-<td style="text-align: left;"><a href="#rule9-45">9-45</a></td>
+<td style="text-align: left;"><a href="#rule9-45">rule9-45</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-37">Rule
 9-37, Element declaration has data definition</a></td>
-<td style="text-align: left;"><a href="#rule7-38">7-38</a></td>
+<td style="text-align: left;"><a href="#rule7-38">rule7-38</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-38">Rule
 9-38, Untyped element is abstract</a></td>
-<td style="text-align: left;"><a href="#rule9-13">9-13</a></td>
+<td style="text-align: left;"><a href="#rule9-13">rule9-13</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-39">Rule
 9-39, Element of type xs:anySimpleType is abstract</a></td>
-<td style="text-align: left;"><a href="#rule9-13">9-13</a></td>
+<td style="text-align: left;"><a href="#rule9-13">rule9-13</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-40">Rule
 9-40, Element type not in the XML Schema namespace</a></td>
-<td style="text-align: left;"><a href="#rule9-14">9-14</a></td>
+<td style="text-align: left;"><a href="#rule9-14">rule9-14</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-41">Rule
 9-41, Element type not in the XML namespace</a></td>
-<td style="text-align: left;"><a href="#rule9-14">9-14</a></td>
+<td style="text-align: left;"><a href="#rule9-14">rule9-14</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-42">Rule
 9-42, Element type is not simple type</a></td>
-<td style="text-align: left;"><a href="#rule9-15">9-15</a>, <a
-href="#rule9-46">9-46</a></td>
+<td style="text-align: left;"><a href="#rule9-15">rule9-15</a>, <a
+href="#rule9-46">rule9-46</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-43">Rule
 9-43, No element disallowed substitutions</a></td>
-<td style="text-align: left;"><a href="#rule9-81">9-81</a></td>
+<td style="text-align: left;"><a href="#rule9-81">rule9-81</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-44">Rule
 9-44, No element disallowed derivation</a></td>
-<td style="text-align: left;"><a href="#rule9-82">9-82</a></td>
+<td style="text-align: left;"><a href="#rule9-82">rule9-82</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-45">Rule
 9-45, No element default value</a></td>
-<td style="text-align: left;"><a href="#rule9-17">9-17</a></td>
+<td style="text-align: left;"><a href="#rule9-17">rule9-17</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-46">Rule
 9-46, No element fixed value</a></td>
-<td style="text-align: left;"><a href="#rule9-17">9-17</a></td>
+<td style="text-align: left;"><a href="#rule9-17">rule9-17</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-47">Rule
 9-47, Element declaration is nillable</a></td>
-<td style="text-align: left;"><a href="#rule9-83">9-83</a>, <a
-href="#rule9-86">9-86</a></td>
+<td style="text-align: left;"><a href="#rule9-83">rule9-83</a>, <a
+href="#rule9-86">rule9-86</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-48">Rule
 9-48, Attribute declaration is top-level</a></td>
-<td style="text-align: left;"><a href="#rule9-45">9-45</a></td>
+<td style="text-align: left;"><a href="#rule9-45">rule9-45</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-49">Rule
 9-49, Attribute declaration has data definition</a></td>
-<td style="text-align: left;"><a href="#rule7-38">7-38</a></td>
+<td style="text-align: left;"><a href="#rule7-38">rule7-38</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-50">Rule
 9-50, Attribute declaration has type</a></td>
-<td style="text-align: left;"><a href="#rule9-16">9-16</a></td>
+<td style="text-align: left;"><a href="#rule9-16">rule9-16</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-51">Rule
 9-51, No attribute type of xs:ID</a></td>
-<td style="text-align: left;"><a href="#rule9-9">9-9</a></td>
+<td style="text-align: left;"><a href="#rule9-9">rule9-9</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-52">Rule
 9-52, No attribute type of xs:IDREF</a></td>
-<td style="text-align: left;"><a href="#rule9-9">9-9</a></td>
+<td style="text-align: left;"><a href="#rule9-9">rule9-9</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-53">Rule
 9-53, No attribute type of xs:IDREFS</a></td>
-<td style="text-align: left;"><a href="#rule9-9">9-9</a></td>
+<td style="text-align: left;"><a href="#rule9-9">rule9-9</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-54">Rule
 9-54, No attribute type of xs:ENTITY</a></td>
-<td style="text-align: left;"><a href="#rule9-9">9-9</a></td>
+<td style="text-align: left;"><a href="#rule9-9">rule9-9</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-55">Rule
 9-55, No attribute type of xs:ENTITIES</a></td>
-<td style="text-align: left;"><a href="#rule9-9">9-9</a></td>
+<td style="text-align: left;"><a href="#rule9-9">rule9-9</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-56">Rule
 9-56, No attribute type of xs:anySimpleType</a></td>
-<td style="text-align: left;"><a href="#rule9-9">9-9</a></td>
+<td style="text-align: left;"><a href="#rule9-9">rule9-9</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-57">Rule
 9-57, No attribute default values</a></td>
-<td style="text-align: left;"><a href="#rule9-17">9-17</a></td>
+<td style="text-align: left;"><a href="#rule9-17">rule9-17</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-58">Rule
 9-58, No fixed values for optional attributes</a></td>
-<td style="text-align: left;"><a href="#rule9-17">9-17</a></td>
+<td style="text-align: left;"><a href="#rule9-17">rule9-17</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-59">Rule
 9-59, No use of element xs:notation</a></td>
-<td style="text-align: left;"><a href="#rule9-5">9-5</a></td>
+<td style="text-align: left;"><a href="#rule9-5">rule9-5</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
@@ -8477,188 +8540,188 @@ href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-61">Rule
 9-61, No xs:all</a></td>
-<td style="text-align: left;"><a href="#rule9-5">9-5</a></td>
+<td style="text-align: left;"><a href="#rule9-5">rule9-5</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-62">Rule
 9-62, xs:sequence must be child of xs:extension</a></td>
-<td style="text-align: left;"><a href="#rule9-28">9-28</a></td>
+<td style="text-align: left;"><a href="#rule9-28">rule9-28</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-63">Rule
 9-63, xs:sequence must be child of xs:extension or
 xs:restriction</a></td>
-<td style="text-align: left;"><a href="#rule9-29">9-29</a></td>
+<td style="text-align: left;"><a href="#rule9-29">rule9-29</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-64">Rule
 9-64, No xs:choice</a></td>
-<td style="text-align: left;"><a href="#rule9-84">9-84</a></td>
+<td style="text-align: left;"><a href="#rule9-84">rule9-84</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-65">Rule
 9-65, xs:choice must be child of xs:sequence</a></td>
-<td style="text-align: left;"><a href="#rule9-19">9-19</a></td>
+<td style="text-align: left;"><a href="#rule9-19">rule9-19</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-66">Rule
 9-66, Sequence has minimum cardinality 1</a></td>
-<td style="text-align: left;"><a href="#rule9-18">9-18</a></td>
+<td style="text-align: left;"><a href="#rule9-18">rule9-18</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-67">Rule
 9-67, Sequence has maximum cardinality 1</a></td>
-<td style="text-align: left;"><a href="#rule9-18">9-18</a></td>
+<td style="text-align: left;"><a href="#rule9-18">rule9-18</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-68">Rule
 9-68, Choice has minimum cardinality 1</a></td>
-<td style="text-align: left;"><a href="#rule9-20">9-20</a></td>
+<td style="text-align: left;"><a href="#rule9-20">rule9-20</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-69">Rule
 9-69, Choice has maximum cardinality 1</a></td>
-<td style="text-align: left;"><a href="#rule9-20">9-20</a></td>
+<td style="text-align: left;"><a href="#rule9-20">rule9-20</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-70">Rule
 9-70, No use of xs:any</a></td>
-<td style="text-align: left;"><a href="#rule8-10">8-10</a></td>
+<td style="text-align: left;"><a href="#rule8-10">rule8-10</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-71">Rule
 9-71, No use of xs:anyAttribute</a></td>
-<td style="text-align: left;"><a href="#rule8-10">8-10</a></td>
+<td style="text-align: left;"><a href="#rule8-10">rule8-10</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-72">Rule
 9-72, No use of xs:unique</a></td>
-<td style="text-align: left;"><a href="#rule9-5">9-5</a></td>
+<td style="text-align: left;"><a href="#rule9-5">rule9-5</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-73">Rule
 9-73, No use of xs:key</a></td>
-<td style="text-align: left;"><a href="#rule9-5">9-5</a></td>
+<td style="text-align: left;"><a href="#rule9-5">rule9-5</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-74">Rule
 9-74, No use of xs:keyref</a></td>
-<td style="text-align: left;"><a href="#rule9-5">9-5</a></td>
+<td style="text-align: left;"><a href="#rule9-5">rule9-5</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-75">Rule
 9-75, No use of xs:group</a></td>
-<td style="text-align: left;"><a href="#rule9-5">9-5</a></td>
+<td style="text-align: left;"><a href="#rule9-5">rule9-5</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-76">Rule
 9-76, No definition of attribute groups</a></td>
-<td style="text-align: left;"><a href="#rule9-5">9-5</a></td>
+<td style="text-align: left;"><a href="#rule9-5">rule9-5</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-77">Rule
 9-77, Comment is not recommended</a></td>
-<td style="text-align: left;"><a href="#rule9-21">9-21</a></td>
+<td style="text-align: left;"><a href="#rule9-21">rule9-21</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-78">Rule
 9-78, Documentation element has no element children</a></td>
-<td style="text-align: left;"><a href="#rule9-22">9-22</a></td>
+<td style="text-align: left;"><a href="#rule9-22">rule9-22</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-79">Rule
 9-79, xs:appinfo children are comments, elements, or whitespace</a></td>
-<td style="text-align: left;"><a href="#rule9-74">9-74</a></td>
+<td style="text-align: left;"><a href="#rule9-74">rule9-74</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-80">Rule
 9-80, Appinfo child elements have namespaces</a></td>
-<td style="text-align: left;"><a href="#rule9-75">9-75</a></td>
+<td style="text-align: left;"><a href="#rule9-75">rule9-75</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-81">Rule
 9-81, Appinfo descendants are not XML Schema elements</a></td>
-<td style="text-align: left;"><a href="#rule9-76">9-76</a></td>
+<td style="text-align: left;"><a href="#rule9-76">rule9-76</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-82">Rule
 9-82, Schema has data definition</a></td>
-<td style="text-align: left;"><a href="#rule7-37">7-37</a></td>
+<td style="text-align: left;"><a href="#rule7-37">rule7-37</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-83">Rule
 9-83, Schema document defines target namespace</a></td>
-<td style="text-align: left;"><a href="#rule8-1">8-1</a></td>
+<td style="text-align: left;"><a href="#rule8-1">rule8-1</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-84">Rule
 9-84, Target namespace is absolute URI</a></td>
-<td style="text-align: left;"><a href="#rule8-1">8-1</a></td>
+<td style="text-align: left;"><a href="#rule8-1">rule8-1</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-85">Rule
 9-85, Schema has version</a></td>
-<td style="text-align: left;"><a href="#rule8-7">8-7</a></td>
+<td style="text-align: left;"><a href="#rule8-7">rule8-7</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-86">Rule
 9-86, No disallowed substitutions</a></td>
-<td style="text-align: left;"><a href="#rule9-81">9-81</a></td>
+<td style="text-align: left;"><a href="#rule9-81">rule9-81</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-87">Rule
 9-87, No disallowed derivations</a></td>
-<td style="text-align: left;"><a href="#rule9-82">9-82</a></td>
+<td style="text-align: left;"><a href="#rule9-82">rule9-82</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-88">Rule
 9-88, No use of xs:redefine</a></td>
-<td style="text-align: left;"><a href="#rule9-5">9-5</a></td>
+<td style="text-align: left;"><a href="#rule9-5">rule9-5</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-89">Rule
 9-89, No use of xs:include</a></td>
-<td style="text-align: left;"><a href="#rule9-5">9-5</a></td>
+<td style="text-align: left;"><a href="#rule9-5">rule9-5</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-90">Rule
 9-90, xs:import must have namespace</a></td>
-<td style="text-align: left;"><a href="#rule9-23">9-23</a></td>
+<td style="text-align: left;"><a href="#rule9-23">rule9-23</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_9-91">Rule
 9-91, XML Schema document set must be complete</a></td>
-<td style="text-align: left;"><a href="#rule10-9">10-9</a></td>
+<td style="text-align: left;"><a href="#rule10-9">rule10-9</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
@@ -8702,14 +8765,14 @@ imported</a></td>
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-1">Rule
 10-1, Complex type has a category</a></td>
-<td style="text-align: left;"><a href="#rule9-31">9-31</a></td>
+<td style="text-align: left;"><a href="#rule9-31">rule9-31</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-2">Rule
 10-2, Object type with complex content is derived from
 structures:ObjectType</a></td>
-<td style="text-align: left;"><a href="#rule9-32">9-32</a></td>
+<td style="text-align: left;"><a href="#rule9-32">rule9-32</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
@@ -8739,103 +8802,103 @@ href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-7">Rule
 10-7, Import of external namespace has data definition</a></td>
-<td style="text-align: left;"><a href="#rule9-51">9-51</a></td>
+<td style="text-align: left;"><a href="#rule9-51">rule9-51</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-8">Rule
 10-8, External adapter type has indicator</a></td>
-<td style="text-align: left;"><a href="#rule9-52">9-52</a></td>
+<td style="text-align: left;"><a href="#rule9-52">rule9-52</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-9">Rule
 10-9, Structure of external adapter type definition follows
 pattern</a></td>
-<td style="text-align: left;"><a href="#rule9-53">9-53</a></td>
+<td style="text-align: left;"><a href="#rule9-53">rule9-53</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-10">Rule
 10-10, Element use from external adapter type defined by external schema
 documents</a></td>
-<td style="text-align: left;"><a href="#rule9-54">9-54</a></td>
+<td style="text-align: left;"><a href="#rule9-54">rule9-54</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-11">Rule
 10-11, External adapter type not a base type</a></td>
-<td style="text-align: left;"><a href="#rule9-55">9-55</a></td>
+<td style="text-align: left;"><a href="#rule9-55">rule9-55</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-12">Rule
 10-12, External adapter type not a base type</a></td>
-<td style="text-align: left;"><a href="#rule9-55">9-55</a></td>
+<td style="text-align: left;"><a href="#rule9-55">rule9-55</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-13">Rule
 10-13, External attribute use only in external adapter type</a></td>
-<td style="text-align: left;"><a href="#rule9-85">9-85</a></td>
+<td style="text-align: left;"><a href="#rule9-85">rule9-85</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-14">Rule
 10-14, External attribute use has data definition</a></td>
-<td style="text-align: left;"><a href="#rule9-56">9-56</a></td>
+<td style="text-align: left;"><a href="#rule9-56">rule9-56</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-15">Rule
 10-15, External attribute use not an ID</a></td>
-<td style="text-align: left;"><a href="#rule9-57">9-57</a></td>
+<td style="text-align: left;"><a href="#rule9-57">rule9-57</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-16">Rule
 10-16, External element use has data definition</a></td>
-<td style="text-align: left;"><a href="#rule9-58">9-58</a></td>
+<td style="text-align: left;"><a href="#rule9-58">rule9-58</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-17">Rule
 10-17, Name of code type ends in CodeType</a></td>
-<td style="text-align: left;"><a href="#rule7-6">7-6</a>, <a
-href="#rule7-9">7-9</a></td>
+<td style="text-align: left;"><a href="#rule7-6">rule7-6</a>, <a
+href="#rule7-9">rule7-9</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-18">Rule
 10-18, Code type corresponds to a code list</a></td>
-<td style="text-align: left;"><a href="#rule7-6">7-6</a>, <a
-href="#rule7-9">7-9</a></td>
+<td style="text-align: left;"><a href="#rule7-6">rule7-6</a>, <a
+href="#rule7-9">rule7-9</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-19">Rule
 10-19, Element of code type has code representation term</a></td>
-<td style="text-align: left;"><a href="#rule7-12">7-12</a></td>
+<td style="text-align: left;"><a href="#rule7-12">rule7-12</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-20">Rule
 10-20, Proxy type has designated structure</a></td>
-<td style="text-align: left;"><a href="#rule9-59">9-59</a>, <a
-href="#rule9-60">9-60</a></td>
+<td style="text-align: left;"><a href="#rule9-59">rule9-59</a>, <a
+href="#rule9-60">rule9-60</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-21">Rule
 10-21, Association type derived from structures:AssociationType</a></td>
-<td style="text-align: left;"><a href="#rule7-5">7-5</a>, <a
-href="#rule9-34">9-34</a></td>
+<td style="text-align: left;"><a href="#rule7-5">rule7-5</a>, <a
+href="#rule9-34">rule9-34</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-22">Rule
 10-22, Association element type is an association type</a></td>
-<td style="text-align: left;"><a href="#rule7-11">7-11</a></td>
+<td style="text-align: left;"><a href="#rule7-11">rule7-11</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
@@ -8854,45 +8917,45 @@ element</a></td>
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-25">Rule
 10-25, Augmentation point element corresponds to its base type</a></td>
-<td style="text-align: left;"><a href="#rule9-67">9-67</a></td>
+<td style="text-align: left;"><a href="#rule9-67">rule9-67</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-26">Rule
 10-26, An augmentation point element has no type</a></td>
-<td style="text-align: left;"><a href="#rule9-68">9-68</a></td>
+<td style="text-align: left;"><a href="#rule9-68">rule9-68</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-27">Rule
 10-27, An augmentation point element has no substitution group</a></td>
-<td style="text-align: left;"><a href="#rule9-69">9-69</a></td>
+<td style="text-align: left;"><a href="#rule9-69">rule9-69</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-28">Rule
 10-28, Augmentation point element is only referenced by its base
 type</a></td>
-<td style="text-align: left;"><a href="#rule9-70">9-70</a></td>
+<td style="text-align: left;"><a href="#rule9-70">rule9-70</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-29">Rule
 10-29, Augmentation point element use is optional</a></td>
-<td style="text-align: left;"><a href="#rule9-71">9-71</a></td>
+<td style="text-align: left;"><a href="#rule9-71">rule9-71</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-30">Rule
 10-30, Augmentation point element use is unbounded</a></td>
-<td style="text-align: left;"><a href="#rule9-71">9-71</a></td>
+<td style="text-align: left;"><a href="#rule9-71">rule9-71</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-31">Rule
 10-31, Augmentation point element use must be last element in its base
 type</a></td>
-<td style="text-align: left;"><a href="#rule9-72">9-72</a></td>
+<td style="text-align: left;"><a href="#rule9-72">rule9-72</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
@@ -8905,33 +8968,33 @@ base</a></td>
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-33">Rule
 10-33, Only an augmentation type name ends in AugmentationType</a></td>
-<td style="text-align: left;"><a href="#rule9-61">9-61</a></td>
+<td style="text-align: left;"><a href="#rule9-61">rule9-61</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-34">Rule
 10-34, Schema component with name ending in AugmentationType is an
 augmentation type</a></td>
-<td style="text-align: left;"><a href="#rule9-61">9-61</a></td>
+<td style="text-align: left;"><a href="#rule9-61">rule9-61</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-35">Rule
 10-35, Type derived from structures:AugmentationType is an augmentation
 type</a></td>
-<td style="text-align: left;"><a href="#rule9-35">9-35</a></td>
+<td style="text-align: left;"><a href="#rule9-35">rule9-35</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-36">Rule
 10-36, Augmentation element type is an augmentation type</a></td>
-<td style="text-align: left;"><a href="#rule9-62">9-62</a></td>
+<td style="text-align: left;"><a href="#rule9-62">rule9-62</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-37">Rule
 10-37, Augmentation elements are not used directly</a></td>
-<td style="text-align: left;"><a href="#rule9-40">9-40</a></td>
+<td style="text-align: left;"><a href="#rule9-40">rule9-40</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
@@ -8961,7 +9024,7 @@ href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-42">Rule
 10-42, Name of element that ends in Representation is abstract</a></td>
-<td style="text-align: left;"><a href="#rule7-10">7-10</a></td>
+<td style="text-align: left;"><a href="#rule7-10">rule7-10</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
@@ -8974,56 +9037,56 @@ value for a type</a></td>
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-44">Rule
 10-44, Schema component name composed of English words</a></td>
-<td style="text-align: left;"><a href="#rule7-15">7-15</a></td>
+<td style="text-align: left;"><a href="#rule7-15">rule7-15</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-45">Rule
 10-45, Schema component name has xml:lang</a></td>
-<td style="text-align: left;"><a href="#rule8-8">8-8</a></td>
+<td style="text-align: left;"><a href="#rule8-8">rule8-8</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-46">Rule
 10-46, Schema component names have only specific characters</a></td>
-<td style="text-align: left;"><a href="#rule7-16">7-16</a></td>
+<td style="text-align: left;"><a href="#rule7-16">rule7-16</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-47">Rule
 10-47, Punctuation in component name is a separator</a></td>
-<td style="text-align: left;"><a href="#rule7-20">7-20</a></td>
+<td style="text-align: left;"><a href="#rule7-20">rule7-20</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-48">Rule
 10-48, Names use camel case</a></td>
-<td style="text-align: left;"><a href="#rule7-17">7-17</a></td>
+<td style="text-align: left;"><a href="#rule7-17">rule7-17</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-49">Rule
 10-49, Attribute name begins with lower case letter</a></td>
-<td style="text-align: left;"><a href="#rule7-18">7-18</a></td>
+<td style="text-align: left;"><a href="#rule7-18">rule7-18</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-50">Rule
 10-50, Name of schema component other than attribute and proxy type
 begins with upper case letter</a></td>
-<td style="text-align: left;"><a href="#rule7-19">7-19</a></td>
+<td style="text-align: left;"><a href="#rule7-19">rule7-19</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-51">Rule
 10-51, Names use common abbreviations</a></td>
-<td style="text-align: left;"><a href="#rule7-34">7-34</a></td>
+<td style="text-align: left;"><a href="#rule7-34">rule7-34</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-52">Rule
 10-52, Local term declaration is local to its schema document</a></td>
-<td style="text-align: left;"><a href="#rule7-35">7-35</a></td>
+<td style="text-align: left;"><a href="#rule7-35">rule7-35</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
@@ -9035,81 +9098,81 @@ href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-54">Rule
 10-54, Singular form is preferred in name</a></td>
-<td style="text-align: left;"><a href="#rule7-21">7-21</a></td>
+<td style="text-align: left;"><a href="#rule7-21">rule7-21</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-55">Rule
 10-55, Present tense is preferred in name</a></td>
-<td style="text-align: left;"><a href="#rule7-22">7-22</a></td>
+<td style="text-align: left;"><a href="#rule7-22">rule7-22</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-56">Rule
 10-56, Name does not have nonessential words</a></td>
-<td style="text-align: left;"><a href="#rule7-23">7-23</a></td>
+<td style="text-align: left;"><a href="#rule7-23">rule7-23</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-57">Rule
 10-57, Element or attribute name follows pattern</a></td>
-<td style="text-align: left;"><a href="#rule7-24">7-24</a></td>
+<td style="text-align: left;"><a href="#rule7-24">rule7-24</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-58">Rule
 10-58, Object-class term identifies concrete category</a></td>
-<td style="text-align: left;"><a href="#rule7-25">7-25</a></td>
+<td style="text-align: left;"><a href="#rule7-25">rule7-25</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-59">Rule
 10-59, Property term describes characteristic or subpart</a></td>
-<td style="text-align: left;"><a href="#rule7-26">7-26</a></td>
+<td style="text-align: left;"><a href="#rule7-26">rule7-26</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-60">Rule
 10-60, Name may have multiple qualifier terms</a></td>
-<td style="text-align: left;"><a href="#rule7-27">7-27</a></td>
+<td style="text-align: left;"><a href="#rule7-27">rule7-27</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-61">Rule
 10-61, Name has minimum necessary number of qualifier terms</a></td>
-<td style="text-align: left;"><a href="#rule7-28">7-28</a></td>
+<td style="text-align: left;"><a href="#rule7-28">rule7-28</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-62">Rule
 10-62, Order of qualifiers is not significant</a></td>
-<td style="text-align: left;"><a href="#rule7-29">7-29</a></td>
+<td style="text-align: left;"><a href="#rule7-29">rule7-29</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-63">Rule
 10-63, Redundant term in name is omitted</a></td>
-<td style="text-align: left;"><a href="#rule7-30">7-30</a></td>
+<td style="text-align: left;"><a href="#rule7-30">rule7-30</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-64">Rule
 10-64, Element with simple content has representation term</a></td>
-<td style="text-align: left;"><a href="#rule7-31">7-31</a></td>
+<td style="text-align: left;"><a href="#rule7-31">rule7-31</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-65">Rule
 10-65, Element with complex content has representation term when
 appropriate</a></td>
-<td style="text-align: left;"><a href="#rule7-32">7-32</a></td>
+<td style="text-align: left;"><a href="#rule7-32">rule7-32</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-66">Rule
 10-66, Element with complex content has representation term only when
 appropriate</a></td>
-<td style="text-align: left;"><a href="#rule7-33">7-33</a></td>
+<td style="text-align: left;"><a href="#rule7-33">rule7-33</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
@@ -9121,13 +9184,13 @@ href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-68">Rule
 10-68, Component marked as deprecated is deprecated component</a></td>
-<td style="text-align: left;"><a href="#rule9-77">9-77</a></td>
+<td style="text-align: left;"><a href="#rule9-77">rule9-77</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-69">Rule
 10-69, Deprecated annotates schema component</a></td>
-<td style="text-align: left;"><a href="#rule9-73">9-73</a></td>
+<td style="text-align: left;"><a href="#rule9-73">rule9-73</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
@@ -9169,44 +9232,44 @@ href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-76">Rule
 10-76, appinfo:LocalTerm annotates schema</a></td>
-<td style="text-align: left;"><a href="#rule9-78">9-78</a></td>
+<td style="text-align: left;"><a href="#rule9-78">rule9-78</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-77">Rule
 10-77, appinfo:LocalTerm has literal or definition</a></td>
-<td style="text-align: left;"><a href="#rule7-36">7-36</a></td>
+<td style="text-align: left;"><a href="#rule7-36">rule7-36</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_10-78">Rule
 10-78, Use structures consistent with specification</a></td>
-<td style="text-align: left;"><a href="#rule10-10">10-10</a></td>
+<td style="text-align: left;"><a href="#rule10-10">rule10-10</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-1">Rule
 11-1, Name of type ends in Type</a></td>
-<td style="text-align: left;"><a href="#rule7-2">7-2</a></td>
+<td style="text-align: left;"><a href="#rule7-2">rule7-2</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-2">Rule
 11-2, Only types have name ending in Type or SimpleType</a></td>
-<td style="text-align: left;"><a href="#rule7-2">7-2</a>, <a
-href="#rule9-25">9-25</a></td>
+<td style="text-align: left;"><a href="#rule7-2">rule7-2</a>, <a
+href="#rule9-25">rule9-25</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-3">Rule
 11-3, Base type definition defined by conformant schema</a></td>
-<td style="text-align: left;"><a href="#rule9-37">9-37</a></td>
+<td style="text-align: left;"><a href="#rule9-37">rule9-37</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-4">Rule
 11-4, Name of simple type ends in SimpleType</a></td>
-<td style="text-align: left;"><a href="#rule9-26">9-26</a></td>
+<td style="text-align: left;"><a href="#rule9-26">rule9-26</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
@@ -9218,89 +9281,89 @@ href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-6">Rule
 11-6, List item type defined by conformant schemas</a></td>
-<td style="text-align: left;"><a href="#rule9-41">9-41</a></td>
+<td style="text-align: left;"><a href="#rule9-41">rule9-41</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-7">Rule
 11-7, Union member types defined by conformant schemas</a></td>
-<td style="text-align: left;"><a href="#rule9-42">9-42</a></td>
+<td style="text-align: left;"><a href="#rule9-42">rule9-42</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-8">Rule
 11-8, Name of a code simple type ends in CodeSimpleType</a></td>
-<td style="text-align: left;"><a href="#rule7-8">7-8</a></td>
+<td style="text-align: left;"><a href="#rule7-8">rule7-8</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-9">Rule
 11-9, Code simple type corresponds to a code list</a></td>
-<td style="text-align: left;"><a href="#rule7-8">7-8</a></td>
+<td style="text-align: left;"><a href="#rule7-8">rule7-8</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-10">Rule
 11-10, Attribute of code simple type has code representation
 term</a></td>
-<td style="text-align: left;"><a href="#rule7-12">7-12</a></td>
+<td style="text-align: left;"><a href="#rule7-12">rule7-12</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-11">Rule
 11-11, Complex type with simple content has
 structures:SimpleObjectAttributeGroup</a></td>
-<td style="text-align: left;"><a href="#rule9-36">9-36</a></td>
+<td style="text-align: left;"><a href="#rule9-36">rule9-36</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-12">Rule
 11-12, Element type does not have a simple type name</a></td>
-<td style="text-align: left;"><a href="#rule9-46">9-46</a></td>
+<td style="text-align: left;"><a href="#rule9-46">rule9-46</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-13">Rule
 11-13, Element type is from conformant namespace</a></td>
-<td style="text-align: left;"><a href="#rule9-47">9-47</a></td>
+<td style="text-align: left;"><a href="#rule9-47">rule9-47</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-14">Rule
 11-14, Name of element that ends in Abstract is abstract</a></td>
-<td style="text-align: left;"><a href="#rule7-10">7-10</a></td>
+<td style="text-align: left;"><a href="#rule7-10">rule7-10</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-15">Rule
 11-15, Name of element declaration with simple content has
 representation term</a></td>
-<td style="text-align: left;"><a href="#rule7-31">7-31</a></td>
+<td style="text-align: left;"><a href="#rule7-31">rule7-31</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-16">Rule
 11-16, Name of element declaration with simple content has
 representation term</a></td>
-<td style="text-align: left;"><a href="#rule7-31">7-31</a></td>
+<td style="text-align: left;"><a href="#rule7-31">rule7-31</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-17">Rule
 11-17, Element substitution group defined by conformant schema</a></td>
-<td style="text-align: left;"><a href="#rule9-48">9-48</a></td>
+<td style="text-align: left;"><a href="#rule9-48">rule9-48</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-18">Rule
 11-18, Attribute type defined by conformant schema</a></td>
-<td style="text-align: left;"><a href="#rule9-47">9-47</a></td>
+<td style="text-align: left;"><a href="#rule9-47">rule9-47</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-19">Rule
 11-19, Attribute name uses representation term</a></td>
-<td style="text-align: left;"><a href="#rule7-31">7-31</a></td>
+<td style="text-align: left;"><a href="#rule7-31">rule7-31</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
@@ -9313,75 +9376,75 @@ type</a></td>
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-21">Rule
 11-21, Element reference defined by conformant schema</a></td>
-<td style="text-align: left;"><a href="#rule9-38">9-38</a></td>
+<td style="text-align: left;"><a href="#rule9-38">rule9-38</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-22">Rule
 11-22, Referenced attribute defined by conformant schemas</a></td>
-<td style="text-align: left;"><a href="#rule9-38">9-38</a></td>
+<td style="text-align: left;"><a href="#rule9-38">rule9-38</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-23">Rule
 11-23, Schema uses only known attribute groups</a></td>
-<td style="text-align: left;"><a href="#rule9-39">9-39</a></td>
+<td style="text-align: left;"><a href="#rule9-39">rule9-39</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-24">Rule
 11-24, Data definition does not introduce ambiguity</a></td>
-<td style="text-align: left;"><a href="#rule7-42">7-42</a></td>
+<td style="text-align: left;"><a href="#rule7-42">rule7-42</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-25">Rule
 11-25, Object class has only one meaning</a></td>
-<td style="text-align: left;"><a href="#rule7-43">7-43</a></td>
+<td style="text-align: left;"><a href="#rule7-43">rule7-43</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-26">Rule
 11-26, Data definition of a part does not redefine the whole</a></td>
-<td style="text-align: left;"><a href="#rule7-44">7-44</a></td>
+<td style="text-align: left;"><a href="#rule7-44">rule7-44</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-27">Rule
 11-27, Do not leak representation into data definition</a></td>
-<td style="text-align: left;"><a href="#rule7-45">7-45</a></td>
+<td style="text-align: left;"><a href="#rule7-45">rule7-45</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-28">Rule
 11-28, Data definition follows 11179-4 requirements</a></td>
-<td style="text-align: left;"><a href="#rule7-46">7-46</a></td>
+<td style="text-align: left;"><a href="#rule7-46">rule7-46</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-29">Rule
 11-29, Data definition follows 11179-4 recommendations</a></td>
-<td style="text-align: left;"><a href="#rule7-47">7-47</a></td>
+<td style="text-align: left;"><a href="#rule7-47">rule7-47</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-30">Rule
 11-30, xs:documentation has xml:lang</a></td>
-<td style="text-align: left;"><a href="#rule8-8">8-8</a></td>
+<td style="text-align: left;"><a href="#rule8-8">rule8-8</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-31">Rule
 11-31, Standard opening phrase for augmentation point element data
 definition</a></td>
-<td style="text-align: left;"><a href="#rule9-64">9-64</a></td>
+<td style="text-align: left;"><a href="#rule9-64">rule9-64</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-32">Rule
 11-32, Standard opening phrase for augmentation element data
 definition</a></td>
-<td style="text-align: left;"><a href="#rule9-65">9-65</a></td>
+<td style="text-align: left;"><a href="#rule9-65">rule9-65</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
@@ -9395,77 +9458,77 @@ definition</a></td>
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-34">Rule
 11-34, Standard opening phrase for association element data
 definition</a></td>
-<td style="text-align: left;"><a href="#rule7-49">7-49</a></td>
+<td style="text-align: left;"><a href="#rule7-49">rule7-49</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-35">Rule
 11-35, Standard opening phrase for abstract element data
 definition</a></td>
-<td style="text-align: left;"><a href="#rule7-48">7-48</a></td>
+<td style="text-align: left;"><a href="#rule7-48">rule7-48</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-36">Rule
 11-36, Standard opening phrase for date element or attribute data
 definition</a></td>
-<td style="text-align: left;"><a href="#rule7-50">7-50</a></td>
+<td style="text-align: left;"><a href="#rule7-50">rule7-50</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-37">Rule
 11-37, Standard opening phrase for quantity element or attribute data
 definition</a></td>
-<td style="text-align: left;"><a href="#rule7-51">7-51</a></td>
+<td style="text-align: left;"><a href="#rule7-51">rule7-51</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-38">Rule
 11-38, Standard opening phrase for picture element or attribute data
 definition</a></td>
-<td style="text-align: left;"><a href="#rule7-52">7-52</a></td>
+<td style="text-align: left;"><a href="#rule7-52">rule7-52</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-39">Rule
 11-39, Standard opening phrase for indicator element or attribute data
 definition</a></td>
-<td style="text-align: left;"><a href="#rule7-53">7-53</a></td>
+<td style="text-align: left;"><a href="#rule7-53">rule7-53</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-40">Rule
 11-40, Standard opening phrase for identification element or attribute
 data definition</a></td>
-<td style="text-align: left;"><a href="#rule7-54">7-54</a></td>
+<td style="text-align: left;"><a href="#rule7-54">rule7-54</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-41">Rule
 11-41, Standard opening phrase for name element or attribute data
 definition</a></td>
-<td style="text-align: left;"><a href="#rule7-55">7-55</a></td>
+<td style="text-align: left;"><a href="#rule7-55">rule7-55</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-42">Rule
 11-42, Standard opening phrase for element or attribute data
 definition</a></td>
-<td style="text-align: left;"><a href="#rule7-56">7-56</a></td>
+<td style="text-align: left;"><a href="#rule7-56">rule7-56</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-43">Rule
 11-43, Standard opening phrase for association type data
 definition</a></td>
-<td style="text-align: left;"><a href="#rule7-57">7-57</a></td>
+<td style="text-align: left;"><a href="#rule7-57">rule7-57</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-44">Rule
 11-44, Standard opening phrase for augmentation type data
 definition</a></td>
-<td style="text-align: left;"><a href="#rule9-66">9-66</a></td>
+<td style="text-align: left;"><a href="#rule9-66">rule9-66</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
@@ -9478,13 +9541,13 @@ definition</a></td>
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-46">Rule
 11-46, Standard opening phrase for complex type data definition</a></td>
-<td style="text-align: left;"><a href="#rule7-58">7-58</a></td>
+<td style="text-align: left;"><a href="#rule7-58">rule7-58</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-47">Rule
 11-47, Standard opening phrase for simple type data definition</a></td>
-<td style="text-align: left;"><a href="#rule7-58">7-58</a></td>
+<td style="text-align: left;"><a href="#rule7-58">rule7-58</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
@@ -9503,7 +9566,7 @@ href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-50">Rule
 11-50, Reference schema document imports reference schema
 document</a></td>
-<td style="text-align: left;"><a href="#rule8-12">8-12</a></td>
+<td style="text-align: left;"><a href="#rule8-12">rule8-12</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
@@ -9529,19 +9592,19 @@ href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-54">Rule
 11-54, Each namespace may have only a single root schema in a schema
 set</a></td>
-<td style="text-align: left;"><a href="#rule10-5">10-5</a></td>
+<td style="text-align: left;"><a href="#rule10-5">rule10-5</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_11-55">Rule
 11-55, Consistently marked namespace imports</a></td>
-<td style="text-align: left;"><a href="#rule10-6">10-6</a></td>
+<td style="text-align: left;"><a href="#rule10-6">rule10-6</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_12-1">Rule
 12-1, Instance must be schema-valid</a></td>
-<td style="text-align: left;"><a href="#rule12-2">12-2</a></td>
+<td style="text-align: left;"><a href="#rule12-2">rule12-2</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
@@ -9553,26 +9616,26 @@ href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_12-3">Rule
 12-3, Element has only one resource identifying attribute</a></td>
-<td style="text-align: left;"><a href="#rule12-7">12-7</a></td>
+<td style="text-align: left;"><a href="#rule12-7">rule12-7</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_12-4">Rule
 12-4, Attribute structures:ref must reference structures:id</a></td>
-<td style="text-align: left;"><a href="#rule12-8">12-8</a></td>
+<td style="text-align: left;"><a href="#rule12-8">rule12-8</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_12-5">Rule
 12-5, Linked elements have same validation root</a></td>
-<td style="text-align: left;"><a href="#rule12-9">12-9</a></td>
+<td style="text-align: left;"><a href="#rule12-9">rule12-9</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a
 href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_12-6">Rule
 12-6, Attribute structures:ref references element of correct
 type</a></td>
-<td style="text-align: left;"><a href="#rule12-10">12-10</a></td>
+<td style="text-align: left;"><a href="#rule12-10">rule12-10</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a
@@ -9657,143 +9720,216 @@ href="https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/
 </tbody>
 </table>
 <hr />
-<h1 id="appendix-e-index-of-figures">Appendix E. Index of figures</h1>
+<h1 id="appendix-e-table-of-examples">Appendix E. Table of examples</h1>
 <ul>
-<li><a href="#fig2-1">Figure 2-1</a>: User roles and activities</li>
-<li><a href="#fig3-1">Figure 3-1</a>: Message types, message formats,
-and messages</li>
-<li><a href="#fig3-2">Figure 3-2</a>: Example of messages in XML and
-JSON syntax</li>
-<li><a href="#fig3-3">Figure 3-3</a>: Example message format
-schemas</li>
-<li><a href="#fig3-4">Figure 3-4</a>: Example message model in XSD and
-CMF</li>
-<li><a href="#fig3-5">Figure 3-5</a>: Message specifications, types, and
-formats</li>
-<li><a href="#fig3-6">Figure 3-6</a>: NIEM communities and data
-models</li>
-<li><a href="#fig3-7">Figure 3-7</a>: High-level view of the NIEM
-metamodel</li>
-<li><a href="#fig3-8">Figure 3-8</a>: Message, message model, and
-metamodel relationships</li>
-<li><a href="#fig3-9">Figure 3-9</a>: CMF model in XML and JSON
-syntax</li>
-<li><a href="#fig4-1">Figure 4-1</a>: The NIEM metamodel</li>
-<li><a href="#fig4-2">Figure 4-2</a>: Model class diagram</li>
-<li><a href="#fig4-3">Figure 4-3</a>: Namespace class diagram</li>
-<li><a href="#fig4-4">Figure 4-4</a>: Namespace object in CMF and
-XSD</li>
-<li><a href="#fig4-5">Figure 4-5</a>: Component class diagram</li>
-<li><a href="#fig4-6">Figure 4-6</a>: Component object (abstract) in CMF
-and XSD</li>
-<li><a href="#fig4-7">Figure 4-7</a>: Class and ChildPropertyAssociation
-class diagram</li>
-<li><a href="#fig4-8">Figure 4-8</a>: Instance of a class in XML and
-JSON</li>
-<li><a href="#fig4-9">Figure 4-9</a>: A Class object in CMF and XSD (CCC
-type)</li>
-<li><a href="#fig4-10">Figure 4-10</a>: Instance of a literal class in
-XML and JSON</li>
-<li><a href="#fig4-11">Figure 4-11</a>: A literal class object in CMF
-and XSD (CSC type)</li>
-<li><a href="#fig4-12">Figure 4-12</a>: PropertyAssociation object in
-CMF and XSD</li>
-<li><a href="#fig4-13">Figure 4-13</a>: Property class diagram</li>
-<li><a href="#fig4-14">Figure 4-14</a>: ObjectProperty object in CMF and
-XSD</li>
-<li><a href="#fig4-15">Figure 4-15</a>: DataProperty object in CMF and
-XSD</li>
-<li><a href="#fig4-16">Figure 4-16</a>: Datatype classes</li>
-<li><a href="#fig4-17">Figure 4-17</a>: Plain CMF datatype object for
-<code>xs:string</code></li>
-<li><a href="#fig4-18">Figure 4-18</a>: List object in CMF and XSD</li>
-<li><a href="#fig4-19">Figure 4-19</a>: Union object in CMF and XSD</li>
-<li><a href="#fig4-20">Figure 4-20</a>: Restriction object in CMF and
-XSD</li>
-<li><a href="#fig4-21">Figure 4-21</a>: Facet object in CMF and XSD</li>
-<li><a href="#fig4-22">Figure 4-22</a>: CodeListBinding object in CMF
-and XSD</li>
-<li><a href="#fig4-23">Figure 4-23</a>: Augmentation class diagram</li>
-<li><a href="#fig4-24">Figure 4-24</a>: Augmentation object in CMF</li>
-<li><a href="#fig4-25">Figure 4-25</a>: Global augmentation in CMF</li>
-<li><a href="#fig4-26">Figure 4-26</a>: Example complex type definition
-with complex content (CCC type)</li>
-<li><a href="#fig4-27">Figure 4-27</a>: Example augmentation point
-element declaration</li>
-<li><a href="#fig4-28">Figure 4-28</a>: Augmenting a class with an
-augmentation type and element in XSD</li>
-<li><a href="#fig4-29">Figure 4-29</a>: Example message with an
-augmentation element</li>
-<li><a href="#fig4-30">Figure 4-30</a>: Augmenting a class with an
-element property in XSD</li>
-<li><a href="#fig4-31">Figure 4-31</a>: Example message showing
-augmentation with an element property</li>
-<li><a href="#fig4-32">Figure 4-32</a>: CMF for an element property
-augmentation</li>
-<li><a href="#fig4-33">Figure 4-33</a>: Augmenting a class with an
-attribute property in XSD</li>
-<li><a href="#fig4-34">Figure 4-34</a>: Example message showing an
-attribute property augmentation</li>
-<li><a href="#fig4-35">Figure 4-35</a>: Global augmentation with an
-element property in XSD</li>
-<li><a href="#fig4-36">Figure 4-36</a>: Global augmentation with an
-element property in XSD</li>
-<li><a href="#fig4-37">Figure 4-37</a>: Global augmentation with an
-attribute property in XSD</li>
-<li><a href="#fig4-38">Figure 4-38</a>: Example complex type definition
-with complex content (CCC type)</li>
-<li><a href="#fig4-39">Figure 4-39</a>: Example LocalTerm objects in CMF
-and XSD</li>
-<li><a href="#fig5-1">Figure 5-1</a>: A literal class in CMF and
-XSD</li>
-<li><a href="#fig5-2">Figure 5-2</a>: Objects of a literal class in an
-XML and JSON message</li>
-<li><a href="#fig5-3">Figure 5-3</a>: A restriction datatype in a CMF
-and XSD model subset</li>
-<li><a href="#fig5-4">Figure 5-4</a>: A data property in an XML and JSON
-message</li>
-<li><a href="#fig5-5">Figure 5-5</a>: A datatype in CMF and XSD</li>
-<li><a href="#fig5-6">Figure 5-6</a>: A data property in an XML and JSON
-message</li>
-<li><a href="#fig5-7">Figure 5-7</a>: A literal class in a CMF and XSD
-model subset</li>
-<li><a href="#fig5-8">Figure 5-8</a>: An object property with a code
-list class in an XML and JSON message</li>
-<li><a href="#fig5-9">Figure 5-9</a>: Meaning of NIEM data</li>
-<li><a href="#fig5-10">Figure 5-10</a>: RDF interpretation of NIEM data
-(Turtle syntax)</li>
-<li><a href="#fig5-11">Figure 5-11</a>: Diagram showing meaning of NIEM
-data</li>
-<li><a href="#fig5-12">Figure 5-12</a>: Example of object references in
-NIEM XML and JSON</li>
-<li><a href="#fig5-13">Figure 5-13</a>: Example of URI object references
-in NIEM XML and JSON</li>
-<li><a href="#fig5-14">Figure 5-14</a>: Reference attribute property and
-equivalent message in XML</li>
-<li><a href="#fig5-15">Figure 5-15</a>: Reference attribute property in
-JSON message</li>
-<li><a href="#fig5-16">Figure 5-16</a>: Metadata properties used in a
-designer's own class</li>
-<li><a href="#fig5-17">Figure 5-17</a>: Metadata object property
-augmenting a reused class</li>
-<li><a href="#fig5-18">Figure 5-18</a>: Metadata reference attribute
-augmenting a reused class</li>
-<li><a href="#fig5-19">Figure 5-19</a>: Example of an ordinary
-property</li>
-<li><a href="#fig5-20">Figure 5-20</a>: Example of a relationship
-property</li>
-<li><a href="#fig5-21">Figure 5-21</a>: RDF-star equivalent for a
-relationship property</li>
-<li><a href="#fig5-22">Figure 5-22</a>: RDF-star graph diagram for a
-relationship property</li>
-<li><a href="#fig6-1">Figure 6-1</a>: Conformance target assertion in
-XSD</li>
-<li><a href="#fig6-2">Figure 6-2</a>: Conformance target assertion in
-CMF</li>
+<li><a href="#ex3-2">Example 3-2: Example of messages in XML and JSON
+syntax</a></li>
+<li><a href="#ex3-3">Example 3-3: Example message format
+schemas</a></li>
+<li><a href="#ex3-4">Example 3-4: Example message model in XSD and
+CMF</a></li>
+<li><a href="#ex3-5">Example 3-5: Message specifications, types, and
+formats</a></li>
+<li><a href="#ex3-9">Example 3-9: CMF model in XML and JSON
+syntax</a></li>
+<li><a href="#ex4-8">Example 4-8: Namespace object in CMF and
+XSD</a></li>
+<li><a href="#ex4-12">Example 4-12: Component object (abstract) in CMF
+and XSD</a></li>
+<li><a href="#ex4-17">Example 4-17: Instance of a class in XML and
+JSON</a></li>
+<li><a href="#ex4-18">Example 4-18: A Class object in CMF and XSD (CCC
+type)</a></li>
+<li><a href="#ex4-20">Example 4-20: Instance of a literal class in XML
+and JSON</a></li>
+<li><a href="#ex4-21">Example 4-21: A literal class object in CMF and
+XSD (CSC type)</a></li>
+<li><a href="#ex4-23">Example 4-23: PropertyAssociation object in CMF
+and XSD</a></li>
+<li><a href="#ex4-28">Example 4-28: ObjectProperty object in CMF and
+XSD</a></li>
+<li><a href="#ex4-31">Example 4-31: DataProperty object in CMF and
+XSD</a></li>
+<li><a href="#ex4-34">Example 4-34: Plain CMF datatype object for
+<code>xs:string</code></a></li>
+<li><a href="#ex4-36">Example 4-36: List object in CMF and XSD</a></li>
+<li><a href="#ex4-39">Example 4-39: Union object in CMF and XSD</a></li>
+<li><a href="#ex4-42">Example 4-42: Restriction object in CMF and
+XSD</a></li>
+<li><a href="#ex4-45">Example 4-45: Facet object in CMF and XSD</a></li>
+<li><a href="#ex4-48">Example 4-48: CodeListBinding object in CMF and
+XSD</a></li>
+<li><a href="#ex4-52">Example 4-52: Augmentation object in CMF</a></li>
+<li><a href="#ex4-53">Example 4-53: Global augmentation in CMF</a></li>
+<li><a href="#ex4-55">Example 4-55: Example complex type definition with
+complex content (CCC type)</a></li>
+<li><a href="#ex4-56">Example 4-56: Example augmentation point element
+declaration</a></li>
+<li><a href="#ex4-57">Example 4-57: Augmenting a class with an
+augmentation type and element in XSD</a></li>
+<li><a href="#ex4-58">Example 4-58: Example message with an augmentation
+element</a></li>
+<li><a href="#ex4-59">Example 4-59: Augmenting a class with an element
+property in XSD</a></li>
+<li><a href="#ex4-60">Example 4-60: Example message showing augmentation
+with an element property</a></li>
+<li><a href="#ex4-61">Example 4-61: CMF for an element property
+augmentation</a></li>
+<li><a href="#ex4-62">Example 4-62: Augmenting a class with an attribute
+property in XSD</a></li>
+<li><a href="#ex4-63">Example 4-63: Example message showing an attribute
+property augmentation</a></li>
+<li><a href="#ex4-64">Example 4-64: Global augmentation with an element
+property in XSD</a></li>
+<li><a href="#ex4-65">Example 4-65: Global augmentation with an element
+property in XSD</a></li>
+<li><a href="#ex4-66">Example 4-66: Global augmentation with an
+attribute property in XSD</a></li>
+<li><a href="#ex4-67">Example 4-67: Example complex type definition with
+complex content (CCC type)</a></li>
+<li><a href="#ex4-69">Example 4-69: Example LocalTerm objects in CMF and
+XSD</a></li>
+<li><a href="#ex5-1">Example 5-1: A literal class in CMF and
+XSD</a></li>
+<li><a href="#ex5-2">Example 5-2: Objects of a literal class in an XML
+and JSON message</a></li>
+<li><a href="#ex5-3">Example 5-3: A restriction datatype in a CMF and
+XSD model subset</a></li>
+<li><a href="#ex5-4">Example 5-4: A data property in an XML and JSON
+message</a></li>
+<li><a href="#ex5-5">Example 5-5: A datatype in CMF and XSD</a></li>
+<li><a href="#ex5-6">Example 5-6: A data property in an XML and JSON
+message</a></li>
+<li><a href="#ex5-7">Example 5-7: A literal class in a CMF and XSD model
+subset</a></li>
+<li><a href="#ex5-8">Example 5-8: An object property with a code list
+class in an XML and JSON message</a></li>
+<li><a href="#ex5-10">Example 5-10: RDF interpretation of NIEM data
+(Turtle syntax)</a></li>
+<li><a href="#ex5-12">Example 5-12: Example of object references in NIEM
+XML and JSON</a></li>
+<li><a href="#ex5-13">Example 5-13: Example of URI object references in
+NIEM XML and JSON</a></li>
+<li><a href="#ex5-14">Example 5-14: Reference attribute property and
+equivalent message in XML</a></li>
+<li><a href="#ex5-15">Example 5-15: Reference attribute property in JSON
+message</a></li>
+<li><a href="#ex5-16">Example 5-16: Metadata properties used in a
+designer's own class</a></li>
+<li><a href="#ex5-17">Example 5-17: Metadata object property augmenting
+a reused class</a></li>
+<li><a href="#ex5-18">Example 5-18: Metadata reference attribute
+augmenting a reused class</a></li>
+<li><a href="#ex5-19">Example 5-19: Example of an ordinary
+property</a></li>
+<li><a href="#ex5-20">Example 5-20: Example of a relationship
+property</a></li>
+<li><a href="#ex5-21">Example 5-21: RDF-star equivalent for a
+relationship property</a></li>
+<li><a href="#ex6-1">Example 6-1: Conformance target assertion in
+XSD</a></li>
+<li><a href="#ex6-2">Example 6-2: Conformance target assertion in
+CMF</a></li>
 </ul>
 <hr />
-<h1 id="appendix-f-acknowledgments">Appendix F. Acknowledgments</h1>
-<h2 id="f1-participants">F.1 Participants</h2>
+<h1 id="appendix-f-table-of-figures">Appendix F. Table of figures</h1>
+<ul>
+<li><a href="#fig2-1">Figure 2-1: User roles and activities</a></li>
+<li><a href="#fig3-1">Figure 3-1: Message types, message formats, and
+messages</a></li>
+<li><a href="#fig3-6">Figure 3-6: NIEM communities and data
+models</a></li>
+<li><a href="#fig3-7">Figure 3-7: High-level view of the NIEM
+metamodel</a></li>
+<li><a href="#fig3-8">Figure 3-8: Message, message model, and metamodel
+relationships</a></li>
+<li><a href="#fig4-1">Figure 4-1: The NIEM metamodel</a></li>
+<li><a href="#fig4-4">Figure 4-4: Model class diagram</a></li>
+<li><a href="#fig4-6">Figure 4-6: Namespace class diagram</a></li>
+<li><a href="#fig4-10">Figure 4-10: Component class diagram</a></li>
+<li><a href="#fig4-14">Figure 4-14: Class and ChildPropertyAssociation
+class diagram</a></li>
+<li><a href="#fig4-25">Figure 4-25: Property class diagram</a></li>
+<li><a href="#fig4-33">Figure 4-33: Datatype classes</a></li>
+<li><a href="#fig4-50">Figure 4-50: Augmentation class diagram</a></li>
+<li><a href="#fig5-11">Figure 5-11: Diagram showing meaning of NIEM
+data</a></li>
+<li><a href="#fig5-22">Figure 5-22: RDF-star graph diagram for a
+relationship property</a></li>
+</ul>
+<hr />
+<h1 id="appendix-g-table-of-tables">Appendix G. Table of tables</h1>
+<ul>
+<li><a href="#tab2-2">Table 2-2: Relevant document sections by user
+role</a></li>
+<li><a href="#tab4-2">Table 4-2: Definition of columns in metamodel
+property tables</a></li>
+<li><a href="#tab4-3">Table 4-3: Definition of columns in CMF-XSD
+mapping tabless</a></li>
+<li><a href="#tab4-5">Table 4-5: Properties of the Model object
+class</a></li>
+<li><a href="#tab4-7">Table 4-7: Properties of the Namespace object
+class</a></li>
+<li><a href="#tab4-9">Table 4-9: Namespace object properties in CMF and
+XSD</a></li>
+<li><a href="#tab4-11">Table 4-11: Properties of the Component abstract
+class</a></li>
+<li><a href="#tab4-13">Table 4-13: Component object properties in CMF
+and XSD</a></li>
+<li><a href="#tab4-15">Table 4-15: Properties of the Class object
+class</a></li>
+<li><a href="#tab4-16">Table 4-16: ReferenceCode code list</a></li>
+<li><a href="#tab4-19">Table 4-19: Class object object properties in CMF
+and XSD</a></li>
+<li><a href="#tab4-22">Table 4-22: Properties of the
+ChildPropertyAssociation object class</a></li>
+<li><a href="#tab4-24">Table 4-24: ChildPropertyAssociation object
+properties in CMF and XSD</a></li>
+<li><a href="#tab4-26">Table 4-26: Properties of the Property abstract
+class</a></li>
+<li><a href="#tab4-27">Table 4-27: Properties of the ObjectProperty
+object class</a></li>
+<li><a href="#tab4-29">Table 4-29: ObjectProperty object properties in
+CMF and XSD</a></li>
+<li><a href="#tab4-30">Table 4-30: Properties of the DataProperty object
+class</a></li>
+<li><a href="#tab4-32">Table 4-32: DataProperty object properties in CMF
+and XSD</a></li>
+<li><a href="#tab4-35">Table 4-35: Properties of the List object class
+</a></li>
+<li><a href="#tab4-37">Table 4-37: List object properties in CMF and
+XSD</a></li>
+<li><a href="#tab4-38">Table 4-38: Properties of the Union object
+class</a></li>
+<li><a href="#tab4-40">Table 4-40: Union object properties in CMF and
+XSD</a></li>
+<li><a href="#tab4-41">Table 4-41: Properties of the Restriction object
+class</a></li>
+<li><a href="#tab4-43">Table 4-43: Restriction object properties in CMF
+and XSD</a></li>
+<li><a href="#tab4-44">Table 4-44: Properties of the Facet object
+class</a></li>
+<li><a href="#tab4-46">Table 4-46: Facet object properties in CMF and
+XSD</a></li>
+<li><a href="#tab4-47">Table 4-47: Properties of the CodeListBinding
+object class</a></li>
+<li><a href="#tab4-49">Table 4-49: CodeListBinding object properties in
+CMF and XSD</a></li>
+<li><a href="#tab4-51">Table 4-51: Properties of the Augmentation object
+class</a></li>
+<li><a href="#tab4-54">Table 4-54: GlobalClassCode code list</a></li>
+<li><a href="#tab4-68">Table 4-68: Properties of the LocalTerm object
+class</a></li>
+<li><a href="#tab4-70">Table 4-70: LocalTerm object properties in CMF
+and XSD</a></li>
+<li><a href="#tab4-71">Table 4-71: Properties of the TextType object
+class</a></li>
+<li><a href="#tab5-9">Table 5-9: Meaning of NIEM data</a></li>
+<li><a href="#tab7-1">Table 7-1: Property representation terms</a></li>
+</ul>
+<hr />
+<h1 id="appendix-h-acknowledgments">Appendix H. Acknowledgments</h1>
+<h2 id="h1-participants">H.1 Participants</h2>
 <p>The following individuals have participated in the creation of this
 specification and are gratefully acknowledged:</p>
 <p><strong>Project-name OP Members:</strong></p>
@@ -9934,7 +10070,7 @@ specification and are gratefully acknowledged:</p>
 </tbody>
 </table>
 <hr />
-<h1 id="appendix-g-notices">Appendix G. Notices</h1>
+<h1 id="appendix-i-notices">Appendix I. Notices</h1>
 <p>(This required section should not be altered, except to modify the
 license information in the second paragraph if needed.)</p>
 <p>Copyright © OASIS Open 2025. All Rights Reserved.</p>
