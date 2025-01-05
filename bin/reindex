@@ -1,15 +1,19 @@
 #!/usr/bin/perl
 
 # Run this to correct the rule numbers in the markdown source.
-# Also corrects the text and anchor in rule links.
-# Also refreshes the index of rules and the NIEM 5 to 6 map in
-# the appendices.
+# Also corrects the text and anchor in rule and figure links.
+# Also refreshes the index of rules, examples, tables, and figures
+# Also refreshes the map of NIEM 5 rules to NIEM 6 rules
 #
 # Syntax of a rule in the markdown source is:
-#
-# **Rule 1-1 (CMF,XSD)(Constraint):** rule name || rule text. (N5R 1-1)
 # **Rule 1-1:** rule name || rule text. (N5R 1-1)
+#
+# Syntax of a caption in the markdown source is:
+# <figcaption><a name="ex0-0">Example 0-0: Caption</a></figcaption>
+# <figcaption><a name="fig0-0">Figure 0-0: Caption</a></figcaption>
+# <figcaption><a name="tab0-0">Table 0-0: Caption</a></figcaption>
 
+use Data::Dumper;
 use warnings;
 use strict;
 
@@ -22,13 +26,16 @@ my %n5Map;                      # map of NIEM 5 rule to new rule tag
 my @rules;                      # ordered list of new rule tags
 my @newRules;                   # rule tags w/o corresponding NIEM 5 rule
 
-my %figCt;                      # last figure number seen, by section
-my %figMap;                     # map of old figure tags to new tags
-my %figCap;                     # map of new figure tag to caption
-my @figList;                    # list of new figure tags in order
+my %tagCt;                      # last ex/fig/table number seen, by section
+my %tagMap;                     # map of old tags to new tags
+my %tagCap;                     # map of new tag to caption
+
+my %tagList = ('Example'=>[], 'Figure'=>[], 'Table'=>[]);
+my %tagKind = ('Example'=>'ex', 'Figure'=>'fig', 'Table'=>'tab');
+my %kindTag = ('ex'=>'example', 'fig'=>'figure', 'tab'=>'table');
 
 # First pass through source
-# Renumber rules and figures, and remember what you did (for second pass)
+# Renumber rules and captions, and remember what you did (for second pass)
 
 while (<>) {
   $lnum++;
@@ -43,9 +50,11 @@ while (<>) {
       my $onum  = $2;           # current rule number in section
       my $rname = $3;           # rule name
       my $rest  = $';
-      my $otag  = "$1-$2";      # rule tag eg. 7-1
+      my $olab  = "$1-$2";          # old rule label; eg. "7-1"
+      my $otag  = "rule$1-$2";      # old rule tag; eg. "rule7-1"
       my $nnum  = ++$ruleCt{$sect}; # new rule number
-      my $ntag  = "$sect-$nnum";    # new rule tag
+      my $nlab  = "$sect-$nnum";    # new rule label; eg. "7-1"
+      my $ntag  = "rule$nlab";      # new rule tag; eg. "rule7-1"
 
       # print STDERR "sect=$sect\n";
       # print STDERR "onum=$onum\n";
@@ -54,10 +63,10 @@ while (<>) {
       # print STDERR "nnum=$nnum\n";
       # print STDERR "ntag=$ntag\n";
 
-      $ruleMap{$otag}  = $ntag;
       $ruleName{$ntag} = $rname;
       push(@rules,$ntag);
 
+      # Look for mapping to NDR5 rule
       if ($rest =~ m/\(N5R ([^)]+)\)\s*$/) {
         my @n5rs = split(/,\s*/,$1);
         foreach my $n5r (@n5rs) {
@@ -66,6 +75,7 @@ while (<>) {
           $n5Map{$n5r}  = $ntag    unless defined $n5Map{$n5r};
         }
       }
+      # Or maybe a declaration of a new rule
       elsif ($rest =~ m/\(NEW\)\s*$/) {
         # print "NEW\n";
         push(@newRules,$ntag);
@@ -74,66 +84,126 @@ while (<>) {
         print STDERR "Rule with no NIEM 5 mapping at line $lnum\n";
       }
       # Fix the tag in this rule line
-      if ($otag ne $ntag) {
-        print STDERR "Rule $otag becomes $ntag at line $lnum\n";
-        s/^\*\*Rule \d+-\d+/**Rule $ntag/;
+      if ($otag ne $ntag) { 
+        $ruleMap{$otag}  = $ntag;
+        s/^\*\*Rule \d+-\d+/**Rule $nlab/;
+        print STDERR "Rule $olab becomes $nlab at line $lnum\n";
       }
     }
   }
-  # Handle figure caption lines in source
+  # Handle caption lines in source
   if (m/<figcaption>/) {
-    if (!m!<figcaption>(<a name="[^"]*">)Figure (\d+)-(\d+):\s*(.*)</a></figcaption>!) {
-      print STDERR "Bad figure caption at line $lnum\n";
+    if (!m!<figcaption><a name="([^"]*)">(Example|Figure|Table) (\d+)-(\d+):\s*(.*)</a></figcaption>!) {
+      print STDERR "Bad caption at line $lnum\n";
     }
     else {
-      my $anch = $1;
-      my $sect = $2;
-      my $fnum = $3;
-      my $cap  = $4;
-      my $nnum = ++$figCt{$sect};
-      my $otag = "$sect-$fnum";
-      my $ntag = "$sect-$nnum";
-      $figCap{$ntag} = $cap;
-      push(@figList,$ntag);
+      my $si   = $-[0];        # beginning index of figcaption element
+      my $ei   = $+[0];        # ending index of figcaption element
+      my $otag = $1;           # old tag; name of anchor element
+      my $kind = $2;           # Example, Figure, or Table
+      my $sect = $3;           # section number from caption
+      my $fnum = $4;           # old tag number from caption
+      my $cap  = $5;           # caption string after colon
+#      my $nnum = ++$tagCt{$kind}{$sect}; # ex/fig/tab numbered separately
+      my $nnum = ++$tagCt{'ex'}{$sect};   # ex/fig/tab numbered together
+      my $cnum = "$sect-$nnum";          # new number for caption
+      my $ntag = $tagKind{$kind}."$sect-$nnum";
+      $tagCap{$ntag} = $cap;
+      push(@{$tagList{$kind}}, $ntag);
       if ($otag ne $ntag) {
-        print STDERR "Figure $otag becomes $ntag at $lnum\n";
-        $figMap{$otag} = $ntag;
-        s/Figure \d+-\d+:\s*/Figure $sect-$nnum: /;
-        s/<a name="[^"]*">/<a name="fig$ntag">/ if m/<a name="[^"]*">/;
+        my $ncap = sprintf(
+          "<figcaption><a name=\"%s\">%s %s: %s</a></figcaption>",
+          $ntag, $kind, $cnum, $cap);
+        $tagMap{$otag} = $ntag;
+        substr($_, $si, $ei - $si) = $ncap;
+        print STDERR "$kind $otag becomes $ntag at $lnum\n";
       }
     }
   }
   push(@lines,$_);
 }
 
-# Second pass through source
+# Second pass through source to fix rule and caption links.
 # Quit when Appendix C (index of rules) is reached.
 
-my $line;
 $lnum = 0;
 while (@lines) {
-  $line = shift(@lines);
-  print $line;
-  last if $line =~ m/^# Appendix C/;
+  $_ = shift(@lines);
+  $lnum++;
+
+  # A rule link looks like this: [rule 0-0](#rule0-0)
+  # Use the old tag (#rule0-0) to look up the new tag & create new label
+  while (m/\[(rule) \d+-\d+\]\(#(rule\d+-\d+)\)/ig) {
+    my $si   = $-[0];        # beginning index of rule link
+    my $ei   = $+[0];        # ending index of rule link
+    my $olnk = $&;
+    my $ocap = $1;           # 'Rule' or 'rule'
+    my $otag = $2;
+    my $ntag = $ruleMap{$otag};
+    if (defined $ntag) {
+      my $cnum = substr($ntag, 4);
+      my $repl = sprintf("[%s %s](#%s)", $ocap, $cnum, $ntag);
+      # print STDERR "ocap=$ocap\n";
+      # print STDERR "otag=$otag\n";
+      # print STDERR "ntag=$ntag\n";
+      # print STDERR "cnum=$cnum\n";
+      # print STDERR "repl=$repl\n";
+      substr($_, $si, $ei - $si) = $repl;
+      print STDERR "Link $olnk replaced with $repl at $lnum\n";
+    }
+  }
+  
+  # A caption link looks like this: [example 0-0](#ex0-0)
+  # Use the old tag (#ex0-0) to look up the new tag and create new label.
+  while (m/\[(example|figure|table) \d+-\d+\]\(#(ex|fig|tab)(\d+-\d+)\)/ig) {
+    my $si   = $-[0];        # beginning index of caption link
+    my $ei   = $+[0];        # ending index of caption link
+    my $olnk   = $&;
+    my $olab   = $1;         # old label; eg. 'Figure' or 'example'
+    my $tkind  = $2;
+    my $tnum   = $3;
+    my $otag   = "$2$3";
+    my $ntag   = $tagMap{$otag};
+    if (defined $ntag) {
+      $ntag =~ m/(.*)(\d+-\d+)/;
+      my $nkind = $1;
+      my $cnum  = $2;
+      my $nlab  = $kindTag{$nkind}." $cnum";
+      $nlab = "\u$nlab" if $olab =~ /^[A-Z]/;
+      my $repl  = sprintf("[%s](#%s)", $nlab, $ntag);
+      # print STDERR "otag=$otag\n";
+      # print STDERR "ntag=$ntag\n";
+      # print STDERR "nkind=$nkind\n";
+      # print STDERR "cnum=$cnum\n";
+      # print STDERR "nlab=$nlab\n";
+      # print STDERR "repl=$repl\n";
+      substr($_, $si, $ei - $si) = $repl;
+      print STDERR "Link $olnk replaced with $repl at $lnum\n";
+    }
+  }
+
+  print;
+  last if /^# Appendix C/;
 }
 
 # Remove old Appendix C; generate new rule index
 
 while (@lines) {
-  $line = shift(@lines);
-  last if $line =~ /^# Appendix/;
+  $_ = shift(@lines);
+  last if /^# Appendix/;
 }
 print "\n";
 foreach my $rtag (@rules) {
   my $rname = $ruleName{$rtag} || "NO NAME YET";
-  print "* [Rule $rtag: $rname](#rule$rtag).\n";
+  my $rnum  = substr($rtag, 4);
+  print "* [Rule $rnum: $rname](#$rtag).\n";
 }
-print "\n-------\n\n$line";
+print "\n-------\n\n$_";
 
 # Remove old Appendix D; generate new NIEM5 -> NIEM6 map
 
 my $niem5uri = 'https://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/niem-ndr-5.0.html#rule_';
-
+my $line;
 while (@lines) {
   $line = shift(@lines);
   last if $line =~ /^# Appendix/;
@@ -153,7 +223,7 @@ while (<N5R>) {
     my $sep = "";
     my @n6rules = split(m/,\s*/, $n5maps);
     foreach my $n6r (@n6rules) {
-      print "$sep","[$n6r](#rule$n6r)";
+      print "$sep","[$n6r](#$n6r)";
       $sep=", ";
     }
   }
@@ -164,18 +234,45 @@ while (<N5R>) {
 }
 print "\n-------\n\n$line";
 
-# Remove old Appendix E; generate new index of figures
+# Remove old Appendix E; generate new table of examples
 
 while (@lines) {
   $line = shift(@lines);
   last if $line =~ /^# Appendix/;
 }
 print "\n";
-foreach my $ftag (@figList) {
-  print "* [Figure $ftag](#fig$ftag): $figCap{$ftag}\n";
+foreach my $tag (@{$tagList{'Example'}}) {
+  my $tnum = substr($tag,2);
+  print "* [Example $tnum: $tagCap{$tag}](#$tag)\n";
+}
+print "\n-------\n\n$line";
+
+# Remove old Appendix F; generate new table of figures
+
+while (@lines) {
+  $line = shift(@lines);
+  last if $line =~ /^# Appendix/;
+}
+print "\n";
+foreach my $tag (@{$tagList{'Figure'}}) {
+  my $tnum = substr($tag,3);
+  print "* [Figure $tnum: $tagCap{$tag}](#$tag)\n";
+}
+print "\n-------\n\n$line";
+
+# Remove old Appendix G; generate new table of tables
+
+while (@lines) {
+  $line = shift(@lines);
+  last if $line =~ /^# Appendix/;
+}
+print "\n";
+foreach my $tag (@{$tagList{'Table'}}) {
+  my $tnum = substr($tag,3);
+  print "* [Table $tnum: $tagCap{$tag}](#$tag)\n";
 }
 print "\n-------\n\n$line";
 
 # Write out the rest of the source
 
-foreach $line (@lines) { print $line; }
+foreach (@lines) { print; }
