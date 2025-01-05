@@ -594,7 +594,7 @@ schemas.</p>
 uri</td>
 <td style="text-align: left;">A Uniform Resource Identifier (URI) with
 scheme, hierarchical part, and optional query, but without a fragment; a
-URI matching the grammar production <code>&lt;absoluteURI&gt;</code> as
+URI matching the grammar syntax <code>&lt;absoluteURI&gt;</code> as
 defined by <a href="#rfc-3986"><b>[RFC 3986]</b></a>.</td>
 </tr>
 <tr class="even">
@@ -952,7 +952,7 @@ href="#36-namespaces">§3.6</a>)</em></td>
 <tr class="odd">
 <td style="text-align: left;"><a name="def-ncname"></a>ncname</td>
 <td style="text-align: left;">A non-colonized name, matching the grammar
-production <code>&lt;NCName&gt;</code> as defined by
+syntax <code>&lt;NCName&gt;</code> as defined by
 <a href="#xml-namespaces"><b>[XML Namespaces]</b></a>.</td>
 </tr>
 <tr class="even">
@@ -1416,10 +1416,13 @@ Committee</td>
 <p>This document provides normative specifications for NIEM-conforming
 data models. It also describes the goals and principles behind those
 specifications. It includes examples and explanations to help users of
-NIEM understand the goals, principles, and specifications. The relevant
-sections of this document will depend on the role of the user. <a
-href="#fig2-1">Figure 2-1</a> illustrates the relationships between
-these roles and NIEM activities.</p>
+NIEM understand the goals, principles, and specifications.</p>
+<p>This document is not intended as a user guide. Training materials for
+message designers and developers will be available at <a
+href="http://www.niemopen.org">www.niemopen.org</a>.</p>
+<p>The relevant sections of this document will depend on the role of the
+user. <a href="#fig2-1">Figure 2-1</a> illustrates the relationships
+between these roles and NIEM activities.</p>
 <figure>
   <img src="images/userRoles.png" style="zoom: 100%;" />
   <figcaption><a name="fig2-1">Figure 2-1: User roles and activities</a></figcaption>
@@ -1738,8 +1741,9 @@ href="#52-identifiers-and-references-in-niem-messages">section
 is an instance of a <a
 href="#def-message-format"><span class="termRef">message
 format</span></a>. A conforming message must satisfy the rules in <a
-href="#12-rules-for-messages">section 12</a>; in particular, it must be
-valid according to the <a
+href="#12-rules-for-xml-messages">section 12</a> and <a
+href="#13-rules-for-json-messages">section 13</a>. In particular, it
+must be valid according to the <a
 href="#def-schema"><span class="termRef">schema</span></a> of its <a
 href="#def-message-format"><span class="termRef">message
 format</span></a>.</p>
@@ -2425,7 +2429,7 @@ in each section below, with these columns:</p>
 </tr>
 </tbody>
 </table>
-<figcaption><a name="tab4-3">Table 4-3: Definition of columns in CMF-XSD mapping tabless</a></figcaption>
+<figcaption><a name="tab4-3">Table 4-3: Definition of columns in CMF-XSD mapping tables</a></figcaption>
 
 <h2 id="41-model">4.1 Model</h2>
 <p>A Model object represents a NIEM model.</p>
@@ -6341,7 +6345,7 @@ object MUST NOT contain two Facet objects with a FacetCategoryCode of
 <h2 id="81-rules-for-properties-of-namespaces">8.1 Rules for properties
 of namespaces</h2>
 <p><a name="rule8-1"></a><strong>Rule 8-1:</strong> The namespace MUST
-have an identifier, which MUST match the grammar production
+have an identifier, which MUST match the grammar syntax
 <code>&lt;absolute-URI&gt;</code> as defined by
 <a href="#rfc-3986"><b>[RFC 3986]</b></a>. In CMF, the namespace
 identifier is the value of the NamespaceURI property in a Namespace
@@ -6375,7 +6379,7 @@ identifier in a namespace identifier SHOULD conform to the
 convey meaning about the underlying code and what has been modified from
 one version to the next.</p>
 <p><a name="rule8-6"></a><strong>Rule 8-6:</strong> The namespace MUST
-have a defined prefix, which MUST match the grammar production
+have a defined prefix, which MUST match the grammar syntax
 <code>&lt;NCName&gt;</code> as defined by
 <a href="#xml-namespaces"><b>[XML Namespaces]</b></a>.</p>
 <p>In CMF, the prefix is the value of the NamespacePrefix property in a
@@ -7461,7 +7465,7 @@ QName of the property, with the local part capitalized, and the trailing
 <code>nc:MetadataType</code>, or a derived type.</p>
 <p><a name="rule12-12"></a><strong>Rule 12-12:</strong> The value of an
 attribute with or derived from <code>xs:anyURI</code> MUST satisfy the
-grammar production <code>&lt;URI-reference&gt;</code> as defined by
+grammar syntax <code>&lt;URI-reference&gt;</code> as defined by
 <a href="#rfc-3986"><b>[RFC 3986]</b></a>.</p>
 <p>XML Schema validation does not always check the validity of URI
 values. Examples of valid and invalid URI attributes:</p>
@@ -7479,13 +7483,19 @@ element</span></a>.</p>
   &lt;j:PersonAugmentation&gt;...
   &lt;j:PersonAugmentation&gt;...
 &lt;/nc:Person&gt;</code></pre>
-<p>even though this is schema-valid. Instead, all properties should be
-consolidated into a single <code>j:PersonAugmentation</code>
-element.</p>
+<p>even though this is schema-valid. Instead, all augmentation
+properties should be consolidated into a single
+<code>j:PersonAugmentation</code> element.</p>
+<p><a name="rule12-14"></a><strong>Rule 12-14:</strong> An element with
+<code>xsi:nil="true"</code> MUST have the attribute
+<code>structures:ref</code> or <code>structures:uri</code>.</p>
+<p>The attribute <code>xsi:nil</code> can only be used to create an
+object reference. It cannot be used to omit mandatory content.</p>
 <h1 id="13-rules-for-json-messages">13. Rules for JSON messages</h1>
 <p><a name="rule13-1"></a><strong>Rule 13-1:</strong> A JSON message
-MUST be valid according to the grammar production
-<code>&lt;object&gt;</code> as defined by [[RFC 8259]].</p>
+MUST be valid according to the grammar syntax
+<code>&lt;object&gt;</code> as defined by <a href="#rfc-8259"><b>[RFC
+8259]</b></a>.</p>
 <p>According to the JSON specification, a valid JSON text can be an
 object, array, number, string, or literal name. Only the first of these
 is allowed as a NIEM JSON message.</p>
@@ -7493,6 +7503,16 @@ is allowed as a NIEM JSON message.</p>
 MUST conform to the JSON-LD specification in
 <a href="#json-ld"><b>[JSON-LD]</b></a>.</p>
 <p><a name="rule13-3"></a><strong>Rule 13-3:</strong> A JSON message
+MUST be valid when assessed against the schema of its <a
+href="#def-message-format"><span class="termRef">message
+format</span></a>.</p>
+<p>The schema for a JSON <a
+href="#def-message-format"><span class="termRef">message
+format</span></a> is expressed in JSON Schema, and validates exactly
+those messages that conform to the <a
+href="#def-message-type"><span class="termRef">message type</span></a>.
+<em>(see <a href="#rule11-2">rule 11-2</a>.)</em></p>
+<p><a name="rule13-4"></a><strong>Rule 13-4:</strong> A JSON message
 MUST have an embedded context, remote context, or context via HTTP
 header. The context MUST map each namespace prefix in the <a
 href="#def-message-model"><span class="termRef">message model</span></a>
@@ -7506,7 +7526,7 @@ Context</a>.</p>
 <p>For example, the JSON message in <a href="#ex3-2">example 3-2</a> has
 a context that maps the prefixes <code>nc</code> and <code>msg</code> to
 their corresponding URIs.</p>
-<p><a name="rule13-4"></a><strong>Rule 13-4:</strong> The name in a
+<p><a name="rule13-5"></a><strong>Rule 13-5:</strong> The name in a
 name-value mapping within a JSON object MUST be a JSON-LD keyword, or a
 term that expands to the URI of a property in the <a
 href="#def-message-model"><span class="termRef">message
@@ -7523,14 +7543,14 @@ model</span></a>.</p>
 }
 </code></pre>
 
-<p><a name="rule13-5"></a><strong>Rule 13-5:</strong> Two JSON objects
+<p><a name="rule13-6"></a><strong>Rule 13-6:</strong> Two JSON objects
 with the same value for the <code>@id</code> key MUST represent the
 value of the same message object.</p>
-<p><a name="rule13-6"></a><strong>Rule 13-6:</strong> A JSON object
+<p><a name="rule13-7"></a><strong>Rule 13-7:</strong> A JSON object
 representing the value of a model Property object with an effective
 ReferenceCode of <code>NONE</code> MUST NOT contain the <code>@id</code>
 key.</p>
-<p><a name="rule13-7"></a><strong>Rule 13-7:</strong> Two JSON objects
+<p><a name="rule13-8"></a><strong>Rule 13-8:</strong> Two JSON objects
 with the same value for the <code>@id</code> key MUST represent message
 objects having the same class or common class ancestor.</p>
 <p>For example, the following NIEM JSON is valid, because
@@ -8076,16 +8096,20 @@ to correct class</a>.</li>
 be valid URI</a>.</li>
 <li><a href="#rule12-13">Rule 12-13: No duplicate augmentation
 elements</a>.</li>
+<li><a href="#rule12-14">Rule 12-14: Nilled element must be an object
+reference</a>.</li>
 <li><a href="#rule13-1">Rule 13-1: Message is a JSON object</a>.</li>
 <li><a href="#rule13-2">Rule 13-2: Message is a JSON-LD
 document</a>.</li>
-<li><a href="#rule13-3">Rule 13-3: Message has context map for model
+<li><a href="#rule13-3">Rule 13-3: Message conforms to message
+format</a>.</li>
+<li><a href="#rule13-4">Rule 13-4: Message has context map for model
 namespaces</a>.</li>
-<li><a href="#rule13-4">Rule 13-4: Object keys are defined</a>.</li>
-<li><a href="#rule13-5">Rule 13-5: @id keyword is object
+<li><a href="#rule13-5">Rule 13-5: Object keys are defined</a>.</li>
+<li><a href="#rule13-6">Rule 13-6: @id keyword is object
 reference</a>.</li>
-<li><a href="#rule13-6">Rule 13-6: No forbidden references</a>.</li>
-<li><a href="#rule13-7">Rule 13-7: Linked objects have compatible
+<li><a href="#rule13-7">Rule 13-7: No forbidden references</a>.</li>
+<li><a href="#rule13-8">Rule 13-8: Linked objects have compatible
 class</a>.</li>
 </ul>
 <hr />
@@ -9865,7 +9889,7 @@ role</a></li>
 <li><a href="#tab4-2">Table 4-2: Definition of columns in metamodel
 property tables</a></li>
 <li><a href="#tab4-3">Table 4-3: Definition of columns in CMF-XSD
-mapping tabless</a></li>
+mapping tables</a></li>
 <li><a href="#tab4-5">Table 4-5: Properties of the Model object
 class</a></li>
 <li><a href="#tab4-7">Table 4-7: Properties of the Namespace object

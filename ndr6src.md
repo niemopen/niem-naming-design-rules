@@ -122,7 +122,7 @@ This document specifies principles and enforceable rules for NIEM data component
 
 | Term                 |  Definition  |
 | :----                |  :---  |
-| Absolute URI         | A Uniform Resource Identifier (URI) with scheme, hierarchical part, and optional query, but without a fragment; a URI matching the grammar production `<absoluteURI>` as defined by [[RFC 3986]](#ref). |
+| Absolute URI         | A Uniform Resource Identifier (URI) with scheme, hierarchical part, and optional query, but without a fragment; a URI matching the grammar syntax `<absoluteURI>` as defined by [[RFC 3986]](#ref). |
 | Adapter class        | A class that contains only properties from a single [external namespace](#def). [*see [§4.4](#44-class)*]  |
 | Adapter type         | An XSD type definition that encapsulates [external components](#def) for use within NIEM. *(see [§9.4](#94-rules-for-adapters-and-external-components))* |
 | Appinfo namespace    | A namespace defined by a schema document that provides additional semantics for components in the XSD representation of a model. *(see [§9.7](#97-rules-for-machine-readable-annotations))* |
@@ -164,7 +164,7 @@ This document specifies principles and enforceable rules for NIEM data component
 | Message type         | A specification of the information content of [messages](#def). *(see [§3.1.3](#313-message-type))* |
 | Model file           | The CMF representation of a NIEM model; a [message](#def) that conforms to the CMF [message type](#def). *(see [§3.5](#35-niem-model-representations-xsd-and-cmf), [§6.1](#61-conformance-targets))* |
 | Namespace            | A collection of uniquely-named components, managed by an authoritative source. *(see [§3.6](#36-namespaces))* |
-| NCName               | A non-colonized name, matching the grammar production `<NCName>` as defined by [[XML Namespaces]](#ref). |
+| NCName               | A non-colonized name, matching the grammar syntax `<NCName>` as defined by [[XML Namespaces]](#ref). |
 | Object class         | Represents a class of objects defined by a NIEM model. *(see [§4.4](#44-class))* |
 | Proxy type           | An XSD complex type definition with simple content that extends one of the simple types in the XML Schema namespace with `structures:SimpleObjectAttributeGroup`. *(see [§9.5](#95-rules-for-proxy-types))* |
 | Relationship property | A property that provides information about the relationship between its parent and grandparent objects. *(see [§4.6](#46-property), [§5.5](#55-relationship-properties))* |
@@ -256,7 +256,11 @@ This document specifies principles and enforceable rules for NIEM data component
 
 # 2. How To Read This Document
 
-This document provides normative specifications for NIEM-conforming data models. It also describes the goals and principles behind those specifications. It includes examples and explanations to help users of NIEM understand the goals, principles, and specifications. The relevant sections of this document will depend on the role of the user. [Figure 2-1](#fig2-1) illustrates the relationships between these roles and NIEM activities.
+This document provides normative specifications for NIEM-conforming data models. It also describes the goals and principles behind those specifications. It includes examples and explanations to help users of NIEM understand the goals, principles, and specifications. 
+
+This document is not intended as a user guide. Training materials for message designers and developers will be available at www.niemopen.org.
+
+The relevant sections of this document will depend on the role of the user. [Figure 2-1](#fig2-1) illustrates the relationships between these roles and NIEM activities.
 
 <figure>
   <img src="images/userRoles.png" style="zoom: 100%;" />
@@ -384,7 +388,7 @@ The data structure of a NIEM message appears to be a tree with a root node. It i
 
 Every NIEM serialization has a mechanism for references; that is, a way for one object in the serialized graph to point to an object elsewhere in the graph. This mechanism supports cycles and avoids duplication in the graph data structure. (See [section 5.2](#52-identifiers-and-references-in-niem-messages).)
 
-Every [message](#def) is an instance of a [message format](#def). A conforming message must satisfy the rules in [section 12](#12-rules-for-messages); in particular, it must be valid according to the [schema](#def) of its [message format](#def).
+Every [message](#def) is an instance of a [message format](#def). A conforming message must satisfy the rules in [section 12](#12-rules-for-xml-messages) and [section 13](#13-rules-for-json-messages).  In particular, it must be valid according to the [schema](#def) of its [message format](#def).
 
 > A NIEM message was originally known as an *information exchange package (IEP)*, a term that found its way into the U.S. Federal Enterprise Architecture (2005).  A message specification was originally known as an *information exchange package documentation (IEPD).*  These terms are in widespread use within the NIEM community today, and will not go away soon (if ever).
 
@@ -686,7 +690,7 @@ Names from CMF and the metamodel do not appear in the XSD representation of a mo
 | ---------- | ---------- |
 | CMF        | CMF component name |
 | XSD        | XSD equivalent |
-<figcaption><a name="tab4-3">Table 4-3: Definition of columns in CMF-XSD mapping tabless</a></figcaption>
+<figcaption><a name="tab4-3">Table 4-3: Definition of columns in CMF-XSD mapping tables</a></figcaption>
 
 ## 4.1 Model
 
@@ -2715,7 +2719,7 @@ These rules apply to Class objects in CMF, and to complex type definitions in XS
 
 ## 8.1 Rules for properties of namespaces
 
-**Rule 8-1:** Namespace identifier is absolute URI || The namespace MUST have an identifier, which MUST match the grammar production `<absolute-URI>` as defined by [[RFC 3986]](#ref). In CMF, the namespace identifier is the value of the NamespaceURI property in a Namespace object. In XSD, the namespace identifier is the value of `@targetNamespace` in the `<xs:schema>` element. (N5R 9-83, 9-84)
+**Rule 8-1:** Namespace identifier is absolute URI || The namespace MUST have an identifier, which MUST match the grammar syntax `<absolute-URI>` as defined by [[RFC 3986]](#ref). In CMF, the namespace identifier is the value of the NamespaceURI property in a Namespace object. In XSD, the namespace identifier is the value of `@targetNamespace` in the `<xs:schema>` element. (N5R 9-83, 9-84)
 
 **Rule 8-2:** Namespace URI is owned by namespace authority || The namespace identifier must be a URI that is owned by the namespace author, as defined in [[webarch]](#ref) [§2.2.2.1 *URI ownership*](https://www.w3.org/TR/webarch/#uri-ownership). (NEW)
 
@@ -2737,7 +2741,7 @@ http://example.com/yourNS/1.1.1-alpha.7/
 
 In semantic versioning, version numbers and the way they change convey meaning about the underlying code and what has been modified from one version to the next.
 
-**Rule 8-6:** Namespace has a prefix || The namespace MUST have a defined prefix, which MUST match the grammar production `<NCName>` as defined by [[XML Namespaces]](#ref). (NEW)
+**Rule 8-6:** Namespace has a prefix || The namespace MUST have a defined prefix, which MUST match the grammar syntax `<NCName>` as defined by [[XML Namespaces]](#ref). (NEW)
 
 In CMF, the prefix is the value of the NamespacePrefix property in a Namespace object. In XSD, the prefix is defined by a namespace binding for the target namespace URI.
 
@@ -3250,7 +3254,7 @@ This rule requires that the type of the element pointed to by a structures:ref a
 
 For example, an element that is the target of `nc:metadataRef` must have the type `nc:MetadataType`, or a derived type.
 
-**Rule 12-12:** `xs:anyURI` value must be valid URI || The value of an attribute with or derived from `xs:anyURI` MUST satisfy the grammar production `<URI-reference>` as defined by [[RFC 3986]](#ref). (NEW)
+**Rule 12-12:** `xs:anyURI` value must be valid URI || The value of an attribute with or derived from `xs:anyURI` MUST satisfy the grammar syntax `<URI-reference>` as defined by [[RFC 3986]](#ref). (NEW)
 
 XML Schema validation does not always check the validity of URI values.  Examples of valid and invalid URI attributes:
 
@@ -3270,23 +3274,31 @@ For example, a message must not contain
 </nc:Person>
 ```
 
-even though this is schema-valid. Instead, all properties should be consolidated into a single `j:PersonAugmentation` element.
+even though this is schema-valid. Instead, all augmentation properties should be consolidated into a single `j:PersonAugmentation` element.
+
+**Rule 12-14:** Nilled element must be an object reference || An element with `xsi:nil="true"` MUST have the attribute `structures:ref` or `structures:uri`. (NEW)
+
+The attribute `xsi:nil` can only be used to create an object reference. It cannot be used to omit mandatory content.
 
 # 13. Rules for JSON messages
 
-**Rule 13-1:** Message is a JSON object || A JSON message MUST be valid according to the grammar production `<object>` as defined by [[RFC 8259]]. (NEW)
+**Rule 13-1:** Message is a JSON object || A JSON message MUST be valid according to the grammar syntax `<object>` as defined by [[RFC 8259]](#ref). (NEW)
 
 According to the JSON specification, a valid JSON text can be an object, array, number, string, or literal name. Only the first of these is allowed as a NIEM JSON message.
 
 **Rule 13-2:** Message is a JSON-LD document || A JSON message MUST conform to the JSON-LD specification in [[JSON-LD]](#ref). (NEW)
 
-**Rule 13-3:** Message has context map for model namespaces || A JSON message MUST have an embedded context, remote context, or context via HTTP header. The context MUST map each namespace prefix in the [message model](#def) to its corresponding namespace URI. The URL for a remote context MUST be an [absolute URI](#def). (NEW)
+**Rule 13-3:** Message conforms to message format || A JSON message MUST be valid when assessed against the schema of its [message format](#def). (NEW)
+
+The schema for a JSON [message format](#def) is expressed in JSON Schema, and validates exactly those messages that conform to the [message type](#def). *(see [rule 11-2](#rule11-2).)*
+
+**Rule 13-4:** Message has context map for model namespaces || A JSON message MUST have an embedded context, remote context, or context via HTTP header. The context MUST map each namespace prefix in the [message model](#def) to its corresponding namespace URI. The URL for a remote context MUST be an [absolute URI](#def). (NEW)
 
 Embedded context, remote context, and context via HTTP header are defined in [[JSON-LD]](#ref) [§3.1: The Context](https://www.w3.org/TR/json-ld11/#the-context).
 
 For example, the JSON message in [example 3-2](#ex3-2) has a context that maps the prefixes `nc` and `msg` to their corresponding URIs.
 
-**Rule 13-4:** Object keys are defined || The name in a name-value mapping within a JSON object MUST be a JSON-LD keyword, or a term that expands to the URI of a property in the [message model](#def). (NEW)
+**Rule 13-5:** Object keys are defined || The name in a name-value mapping within a JSON object MUST be a JSON-LD keyword, or a term that expands to the URI of a property in the [message model](#def). (NEW)
 
 For example:
 
@@ -3301,11 +3313,11 @@ For example:
 }
 </code></pre>
 
-**Rule 13-5:** @id keyword is object reference || Two JSON objects with the same value for the `@id` key MUST represent the value of the same message object. (NEW)
+**Rule 13-6:** @id keyword is object reference || Two JSON objects with the same value for the `@id` key MUST represent the value of the same message object. (NEW)
 
-**Rule 13-6:** No forbidden references || A JSON object representing the value of a model Property object with an effective ReferenceCode of `NONE` MUST NOT contain the `@id` key. (NEW)
+**Rule 13-7:** No forbidden references || A JSON object representing the value of a model Property object with an effective ReferenceCode of `NONE` MUST NOT contain the `@id` key. (NEW)
 
-**Rule 13-7:** Linked objects have compatible class || Two JSON objects with the same value for the `@id` key MUST represent message objects having the same class or common class ancestor. (NEW)
+**Rule 13-8:** Linked objects have compatible class || Two JSON objects with the same value for the `@id` key MUST represent message objects having the same class or common class ancestor. (NEW)
 
 For example, the following NIEM JSON is valid, because `nc:Item` and `nc:Equipment` have the same class `nc:ItemType`.
 
@@ -3683,13 +3695,15 @@ Jacobs, I. "Architecture of the World Wide Web, Volume One". W3C Recommendation 
 * [Rule 12-11: Reference attribute property refers to correct class](#rule12-11).
 * [Rule 12-12: `xs:anyURI` value must be valid URI](#rule12-12).
 * [Rule 12-13: No duplicate augmentation elements](#rule12-13).
+* [Rule 12-14: Nilled element must be an object reference](#rule12-14).
 * [Rule 13-1: Message is a JSON object](#rule13-1).
 * [Rule 13-2: Message is a JSON-LD document](#rule13-2).
-* [Rule 13-3: Message has context map for model namespaces](#rule13-3).
-* [Rule 13-4: Object keys are defined](#rule13-4).
-* [Rule 13-5: @id keyword is object reference](#rule13-5).
-* [Rule 13-6: No forbidden references](#rule13-6).
-* [Rule 13-7: Linked objects have compatible class](#rule13-7).
+* [Rule 13-3: Message conforms to message format](#rule13-3).
+* [Rule 13-4: Message has context map for model namespaces](#rule13-4).
+* [Rule 13-5: Object keys are defined](#rule13-5).
+* [Rule 13-6: @id keyword is object reference](#rule13-6).
+* [Rule 13-7: No forbidden references](#rule13-7).
+* [Rule 13-8: Linked objects have compatible class](#rule13-8).
 
 -------
 
@@ -4046,7 +4060,7 @@ Jacobs, I. "Architecture of the World Wide Web, Volume One". W3C Recommendation 
 
 * [Table 2-2: Relevant document sections by user role](#tab2-2)
 * [Table 4-2: Definition of columns in metamodel property tables](#tab4-2)
-* [Table 4-3: Definition of columns in CMF-XSD mapping tabless](#tab4-3)
+* [Table 4-3: Definition of columns in CMF-XSD mapping tables](#tab4-3)
 * [Table 4-5: Properties of the Model object class](#tab4-5)
 * [Table 4-7: Properties of the Namespace object class](#tab4-7)
 * [Table 4-9: Namespace object properties in CMF and XSD](#tab4-9)

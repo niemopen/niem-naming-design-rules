@@ -50,9 +50,11 @@ while (<>) {
       my $onum  = $2;           # current rule number in section
       my $rname = $3;           # rule name
       my $rest  = $';
-      my $otag  = "rule$1-$2";      # old rule tag eg. "rule7-1"
+      my $olab  = "$1-$2";          # old rule label; eg. "7-1"
+      my $otag  = "rule$1-$2";      # old rule tag; eg. "rule7-1"
       my $nnum  = ++$ruleCt{$sect}; # new rule number
-      my $ntag  = "rule$sect-$nnum";# new rule tag
+      my $nlab  = "$sect-$nnum";    # new rule label; eg. "7-1"
+      my $ntag  = "rule$nlab";      # new rule tag; eg. "rule7-1"
 
       # print STDERR "sect=$sect\n";
       # print STDERR "onum=$onum\n";
@@ -84,8 +86,8 @@ while (<>) {
       # Fix the tag in this rule line
       if ($otag ne $ntag) { 
         $ruleMap{$otag}  = $ntag;
-        s/^\*\*Rule \d+-\d+/**Rule $ntag/;
-        print STDERR "Rule $otag becomes $ntag at line $lnum\n";
+        s/^\*\*Rule \d+-\d+/**Rule $nlab/;
+        print STDERR "Rule $olab becomes $nlab at line $lnum\n";
       }
     }
   }
