@@ -1,0 +1,9 @@
+
+  <!-- NDR6 rule 8-13 (same as NDR5 rule 4-6) -->
+  <pattern id="rule8-13b" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Extension namespace asserts conformance</title>
+    <rule context="*[. is nf:get-document-element(.)]">
+      <assert test="nf:has-effective-conformance-target-identifier(., xs:anyURI('https://docs.oasis-open.org/niemopen/ns/specification/NDR/6.0/#ExtensionSchemaDocument'))"
+        >Rule 8-13: An extension namespace MUST assert the conformance target identifier https://docs.oasis-open.org/niemopen/ns/specification/NDR/6.0/#ExtensionSchemaDocument; all other namespaces MUST NOT. This is an effective conformance target identifier of the schema document .</assert>
+    </rule>
+  </pattern>

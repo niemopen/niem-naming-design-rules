@@ -1,0 +1,8 @@
+  <!-- NDR6 rule 9-9 (same as NDR5 rule 9-51) -->
+  <pattern id="rule9-9a" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Prohibited attribute types</title>
+    <rule context="xs:attribute[exists(@type)]">
+      <assert test="resolve-QName(@type, .) != xs:QName('xs:ID')"
+        >Rule 9-9: A schema component MUST NOT have an attribute {}type with a value of xs:ID.</assert>
+    </rule>
+  </pattern>

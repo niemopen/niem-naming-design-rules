@@ -1,0 +1,8 @@
+  <!-- NDR6 rule 9-5 (same as NDR5 rule 9-76) -->
+  <pattern id="rule9-5g" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Prohibited schema components</title>
+    <rule context="xs:attributeGroup[@name]">
+      <assert test="false()"
+        >Rule 9-5: A schema document MUST NOT contain xs:attributeGroup.</assert>
+    </rule>
+  </pattern>

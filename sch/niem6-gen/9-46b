@@ -1,0 +1,9 @@
+
+  <!-- NDR6 rule 9-46 (same as NDR5 rule 11-12) -->
+  <pattern id="rule9-46b" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Element type is not simple type</title>
+    <rule context="xs:element[exists(@type)]">
+      <assert test="not(ends-with(@type, 'SimpleType'))"
+        >Rule 9-46: An element declaration MUST NOT have a simple type.</assert>
+    </rule>
+  </pattern>

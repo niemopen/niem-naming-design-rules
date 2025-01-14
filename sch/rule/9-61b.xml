@@ -1,0 +1,10 @@
+  <!-- NDR6 rule 9-61 (same as NDR5 rule 10-34) -->
+  <pattern id="rule9-61b" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Name of augmentation types</title>
+    <rule context="xs:*[ends-with(@name, 'AugmentationType')]">
+      <assert test="self::xs:complexType/xs:complexContent/xs:*[
+                         (self::xs:extension or self::xs:restriction)
+                         and ends-with(@base, 'AugmentationType')]"
+        >Rule 9-61: The XSD definition of an augmentation type MUST have a name ending in "AugmentationType"; all other XSD components MUST NOT.</assert>
+    </rule>
+  </pattern>

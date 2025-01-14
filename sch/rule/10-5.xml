@@ -1,0 +1,11 @@
+  <!-- NDR6 rule 10-5 (same as NDR5 rule 11-54) -->
+  <pattern id="rule10-5" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Consistent import schema document</title>
+    <rule context="xs:schema[exists(@targetNamespace)
+                                and (some $element
+                                    in nf:resolve-namespace(., xs:anyURI(@targetNamespace))
+                                    satisfies $element is .)]">
+      <assert test="count(nf:resolve-namespace(., xs:anyURI(@targetNamespace))) = 1"
+        >Rule 10-5: The members of a schema document set MUST NOT contain two xs:import elements that have the same {}namespace attribute but specify different schema documents.</assert>
+    </rule>
+  </pattern>

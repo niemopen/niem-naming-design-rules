@@ -1,0 +1,9 @@
+  <!-- NDR6 rule 7-48 (same as NDR5 rule 11-35) -->
+  <pattern id="rule7-48" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Standard opening phrase for abstract property data definition</title>
+    <rule context="xs:element[xs:boolean(@abstract) = true()
+                        and not(ends-with(@name, 'AugmentationPoint'))]/xs:annotation/xs:documentation[1]">
+      <report role="warning" test="not(starts-with(lower-case(normalize-space(.)), 'a data concept'))"
+        >Rule 7-48: The data definition for an abstract property SHOULD begin with the standard opening phrase "A data concept...".</report>
+    </rule>
+  </pattern>

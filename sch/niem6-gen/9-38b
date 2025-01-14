@@ -1,0 +1,14 @@
+
+  <!-- NDR6 rule 9-38 (same as NDR5 rule 11-22) -->
+  <pattern id="rule9-38b" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Component reference defined by conformant schema</title>
+    <rule context="xs:attribute[@ref]">
+      <assert test="some $namespace in namespace-uri-from-QName(resolve-QName(@ref, .)) satisfies (
+                         $namespace = nf:get-target-namespace(.)
+                         or ancestor::xs:schema[1]/xs:import[
+                              @namespace
+                              and $namespace = xs:anyURI(@namespace)
+                              and empty(@appinfo:externalImportIndicator)])"
+        >Rule 9-38: An attribute or element reference MUST have the target namespace or a namespace that is imported as conformant.</assert>
+    </rule>
+  </pattern>

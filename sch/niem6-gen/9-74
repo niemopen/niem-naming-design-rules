@@ -1,0 +1,11 @@
+
+  <!-- NDR6 rule 9-74 (same as NDR5 rule 9-79) -->
+  <pattern id="rule9-74" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>`xs:appinfo` children are comments, elements, or whitespace</title>
+    <rule context="xs:appinfo/node()">
+      <assert test="self::comment()
+                       or self::element()
+                       or self::text()[string-length(normalize-space(.)) = 0]"
+        >Rule 9-74: A child of element xs:appinfo MUST be an element, a comment, or whitespace text.</assert>
+    </rule>
+  </pattern>

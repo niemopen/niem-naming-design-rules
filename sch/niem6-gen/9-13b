@@ -1,0 +1,11 @@
+
+  <!-- NDR6 rule 9-13 (same as NDR5 rule 9-39) -->
+  <pattern id="rule9-13b" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Untyped element is abstract</title>
+    <rule context="xs:element[exists(@type)
+                                 and resolve-QName(@type, .) = xs:QName('xs:anySimpleType')]">
+      <assert test="exists(@abstract)
+                       and xs:boolean(@abstract) = true()"
+        >Rule 9-13: An untyped element or an element of type xs:anySimpleType MUST be abstract.</assert>
+    </rule>
+  </pattern>

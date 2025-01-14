@@ -1,0 +1,12 @@
+  <!-- NDR6 rule 10-6 (same as NDR5 rule 11-55) -->
+  <pattern id="rule10-6" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Consistent import labels</title>
+    <rule context="xs:import">
+      <let name="namespace" value="@namespace"/>
+      <let name="is-conformant" value="empty(@appinfo:externalImportIndicator)"/>
+      <let name="first" value="exactly-one(parent::xs:schema/xs:import[@namespace = $namespace][1])"/>
+      <assert test=". is $first
+                       or $is-conformant = empty($first/@appinfo:externalImportIndicator)"
+        >Rule 10-6: The members of a schema document set MUST NOT contain two xs:import elements with the same namespace but different values for appinfo:externalImportIndicator.</assert>
+    </rule>
+  </pattern>

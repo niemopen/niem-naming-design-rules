@@ -1,0 +1,9 @@
+
+  <!-- NDR6 rule 9-29 (same as NDR5 rule 9-63) -->
+  <pattern id="rule9-29" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>`xs:sequence` must be child of `xs:extension` or `xs:restriction`</title>
+    <rule context="xs:sequence">
+      <assert test="exists(parent::xs:extension) or exists(parent::xs:restriction)"
+        >Rule 9-29: An element xs:sequence MUST be a child of xs:extension or xs:restriction.</assert>
+    </rule>
+  </pattern>

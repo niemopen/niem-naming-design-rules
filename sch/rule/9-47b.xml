@@ -1,0 +1,12 @@
+  <!-- NDR6 rule 9-47 (same as NDR5 rule 11-18) -->
+  <pattern id="rule9-47b" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Attribute and element type is from conformant namespace</title>
+    <rule context="xs:attribute[exists(@type)]">
+      <let name="namespace" value="namespace-uri-from-QName(resolve-QName(@type, .))"/>
+      <assert test="$namespace = (nf:get-target-namespace(.), xs:anyURI('http://www.w3.org/2001/XMLSchema'))
+                       or exists(ancestor::xs:schema[1]/xs:import[exists(@namespace)
+                                     and $namespace = xs:anyURI(@namespace)
+                                     and empty(@appinfo:externalImportIndicator)])"
+        >Rule 9-47: The type definition of an attribute or element declaration MUST have a target namespace that is the target namespace, or a namespace that is imported as conformant.</assert>
+    </rule>
+  </pattern>

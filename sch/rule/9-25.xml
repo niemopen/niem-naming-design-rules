@@ -1,0 +1,12 @@
+  <!-- NDR6 rule 9-25 (same as NDR5 rule 11-2) -->
+  <pattern id="rule9-25" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Name of type definitions</title>
+    <rule context="xs:*[exists(@name) and ends-with(@name, 'SimpleType')]">
+      <assert test="local-name() = 'simpleType'"
+        >Rule 9-25: A type definition that does not define a *proxy type* MUST have a name ending in "Type"; all other XSD components MUST NOT.</assert>
+    </rule>
+    <rule context="xs:*[exists(@name) and ends-with(@name, 'Type')]">
+      <assert test="local-name() = 'complexType'"
+        >Rule 9-25: A type definition that does not define a *proxy type* MUST have a name ending in "Type"; all other XSD components MUST NOT.</assert>
+    </rule>
+  </pattern>

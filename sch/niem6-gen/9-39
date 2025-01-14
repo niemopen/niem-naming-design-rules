@@ -1,0 +1,12 @@
+
+  <!-- NDR6 rule 9-39 (same as NDR5 rule 11-23) -->
+  <pattern id="rule9-39" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Schema uses only known attribute groups</title>
+    <rule context="xs:attributeGroup[@ref]">
+      <assert test="some $ref in resolve-QName(@ref, .) satisfies (
+                         $ref = xs:QName('structures:SimpleObjectAttributeGroup')
+                         or namespace-uri-from-QName($ref) = (xs:anyURI('urn:us:gov:ic:ism'),
+                                                              xs:anyURI('urn:us:gov:ic:ntk')))"
+        >Rule 9-39: An attribute group reference MUST be structures:SimpleObjectAttributeGroup.</assert>
+    </rule>
+  </pattern>

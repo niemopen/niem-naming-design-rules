@@ -1,0 +1,10 @@
+
+  <!-- NDR6 rule 9-71 (same as NDR5 rule 10-30) -->
+  <pattern id="rule9-71b" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Augmentation point element use is optional and unbounded</title>
+    <rule context="xs:complexType//xs:element[exists(@ref[
+                            matches(local-name-from-QName(resolve-QName(., ..)), 'AugmentationPoint$')]) ]">
+      <assert test="exists(@maxOccurs) and string(@maxOccurs) = 'unbounded'"
+        >Rule 9-71: An augmentation point element particle MUST have attribute minOccurs equal to 0 and attribute maxOccurs set to unbounded.</assert>
+    </rule>
+  </pattern>

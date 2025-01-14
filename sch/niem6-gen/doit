@@ -1,0 +1,14 @@
+#!/usr/bin/perl
+
+use warnings;
+use strict;
+
+my $fn  = $ARGV[0];
+my $ofn = "../rule/$fn.xml";
+open OF, ">$ofn";
+
+while (<>) {
+  next if /^\s*$/;
+  print OF $_;
+}
+close OF;

@@ -1,0 +1,8 @@
+  <!-- NDR6 rule 7-57 (same as NDR5 rule 11-43) -->
+  <pattern id="rule7-57" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Standard opening phrase for association class data definition</title>
+    <rule context="xs:complexType[ends-with(@name, 'AssociationType')]/xs:annotation/xs:documentation[1]">
+      <report role="warning" test="not(matches(lower-case(normalize-space(.)), '^a data type for (a relationship|an association)'))"
+        >Rule 7-57: The data definition for an association class SHOULD begin with the standard opening phrase "A data type for (a relationship|an association)...".</report>
+    </rule>
+  </pattern>

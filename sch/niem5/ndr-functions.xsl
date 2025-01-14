@@ -4,7 +4,7 @@
   xmlns:catalog="urn:oasis:names:tc:entity:xmlns:xml:catalog"
   xmlns:ct="http://release.niem.gov/niem/conformanceTargets/3.0/"
   xmlns:impl="http://example.org/impl"
-  xmlns:nf="https://docs.oasis-open.org/niemopen/ns/specification/NDR/6.0/#NDRFunctions"
+  xmlns:nf="http://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/#NDRFunctions"
   xmlns:saxon="http://saxon.sf.net/"
   xmlns:xs="http://www.w3.org/2001/XMLSchema"
   xmlns="http://www.w3.org/1999/XSL/Transform">

@@ -1,0 +1,8 @@
+  <!-- NDR6 rule 9-26 (same as NDR5 rule 11-4) -->
+  <pattern id="rule9-26" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Name of simple type definitions</title>
+    <rule context="xs:simpleType[@name]">
+      <assert test="ends-with(@name, 'SimpleType')"
+        >Rule 9-26: A simple type definition MUST have a name ending in "SimpleType"; all other XSD components MUST NOT.</assert>
+    </rule>
+  </pattern>

@@ -1,0 +1,13 @@
+  <!-- NDR6 rule 7-6 (same as NDR5 rule 10-17) -->
+  <pattern id="rule7-6" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Name of code list literal classes</title>
+    <rule context="xs:complexType">
+      <let name="is-association-type" value="exists(@name[ends-with(., 'AssociationType')])"/>
+      <let name="has-association-base-type" value="
+        exists(xs:complexContent[
+        exists(xs:*[local-name() = ('extension', 'restriction')
+        and exists(@base[ends-with(., 'AssociationType')])])])"/>
+      <assert test="$is-association-type = $has-association-base-type"
+        >A type MUST have an association type name if and only if it is derived from an association type.</assert>
+    </rule>
+  </pattern>

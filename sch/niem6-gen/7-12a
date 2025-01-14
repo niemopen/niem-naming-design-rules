@@ -1,0 +1,9 @@
+
+  <!-- NDR6 rule 7-12 (same as NDR5 rule 10-19) -->
+  <pattern id="rule7-12a" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Name of code properties</title>
+    <rule context="xs:element[exists(@name) and exists(@type) and ends-with(@type, 'CodeType')]">
+      <report role="warning" test="not(ends-with(@name, 'Code'))"
+        >Rule 7-12: A Property with a Class or Datatype that represents a code list MUST have a name ending in "Code"; all other components MUST NOT.</report>
+    </rule>
+  </pattern>

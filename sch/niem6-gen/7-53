@@ -1,0 +1,11 @@
+
+  <!-- NDR6 rule 7-53 (same as NDR5 rule 11-39) -->
+  <pattern id="rule7-53" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Standard opening phrase for indicator property data definition</title>
+    <rule context="*[(self::xs:element or self::xs:attribute)
+                        and ends-with(@name, 'Indicator') and not(xs:boolean(@abstract) eq true())]
+                       /xs:annotation/xs:documentation[1]">
+      <report role="warning" test="not(matches(lower-case(normalize-space(.)), '^true if .*; false (otherwise|if)'))"
+        >Rule 7-53: The data definition for a property with an indicator representation term SHOULD begin with the standard opening phrase "True if ...; false (otherwise|if)...".</report>
+    </rule>
+  </pattern>

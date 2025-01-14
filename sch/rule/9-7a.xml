@@ -1,0 +1,8 @@
+  <!-- NDR6 rule 9-7 (same as NDR5 rule 9-15) -->
+  <pattern id="rule9-7a" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Prohibited list item types</title>
+    <rule context="xs:*[exists(@itemType)]">
+      <assert test="resolve-QName(@itemType, .) != xs:QName('xs:ID')"
+        >Rule 9-7: A schema component MUST NOT have an attribute {}itemType with a value of xs:ID.</assert>
+    </rule>
+  </pattern>

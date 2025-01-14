@@ -1,0 +1,9 @@
+
+  <!-- NDR6 rule 7-18 (same as NDR5 rule 10-49) -->
+  <pattern id="rule7-18" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Name of attribute properties begin with lower case letter</title>
+    <rule context="xs:attribute[exists(@name)]">
+      <assert test="matches(@name, '^[a-z]')"
+        >Rule 7-18: The name of an attribute property MUST begin with a lowercase character.</assert>
+    </rule>
+  </pattern>

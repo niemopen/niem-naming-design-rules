@@ -1,0 +1,9 @@
+
+  <!-- NDR6 rule 9-6 (same as NDR5 rule 9-1) -->
+  <pattern id="rule9-6a" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Prohibited base types</title>
+    <rule context="xs:*[exists(@base)]">
+      <assert test="namespace-uri-from-QName(resolve-QName(@base, .)) != xs:anyURI('http://www.w3.org/XML/1998/namespace')"
+        >Rule 9-6: A schema component MUST NOT have an attribute {}base with a value of any of these types: </assert>
+    </rule>
+  </pattern>

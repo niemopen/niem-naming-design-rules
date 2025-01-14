@@ -1,0 +1,9 @@
+  <!-- NDR6 rule 9-68 (same as NDR5 rule 10-26) -->
+  <pattern id="rule9-68" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>An augmentation point element has no type</title>
+    <rule context="xs:element[exists(@name[
+                                  matches(., 'AugmentationPoint$')])]">
+      <assert test="empty(@type)"
+        >Rule 9-68: An augmentation point element MUST have no type.</assert>
+    </rule>
+  </pattern>

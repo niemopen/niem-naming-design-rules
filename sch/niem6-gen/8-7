@@ -1,0 +1,10 @@
+
+  <!-- NDR6 rule 8-7 (same as NDR5 rule 9-85) -->
+  <pattern id="rule8-7" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Namespace has version</title>
+    <rule context="xs:schema">
+      <assert test="some $version in @version satisfies
+                       string-length(normalize-space(@version)) &gt; 0"
+        >Rule 8-7: The namespace MUST have a version, which MUST NOT be empty. The version is the value of @version in the xs:schema element.</assert>
+    </rule>
+  </pattern>

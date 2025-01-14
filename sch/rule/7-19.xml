@@ -1,0 +1,19 @@
+  <!-- NDR6 rule 7-19 (same as NDR5 rule 10-50) -->
+  <pattern id="rule7-19" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Name of components other than attribute properties begin with upper case letter</title>
+    <rule context="xs:attribute">
+      <report test="false()" role="warning"
+        >Rule 7-19: The name of a model component that is not an attribute property MUST begin with an uppercase character.</report>
+    </rule>
+    <rule context="xs:complexType[some $name in @name,
+                                     $extension in xs:simpleContent/xs:extension,
+                                     $base-qname in resolve-QName($extension/@base, $extension) satisfies
+                                     $base-qname = QName('http://www.w3.org/2001/XMLSchema', $name)]">
+      <report test="false()" role="warning"
+        >Rule 7-19: The name of a model component that is not an attribute property MUST begin with an uppercase character.</report>
+    </rule>
+    <rule context="xs:*[exists(@name)]">
+      <assert test="matches(@name, '^[A-Z]')"
+        >Rule 7-19: The name of a model component that is not an attribute property MUST begin with an uppercase character.</assert>
+    </rule>
+  </pattern>

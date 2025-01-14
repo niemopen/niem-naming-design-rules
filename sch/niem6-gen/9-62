@@ -1,0 +1,10 @@
+
+  <!-- NDR6 rule 9-62 (same as NDR5 rule 10-36) -->
+  <pattern id="rule9-62" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Name of augmentation elements</title>
+    <rule context="xs:element[exists(@name)]">
+      <assert test="exists(@type[ends-with(., 'AugmentationType')])
+                       = exists(@name[ends-with(., 'Augmentation')])"
+        >Rule 9-62: The XSD declaration of an augmentation element MUST have a name ending in "Augmentation"; all other XSD components MUST NOT.</assert>
+    </rule>
+  </pattern>

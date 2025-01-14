@@ -1,0 +1,9 @@
+  <!-- NDR6 rule 7-37 (same as NDR5 rule 9-82) -->
+  <pattern id="rule7-37" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Namespace has data definition</title>
+    <rule context="xs:schema">
+      <assert test="some $definition in (xs:annotation/xs:documentation)[1] satisfies
+                         string-length(normalize-space(string($definition))) &gt; 0"
+        >Rule 7-37: The xs:schema element MUST be a documented component.</assert>
+    </rule>
+  </pattern>

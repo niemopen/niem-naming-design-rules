@@ -1,0 +1,13 @@
+
+  <!-- NDR6 rule 9-36 (same as NDR5 rule 11-11) -->
+  <pattern id="rule9-36" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Complex type with simple content has `structures:SimpleObjectAttributeGroup`</title>
+    <rule context="xs:simpleContent/xs:extension[
+       some $base-qname in resolve-QName(@base, .) satisfies
+         namespace-uri-from-QName($base-qname) = xs:anyURI('http://www.w3.org/2001/XMLSchema')
+         or ends-with(local-name-from-QName($base-qname), 'SimpleType')]">
+      <assert test="xs:attributeGroup[
+                         resolve-QName(@ref, .) = xs:QName('structures:SimpleObjectAttributeGroup')]"
+        >Rule 9-36: A complex type definition with simple content MUST include structures:SimpleObjectAttributeGroup.</assert>
+    </rule>
+  </pattern>

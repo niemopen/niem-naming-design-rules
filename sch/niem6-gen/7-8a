@@ -1,0 +1,11 @@
+
+  <!-- NDR6 rule 7-8 (same as NDR5 rule 11-8) -->
+  <pattern id="rule7-8a" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Names ending in "CodeSimpleType"</title>
+    <rule context="xs:simpleType[exists(@name)
+       and (xs:restriction/xs:enumeration
+            or xs:restriction[ends-with(local-name-from-QName(resolve-QName(@base, .)), 'CodeSimpleType')])]">
+      <report test="not(ends-with(@name, 'CodeSimpleType'))" role="warning"
+        >Rule 7-8: A Datatype object with a name that ends in "CodeSimpleType" MUST be a code list datatype.</report>
+    </rule>
+  </pattern>

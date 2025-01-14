@@ -1,0 +1,13 @@
+  <!-- NDR6 rule 9-34 (same as NDR5 rule 10-21) -->
+  <pattern xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Association type derived form structures:AssociationType</title>
+    <rule context="xs:complexType">
+      <let name="is-association-type" value="exists(@name[ends-with(., 'AssociationType')])"/>
+      <let name="has-association-base-type" value="
+        exists(xs:complexContent[
+          exists(xs:*[local-name() = ('extension', 'restriction')
+                      and exists(@base[ends-with(., 'AssociationType')])])])"/>
+      <assert test="$is-association-type = $has-association-base-type"
+          >Rule 9-34: A type definition that represents an association class MUST be derived from structures:AssociationType or from another association class.</assert>
+    </rule>
+  </pattern>
