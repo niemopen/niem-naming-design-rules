@@ -1,0 +1,30 @@
+#!/usr/bin/perl
+
+use warnings;
+use strict;
+
+opendir(my $dh, ".");
+my @files = readdir($dh);
+closedir($dh);
+
+foreach my $rf (@files) {
+  next unless $rf =~ m/^(.*)\.xml$/;
+  my $rname = $1;
+  my $rnum  = $rname;
+  $rnum =~ s/[a-z]$//;
+  print "rname=$rname, rnum=$rnum\n";
+  open RULE, $rf or die "can't open rule file $rf: $!\n";
+  while (<RULE>) {
+    if (m/<!-- NDR6 rule (\S+) / && $1 ne $rnum) {
+      print "$rf: bad comment\n";
+    }
+    elsif (m/<pattern id="rule(\S+)"/ && $1 ne $rname) {
+      print "$rf: bad id\n";
+    }
+    elsif (m/>Rule (\S+):/ && $1 ne $rnum) {
+      print "$rf: bad text\n";
+    }
+  }
+  close RULE;
+}
+  

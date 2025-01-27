@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="US-ASCII" standalone="yes"?><sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" queryBinding="xslt2">
       <sch:title>Rules for reference XML Schema documents</sch:title>
     
-      <xsl:include href="ndr-functions.xsl"/>
+      <xsl:include href="fixed-ndr-functions.xsl"/>
     
 <sch:ns prefix="xs" uri="http://www.w3.org/2001/XMLSchema"/>
 <sch:ns prefix="xsl" uri="http://www.w3.org/1999/XSL/Transform"/>
-<sch:ns prefix="nf" uri="http://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/#NDRFunctions"/>
-<sch:ns prefix="ct" uri="http://release.niem.gov/niem/conformanceTargets/3.0/"/>
+<sch:ns prefix="nf" uri="https://docs.oasis-open.org/niemopen/ns/specification/NDR/6.0/#NDRFunctions"/>
+<sch:ns prefix="ct" uri="https://docs.oasis-open.org/niemopen/ns/specification/conformanceTargets/6.0/"/>
 <sch:ns prefix="xsi" uri="http://www.w3.org/2001/XMLSchema-instance"/>
-<sch:ns prefix="appinfo" uri="http://release.niem.gov/niem/appinfo/5.0/"/>
-<sch:ns prefix="structures" uri="http://release.niem.gov/niem/structures/5.0/"/>
+<sch:ns prefix="appinfo" uri="https://docs.oasis-open.org/niemopen/ns/model/appinfo/6.0/"/>
+<sch:ns prefix="structures" uri="https://docs.oasis-open.org/niemopen/ns/model/structures/6.0/"/>
       
 <sch:pattern id="rule_4-4"><sch:title>Document element has attribute ct:conformanceTargets</sch:title>
   <sch:rule context="*[. is nf:get-document-element(.)                        or exists(@ct:conformanceTargets)]">
-    <sch:assert test="(. is nf:get-document-element(.)) = exists(@ct:conformanceTargets)">Rule 4-4: The [document element] of the XML document, and only the [document element], MUST own an attribute {http://release.niem.gov/niem/conformanceTargets/3.0/}conformanceTargets.</sch:assert>
+    <sch:assert test="(. is nf:get-document-element(.)) = exists(@ct:conformanceTargets)">Rule 4-4: The [document element] of the XML document, and only the [document element], MUST own an attribute {https://docs.oasis-open.org/niemopen/ns/specification/conformanceTargets/6.0/}conformanceTargets.</sch:assert>
   </sch:rule>
 </sch:pattern>
           
 <sch:pattern id="rule_4-5"><sch:title>Schema claims reference schema conformance target</sch:title>
   <sch:rule context="*[. is nf:get-document-element(.)]">
-    <sch:assert test="nf:has-effective-conformance-target-identifier(., xs:anyURI('http://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/#ReferenceSchemaDocument'))">Rule 4-5: The document MUST have an effective conformance target identifier of http://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/#ReferenceSchemaDocument.</sch:assert>
+    <sch:assert test="nf:has-effective-conformance-target-identifier(., xs:anyURI('https://docs.oasis-open.org/niemopen/ns/specification/NDR/6.0/#ReferenceSchemaDocument'))">Rule 4-5: The document MUST have an effective conformance target identifier of https://docs.oasis-open.org/niemopen/ns/specification/NDR/6.0/#ReferenceSchemaDocument.</sch:assert>
   </sch:rule>
 </sch:pattern>
           
@@ -792,7 +792,7 @@
           
 <sch:pattern id="rule_10-70"><sch:title>External import indicator annotates import</sch:title>
   <sch:rule context="*[exists(@appinfo:externalImportIndicator)]">
-    <sch:assert test="exists(self::xs:import)">Rule 10-70: The attribute {http://release.niem.gov/niem/appinfo/5.0/}externalImportIndicator MUST be owned by an element xs:import.</sch:assert>
+    <sch:assert test="exists(self::xs:import)">Rule 10-70: The attribute {https://docs.oasis-open.org/niemopen/ns/model/appinfo/6.0/}externalImportIndicator MUST be owned by an element xs:import.</sch:assert>
   </sch:rule>
 </sch:pattern>
           
@@ -822,7 +822,7 @@
           
 <sch:pattern id="rule_10-77"><sch:title>appinfo:LocalTerm has literal or definition</sch:title>
   <sch:rule context="appinfo:LocalTerm">
-    <sch:assert test="exists(@literal) or exists(@definition)">Rule 10-77: The element {http://release.niem.gov/niem/appinfo/5.0/}LocalTerm MUST have a literal or definition.</sch:assert>
+    <sch:assert test="exists(@literal) or exists(@definition)">Rule 10-77: The element {https://docs.oasis-open.org/niemopen/ns/model/appinfo/6.0/}LocalTerm MUST have a literal or definition.</sch:assert>
   </sch:rule>
 </sch:pattern>
           
@@ -883,7 +883,7 @@
               
 <sch:pattern id="rule_11-11"><sch:title>Complex type with simple content has structures:SimpleObjectAttributeGroup</sch:title>
   <sch:rule context="xs:simpleContent/xs:extension[       some $base-qname in resolve-QName(@base, .) satisfies         namespace-uri-from-QName($base-qname) = xs:anyURI('http://www.w3.org/2001/XMLSchema')         or ends-with(local-name-from-QName($base-qname), 'SimpleType')]">
-    <sch:assert test="xs:attributeGroup[                         resolve-QName(@ref, .) = xs:QName('structures:SimpleObjectAttributeGroup')]">Rule 11-11: A complex type definition with simple content schema component with a derivation method of extension that has a base type definition that is a simple type MUST incorporate the attribute group {http://release.niem.gov/niem/structures/5.0/}SimpleObjectAttributeGroup.</sch:assert>
+    <sch:assert test="xs:attributeGroup[                         resolve-QName(@ref, .) = xs:QName('structures:SimpleObjectAttributeGroup')]">Rule 11-11: A complex type definition with simple content schema component with a derivation method of extension that has a base type definition that is a simple type MUST incorporate the attribute group {https://docs.oasis-open.org/niemopen/ns/model/structures/6.0/}SimpleObjectAttributeGroup.</sch:assert>
   </sch:rule>
 </sch:pattern>
               
@@ -1061,7 +1061,7 @@
 </sch:pattern>
             
 <sch:pattern id="rule_11-52"><sch:title>Structures imported as conformant</sch:title>
-  <sch:rule context="xs:import[exists(@namespace)                                and xs:anyURI(@namespace) = xs:anyURI('http://release.niem.gov/niem/structures/5.0/')]">
+  <sch:rule context="xs:import[exists(@namespace)                                and xs:anyURI(@namespace) = xs:anyURI('https://docs.oasis-open.org/niemopen/ns/model/structures/6.0/')]">
     <sch:assert test="empty(@appinfo:externalImportIndicator)">Rule 11-52: An import of the structures namespace MUST NOT be labeled as an external import.</sch:assert>
   </sch:rule>
 </sch:pattern>

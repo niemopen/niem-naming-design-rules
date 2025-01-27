@@ -1,12 +1,10 @@
-  <!-- NDR6 rule 9-54 (same as NDR5 rule 10-10) -->
+  <!-- NDR6 rule 9-54 (same as NDR5 rule 10-9) -->
   <pattern id="rule9-54" xmlns="http://purl.oclc.org/dsdl/schematron">
-    <title>Element use from external adapter type defined by external schema documents</title>
-    <rule context="xs:element[@ref
-                                 and exists(ancestor::xs:complexType[exists(@appinfo:externalAdapterTypeIndicator)])]">
-      <assert test="some $ref-namespace in namespace-uri-from-QName(resolve-QName(@ref, .)) satisfies
-                         nf:get-document-element(.)/xs:import[
-                           $ref-namespace = xs:anyURI(@namespace)
-                           and @appinfo:externalImportIndicator]"
-        >Rule 9-54: An element reference that appears within an adapter type MUST have a target namespace that is imported as external.</assert>
+    <title>Structure of external adapter type definition follows pattern</title>
+    <rule context="xs:complexType[@appinfo:externalAdapterTypeIndicator]">
+      <assert test="xs:complexContent/xs:extension[
+                         resolve-QName(@base, .) = xs:QName('structures:ObjectType')
+                       ]/xs:sequence"
+        >Rule 9-54: An adapter type definition MUST be a complex type definition with complex content that extends structures:ObjectType, and that uses xs:sequence as its top-level compositor.</assert>
     </rule>
   </pattern>

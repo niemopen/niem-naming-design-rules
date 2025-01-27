@@ -1,8 +1,10 @@
-  <!-- NDR6 rule 9-75 (same as NDR5 rule 9-80) -->
+  <!-- NDR6 rule 9-75 (same as NDR5 rule 9-79) -->
   <pattern id="rule9-75" xmlns="http://purl.oclc.org/dsdl/schematron">
-    <title>Appinfo child elements have namespaces</title>
-    <rule context="xs:appinfo/*">
-      <assert test="namespace-uri() != xs:anyURI('')"
-        >Rule 9-75: An element that is a child of xs:appinfo MUST have a namespace name.</assert>
+    <title>`xs:appinfo` children are comments, elements, or whitespace</title>
+    <rule context="xs:appinfo/node()">
+      <assert test="self::comment()
+                       or self::element()
+                       or self::text()[string-length(normalize-space(.)) = 0]"
+        >Rule 9-75: A child of element xs:appinfo MUST be an element, a comment, or whitespace text.</assert>
     </rule>
   </pattern>

@@ -10,7 +10,7 @@
                                      $base-qname in resolve-QName($extension/@base, $extension) satisfies
                                      $base-qname = QName('http://www.w3.org/2001/XMLSchema', $name)]">
       <report test="false()" role="warning"
-        >Rule 7-19: The name of a model component that is not an attribute property MUST begin with an uppercase character.</report>
+        >Rule 7-19: This rule does not apply to a proxy type.</report>
     </rule>
     <rule context="xs:*[exists(@name)]">
       <assert test="matches(@name, '^[A-Z]')"

@@ -11,6 +11,6 @@
         xs:anyURI(@namespace) = $type-ns
         and empty(@appinfo:externalImportIndicator)]))
         and not(ends-with($type-local-name, 'SimpleType'))))"
-        >An element type that is not xs:anySimpleType MUST NOT be a simple type.</assert>
+        >Rule 9-15: An element type that is not xs:anySimpleType MUST NOT be a simple type.</assert>
     </rule>
   </pattern>

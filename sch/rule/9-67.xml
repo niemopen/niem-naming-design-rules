@@ -1,15 +1,9 @@
-  <!-- NDR6 rule 9-67 (same as NDR5 rule 10-25) -->
+  <!-- NDR6 rule 9-67 (same as NDR5 rule 11-44) -->
   <pattern id="rule9-67" xmlns="http://purl.oclc.org/dsdl/schematron">
-    <title>Augmentation point element corresponds to its base type</title>
-    <rule context="xs:element[exists(@name[
-                                  matches(., 'AugmentationPoint$')])]">
-      <let name="element-name" value="@name"/>
-      <assert test="exists(
-                         parent::xs:schema/xs:complexType[
-                           @name = replace($element-name, 'AugmentationPoint$', 'Type')
-                           and exists(@name[not(ends-with(., 'AugmentationType'))])
-                                 and empty(@appinfo:externalAdapterTypeIndicator)
-                                 and exists(child::xs:complexContent)])"
-        >Rule 9-67: A schema document containing an element declaration for an augmentation point element MUST also contain a type definition for its augmented base type.</assert>
+    <title>Standard opening phrase for augmentation type data definition</title>
+    <rule context="xs:complexType[ends-with(@name, 'AugmentationType')]/xs:annotation/xs:documentation[1]">
+      <report role="warning" test="not(matches(lower-case(normalize-space(.)),
+                           '^a data type (that supplements|for additional information about)'))"
+        >Rule 9-67: The data definition for an augmentation type SHOULD begin with the standard opening phrase "A data type (that supplements|for additional information about)...".</report>
     </rule>
   </pattern>

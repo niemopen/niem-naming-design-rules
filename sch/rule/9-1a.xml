@@ -1,4 +1,4 @@
-  <!-- NDR6 rule 9-1a (same as NDR5 rule 4-3) -->
+  <!-- NDR6 rule 9-1 (same as NDR5 rule 4-3) -->
   <pattern id="rule9-1a" xmlns="http://purl.oclc.org/dsdl/schematron">
     <title>Schema is CTAS-conformant</title>
     <rule context="*[exists(@ct:*[local-name() != 'conformanceTargets'])]">

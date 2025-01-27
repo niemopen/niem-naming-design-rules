@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="US-ASCII" standalone="yes"?><sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" queryBinding="xslt2">
       <sch:title>Rules for extension XML Schema documents</sch:title>
     
-      <xsl:include href="ndr-functions.xsl"/>
-    
-<sch:ns prefix="xs" uri="http://www.w3.org/2001/XMLSchema"/>
-<sch:ns prefix="xsl" uri="http://www.w3.org/1999/XSL/Transform"/>
-<sch:ns prefix="nf" uri="http://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/#NDRFunctions"/>
-<sch:ns prefix="ct" uri="http://release.niem.gov/niem/conformanceTargets/3.0/"/>
-<sch:ns prefix="xsi" uri="http://www.w3.org/2001/XMLSchema-instance"/>
-<sch:ns prefix="appinfo" uri="http://release.niem.gov/niem/appinfo/5.0/"/>
-<sch:ns prefix="structures" uri="http://release.niem.gov/niem/structures/5.0/"/>
+  <xsl:include href="fixed-ndr-functions.xsl"/>
+  
+  <sch:ns prefix="xs" uri="http://www.w3.org/2001/XMLSchema"/>
+  <sch:ns prefix="xsl" uri="http://www.w3.org/1999/XSL/Transform"/>
+  <sch:ns prefix="nf" uri="https://docs.oasis-open.org/niemopen/ns/specification/NDR/6.0/#NDRFunctions"/>
+  <sch:ns prefix="ct" uri="https://docs.oasis-open.org/niemopen/ns/specification/conformanceTargets/6.0/"/>
+  <sch:ns prefix="xsi" uri="http://www.w3.org/2001/XMLSchema-instance"/>
+  <sch:ns prefix="appinfo" uri="https://docs.oasis-open.org/niemopen/ns/model/appinfo/6.0/"/>
+  <sch:ns prefix="structures" uri="https://docs.oasis-open.org/niemopen/ns/model/structures/6.0/"/>
       
 <sch:pattern id="rule_4-4"><sch:title>Document element has attribute ct:conformanceTargets</sch:title>
   <sch:rule context="*[. is nf:get-document-element(.)                        or exists(@ct:conformanceTargets)]">

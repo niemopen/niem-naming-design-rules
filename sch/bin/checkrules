@@ -1,0 +1,53 @@
+#!/usr/bin/perl
+
+# Run in ndr/sch directory to check the files in ndr/sch/rule
+
+use warnings;
+use strict;
+
+my %include;
+
+getIncludes('refTarget.sch');
+getIncludes('extTarget.sch');
+getIncludes('subTarget.sch');
+
+opendir(my $dh, "rule");
+my @files = readdir($dh);
+closedir($dh);
+
+my $errct = 0;
+foreach my $rf (@files) {
+  next unless $rf =~ m/^(.*)\.xml$/;
+  my $rname = $1;
+  my $rnum  = $rname;
+  my $bad   = 0;
+  $rnum =~ s/[a-z]$//;
+  if (!defined $include{$rf}) {
+    print "$rf not included in any schematron master file\n";
+    $bad = 1;
+  }  
+  open RULE, "rule/$rf" or die "can't open rule file $rf: $!\n";
+  while (<RULE>) {
+    if (m/<!-- NDR6 rule (\S+) / && $1 ne $rnum) {
+      print "$rf: bad comment\n"; $bad = 1;
+    }
+    elsif (m/<pattern id="rule(\S+)"/ && $1 ne $rname) {
+      print "$rf: bad id\n"; $bad = 1;
+    }
+    elsif (m/>Rule (\S+):/ && $1 ne $rnum) {
+      print "$rf: bad text\n"; $bad = 1;
+    }
+  }
+  close RULE;
+  $errct += $bad;
+}
+printf "%d error%s found\n", $errct, ($errct == 1 ? "" : "s");
+
+sub getIncludes { 
+  my ($fname) = @_;
+  open FILE, $fname or die "can't open $fname: $!\n";
+  while (<FILE>) {
+    $include{$1} = 1 if m!href="rule/([^"]+)"/>!;
+  }
+  close FILE;
+}

@@ -1,0 +1,13 @@
+  <!-- NDR6 rule 7-4 -->
+  <pattern id="rule7-4" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Name of adapter classes</title>
+    <rule context="xs:complexType">
+      <let name="is-adapter-type" value="exists(@name[ends-with(., 'AdapterType')])"/>
+      <let name="has-adapter-base-type" value="
+        exists(xs:complexContent[
+        exists(xs:*[local-name() = ('extension', 'restriction')
+        and exists(@base[ends-with(., 'AdapterType')])])])"/>
+      <assert test="$is-adapter-type = $has-adapter-base-type"
+        >Rule 7-4: An adapter class MUST have a name ending in "AdapterType"; all other components MUST NOT.</assert>
+    </rule>
+  </pattern>

@@ -1,10 +1,8 @@
-  <!-- NDR6 rule 9-74 (same as NDR5 rule 9-79) -->
+  <!-- NDR6 rule 9-74 (same as NDR5 rule 10-69) -->
   <pattern id="rule9-74" xmlns="http://purl.oclc.org/dsdl/schematron">
-    <title>`xs:appinfo` children are comments, elements, or whitespace</title>
-    <rule context="xs:appinfo/node()">
-      <assert test="self::comment()
-                       or self::element()
-                       or self::text()[string-length(normalize-space(.)) = 0]"
-        >Rule 9-74: A child of element xs:appinfo MUST be an element, a comment, or whitespace text.</assert>
+    <title>Appinfo attribute annotates schema component</title>
+    <rule context="*[exists(@appinfo:deprecated)]">
+      <assert test="namespace-uri-from-QName(node-name(.)) = xs:anyURI('http://www.w3.org/2001/XMLSchema')"
+        >Rule 9-74: An attribute in the appinfo namespace MUST be owned by an element with a namespace name http://www.w3.org/2001/XMLSchema .</assert>
     </rule>
   </pattern>

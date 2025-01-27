@@ -1,8 +1,0 @@
-  <!-- NDR6 rule 9-81 (same as NDR5 rule 9-43) -->
-  <pattern id="rule9-81b" xmlns="http://purl.oclc.org/dsdl/schematron">
-    <title>No disallowed substitutions</title>
-    <rule context="xs:element">
-      <assert test="empty(@block)"
-        >Rule 9-81: A reference schema document MUST NOT contain the attribute {}block or {}blockDefault.</assert>
-    </rule>
-  </pattern>

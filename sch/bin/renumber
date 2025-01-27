@@ -1,0 +1,76 @@
+#!/usr/bin/perl
+
+# When you renumber the rules in the NDR document, all of the
+# schematron files need to change!
+
+use warnings;
+use strict;
+
+# Read the list of rule number changes created by reindex
+
+my %map;
+while (<>) {
+  die "bad input $_" unless m/^Rule (\d+-\d+) becomes (\d+-\d+)/;
+  my $or = $1;
+  my $nr = $2;
+  $map{$or} = $nr;
+}
+
+# Check for duplicate target
+
+my %targ;
+foreach my $nr (values %map) {
+  die "duplicate target $nr\n" if defined $targ{$nr};
+  $targ{$nr} = 1;
+}
+
+# Create empty 'rule-new' directory
+
+die "rule-new directory exists\n" if -d 'rule-new';
+mkdir 'rule-new' or die "can't create rule-new directory: $!\n";
+
+# Edit the master files
+
+foreach my $fn ("extTarget.sch", "refTarget.sch") {
+  open IN, "$fn" or die "can't open $fn for reading: $_\n";
+  open OUT, ">$fn-new" or die "can't open $fn-new for writing: $!\n";
+  while (<IN>) {
+    if ( m!<include href="rule/(\d+-\d+)[a-z]?.xml"! ) {
+      my $or = $1;
+      my $nr = $map{$or};
+      s!rule/${or}!rule/${nr}! if defined $nr;
+    }
+    print OUT $_;
+  }
+  close IN;
+  close OUT;
+}
+
+# Create "rule-new" directory with renumbered files
+
+opendir(my $dh, "rule") or die "can't open rule directory: $!\n";
+my @files = readdir($dh);
+closedir($dh);
+foreach my $fn (@files) {       # file name, eg. "9-13b.xml"
+  next if $fn eq '.';
+  next if $fn eq '..';
+  my $or = $fn;
+  $or =~ s/\.xml$//;
+  $or =~ s/([a-z])$//;          # old rule number, eg. "9-13"
+  my $sc = $1 || '';            # suffix character, eg. "b"
+  my $nr = $map{$or};           # new rule number, eg. "9-24"
+  my $nf = defined $nr ? "$nr$sc.xml" : $fn;  # new file name, eg. "9-24b.xml"
+
+  open IN, "rule/$fn" or die "can't open rule/$fn for reading: $!\n";
+  open OUT, ">rule-new/$nf" or die "can't open rule-new/$nf for writing: $!\n";
+  while (<IN>) {
+    if (defined $nr) {
+      s/NDR6 rule $or /NDR6 rule $nr /;
+      s/id="rule$or$sc"/id="rule$nr$sc"/;
+      s/>Rule $or: />Rule $nr: /;
+    }
+    print OUT $_;
+  }
+  close IN;
+  close OUT;
+}

@@ -1,9 +1,10 @@
-  <!-- NDR6 rule 9-66 (same as NDR5 rule 11-44) -->
+  <!-- NDR6 rule 9-66 (same as NDR5 rule 11-32) -->
   <pattern id="rule9-66" xmlns="http://purl.oclc.org/dsdl/schematron">
-    <title>Standard opening phrase for augmentation type data definition</title>
-    <rule context="xs:complexType[ends-with(@name, 'AugmentationType')]/xs:annotation/xs:documentation[1]">
-      <report role="warning" test="not(matches(lower-case(normalize-space(.)),
-                           '^a data type (that supplements|for additional information about)'))"
-        >Rule 9-66: The data definition for an augmentation type SHOULD begin with the standard opening phrase "A data type (that supplements|for additional information about)...".</report>
+    <title>Standard opening phrase for augmentation element data definition</title>
+    <rule context="xs:element[ends-with(@name, 'Augmentation')]/xs:annotation/xs:documentation[1]">
+      <report role="warning" test="every $phrase
+               in ('supplements ', 'additional information about ')
+               satisfies not(starts-with(lower-case(normalize-space(.)), $phrase))"
+        >Rule 9-66: The data definition for an augmentation element SHOULD begin with the standard opening phrase "Supplements..." or "Additional information about...".</report>
     </rule>
   </pattern>

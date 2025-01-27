@@ -6,7 +6,7 @@
                                      $base-qname in resolve-QName($extension/@base, $extension) satisfies
                                      $base-qname = QName('http://www.w3.org/2001/XMLSchema', $name)]">
       <report test="false()" role="warning"
-        >A proxy type SHOULD NOT have a name ending in "Type".</report>
+        >Rule 7-2: A proxy type SHOULD NOT have a name ending in "Type".</report>
     </rule>
     <rule context="xs:*[(self::xs:simpleType or self::xs:complexType) and exists(@name)]">
       <assert test="ends-with(@name, 'Type')"

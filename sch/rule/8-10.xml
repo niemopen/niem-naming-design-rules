@@ -3,10 +3,10 @@
     <title>Reference namespace does not have wildcard</title>
     <rule context="xs:any">
       <assert test="false()"
-        >The schema MUST NOT contain the element xs:any.</assert>
+        >Rule 8-10: The schema MUST NOT contain the element xs:any.</assert>
     </rule>
     <rule context="xs:anyAttribute">
       <assert test="false()"
-        >The schema MUST NOT contain the element xs:anyAttribute.</assert>
+        >Rule 8-10: The schema MUST NOT contain the element xs:anyAttribute.</assert>
     </rule>
   </pattern>

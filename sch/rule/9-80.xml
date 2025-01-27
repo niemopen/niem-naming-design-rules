@@ -1,10 +1,8 @@
-  <!-- NDR6 rule 9-80 (same as NDR5 rule 9-13) -->
+  <!-- NDR6 rule 9-80 (same as NDR5 rule 9-11) -->
   <pattern id="rule9-80" xmlns="http://purl.oclc.org/dsdl/schematron">
-    <title>No use of fixed on simple type facets</title>
-    <rule context="xs:*[self::xs:length or self::xs:minLength or self::xs:maxLength or self::xs:whiteSpace
-      or self::xs:maxInclusive or self::xs:maxExclusive or self::xs:minExclusive or self::xs:minInclusive
-      or self::xs:totalDigits or self::xs:fractionDigits]">
-      <assert test="empty(@fixed)"
-        >A simple type constraining facet MUST NOT have an attribute {}fixed.</assert>
+    <title>No simple type disallowed derivation</title>
+    <rule context="xs:simpleType">
+      <assert test="empty(@final)"
+        >Rule 9-80: A reference schema document MUST NOT have an attribute {}final.</assert>
     </rule>
   </pattern>

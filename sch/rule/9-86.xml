@@ -1,10 +1,11 @@
-  <!-- NDR6 rule 9-86 (same as NDR5 rule 9-47) -->
-  <pattern id="rule9-86" xmlns="http://purl.oclc.org/dsdl/schematron">
-    <title>Element declaration is nillable</title>
-    <rule context="xs:element[@name and (empty(@abstract)
-                                            or xs:boolean(@abstract) = false())]">
-      <assert test="exists(@nillable)
-                       and xs:boolean(@nillable) = true()"
-        >Rule 9-86: An element declaration in an extension schema document MUST have the {nillable} property with a value of true.</assert>
-    </rule>
-  </pattern>
+  <!-- NDR6 rule 9-86 (same as NDR5 rule 10-13) -->
+  <sch:pattern id="rule9-86" xmlns:sch="http://purl.oclc.org/dsdl/schematron">
+    <sch:title>External attribute use only in adapter type</sch:title>
+    <sch:rule context="xs:attribute[some $ref-namespace in namespace-uri-from-QName(resolve-QName(@ref, .)),
+                                        $import in ancestor::xs:schema[1]/xs:import satisfies (
+                                     xs:anyURI($import/@namespace) = $ref-namespace
+                                     and exists($import/@appinfo:externalImportIndicator))]">
+      <sch:assert test="exists(ancestor::xs:complexType[1]/@appinfo:externalAdapterTypeIndicator)"
+        >Rule 9-86: An external attribute use within a reference schema document MUST be in an adapter type.</sch:assert>
+    </sch:rule>
+  </sch:pattern>

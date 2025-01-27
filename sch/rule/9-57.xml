@@ -1,0 +1,12 @@
+  <!-- NDR6 rule 9-57 (same as NDR5 rule 10-14) -->
+  <pattern id="rule9-57" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>External attribute use has data definition</title>
+    <rule context="xs:attribute[some $ref-namespace in namespace-uri-from-QName(resolve-QName(@ref, .)),
+                                        $import in ancestor::xs:schema[1]/xs:import satisfies (
+                                     xs:anyURI($import/@namespace) = $ref-namespace
+                                     and exists(@appinfo:externalImportIndicator))]">
+      <assert test="some $documentation in xs:annotation/xs:documentation[1] satisfies
+                         string-length(normalize-space(string($documentation))) &gt; 0"
+        >Rule 9-57: An external attribute use MUST be a documented component with a non-empty data definition.</assert>
+    </rule>
+  </pattern>

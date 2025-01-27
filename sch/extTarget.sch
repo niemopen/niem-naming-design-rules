@@ -21,6 +21,7 @@
   
   <include href="rule/7-2a.xml"/>
   <include href="rule/7-2b.xml"/>
+  <include href="rule/7-4.xml"/>
   <include href="rule/7-5.xml"/>
   <include href="rule/7-6.xml"/>
   <include href="rule/7-8.xml"/>
@@ -54,6 +55,7 @@
   <include href="rule/9-1b.xml"/>
   <include href="rule/9-1c.xml"/>
   <include href="rule/9-2.xml"/>
+  <include href="rule/9-4.xml"/>
   <include href="rule/9-5a.xml"/>
   <include href="rule/9-5b.xml"/> 
   <include href="rule/9-5c.xml"/> 
@@ -61,6 +63,8 @@
   <include href="rule/9-5e.xml"/> 
   <include href="rule/9-5f.xml"/>
   <include href="rule/9-5g.xml"/>
+  <include href="rule/9-5h.xml"/>
+  <include href="rule/9-5i.xml"/>
   <include href="rule/9-6a.xml"/>
   <include href="rule/9-6b.xml"/> 
   <include href="rule/9-6c.xml"/> 
@@ -85,7 +89,6 @@
   <include href="rule/9-9c.xml"/> 
   <include href="rule/9-9d.xml"/> 
   <include href="rule/9-9e.xml"/> 
-  <include href="rule/9-9f.xml"/>
   <include href="rule/9-10a.xml"/>
   <include href="rule/9-10b.xml"/>
   <include href="rule/9-11.xml"/>
@@ -132,38 +135,39 @@
   <include href="rule/9-47a.xml"/>
   <include href="rule/9-47b.xml"/>
   <include href="rule/9-48.xml"/>
-  <include href="rule/9-51.xml"/>
-  <include href="rule/9-53.xml"/>
+  <include href="rule/9-50.xml"/>
+  <include href="rule/9-52.xml"/>
   <include href="rule/9-54.xml"/>
-  <include href="rule/9-55a.xml"/>
-  <include href="rule/9-55b.xml"/>
-  <include href="rule/9-56.xml"/>
-  <include href="rule/9-58.xml"/>
-  <include href="rule/9-60.xml"/>
-  <include href="rule/9-61b.xml"/>
-  <include href="rule/9-62.xml"/>
-  <include href="rule/9-64.xml"/>
+  <include href="rule/9-55.xml"/>
+  <include href="rule/9-56a.xml"/>
+  <include href="rule/9-56b.xml"/>
+  <include href="rule/9-57.xml"/>
+  <include href="rule/9-59.xml"/>
+  <include href="rule/9-61.xml"/>
+  <include href="rule/9-62b.xml"/>
+  <include href="rule/9-63.xml"/>
   <include href="rule/9-65.xml"/>
   <include href="rule/9-66.xml"/>
   <include href="rule/9-67.xml"/>
   <include href="rule/9-68.xml"/>
   <include href="rule/9-69.xml"/>
   <include href="rule/9-70.xml"/>
-  <include href="rule/9-71a.xml"/>
-  <include href="rule/9-71b.xml"/>
-  <include href="rule/9-72.xml"/>
+  <include href="rule/9-71.xml"/>
+  <include href="rule/9-72a.xml"/>
+  <include href="rule/9-72b.xml"/>
   <include href="rule/9-73.xml"/>
   <include href="rule/9-74.xml"/>
   <include href="rule/9-75.xml"/>
   <include href="rule/9-76.xml"/>
-  <include href="rule/9-78.xml"/>
-  <include href="rule/9-80.xml"/>
+  <include href="rule/9-77.xml"/>
+  <include href="rule/9-79.xml"/>
+  <include href="rule/9-81.xml"/>
   <include href="rule/10-5.xml"/>
   <include href="rule/10-6.xml"/>
   
   <!-- Rules applicable only to extension schema documents -->
   
   <include href="rule/8-13.xml"/>
-  <include href="rule/9-86.xml"/>
+  <include href="rule/9-87.xml"/>
   
 </schema>

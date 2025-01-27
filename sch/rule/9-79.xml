@@ -1,8 +1,8 @@
-  <!-- NDR6 rule 9-79 (same as NDR5 rule 9-11) -->
+  <!-- NDR6 rule 9-79 (same as NDR5 rule 10-76) -->
   <pattern id="rule9-79" xmlns="http://purl.oclc.org/dsdl/schematron">
-    <title>No simple type disallowed derivation</title>
-    <rule context="xs:simpleType">
-      <assert test="empty(@final)"
-        >Rule 9-79: A reference schema document MUST NOT have an attribute {}final.</assert>
+    <title>LocalTerm appinfo applies to schema</title>
+    <rule context="appinfo:LocalTerm">
+      <assert test="parent::xs:appinfo[parent::xs:annotation[parent::xs:schema]]"
+        >Rule 9-79: When the element appinfo:LocalTerm appears in a schema document, it MUST be application information on an element xs:schema.</assert>
     </rule>
   </pattern>
