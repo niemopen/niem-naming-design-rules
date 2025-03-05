@@ -34,19 +34,17 @@ This is the width of a code block when the OASIS-formatted HTML is printed to PD
 &nbsp;
 
 #### This stage:
-https://docs.oasis-open.org/niemopen/ndr/v6.0/psd01/ndr-v6.0-ps01.md (Authoritative) \
 https://docs.oasis-open.org/niemopen/ndr/v6.0/psd01/ndr-v6.0-ps01.html \
-https://docs.oasis-open.org/niemopen/ndr/v6.0/psd01/ndr-v6.0-ps01.pdf
+https://docs.oasis-open.org/niemopen/ndr/v6.0/psd01/ndr-v6.0-ps01.pdf (Authoritative)
 
 #### Previous stage:
-https://docs.oasis-open.org/niemopen/ndr/v6.0/psd01/ndr-v6.0-psd01.md (Authoritative) \
 https://docs.oasis-open.org/niemopen/ndr/v6.0/psd01/ndr-v6.0-psd01.html \
-https://docs.oasis-open.org/niemopen/ndr/v6.0/psd01/ndr-v6.0-psd01.pdf
+https://docs.oasis-open.org/niemopen/ndr/v6.0/psd01/ndr-v6.0-psd01.pdf (Authoritative)
 
 #### Latest stage:
-https://docs.oasis-open.org/niemopen/ndr/v6.0/ndr-v6.0.md (Authoritative) \
+
 https://docs.oasis-open.org/niemopen/ndr/v6.0/ndr-v6.0.html \
-https://docs.oasis-open.org/niemopen/ndr/v6.0/ndr-v6.0.pdf
+https://docs.oasis-open.org/niemopen/ndr/v6.0/ndr-v6.0.pdf (Authoritative)
 
 #### Open Project:
 [OASIS NIEMOpen OP](http://www.niemopen.org/)
@@ -104,11 +102,11 @@ For complete copyright information please see the Notices section in the Appendi
 -------
 
 # Table of Contents
-[[TOC will be inserted here]]
+<tocHere/>
 
 -------
 
-# 1 Introduction
+# 1. Introduction
 
 NIEM, formerly known as the "National Information Exchange Model," is a framework for exchanging information among public and private sector organizations. The framework includes a [reference data model](https://docs.oasis-open.org/niemopen/niem-model/v6.0/niem-model-v6.0.html) for objects, properties, and relationships; and a set of technical specifications for using and extending the data model in information exchanges. The NIEM framework supports developer-level specifications of data that form a contract between developers. The data being specified is called a *message* in NIEM. While a message is usually something passed between applications, NIEM works equally well to specify an information resource published on the web, an input or output for a web service or remote procedure, and so forth, basically, any package of data that crosses a system or organization boundary.
 

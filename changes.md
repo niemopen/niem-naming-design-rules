@@ -9,3 +9,5 @@
 * Rule 9-20: same as 9-18
 
 * Rule 7-6: fixed to apply only to literal classes
+
+* GlobalClassCode is repeatable

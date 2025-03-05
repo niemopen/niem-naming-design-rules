@@ -8,7 +8,8 @@ NDRSRC  = ndr6src.md
 
 NDR_CSS     = styles/ndr-styles.css
 OASIS_CSS   = styles/markdown-styles-v1.7.3a.css
-STYLES      = -c $(OASIS_CSS) -c $(NDR_CSS)
+TOC_HTML    = styles/tocTemplate.html
+STYLES      = -c $(OASIS_CSS) -c $(NDR_CSS) --template=$(TOC_HTML)
 METADATA    = --metadata title="NIEM Naming and Design Rules (NDR) Version 6.0"
 PANDOC_ARGS = -f gfm -t html --toc --toc-depth=5 -s $(STYLES) $(METADATA)
 
@@ -23,7 +24,7 @@ $(NDRMD) : $(NDRSRC)
 # Using pandoc 3.0 to generate HTML from markdown
 
 $(NDRHTML) : $(NDRMD)
-	pandoc $(PANDOC_ARGS) -o $(NDRHTML) $(NDRMD)
+	pandoc $(PANDOC_ARGS) $(NDRMD) | bin/moveTOC > $(NDRHTML)
 
 # wkhtmltopdf produces PDF with broken links
 # also the font looks wrong
