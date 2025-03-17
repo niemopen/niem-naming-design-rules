@@ -1,0 +1,12 @@
+  <!-- NDR6 rule 8-10 (same as NDR5 rule 9-70) -->
+  <pattern id="rule8-10" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Reference namespace does not have wildcard</title>
+    <rule context="xs:any">
+      <assert test="false()"
+        >Rule 8-10: The schema MUST NOT contain the element xs:any.</assert>
+    </rule>
+    <rule context="xs:anyAttribute">
+      <assert test="false()"
+        >Rule 8-10: The schema MUST NOT contain the element xs:anyAttribute.</assert>
+    </rule>
+  </pattern>

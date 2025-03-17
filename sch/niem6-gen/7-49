@@ -1,0 +1,10 @@
+
+  <!-- NDR6 rule 7-49 (same as NDR5 rule 11-34) -->
+  <pattern id="rule7-49" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Standard opening phrase for association property data definition</title>
+    <rule context="xs:element[ends-with(@name, 'Association')
+                                 and not(xs:boolean(@abstract) eq true())]/xs:annotation/xs:documentation[1]">
+      <report role="warning" test="not(matches(lower-case(normalize-space(.)), '^an?( .*)? (relationship|association)'))"
+        >Rule 7-49: The data definition for a property that has an association type and is not abstract SHOULD begin with the standard opening phrase "An (optional adjectives) (relationship|association)...".</report>
+    </rule>
+  </pattern>

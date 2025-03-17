@@ -1,0 +1,9 @@
+
+  <!-- NDR6 rule 9-14 (same as NDR5 rule 9-41) -->
+  <pattern id="rule9-14b" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Element type not in the XML or XML Schema namespace</title>
+    <rule context="xs:element[exists(@type)]">
+      <assert test="namespace-uri-from-QName(resolve-QName(@type, .)) != 'http://www.w3.org/XML/1998/namespace'"
+        >Rule 9-14: An element type MUST NOT be in the XML Schema namespace or the XML namespace.</assert>
+    </rule>
+  </pattern>

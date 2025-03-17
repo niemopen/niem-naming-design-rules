@@ -1,0 +1,8 @@
+  <!-- NDR6 rule 7-36 (same as NDR5 rule 10-77) -->
+  <pattern id="rule7-36" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Local term has literal or definition</title>
+    <rule context="appinfo:LocalTerm">
+      <assert test="exists(@literal) or exists(@definition)"
+        >Rule 7-36: A LocalTerm element MUST have a @definition attribute, or a @literal attribute, or both.</assert>
+    </rule>
+  </pattern>

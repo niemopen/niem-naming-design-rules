@@ -1,0 +1,12 @@
+
+  <!-- NDR6 rule 9-48 (same as NDR5 rule 11-17) -->
+  <pattern id="rule9-48" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Element substitution group defined by conformant schema</title>
+    <rule context="xs:element[exists(@substitutionGroup)]">
+      <assert test="$namespace = nf:get-target-namespace(.)
+                       or exists(ancestor::xs:schema[1]/xs:import[exists(@namespace)
+                                     and $namespace = xs:anyURI(@namespace)
+                                     and empty(@appinfo:externalImportIndicator)])"
+        >Rule 9-48: An element substitution group MUST have either the target namespace or a namespace that is imported as conformant.</assert>
+    </rule>
+  </pattern>

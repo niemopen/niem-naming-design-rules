@@ -1,0 +1,12 @@
+  <!-- NDR6 rule 9-38 (same as NDR5 rule 11-21) -->
+  <pattern id="rule9-38a" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Component reference defined by conformant schema</title>
+    <rule context="xs:element[exists(ancestor::xs:complexType[not(ends-with(@name, 'AdapterType'))]) and @ref]">
+      <let name="namespace" value="namespace-uri-from-QName(resolve-QName(@ref, .))"/>
+      <assert test="$namespace = nf:get-target-namespace(.)
+                       or exists(ancestor::xs:schema[1]/xs:import[exists(@namespace)
+                                     and $namespace = xs:anyURI(@namespace)
+                                     and empty(@appinfo:externalImportIndicator)])"
+        >Rule 9-38: An attribute or element reference MUST have the target namespace or a namespace that is imported as conformant.</assert>
+    </rule>
+  </pattern>

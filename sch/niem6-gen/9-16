@@ -1,0 +1,9 @@
+
+  <!-- NDR6 rule 9-16 (same as NDR5 rule 9-50) -->
+  <pattern id="rule9-16" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Attribute declaration has type</title>
+    <rule context="xs:attribute[exists(@name)]">
+      <assert test="exists(@type)"
+        >Rule 9-16: An attribute declaration MUST have a type.</assert>
+    </rule>
+  </pattern>

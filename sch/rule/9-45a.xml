@@ -1,0 +1,8 @@
+  <!-- NDR6 rule 9-45 (same as NDR5 rule 9-36) -->
+  <pattern id="rule9-45a" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Declarations are top-level</title>
+    <rule context="xs:element[exists(@name)]">
+      <assert test="exists(parent::xs:schema)"
+        >Rule 9-45: An attribute declaration or element declaration MUST be top-level.</assert>
+    </rule>
+  </pattern>

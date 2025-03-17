@@ -1,0 +1,16 @@
+  <!-- NDR6 rule 9-15 (same as NDR5 rule 9-42) -->
+  <pattern id="rule9-15" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Element type is not simple type</title>
+    <rule context="xs:element[@type]">
+      <assert test="every $type-qname in resolve-QName(@type, .),
+        $type-ns in namespace-uri-from-QName($type-qname),
+        $type-local-name in local-name-from-QName($type-qname) satisfies (
+        $type-qname = xs:QName('xs:anySimpleType')
+        or (($type-ns = nf:get-target-namespace(.)
+        or exists(nf:get-document-element(.)/xs:import[
+        xs:anyURI(@namespace) = $type-ns
+        and empty(@appinfo:externalImportIndicator)]))
+        and not(ends-with($type-local-name, 'SimpleType'))))"
+        >Rule 9-15: An element type that is not xs:anySimpleType MUST NOT be a simple type.</assert>
+    </rule>
+  </pattern>

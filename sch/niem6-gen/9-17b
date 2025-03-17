@@ -1,0 +1,9 @@
+
+  <!-- NDR6 rule 9-17 (same as NDR5 rule 9-46) -->
+  <pattern id="rule9-17b" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>No default or fixed value</title>
+    <rule context="xs:element">
+      <assert test="empty(@fixed)"
+        >Rule 9-17: An element declaration MUST NOT have an attribute {}default or {}fixed.</assert>
+    </rule>
+  </pattern>

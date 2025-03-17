@@ -1,0 +1,11 @@
+  <!-- NDR6 rule 7-10 (same as NDR5 rule 10-42, 11-14) -->
+  <pattern id="rule7-10" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Name of abstract properties</title>
+    <rule context="xs:element[@name]">
+      <report role="warning" test="not(exists(@abstract[xs:boolean(.) = true()])
+                   eq (ends-with(@name, 'Abstract')
+                       or ends-with(@name, 'AugmentationPoint')
+                       or ends-with(@name, 'Representation')))"
+        >Rule 7-10: A Property object having an AbstractIndicator property with the value true SHOULD have a name ending in "Abstract" or "Representation"; all other components SHOULD NOT.</report>
+    </rule>
+  </pattern>

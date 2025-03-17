@@ -1,0 +1,8 @@
+  <!-- NDR6 rule 9-22 (same as NDR5 rule 9-78) -->
+  <pattern id="rule9-22" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Documentation element has no element children</title>
+    <rule context="xs:documentation/node()">
+      <assert test="self::text() or self::comment()"
+        >Rule 9-22: A child of element xs:documentation MUST be text or an XML comment.</assert>
+    </rule>
+  </pattern>

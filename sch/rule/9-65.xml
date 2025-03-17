@@ -1,0 +1,8 @@
+  <!-- NDR6 rule 9-65 (same as NDR5 rule 11-31) -->
+  <pattern id="rule9-65" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Standard opening phrase for augmentation point element data definition</title>
+    <rule context="xs:element[ends-with(@name, 'AugmentationPoint')]/xs:annotation/xs:documentation[1]">
+      <report role="warning" test="not(starts-with(lower-case(normalize-space(.)), 'an augmentation point '))"
+        >Rule 9-65: The data definition for an augmentation point element SHOULD begin with standard opening phrase "An augmentation point...".</report>
+    </rule>
+  </pattern>

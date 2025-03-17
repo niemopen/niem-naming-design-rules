@@ -1,0 +1,9 @@
+
+  <!-- NDR6 rule 9-34 (same as NDR5 rule 10-21) -->
+  <pattern id="rule9-34" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Association type derived from `structures:AssociationType`</title>
+    <rule context="xs:complexType">
+      <assert test="$is-association-type = $has-association-base-type"
+        >Rule 9-34: A type definition that represents an association class MUST be derived from structures:AssociationType or from another association class.</assert>
+    </rule>
+  </pattern>

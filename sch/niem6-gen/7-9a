@@ -1,0 +1,12 @@
+
+  <!-- NDR6 rule 7-9 (same as NDR5 rule 10-17) -->
+  <pattern id="rule7-9a" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Name of code list datatypes</title>
+    <rule context="xs:complexType[exists(xs:simpleContent[
+                        exists(xs:*[local-name() = ('extension', 'restriction')
+                                    and (ends-with(@base, 'CodeSimpleType')
+                                    or ends-with(@base, 'CodeType'))])])]">
+      <report role="warning" test="not(ends-with(@name, 'CodeType'))"
+        >Rule 7-9: A code list datatype MUST have a name ending in "CodeType" or "CodeSimpleType"; all other Datatype components MUST NOT.</report>
+    </rule>
+  </pattern>

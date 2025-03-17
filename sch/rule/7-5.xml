@@ -1,0 +1,13 @@
+  <!-- NDR6 rule 7-5 (same as NDR5 rule 10-21) -->
+  <pattern id="rule7-5" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Name of association classes</title>
+    <rule context="xs:complexType">
+      <let name="is-association-type" value="exists(@name[ends-with(., 'AssociationType')])"/>
+      <let name="has-association-base-type" value="
+        exists(xs:complexContent[
+        exists(xs:*[local-name() = ('extension', 'restriction')
+        and exists(@base[ends-with(., 'AssociationType')])])])"/>
+      <assert test="$is-association-type = $has-association-base-type"
+        >Rule 7-5: An association class MUST have a name ending in "AssociationType"; all other components MUST NOT.</assert>
+    </rule>
+  </pattern>

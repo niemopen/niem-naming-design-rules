@@ -1,0 +1,125 @@
+#!/usr/bin/perl
+
+# Run schematron rules against a library of test schema files
+# Test schema files are in current directory; eg. "7-10.xsd" or "9-17c.xsd"
+# Corresponding rules are ../rules/7-10.xml or ../rules/9-17c.xml
+
+use Getopt::Std;
+use Sort::Naturally;
+
+use warnings;
+use strict;
+
+# Part one of test SCH file; add <include/> and </schema>
+my $skel = <<'EOSKEL';
+<?xml version="1.0" encoding="UTF-8"?>
+<schema 
+  xmlns="http://purl.oclc.org/dsdl/schematron" 
+  xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+  queryBinding="xslt2">
+  
+  <title>Rules for reference schema documents</title>
+  
+  <xsl:include href="../ndr-functions.xsl"/>
+  
+  <ns prefix="xs" uri="http://www.w3.org/2001/XMLSchema"/>
+  <ns prefix="xsl" uri="http://www.w3.org/1999/XSL/Transform"/>
+  <ns prefix="nf" uri="https://docs.oasis-open.org/niemopen/ns/specification/NDR/6.0/#NDRFunctions"/>
+  <ns prefix="ct" uri="https://docs.oasis-open.org/niemopen/ns/specification/conformanceTargets/6.0/"/>
+  <ns prefix="xsi" uri="http://www.w3.org/2001/XMLSchema-instance"/>
+  <ns prefix="appinfo" uri="https://docs.oasis-open.org/niemopen/ns/model/appinfo/6.0/"/>
+  <ns prefix="structures" uri="https://docs.oasis-open.org/niemopen/ns/model/structures/6.0/"/>
+EOSKEL
+
+my $usage = <<'EOUSAGE';
+usage: dotest [-v] [test.xsd...]
+options:
+  -v: verbose, show results from schematron eval
+EOUSAGE
+
+my %opt;
+getopts('v', \%opt) or die $usage;
+
+my @files = nsort @ARGV;
+if (!@ARGV) {
+  opendir(my $dh, ".");
+  @files = readdir($dh);
+  closedir($dh);
+}
+
+my $badTestCt = 0;
+foreach my $f (@files) {
+  next unless $f =~ m/\.xsd$/;
+  testFile($f);
+}
+print "All tests OK\n" if $badTestCt == 0;
+printf "%d bad test%s found\n", $badTestCt, ($badTestCt == 1 ? "" : "s")
+    if $badTestCt > 0;
+
+sub testFile {
+  my ($tf) = @_;                # test schema file, eg. "9-17c#2.xsd"
+  my $rn;                       # rule number, eg. "9-17c"
+  my $rf;                       # rule file, eg. "../rule/9-17c.xml"
+  $rn = $tf;
+  $rn =~ s/(#\d+)?\.xsd$//;
+  $rf = "../rule/$rn.xml";
+  print "No rule file for $tf\n" unless -r $rf;
+  return unless -r $rf;
+
+  # Read the test schema file, remember error and warn lines
+  my %line;
+  my $lnum = 0;
+  open TEST, $tf or die "can't open $tf: $!\n";
+  while (<TEST>) {
+    $lnum++;
+    $line{$lnum} = "WARN"  if m/<!--\s*WARN\s*-->/;
+    $line{$lnum} = "ERROR" if m/<!--\s*ERROR\s*-->/;
+  }
+  close TEST;
+
+  # Create schematron file including rule to be tested
+  my $schF  = "test$$.sch";
+  open SCH, ">$schF" or die "can't write $schF: $!\n";
+  print SCH $skel;
+  printf SCH "  <include href=\"%s\"/>\n", $rf;
+  print SCH  "</schema>\n";
+  close SCH;
+
+  # Execute schematron, collect report lines
+  my $result = `scheval -c niem/xml-catalog.xml -s $schF $tf`;
+  my @rlines = split(/\n/,$result);
+  unlink "$schF" or warn "can't unlink $schF: $!\n";
+  print $result if $opt{'v'};
+
+  # Compare results to comments in test schema
+  my %badlines;
+  my $hdr = "Test file $tf:\n";
+  foreach my $rl (@rlines) {
+    if ( $rl =~ m/(WARN|ERROR)\s+[^:]+:(\d+):(\d+) -- Rule ([^:]+):/) {
+      my $kind  = $1;
+      my $errln = $2;
+      my $name  = $4;
+      $badlines{$errln} = 1;
+      if (not defined $line{$errln}) {
+        printf "%s  found %s on line %d, should be OK\n", $hdr, $kind, $errln;
+        $hdr = "";
+      }
+      elsif ($line{$errln} ne $kind) {
+        printf "%s  found %s on line %d, should be %s\n",
+            $hdr, $kind, $errln, $line{$errln};
+        $hdr = "";
+      }
+    }
+  }
+  foreach my $bl (keys %line) {
+    if (not defined $badlines{$bl}) {
+      printf "%s  no error found on line %d (should be %s)\n",
+          $hdr, $bl, $line{$bl};
+      $hdr = "";
+    }
+  }
+  print "Test file $tf OK\n" unless $hdr eq "";
+  $badTestCt++ if $hdr eq "";
+}
+

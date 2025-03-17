@@ -1,0 +1,15 @@
+
+  <!-- NDR6 rule 7-56 (same as NDR5 rule 11-42) -->
+  <pattern id="rule7-56" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Standard opening phrase for property data definition</title>
+    <rule context="*[(self::xs:element or self::xs:attribute)
+                        and @name
+                        and not(ends-with(@name, 'Indicator'))
+                        and not(ends-with(@name, 'Augmentation'))
+                        and not(ends-with(@name, 'Metadata'))
+                        and not(xs:boolean(@abstract) eq true())]
+                       /xs:annotation/xs:documentation[1]">
+      <report role="warning" test="not(matches(lower-case(normalize-space(.)), '^an? '))"
+        >Rule 7-56: The data definition for a property SHOULD begin with the standard opening phrase "(A|An)".</report>
+    </rule>
+  </pattern>

@@ -1,0 +1,12 @@
+  <!-- NDR6 rule 7-2 (same as NDR5 rule 11-2) -->
+<pattern id="rule7-2b" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Name of Class, Datatype, and Property components</title>
+    <rule context="xs:*[exists(@name) and ends-with(@name, 'SimpleType')]">
+      <assert test="local-name() = 'simpleType'"
+        >Rule 7-2: Class and Datatype components MUST have a name ending in "Type"; Property components MUST NOT</assert>
+    </rule>
+    <rule context="xs:*[exists(@name) and ends-with(@name, 'Type')]">
+      <assert test="local-name() = 'complexType'"
+        >Rule 7-2: Class and Datatype components MUST have a name ending in "Type"; Property components MUST NOT</assert>
+    </rule>
+  </pattern>

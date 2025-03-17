@@ -1,0 +1,8 @@
+  <!-- NDR6 rule 9-10 (same as NDR5 rule 9-28) -->
+  <pattern id="rule9-10b" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>No mixed content on complex type or complex content</title>
+    <rule context="xs:complexContent[exists(@mixed)]">
+      <assert test="xs:boolean(@mixed) = false()"
+        >Rule 9-10: A complex type definition MUST NOT have mixed content.</assert>
+    </rule>
+  </pattern>

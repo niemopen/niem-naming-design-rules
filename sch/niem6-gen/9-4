@@ -1,0 +1,9 @@
+
+  <!-- NDR6 rule 9-4 (same as NDR5 rule 7-4) -->
+  <pattern id="rule9-4" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Document element is `xs:schema`</title>
+    <rule context="*[. is nf:get-document-element(.)]">
+      <assert test="self::xs:schema"
+        >Rule 9-4: The document element of the XSD representation of a namespace MUST be xs:schema.</assert>
+    </rule>
+  </pattern>

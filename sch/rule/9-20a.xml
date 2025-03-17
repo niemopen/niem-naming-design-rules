@@ -1,0 +1,8 @@
+  <!-- NDR6 rule 9-20 (same as NDR5 rule 9-68) -->
+  <pattern id="rule9-20a" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Choice has minimum and maximum cardinality 1</title>
+    <rule context="xs:choice">
+      <assert test="empty(@minOccurs) or 1 = xs:integer(@minOccurs)"
+        >Rule 9-20: An element xs:choice MUST have minOccurs and maxOccurs of 1.</assert>
+    </rule>
+  </pattern>

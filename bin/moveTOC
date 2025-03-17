@@ -1,0 +1,24 @@
+#!/usr/bin/perl
+
+use warnings;
+use strict;
+
+my @toc;
+my $tocF = 0;
+
+while (<>) {
+  $tocF = 1 if /^<nav id="TOC">/;
+  push(@toc, $_) if $tocF;
+  print unless $tocF;
+  $tocF = 0 if m!^</nav>!;
+  if (m!<tocHere/>!) {
+    my $preF = 1;
+    print shift @toc;
+    foreach my $line (@toc) {
+#      print "preF=$preF, line=$line";
+      print $line if $preF == 0;
+      $preF = 2 if $preF == 1 && $line =~ m!#table-of-contents!;
+      $preF = 0 if $preF == 2 && $line =~ m!</li>!;
+    }
+  }
+}

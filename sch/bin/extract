@@ -1,0 +1,36 @@
+#!/usr/bin/perl
+
+# Extract NDR6 rule numbers, names, text, and NDR5 mapping
+# from ndr6src.md
+
+use warnings;
+use strict;
+
+print "my \%maptab = (\n";
+
+while (<>) {
+  next unless m/^\*\*Rule (\d+-\d+):\*\* ([^|]*) \|\| (.*) \(N5R ([-,\d]+)\)/;
+  my $n6rule  = $1;
+  my $n6name  = $2;
+  my $n6text  = $3;
+  my $n5rules = $4;
+  my @n5ra    = split(/,/, $n5rules);
+  my $n5rule;
+
+  $n6name =~ tr/<>//d;
+  $n6text =~ tr/<>//d;
+  $n6text =~ s/In CMF.*\. In XSD, (\w)/uc($1)/ge;
+  $n6text =~ s/\[([^]]+)\]\(#def\)/$1/g;
+  $n6text =~ s/\[+([^]]+)\]+\(#ref\)/$1/g;
+  $n6text =~ s/\*\(see[^)]+\)\)\*//;
+  $n6text =~ tr/`//d;
+
+  my $suf = ($n5rules =~ m/,/ ? 'a' : '');
+  foreach $n5rule (@n5ra) {
+    printf "  '%s' => ['%s','%s','%s','%s'],\n",
+        $n5rule, $n6rule, $n6name, $n6text, "$n6rule$suf";
+    $suf = chr(ord($suf)+1);
+  }
+}
+
+print ");\n";

@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <stylesheet
   version="2.0"
   xmlns:catalog="urn:oasis:names:tc:entity:xmlns:xml:catalog"
-  xmlns:ct="https://docs.oasis-open.org/niemopen/ns/specification/conformanceTargets/3.0/"
+  xmlns:ct="https://docs.oasis-open.org/niemopen/ns/specification/conformanceTargets/6.0/"
   xmlns:impl="http://example.org/impl"
-  xmlns:nf="https://docs.oasis-open.org/niemopen/ns/specification/XNDR/6.0/#NDRFunctions"
+  xmlns:nf="https://docs.oasis-open.org/niemopen/ns/specification/NDR/6.0/#NDRFunctions"
   xmlns:saxon="http://saxon.sf.net/"
   xmlns:xs="http://www.w3.org/2001/XMLSchema"
   xmlns="http://www.w3.org/1999/XSL/Transform">
@@ -28,10 +27,6 @@
     <variable name="schema" as="element(xs:schema)?" select="root($element)/xs:schema"/>
     <choose>
       <when test="empty($schema)">
-        <message>
-          <value-of select="impl:get-location($element)"/>
-          <text>: nf:get-target-namespace(): document element is not xs:schema.</text>
-        </message>
         <sequence select="()"/>
       </when>
       <otherwise>

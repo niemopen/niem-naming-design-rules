@@ -1,0 +1,12 @@
+  <!-- NDR6 rule 9-37 (same as NDR5 rule 11-3) -->
+  <pattern id="rule9-37" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Base type definition defined by conformant schema</title>
+    <rule context="xs:*[exists(@base)]">
+      <assert test="some $base-namespace in namespace-uri-from-QName(resolve-QName(@base, .)) satisfies (
+                         $base-namespace = (nf:get-target-namespace(.), xs:anyURI('http://www.w3.org/2001/XMLSchema'))
+                         or exists(ancestor::xs:schema[1]/xs:import[exists(@namespace)
+                                                                    and $base-namespace = xs:anyURI(@namespace)
+                                                                    and empty(@appinfo:externalImportIndicator)]))"
+        >Rule 9-37: The base type definition of a type definition MUST have the target namespace or the XML Schema namespace or a namespace that is imported as conformant.</assert>
+    </rule>
+  </pattern>

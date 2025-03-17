@@ -1,0 +1,8 @@
+  <!-- NDR6 rule 9-1 (same as NDR5 rule 4-3) -->
+  <pattern id="rule9-1c" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Schema is CTAS-conformant</title>
+    <rule context="*[exists(@xsi:type['http://release.niem.gov/niem/conformanceTargets/3.0/' = namespace-uri-from-QName(resolve-QName(., ..))])]">
+      <assert test="false()"
+        >A conformant document MUST NOT contain an attribute {http://www.w3.org/2001/XMLSchema-instance}type with a value that has a namespace name of https://docs.oasis-open.org/niemopen/ns/specification/conformanceTargets/6.0/d (CTAS Rule 3-4).</assert>
+    </rule>
+  </pattern>

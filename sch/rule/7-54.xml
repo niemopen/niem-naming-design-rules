@@ -1,0 +1,10 @@
+  <!-- NDR6 rule 7-54 (same as NDR5 rule 11-40) -->
+  <pattern id="rule7-54" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Standard opening phrase for identification property data definition</title>
+    <rule context="*[(self::xs:element or self::xs:attribute)
+                        and ends-with(@name, 'Identification') and not(xs:boolean(@abstract) eq true())]
+                       /xs:annotation/xs:documentation[1]">
+      <report role="warning" test="not(matches(lower-case(normalize-space(.)), '^an?( .*)? identification'))"
+        >Rule 7-54: The data definition for a property with an identification representation term SHOULD begin with the standard opening phrase "(A|An) (optional adjectives) identification...".</report>
+    </rule>
+  </pattern>

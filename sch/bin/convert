@@ -1,0 +1,275 @@
+#!/usr/bin/perl
+
+# Conversion of NDR5 schematron to NDR6
+# CPU cycles are cheap, my time is not :-)
+
+use Data::Dumper;
+
+use warnings;
+use strict;
+
+# n5rule => [ n6rule, n6name, n6text, n6fileName ]
+
+my %maptab = (
+  '11-1' => ['7-2','Name of Class, Datatype, and Property components','Class and Datatype components MUST have a name ending in "Type"; Property components MUST NOT.','7-2a'],
+  '11-2' => ['7-2','Name of Class, Datatype, and Property components','Class and Datatype components MUST have a name ending in "Type"; Property components MUST NOT.','7-2b'],
+  '10-21' => ['7-5','Name of association classes','An association class MUST have a name ending in "AssociationType"; all other components MUST NOT.','7-5'],
+  '10-17' => ['7-6','Name of code list literal classes','A literal class with a literal property that has a code list datatype MUST have a name ending in "CodeType"; all other Class components MUST NOT.','7-6a'],
+  '10-18' => ['7-6','Name of code list literal classes','A literal class with a literal property that has a code list datatype MUST have a name ending in "CodeType"; all other Class components MUST NOT.','7-6b'],
+  '11-8' => ['7-8','Names ending in "CodeSimpleType"','A Datatype object with a name that ends in "CodeSimpleType" MUST be a code list datatype.','7-8a'],
+  '11-9' => ['7-8','Names ending in "CodeSimpleType"','A Datatype object with a name that ends in "CodeSimpleType" MUST be a code list datatype.','7-8b'],
+  '10-17' => ['7-9','Name of code list datatypes','A code list datatype MUST have a name ending in "CodeType" or "CodeSimpleType"; all other Datatype components MUST NOT.','7-9a'],
+  '10-18' => ['7-9','Name of code list datatypes','A code list datatype MUST have a name ending in "CodeType" or "CodeSimpleType"; all other Datatype components MUST NOT.','7-9b'],
+  '10-42' => ['7-10','Name of abstract properties','A Property object having an AbstractIndicator property with the value true SHOULD have a name ending in "Abstract" or "Representation"; all other components SHOULD NOT.','7-10a'],
+  '11-14' => ['7-10','Name of abstract properties','A Property object having an AbstractIndicator property with the value true SHOULD have a name ending in "Abstract" or "Representation"; all other components SHOULD NOT.','7-10b'],
+  '10-22' => ['7-11','Name of association properties','A Property with an association class MUST have a name ending in "Association"; all other components MUST NOT.','7-11'],
+  '10-19' => ['7-12','Name of code properties','A Property with a Class or Datatype that represents a code list MUST have a name ending in "Code"; all other components MUST NOT.','7-12a'],
+  '11-10' => ['7-12','Name of code properties','A Property with a Class or Datatype that represents a code list MUST have a name ending in "Code"; all other components MUST NOT.','7-12b'],
+  '10-44' => ['7-15','Component name composed of English words','Except as otherwise provided in this document, the name of a model component MUST be composed of words from the English language, using the prevalent U.S. spelling, as provided by the Oxford English Dictionary OED.','7-15'],
+  '10-46' => ['7-16','Component names have only specific characters','The name of a model component MUST be entirely composed of specified  characters.','7-16'],
+  '10-48' => ['7-17','Component names use camel case','The name of a model component MUST use the camel case formatting convention.','7-17'],
+  '10-49' => ['7-18','Name of attribute properties begin with lower case letter','The name of an attribute property MUST begin with a lowercase character.','7-18'],
+  '10-50' => ['7-19','Name of components other than attribute properties begin with upper case letter','The name of a model component that is not an attribute property MUST begin with an uppercase character.','7-19'],
+  '10-47' => ['7-20','Punctuation in component name is a separator','The characters hyphen (-), underscore (_) MUST NOT appear in a component name unless used as a separator between parts of a word, phrase, or value, which would otherwise be incomprehensible without the use of a separator. The character period (.) MUST NOT appear in a component name unless as a decimal within a numeric value, or unless used as a separator between parts of a word, phrase, or value, which would otherwise be incomprehensible without the use of a separator.','7-20'],
+  '10-54' => ['7-21','Singular form is preferred in name','A noun used as a term in the name of an XML Schema component MUST be in singular form unless the concept itself is plural.','7-21'],
+  '10-55' => ['7-22','Present tense is preferred in name','A verb used as a term in the name of an XML Schema component MUST be used in the present tense unless the concept itself is past tense.','7-22'],
+  '10-56' => ['7-23','Name does not have nonessential words','Articles, conjunctions, and prepositions MUST NOT be used in NIEM component names except where they are required for clarity or by standard convention.','7-23'],
+  '7-5' => ['7-24','Property name follows ISO 11179-5 pattern','Except as specified elsewhere in this document, the name of a property object MUST be formed by the composition of object class qualifier terms, object class term, property qualifier terms, property term, representation qualifier terms, and representation term, as detailed in Annex A of ISO 11179-5.','7-24a'],
+  '10-57' => ['7-24','Property name follows ISO 11179-5 pattern','Except as specified elsewhere in this document, the name of a property object MUST be formed by the composition of object class qualifier terms, object class term, property qualifier terms, property term, representation qualifier terms, and representation term, as detailed in Annex A of ISO 11179-5.','7-24b'],
+  '10-58' => ['7-25','Object-class term identifies concrete category','The object-class term of a NIEM component MUST consist of a term identifying a category of concepts or entities.','7-25'],
+  '10-59' => ['7-26','Property term describes characteristic or subpart','A property term MUST describe or represent a characteristic or subpart of an entity or concept.','7-26'],
+  '10-60' => ['7-27','Name may have multiple qualifier terms','Multiple qualifier terms MAY be used within a component name as necessary to ensure clarity and uniqueness within its namespace and usage context.','7-27'],
+  '10-61' => ['7-28','Name avoids unnecessary qualifier terms','The number of qualifier terms SHOULD be limited to the absolute minimum required to make the component name unique and understandable.','7-28'],
+  '10-62' => ['7-29','Order of qualifiers is not significant','The order of qualifiers MUST NOT be used to differentiate components.','7-29'],
+  '10-63' => ['7-30','Redundant term in name is omitted','If any word in the representation term is redundant with any word in the property term, one occurrence SHOULD be deleted.','7-30'],
+  '10-65' => ['7-32','Object property uses representation term when appropriate','The name of an object property that corresponds to a concept listed in table 6-1, Property representation terms, SHOULD use a representation term from that table.','7-32'],
+  '10-66' => ['7-33','Object property uses representation term only when appropriate','The name of an object property that does not correspond to a concept listed in table 6-1, Property representation terms SHOULD NOT use a representation term.','7-33'],
+  '10-51' => ['7-34','Names use common abbreviations','A component name SHOULD use the abbreviations shown in the table below.','7-34'],
+  '10-52' => ['7-35','Local terms usable within their namespace','A local term MAY be used in the name of a component within its namespace.','7-35'],
+  '10-77' => ['7-36','Local term has literal or definition','A LocalTerm element MUST have a @definition attribute, or a @literal attribute, or both.','7-36'],
+  '9-82' => ['7-37','Namespace has data definition','The xs:schema element MUST be a documented component.','7-37'],
+  '9-12' => ['7-38','Model component has data definition','In CMF, a Component object MUST be a documented component.  In XSD, a type definition, element declaration, or attribute declaration MUST be a documented component','7-38a'],
+  '9-26' => ['7-38','Model component has data definition','In CMF, a Component object MUST be a documented component.  In XSD, a type definition, element declaration, or attribute declaration MUST be a documented component','7-38b'],
+  '9-37' => ['7-38','Model component has data definition','In CMF, a Component object MUST be a documented component.  In XSD, a type definition, element declaration, or attribute declaration MUST be a documented component','7-38c'],
+  '9-49' => ['7-38','Model component has data definition','In CMF, a Component object MUST be a documented component.  In XSD, a type definition, element declaration, or attribute declaration MUST be a documented component','7-38d'],
+  '9-14' => ['7-39','Enumeration facet has data definition','An xs:enumeration facet MUST be a documented component.','7-39'],
+  '11-24' => ['7-42',' Data definition does not introduce ambiguity','Words or synonyms for the words within a data definition MUST NOT be reused as terms in the corresponding component name if those words dilute the semantics and understanding of, or impart ambiguity to, the entity or concept that the component represents.','7-42'],
+  '11-25' => ['7-43','Object class has only one meaning','An object class MUST have one and only one associated semantic meaning (i.e., a single word sense) as described in the definition of the component that represents that object class.','7-43'],
+  '11-26' => ['7-44','Data definition of a part does not redefine the whole','An object class MUST NOT be redefined within the definitions of the components that represent properties or subparts of that entity or class.','7-44'],
+  '11-27' => ['7-45','Do not leak representation into data definition','A data definition SHOULD NOT contain explicit representational or data typing information such as number of characters, classes of characters, range of mathematical values, etc., unless the very nature of the component can be described only by such information.','7-45'],
+  '11-28' => ['7-46','Data definition follows 11179-4 requirements','Each data definition MUST conform to the requirements for data definitions provided by ISO 11179-4 Section 5.2, *Requirements*; namely, a data definition MUST:','7-46'],
+  '11-29' => ['7-47','Data definition follows 11179-4 recommendations','Each data definition SHOULD conform to the recommendations for data definitions provided by ISO 11179-4 Section 5.2, *Recommendations*; namely, a data definition SHOULD:','7-47'],
+  '11-35' => ['7-48','Standard opening phrase for abstract property data definition','The data definition for an abstract property SHOULD begin with the standard opening phrase "A data concept...".','7-48'],
+  '11-34' => ['7-49','Standard opening phrase for association property data definition','The data definition for a property that has an association type and is not abstract SHOULD begin with the standard opening phrase "An (optional adjectives) (relationship|association)...".','7-49'],
+  '11-36' => ['7-50','Standard opening phrase for date property data definition','The data definition for a property with a date representation term SHOULD begin with the standard opening phrase "(A|An) (optional adjectives) (date|month|year)...".','7-50'],
+  '11-37' => ['7-51','Standard opening phrase for quantity property data definition','The data definition for a property with a quantity representation term SHOULD begin with the standard opening phrase "An (optional adjectives) (count|number)...".','7-51'],
+  '11-38' => ['7-52','Standard opening phrase for picture property data definition','The data definition for a property with a picture representation term SHOULD begin with the standard opening phrase "An (optional adjectives) (image|picture|photograph)".','7-52'],
+  '11-39' => ['7-53','Standard opening phrase for indicator property data definition','The data definition for a property with an indicator representation term SHOULD begin with the standard opening phrase "True if ...; false (otherwise|if)...".','7-53'],
+  '11-40' => ['7-54','Standard opening phrase for identification property data definition','The data definition for a property with an identification representation term SHOULD begin with the standard opening phrase "(A|An) (optional adjectives) identification...".','7-54'],
+  '11-41' => ['7-55','Standard opening phrase for name property data definition','The data definition for a property with a name representation term SHOULD begin with the standard opening phrase "(A|An) (optional adjectives) name...".','7-55'],
+  '11-42' => ['7-56','Standard opening phrase for property data definition','The data definition for a property SHOULD begin with the standard opening phrase "(A|An)".','7-56'],
+  '11-43' => ['7-57','Standard opening phrase for association class data definition','The data definition for an association class SHOULD begin with the standard opening phrase "A data type for (a relationship|an association)...".','7-57'],
+  '9-85' => ['8-7','Namespace has version','The namespace MUST have a version, which MUST NOT be empty. The version is the value of @version in the xs:schema element.','8-7'],
+  '4-1' => ['8-9','Reference namespace asserts conformance','A reference namespace MUST assert the conformance target identifier https://docs.oasis-open.org/niemopen/ns/specification/NDR/6.0/#ReferenceSchemaDocument; all other namespaces MUST NOT. This is an effective conformance target identifier of the schema document (*see [§6.2](#62-conformance-target-assertions))*.','8-9a'],
+  '4-5' => ['8-9','Reference namespace asserts conformance','A reference namespace MUST assert the conformance target identifier https://docs.oasis-open.org/niemopen/ns/specification/NDR/6.0/#ReferenceSchemaDocument; all other namespaces MUST NOT. This is an effective conformance target identifier of the schema document (*see [§6.2](#62-conformance-target-assertions))*.','8-9b'],
+  '11-50' => ['8-12','Reference namespace uses reference namespace components','A component that is used in a reference namespace MUST be defined in a reference namespace.','8-12'],
+  '4-2' => ['8-13','Extension namespace asserts conformance','An extension namespace MUST assert the conformance target identifier https://docs.oasis-open.org/niemopen/ns/specification/NDR/6.0/#ExtensionSchemaDocument; all other namespaces MUST NOT. This is an effective conformance target identifier of the schema document .','8-13a'],
+  '4-6' => ['8-13','Extension namespace asserts conformance','An extension namespace MUST assert the conformance target identifier https://docs.oasis-open.org/niemopen/ns/specification/NDR/6.0/#ExtensionSchemaDocument; all other namespaces MUST NOT. This is an effective conformance target identifier of the schema document .','8-13b'],
+  '4-5' => ['8-15','Subset namespace asserts conformance','A subset namespace must assert the conformance target identifier https://docs.oasis-open.org/niemopen/ns/specification/NDR/6.0/#SubsetSchemaDocument. This is an effective conformance target identifier of the schema document .','8-15'],
+  '4-3' => ['9-1','Schema is CTAS-conformant','The schema document MUST be a conformant document as defined by CTAS-v3.0.','9-1'],
+  '4-4' => ['9-2','Document element has attribute `ct:conformanceTargets`','The document element of the XML document, and only the document element, MUST own an attribute {https://docs.oasis-open.org/niemopen/ns/specification/conformanceTargets/6.0/}conformanceTargets.','9-2'],
+  '7-1' => ['9-3','Document is a valid schema document','The XSD representation of a namespace MUST be a schema document, as defined by XML Schema Structures.','9-3a'],
+  '7-2' => ['9-3','Document is a valid schema document','The XSD representation of a namespace MUST be a schema document, as defined by XML Schema Structures.','9-3b'],
+  '7-3' => ['9-3','Document is a valid schema document','The XSD representation of a namespace MUST be a schema document, as defined by XML Schema Structures.','9-3c'],
+  '7-4' => ['9-4','Document element is `xs:schema`','The document element of the XSD representation of a namespace MUST be xs:schema.','9-4'],
+  '9-59' => ['9-5','Prohibited schema components','A schema document MUST NOT contain any of the following elements:','9-5a'],
+  '9-61' => ['9-5','Prohibited schema components','A schema document MUST NOT contain any of the following elements:','9-5b'],
+  '9-72' => ['9-5','Prohibited schema components','A schema document MUST NOT contain any of the following elements:','9-5c'],
+  '9-73' => ['9-5','Prohibited schema components','A schema document MUST NOT contain any of the following elements:','9-5d'],
+  '9-74' => ['9-5','Prohibited schema components','A schema document MUST NOT contain any of the following elements:','9-5e'],
+  '9-75' => ['9-5','Prohibited schema components','A schema document MUST NOT contain any of the following elements:','9-5f'],
+  '9-76' => ['9-5','Prohibited schema components','A schema document MUST NOT contain any of the following elements:','9-5g'],
+  '9-88' => ['9-5','Prohibited schema components','A schema document MUST NOT contain any of the following elements:','9-5h'],
+  '9-89' => ['9-5','Prohibited schema components','A schema document MUST NOT contain any of the following elements:','9-5i'],
+  '9-1' => ['9-6','Prohibited base types','A schema component MUST NOT have an attribute {}base with a value of any of these types: ','9-6a'],
+  '9-2' => ['9-6','Prohibited base types','A schema component MUST NOT have an attribute {}base with a value of any of these types: ','9-6b'],
+  '9-3' => ['9-6','Prohibited base types','A schema component MUST NOT have an attribute {}base with a value of any of these types: ','9-6c'],
+  '9-4' => ['9-6','Prohibited base types','A schema component MUST NOT have an attribute {}base with a value of any of these types: ','9-6d'],
+  '9-5' => ['9-6','Prohibited base types','A schema component MUST NOT have an attribute {}base with a value of any of these types: ','9-6e'],
+  '9-6' => ['9-6','Prohibited base types','A schema component MUST NOT have an attribute {}base with a value of any of these types: ','9-6f'],
+  '9-7' => ['9-6','Prohibited base types','A schema component MUST NOT have an attribute {}base with a value of any of these types: ','9-6g'],
+  '9-8' => ['9-6','Prohibited base types','A schema component MUST NOT have an attribute {}base with a value of any of these types: ','9-6h'],
+  '9-9' => ['9-6','Prohibited base types','A schema component MUST NOT have an attribute {}base with a value of any of these types: ','9-6i'],
+  '9-15' => ['9-7','Prohibited list item types','A schema component MUST NOT have an attribute {}itemType with any of the following values:','9-7a'],
+  '9-16' => ['9-7','Prohibited list item types','A schema component MUST NOT have an attribute {}itemType with any of the following values:','9-7b'],
+  '9-17' => ['9-7','Prohibited list item types','A schema component MUST NOT have an attribute {}itemType with any of the following values:','9-7c'],
+  '9-18' => ['9-7','Prohibited list item types','A schema component MUST NOT have an attribute {}itemType with any of the following values:','9-7d'],
+  '9-19' => ['9-8','Prohibited union item types','A schema component MUST NOT have an attribute {}memberTypes with any of the following values:','9-8a'],
+  '9-20' => ['9-8','Prohibited union item types','A schema component MUST NOT have an attribute {}memberTypes with any of the following values:','9-8b'],
+  '9-21' => ['9-8','Prohibited union item types','A schema component MUST NOT have an attribute {}memberTypes with any of the following values:','9-8c'],
+  '9-22' => ['9-8','Prohibited union item types','A schema component MUST NOT have an attribute {}memberTypes with any of the following values:','9-8d'],
+  '9-23' => ['9-8','Prohibited union item types','A schema component MUST NOT have an attribute {}memberTypes with any of the following values:','9-8e'],
+  '9-24' => ['9-8','Prohibited union item types','A schema component MUST NOT have an attribute {}memberTypes with any of the following values:','9-8f'],
+  '9-51' => ['9-9','Prohibited attribute types','A schema component MUST NOT have an attribute {}type with any of the following types:','9-9a'],
+  '9-52' => ['9-9','Prohibited attribute types','A schema component MUST NOT have an attribute {}type with any of the following types:','9-9b'],
+  '9-53' => ['9-9','Prohibited attribute types','A schema component MUST NOT have an attribute {}type with any of the following types:','9-9c'],
+  '9-54' => ['9-9','Prohibited attribute types','A schema component MUST NOT have an attribute {}type with any of the following types:','9-9d'],
+  '9-55' => ['9-9','Prohibited attribute types','A schema component MUST NOT have an attribute {}type with any of the following types:','9-9e'],
+  '9-56' => ['9-9','Prohibited attribute types','A schema component MUST NOT have an attribute {}type with any of the following types:','9-9f'],
+  '9-27' => ['9-10','No mixed content on complex type or complex content','A complex type definition MUST NOT have mixed content.','9-10a'],
+  '9-28' => ['9-10','No mixed content on complex type or complex content','A complex type definition MUST NOT have mixed content.','9-10b'],
+  '9-29' => ['9-11','Complex type content is explicitly simple or complex','A complex type definition MUST have a xs:complexContent or a xs:simpleContent child element','9-11'],
+  '9-31' => ['9-12','Base type of complex type with complex content must have complex content','The base type of a complex type with complex content MUST have complex content.','9-12a'],
+  '9-32' => ['9-12','Base type of complex type with complex content must have complex content','The base type of a complex type with complex content MUST have complex content.','9-12b'],
+  '9-38' => ['9-13','Untyped element is abstract','An untyped element or an element of type xs:anySimpleType MUST be abstract.','9-13a'],
+  '9-39' => ['9-13','Untyped element is abstract','An untyped element or an element of type xs:anySimpleType MUST be abstract.','9-13b'],
+  '9-40' => ['9-14','Element type not in the XML or XML Schema namespace','An element type MUST NOT be in the XML Schema namespace or the XML namespace.','9-14a'],
+  '9-41' => ['9-14','Element type not in the XML or XML Schema namespace','An element type MUST NOT be in the XML Schema namespace or the XML namespace.','9-14b'],
+  '9-42' => ['9-15','Element type is not simple type',' An element type that is not xs:anySimpleType MUST NOT be a simple type.','9-15'],
+  '9-50' => ['9-16','Attribute declaration has type','An attribute declaration MUST have a type.','9-16'],
+  '9-45' => ['9-17','No default or fixed value','An element declaration MUST NOT have an attribute {}default or {}fixed.','9-17a'],
+  '9-46' => ['9-17','No default or fixed value','An element declaration MUST NOT have an attribute {}default or {}fixed.','9-17b'],
+  '9-57' => ['9-17','No default or fixed value','An element declaration MUST NOT have an attribute {}default or {}fixed.','9-17c'],
+  '9-58' => ['9-17','No default or fixed value','An element declaration MUST NOT have an attribute {}default or {}fixed.','9-17d'],
+  '9-66' => ['9-18','Sequence has minimum and maximum cardinality 1','An element xs:sequence MUST have a minOccurs and maxOccurs of 1.','9-18a'],
+  '9-67' => ['9-18','Sequence has minimum and maximum cardinality 1','An element xs:sequence MUST have a minOccurs and maxOccurs of 1.','9-18b'],
+  '9-65' => ['9-19','`xs:choice` must be child of `xs:sequence`','An element xs:choice MUST be a child of xs:sequence.','9-19'],
+  '9-68' => ['9-20','Choice has minimum and maximum cardinality 1','An element xs:choice MUST have a minOccurs and maxOccurs of 1.','9-20a'],
+  '9-69' => ['9-20','Choice has minimum and maximum cardinality 1','An element xs:choice MUST have a minOccurs and maxOccurs of 1.','9-20b'],
+  '9-77' => ['9-21','Comment is not recommended','An XML comment SHOULD NOT appear in the schema.','9-21'],
+  '9-78' => ['9-22','Documentation element has no element children','A child of element xs:documentation MUST be text or an XML comment.','9-22'],
+  '9-90' => ['9-23','Import has namespace','An element xs:import MUST have an attribute {}namespace.','9-23'],
+  '11-2' => ['9-25','Name of type definitions','A type definition that does not define a *proxy type* MUST have a name ending in "Type"; all other XSD components MUST NOT.','9-25'],
+  '11-4' => ['9-26','Name of simple type definitions','A simple type definition MUST have a name ending in "SimpleType"; all other XSD components MUST NOT.','9-26'],
+  '9-62' => ['9-28','`xs:sequence` must be child of `xs:extension`','An element xs:sequence MUST be a child of xs:extension.','9-28'],
+  '9-63' => ['9-29','`xs:sequence` must be child of `xs:extension` or `xs:restriction`','An element xs:sequence MUST be a child of xs:extension or xs:restriction.','9-29'],
+  '9-10' => ['9-30','Type definition is top-level','A type definition MUST be top-level.','9-30a'],
+  '9-25' => ['9-30','Type definition is top-level','A type definition MUST be top-level.','9-30b'],
+  '10-1' => ['9-31','Complex type has a category','A complex type definition MUST be an object type, an association type, an adapter type, or an augmentation type.','9-31'],
+  '10-2' => ['9-32','Object type with complex content is derived from `structures:ObjectType`','A type with complex content that does not represent an adapter class, an association class, or an augmentation type MUST be derived from structures:ObjectType or from another object type.','9-32'],
+  '10-21' => ['9-34','Association type derived from `structures:AssociationType`','A type definition that represents an association class MUST be derived from structures:AssociationType or from another association class.','9-34'],
+  '10-35' => ['9-35','Augmentation type derived from `structures:AugmentationType`','A type definition that is an augmentation type MUST be derived from structures:AugmentationType.','9-35'],
+  '11-11' => ['9-36','Complex type with simple content has `structures:SimpleObjectAttributeGroup`','A complex type definition with simple content MUST include structures:SimpleObjectAttributeGroup.','9-36'],
+  '11-3' => ['9-37','Base type definition defined by conformant schema','The base type definition of a type definition MUST have the target namespace or the XML Schema namespace or a namespace that is imported as conformant.','9-37'],
+  '11-21' => ['9-38','Component reference defined by conformant schema','An attribute or element reference MUST have the target namespace or a namespace that is imported as conformant.','9-38a'],
+  '11-22' => ['9-38','Component reference defined by conformant schema','An attribute or element reference MUST have the target namespace or a namespace that is imported as conformant.','9-38b'],
+  '11-23' => ['9-39','Schema uses only known attribute groups','An attribute group reference MUST be structures:SimpleObjectAttributeGroup.','9-39'],
+  '10-37' => ['9-40','Augmentation elements are not used directly','A complex type definition MUST NOT have an element use of an augmentation element declaration, or an element declaration that is in the substitution group of an augmentation point element declaration.','9-40'],
+  '11-6' => ['9-41','List item type defined by conformant schemas','The item type of a list simple type definition MUST have a target namespace equal to the target namespace of the XML Schema document within which it is defined, or a namespace that is imported as conformant by the schema document within which it is defined.','9-41'],
+  '11-7' => ['9-42','Union member types defined by conformant schemas','Every member type of a union simple type definition MUST have a target namespace that is equal to either the target namespace of the XML Schema document within which it is defined or a namespace that is imported as conformant by the schema document within which it is defined.','9-42'],
+  '9-36' => ['9-45','Declarations are top-level','An attribute declaration or element declaration MUST be top-level.','9-45a'],
+  '9-48' => ['9-45','Declarations are top-level','An attribute declaration or element declaration MUST be top-level.','9-45b'],
+  '9-42' => ['9-46','Element type is not simple type','An element declaration MUST NOT have a simple type.','9-46a'],
+  '11-12' => ['9-46','Element type is not simple type','An element declaration MUST NOT have a simple type.','9-46b'],
+  '11-13' => ['9-47','Attribute and element type is from conformant namespace','The type definition of an attribute or element declaration MUST have a target namespace that is the target namespace, or a namespace that is imported as conformant.','9-47a'],
+  '11-18' => ['9-47','Attribute and element type is from conformant namespace','The type definition of an attribute or element declaration MUST have a target namespace that is the target namespace, or a namespace that is imported as conformant.','9-47b'],
+  '11-17' => ['9-48','Element substitution group defined by conformant schema','An element substitution group MUST have either the target namespace or a namespace that is imported as conformant.','9-48'],
+  '10-7' => ['9-51','Import of external namespace has data definition','An xs:import element importing an external schema document MUST be a documented component.','9-51'],
+  '10-8' => ['9-52','Name of adapter type','An adapter type MUST have a name ending in "AdapterType"; all other type definitions MUST NOT.','9-52'],
+  '10-9' => ['9-53','Structure of external adapter type definition follows pattern','An adapter type definition MUST be a complex type definition with complex content that extends structures:ObjectType, and that uses xs:sequence as its top-level compositor.','9-53'],
+  '10-10' => ['9-54','Element use from external adapter type defined by external schema documents','An element reference that appears within an adapter type MUST have a target namespace that is imported as external.','9-54'],
+  '10-14' => ['9-56','External attribute use has data definition','An external attribute use MUST be a documented component with a non-empty data definition.','9-56'],
+  '10-15' => ['9-57','External attribute use not an ID','An attribute use schema component MUST NOT have an attribute declaration with an ID type.','9-57'],
+  '10-16' => ['9-58','External element use has data definition','An external attribute use MUST be a documented component with a non-empty data definition.','9-58'],
+  '10-20' => ['9-59','Proxy types','The XSD declaration of a proxy type MUST have the same name as the simple type it extends.','9-59'],
+  '10-20' => ['9-60','Proxy type has designated structure','A proxy type MUST have the designated structure. It MUST use xs:extension. It MUST NOT use xs:attribute. It MUST include exactly one xs:attributeGroup reference, which must be to structures:SimpleObjectAttributeGroup.','9-60'],
+  '10-33' => ['9-61','Name of augmentation types','The XSD definition of an augmentation type MUST have a name ending in "AugmentationType"; all other XSD components MUST NOT.','9-61a'],
+  '10-34' => ['9-61','Name of augmentation types','The XSD definition of an augmentation type MUST have a name ending in "AugmentationType"; all other XSD components MUST NOT.','9-61b'],
+  '10-36' => ['9-62','Name of augmentation elements','The XSD declaration of an augmentation element MUST have a name ending in "Augmentation"; all other XSD components MUST NOT.','9-62'],
+  '11-31' => ['9-64','Standard opening phrase for augmentation point element data definition','The data definition for an augmentation point element SHOULD begin with standard opening phrase "An augmentation point...".','9-64'],
+  '11-32' => ['9-65','Standard opening phrase for augmentation element data definition','The data definition for an augmentation element SHOULD begin with the standard opening phrase "Supplements..." or "Additional information about...".','9-65'],
+  '11-44' => ['9-66','Standard opening phrase for augmentation type data definition','The data definition for an augmentation type SHOULD begin with the standard opening phrase "A data type (that supplements|for additional information about)...".','9-66'],
+  '10-25' => ['9-67','Augmentation point element corresponds to its base type','A schema document containing an element declaration for an augmentation point element MUST also contain a type definition for its augmented base type.','9-67'],
+  '10-26' => ['9-68','An augmentation point element has no type','An augmentation point element MUST have no type.','9-68'],
+  '10-27' => ['9-69','An augmentation point element has no substitution group','An augmentation point element MUST have no substitution group.','9-69'],
+  '10-28' => ['9-70','Augmentation point element is only referenced by its base type','An augmentation point element MUST only be referenced by its base type.','9-70'],
+  '10-29' => ['9-71','Augmentation point element use is optional and unbounded','An augmentation point element particle MUST have attribute minOccurs equal to 0 and attribute maxOccurs set to unbounded.','9-71a'],
+  '10-30' => ['9-71','Augmentation point element use is optional and unbounded','An augmentation point element particle MUST have attribute minOccurs equal to 0 and attribute maxOccurs set to unbounded.','9-71b'],
+  '10-31' => ['9-72','Augmentation point element use must be last element in its base type','An augmentation point element particle MUST be the last element occurrence in the content model of its augmentable type.','9-72'],
+  '10-69' => ['9-73','Appinfo attribute annotates schema component','An attribute in the appinfo namespace MUST be owned by an element with a namespace name http://www.w3.org/2001/XMLSchema .','9-73'],
+  '9-79' => ['9-74','`xs:appinfo` children are comments, elements, or whitespace','A child of element xs:appinfo MUST be an element, a comment, or whitespace text.','9-74'],
+  '9-80' => ['9-75','Appinfo child elements have namespaces','An element that is a child of xs:appinfo MUST have a namespace name.','9-75'],
+  '9-81' => ['9-76','Appinfo descendants are not XML Schema elements','An element that is a descendent of xs:appinfo MUST NOT have the XML Schema namespace.','9-76'],
+  '10-68' => ['9-77','Component marked as deprecated is deprecated component','A schema component that has an attribute appinfo:deprecated with a value of true MUST be a deprecated component.','9-77'],
+  '10-76' => ['9-78','LocalTerm appinfo applies to schema','When the element appinfo:LocalTerm appears in a schema document, it MUST be application information on an element xs:schema.','9-78'],
+  '9-11' => ['9-79','No simple type disallowed derivation','A reference schema document MUST NOT have an attribute {}final.','9-79'],
+  '9-13' => ['9-80','No use of "fixed" on simple type facets','A simple type constraining facet in a reference schema document MUST NOT have an attribute {}fixed.','9-80'],
+  '9-34' => ['9-81','No disallowed substitutions','A reference schema document MUST NOT contain the attribute {}block or {}blockDefault.','9-81a'],
+  '9-43' => ['9-81','No disallowed substitutions','A reference schema document MUST NOT contain the attribute {}block or {}blockDefault.','9-81b'],
+  '9-86' => ['9-81','No disallowed substitutions','A reference schema document MUST NOT contain the attribute {}block or {}blockDefault.','9-81c'],
+  '9-35' => ['9-82','No disallowed derivation','A reference schema document MUST NOT contain the attribute {}final or {}finalDefault.','9-82a'],
+  '9-44' => ['9-82','No disallowed derivation','A reference schema document MUST NOT contain the attribute {}final or {}finalDefault.','9-82b'],
+  '9-87' => ['9-82','No disallowed derivation','A reference schema document MUST NOT contain the attribute {}final or {}finalDefault.','9-82c'],
+  '9-47' => ['9-83','Element declaration is nillable','An element declaration in a reference schema document MUST have the {nillable} property with a value of true.','9-83'],
+  '9-64' => ['9-84','No `xs:choice`','A reference schema document MUST NOT contain the element xs:choice.','9-84'],
+  '10-13' => ['9-85','External attribute use only in adapter type','An external attribute use within a reference schema document MUST be in an adapter type.','9-85'],
+  '9-47' => ['9-86','Element declaration is nillable','An element declaration in an extension schema document MUST have the {nillable} property with a value of true.','9-86'],
+  '11-54' => ['10-5','Consistent import schema document','The members of a schema document set MUST NOT contain two xs:import elements that have the same {}namespace attribute but specify different schema documents.','10-5'],
+  '11-55' => ['10-6','Consistent import labels','The members of a schema document set MUST NOT contain two xs:import elements with the same namespace but different values for appinfo:externalImportIndicator.','10-6'],
+  '9-91' => ['10-9','Schema document set must be complete','A schema document set MUST be complete; that is, it MUST contain the definition of every schema component referenced by any component defined by the schema set.','10-9'],
+  '10-78' => ['10-10','Use structures namespace consistent with specification','A schema document set MUST include the structures namespace as it is defined in [Appendix B](#appendix-b--structures-namespace) of this document.','10-10'],
+  '12-1' => ['12-2','Message is schema-valid','An XML message MUST be schema-valid as assessed against the schema document set that represents the message model of a message type.','12-2'],
+  '12-3' => ['12-7','Element has only one resource identifying attribute','An element in an XML message MUST NOT have more than one attribute that is structures:id, structures:ref, or structures:uri.','12-7'],
+  '12-4' => ['12-8','Attribute `structures:ref` must reference `structures:id`','The value of an attribute structures:ref MUST match the value of an attribute structures:id of some element in the XML message.','12-8'],
+  '12-5' => ['12-9','Linked elements have same validation root','Every element that has an attribute structures:ref MUST have a referencing element validation root that is equal to the referenced element validation root.','12-9'],
+  '12-6' => ['12-10','Attribute `structures:ref` references element of correct type','An element that is the target of a structures:ref object reference MUST have a type that is validly derived from the type of the referencing element.','12-10'],
+);
+
+
+my $schNS = "http://purl.oclc.org/dsdl/schematron";
+
+
+while (<>) {
+  next unless m/<sch:pattern id="rule_(\d+-\d+)">/;
+  my $n5rule = $1;
+  next unless defined $maptab{$n5rule};
+
+  
+  my $n6rule = $maptab{$n5rule}[0];
+  my $n6name = $maptab{$n5rule}[1];
+  my $n6text = $maptab{$n5rule}[2];
+  my $rfn    = $maptab{$n5rule}[3];
+  print STDERR "n5rule=$n5rule, rfn=$rfn\n";
+
+  open RULE, ">$rfn" or die "can't open $rfn: $!\n";
+  print RULE "\n  <!-- NDR6 rule $n6rule (same as NDR5 rule $n5rule) -->\n";
+  print RULE "  <pattern id=\"rule$rfn\" xmlns=\"$schNS\">\n";
+  print RULE "    <title>$n6name</title>\n";
+
+  while (<>) {
+    if (m!<sch:rule !) {
+      s/<sch:/</;
+      s/^\s*/    /;
+      s/\s{6,99}/\n$&/g;
+      print RULE fixURIs($_);
+    }
+    elsif (m!<sch:(assert|report)[^>]*>!) {
+      my $el  = $&;
+      my $tag = $1;
+      $el =~ s/<sch:/</;
+      $el =~ s/\s*/      /;
+      $el = fixURIs($el);
+      $el =~ s/\s{8,99}/\n$&/g;
+      $el =~ s/>$//;
+      print RULE $el;
+      print RULE "\n        >Rule $n6rule: $n6text</$tag>\n";
+    }
+    elsif (m!</sch:rule>!) {
+      print RULE "    </rule>\n";
+    }
+    elsif (m!</sch:pattern>!) {
+      print RULE "  </pattern>\n";
+      last;
+    }
+  }
+  close RULE or die "can't close $rfn: $!\n";
+}
+  
+sub fixURIs {
+  my ($u) = @_;
+  $u =~ s!http://release\.niem\.gov/niem/conformanceTargets/3\.0/!https://docs.oasis-open.org/niemopen/ns/specification/conformanceTargets/6.0/!g;
+  $u =~ s!http://release\.niem\.gov/niem/appinfo/5\.0/!https://docs.oasis-open.org/niemopen/ns/model/appinfo/6.0/!g;
+  $u =~ s!http://release\.niem\.gov/niem/structures/5\.0/!https://docs.oasis-open.org/niemopen/ns/model/structures/6.0/!g;
+  $u =~ s!http://reference.niem.gov/niem/specification/naming-and-design-rules/5.0/!https://docs.oasis-open.org/niemopen/ns/specification/NDR/6.0/!g;
+  return $u;
+}

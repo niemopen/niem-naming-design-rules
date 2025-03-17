@@ -1,0 +1,11 @@
+
+  <!-- NDR6 rule 7-50 (same as NDR5 rule 11-36) -->
+  <pattern id="rule7-50" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Standard opening phrase for date property data definition</title>
+    <rule context="*[(self::xs:element or self::xs:attribute)
+                        and ends-with(@name, 'Date') and not(xs:boolean(@abstract) eq true())]
+                       /xs:annotation/xs:documentation[1]">
+      <report role="warning" test="not(matches(lower-case(normalize-space(.)), '^an?( .*)? (date|month|year)'))"
+        >Rule 7-50: The data definition for a property with a date representation term SHOULD begin with the standard opening phrase "(A|An) (optional adjectives) (date|month|year)...".</report>
+    </rule>
+  </pattern>

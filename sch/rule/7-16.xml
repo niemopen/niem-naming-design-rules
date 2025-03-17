@@ -1,0 +1,8 @@
+  <!-- NDR6 rule 7-16 (same as NDR5 rule 10-46) -->
+  <pattern id="rule7-16" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Component names have only specific characters</title>
+    <rule context="xs:*[exists(@name)]">
+      <assert test="matches(@name, '^[A-Za-z0-9\-_\.]*$')"
+        >Rule 7-16: The name of a model component MUST be entirely composed of specified  characters.</assert>
+    </rule>
+  </pattern>

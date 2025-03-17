@@ -1,0 +1,10 @@
+
+  <!-- NDR6 rule 7-11 (same as NDR5 rule 10-22) -->
+  <pattern id="rule7-11" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Name of association properties</title>
+    <rule context="xs:element[exists(@name)]">
+      <assert test="exists(@type[ends-with(., 'AssociationType')])
+                       = exists(@name[ends-with(., 'Association')])"
+        >Rule 7-11: A Property with an association class MUST have a name ending in "Association"; all other components MUST NOT.</assert>
+    </rule>
+  </pattern>

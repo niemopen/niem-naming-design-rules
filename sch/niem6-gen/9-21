@@ -1,0 +1,9 @@
+
+  <!-- NDR6 rule 9-21 (same as NDR5 rule 9-77) -->
+  <pattern id="rule9-21" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Comment is not recommended</title>
+    <rule context="node()[comment()]">
+      <report test="true()" role="warning"
+        >Rule 9-21: An XML comment SHOULD NOT appear in the schema.</report>
+    </rule>
+  </pattern>

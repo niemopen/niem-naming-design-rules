@@ -1,0 +1,10 @@
+  <!-- NDR6 rule 9-8 (same as NDR5 rule 9-21) -->
+  <pattern id="rule9-8c" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Prohibited union item types</title>
+    <rule context="xs:*[exists(@memberTypes)]">
+      <assert test="every $type-qname
+                       in tokenize(normalize-space(@memberTypes), ' ')
+                       satisfies resolve-QName($type-qname, .) != xs:QName('xs:IDREFS')"
+        >Rule 9-8: A schema component MUST NOT have an attribute {}memberTypes with a value of xs:IDREFS.</assert>
+    </rule>
+  </pattern>

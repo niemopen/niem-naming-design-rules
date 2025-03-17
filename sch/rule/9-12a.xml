@@ -1,0 +1,12 @@
+  <!-- NDR6 rule 9-12 (same as NDR5 rule 9-31) -->
+  <pattern id="rule9-12a" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Base type of complex type with complex content must have complex content</title>
+    <rule context="xs:complexType/xs:complexContent/xs:*[
+                        (self::xs:extension or self::xs:restriction)
+                        and (some $base-qname in resolve-QName(@base, .) satisfies
+                               namespace-uri-from-QName($base-qname) = nf:get-target-namespace(.))]">
+      <assert test="some $base-type in nf:resolve-type(., resolve-QName(@base, .)) satisfies
+                         empty($base-type/self::xs:complexType/xs:simpleContent)"
+        >Rule 9-12: The base type of a complex type with complex content MUST have complex content.</assert>
+    </rule>
+  </pattern>

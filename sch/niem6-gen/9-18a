@@ -1,0 +1,9 @@
+
+  <!-- NDR6 rule 9-18 (same as NDR5 rule 9-66) -->
+  <pattern id="rule9-18a" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Sequence has minimum and maximum cardinality 1</title>
+    <rule context="xs:sequence">
+      <assert test="empty(@minOccurs) or xs:integer(@minOccurs) = 1"
+        >Rule 9-18: An element xs:sequence MUST have a minOccurs and maxOccurs of 1.</assert>
+    </rule>
+  </pattern>

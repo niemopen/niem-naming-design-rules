@@ -1,0 +1,11 @@
+
+  <!-- NDR6 rule 7-51 (same as NDR5 rule 11-37) -->
+  <pattern id="rule7-51" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Standard opening phrase for quantity property data definition</title>
+    <rule context="*[(self::xs:element or self::xs:attribute)
+                        and ends-with(@name, 'Quantity') and not(xs:boolean(@abstract) eq true())]
+                       /xs:annotation/xs:documentation[1]">
+      <report role="warning" test="not(matches(lower-case(normalize-space(.)), '^an?( .*)? (count|number)'))"
+        >Rule 7-51: The data definition for a property with a quantity representation term SHOULD begin with the standard opening phrase "An (optional adjectives) (count|number)...".</report>
+    </rule>
+  </pattern>

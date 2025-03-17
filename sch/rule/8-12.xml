@@ -1,0 +1,14 @@
+  <!-- NDR6 rule 8-12 (same as NDR5 rule 11-50) -->
+  <pattern id="rule8-12" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Reference namespace uses reference namespace components</title>
+    <rule context="xs:import[
+                          nf:has-effective-conformance-target-identifier(., xs:anyURI('https://docs.oasis-open.org/niemopen/ns/specification/NDR/6.0/#ReferenceSchemaDocument'))
+                          and exists(@namespace)
+                          and empty(@appinfo:externalImportIndicator)
+                          and not(xs:anyURI(@namespace) = (xs:anyURI('https://docs.oasis-open.org/niemopen/ns/model/structures/6.0/'),
+                                                           xs:anyURI('http://www.w3.org/XML/1998/namespace')))]">
+      <assert test="some $schema in nf:resolve-namespace(., @namespace) satisfies
+                         nf:has-effective-conformance-target-identifier($schema, xs:anyURI('https://docs.oasis-open.org/niemopen/ns/specification/NDR/6.0/#ReferenceSchemaDocument'))"
+        >Rule 8-12: A component that is used in a reference namespace MUST be defined in a reference namespace.</assert>
+    </rule>
+  </pattern>

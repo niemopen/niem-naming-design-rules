@@ -1,0 +1,13 @@
+
+  <!-- NDR6 rule 9-54 (same as NDR5 rule 10-10) -->
+  <pattern id="rule9-54" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Element use from external adapter type defined by external schema documents</title>
+    <rule context="xs:element[@ref
+                                 and exists(ancestor::xs:complexType[exists(@appinfo:externalAdapterTypeIndicator)])]">
+      <assert test="some $ref-namespace in namespace-uri-from-QName(resolve-QName(@ref, .)) satisfies
+                         nf:get-document-element(.)/xs:import[
+                           $ref-namespace = xs:anyURI(@namespace)
+                           and @appinfo:externalImportIndicator]"
+        >Rule 9-54: An element reference that appears within an adapter type MUST have a target namespace that is imported as external.</assert>
+    </rule>
+  </pattern>

@@ -1,0 +1,8 @@
+  <!-- NDR6 rule 9-23 (same as NDR5 rule 9-90) -->
+  <pattern id="rule9-23" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Import has namespace</title>
+    <rule context="xs:import">
+      <assert test="exists(@namespace)"
+        >Rule 9-23: An element xs:import MUST have an attribute {}namespace.</assert>
+    </rule>
+  </pattern>

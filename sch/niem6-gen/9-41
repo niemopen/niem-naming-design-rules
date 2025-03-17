@@ -1,0 +1,12 @@
+
+  <!-- NDR6 rule 9-41 (same as NDR5 rule 11-6) -->
+  <pattern id="rule9-41" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>List item type defined by conformant schemas</title>
+    <rule context="xs:list[exists(@itemType)]">
+      <assert test="$namespace = (nf:get-target-namespace(.), xs:anyURI('http://www.w3.org/2001/XMLSchema'))
+                       or exists(ancestor::xs:schema[1]/xs:import[exists(@namespace)
+                                     and $namespace = xs:anyURI(@namespace)
+                                     and empty(@appinfo:externalImportIndicator)])"
+        >Rule 9-41: The item type of a list simple type definition MUST have a target namespace equal to the target namespace of the XML Schema document within which it is defined, or a namespace that is imported as conformant by the schema document within which it is defined.</assert>
+    </rule>
+  </pattern>

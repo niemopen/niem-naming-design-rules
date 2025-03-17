@@ -1,0 +1,15 @@
+  <!-- NDR6 rule 7-2 (same as NDR5 rule 11-1) -->
+  <pattern id="rule7-2a" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Name of Class, Datatype, and Property components</title>
+    <rule context="xs:complexType[some $name in @name,
+                                     $extension in xs:simpleContent/xs:extension,
+                                     $base-qname in resolve-QName($extension/@base, $extension) satisfies
+                                     $base-qname = QName('http://www.w3.org/2001/XMLSchema', $name)]">
+      <report test="false()" role="warning"
+        >Rule 7-2: A proxy type SHOULD NOT have a name ending in "Type".</report>
+    </rule>
+    <rule context="xs:*[(self::xs:simpleType or self::xs:complexType) and exists(@name)]">
+      <assert test="ends-with(@name, 'Type')"
+        >Rule 7-2: Class and Datatype components MUST have a name ending in "Type"; Property components MUST NOT.</assert>
+    </rule>
+  </pattern>

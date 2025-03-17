@@ -1,0 +1,13 @@
+  <!-- NDR6 rule 7-6 -->
+  <pattern id="rule7-6" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <rule context="xs:complexType[exists(xs:simpleContent[
+                       exists(xs:*[local-name() = ('extension', 'restriction')
+                                   and (ends-with(@base, 'CodeSimpleType')
+                                   or ends-with(@base, 'CodeType'))])
+                       ])
+                       and exists(xs:attribute)
+                   ]">
+      <assert test="not(ends-with(@name, 'CodeType'))"
+        >Rule 7-6: A literal class with a literal property that has a code list datatype MUST have a name ending in "CodeType"; all other literal classes MUST NOT.</assert>
+    </rule>
+  </pattern>

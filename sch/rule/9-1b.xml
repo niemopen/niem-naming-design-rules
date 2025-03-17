@@ -1,0 +1,7 @@
+  <!-- NDR6 rule 9-1 (same as NDR5 rule 4-3) -->
+  <pattern id="rule9-1b" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Schema is CTAS-conformant</title>
+    <rule context="ct:*">
+      <assert test="false()">A conformant document MUST NOT contain any element or attribute information item that has the namespace name http://release.niem.gov/conformanceTargets/3.0/, other than attribute {http://release.niem.gov/conformanceTargets/3.0/}conformanceTargets) (CTAS rule 3-3).</assert>
+    </rule>
+  </pattern>

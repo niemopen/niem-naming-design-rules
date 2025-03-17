@@ -1,0 +1,9 @@
+  <!-- NDR6 rule 9-73 (same as NDR5 rule 10-31) -->
+  <pattern id="rule9-73" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Augmentation point element use must be last element in its base type</title>
+    <rule context="xs:complexType//xs:element[exists(@ref[
+                            matches(local-name-from-QName(resolve-QName(., ..)), 'AugmentationPoint$')]) ]">
+      <assert test="empty(following-sibling::*)"
+        >Rule 9-73: An augmentation point element particle MUST be the last element occurrence in the content model of its augmentable type.</assert>
+    </rule>
+  </pattern>

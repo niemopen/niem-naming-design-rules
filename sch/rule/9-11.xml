@@ -1,0 +1,8 @@
+  <!-- NDR6 rule 9-11 (same as NDR5 rule 9-29) -->
+  <pattern id="rule9-11" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Complex type content is explicitly simple or complex</title>
+    <rule context="xs:complexType">
+      <assert test="exists(xs:simpleContent) or exists(xs:complexContent)"
+        >Rule 9-11: A complex type definition MUST have a xs:complexContent or a xs:simpleContent child element</assert>
+    </rule>
+  </pattern>
