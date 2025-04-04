@@ -2,7 +2,7 @@
 
 # Naming and Design Rules
 
-This repository is part of the NIEM Open Project.  It contains the NIEMOpen [Naming and Design Rules](niem-ndr.md) for XML.
+This repository is part of the NIEM Open Project.
 
 For more information on NIEMOpen, see the project's website at [www.niemopen.org](www.niemopen.org).
 
