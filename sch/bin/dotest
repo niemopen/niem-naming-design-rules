@@ -41,12 +41,13 @@ EOUSAGE
 my %opt;
 getopts('v', \%opt) or die $usage;
 
-my @files = nsort @ARGV;
+my @files = @ARGV;
 if (!@ARGV) {
   opendir(my $dh, ".");
   @files = readdir($dh);
   closedir($dh);
 }
+@files = nsort @files;
 
 my $badTestCt = 0;
 foreach my $f (@files) {

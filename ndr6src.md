@@ -1,17 +1,7 @@
 <link rel="stylesheet" href="https://docs.oasis-open.org/templates/css/markdown-styles-v1.7.3a.css" />
 
-<div class="row">
-  <div class="column">
-    <img
-      src="https://docs.oasis-open.org/templates/OASIS-logo/2020/OASIS-Primary-Logo-Full-Colour.png"
-      alt="OASIS OP Logo" style="width:100%" />
-  </div>
-  <div class="column">
-    <img
-      src="https://github.com/niemopen/oasis-open-project/raw/main/artwork/NIEM-NO-Logo-v5.png"
-      alt="NIEMOpen Logo" style="width:65%" />
-  </div>
-</div>
+<h2 id="niem-logo"><img src="https://github.com/niemopen/oasis-open-project/raw/main/artwork/NIEM-NO-Logo-v5.png" alt="NIEM Logo" style="width: 400px; display: block; margin: 0;"</h2>
+
 
 <!--
 If you want to check the line length in code blocks, uncomment this code block,
@@ -23,19 +13,15 @@ This is the width of a code block when the OASIS-formatted HTML is printed to PD
 ```
 -->
 
--------
-
 # NIEM Naming and Design Rules (NDR) Version 6.0
-
-## Project Specification 01
-
-## 27 January 2025 draft
+## Project Specification Draft 02
+## 12 May 2025 draft
 
 &nbsp;
 
 #### This stage:
-https://docs.oasis-open.org/niemopen/ndr/v6.0/psd01/ndr-v6.0-ps01.html \
-https://docs.oasis-open.org/niemopen/ndr/v6.0/psd01/ndr-v6.0-ps01.pdf (Authoritative)
+https://docs.oasis-open.org/niemopen/ndr/v6.0/psd02/ndr-v6.0-ps01.html \
+https://docs.oasis-open.org/niemopen/ndr/v6.0/psd02/ndr-v6.0-ps01.pdf (Authoritative)
 
 #### Previous stage:
 https://docs.oasis-open.org/niemopen/ndr/v6.0/psd01/ndr-v6.0-psd01.html \
@@ -71,7 +57,9 @@ This specification is related to:
 * Conformance Targets Attribute Specification (CTAS) Version 3.0. Edited by Tom Carlson. 22 February 2023. OASIS Project Specification 01. https://docs.oasis-open.org/niemopen/ctas/v3.0/ps01/ctas-v3.0-ps01.html. Latest stage: https://docs.oasis-open.org/niemopen/ctas/v3.0/ctas-v3.0.html.
 
 #### Abstract:
-Work in progress.
+NIEM is a framework for scalable and reusable data exchange across public and private sectors. It provides the tools and standards necessary for organizations to define structured data contracts, enabling machine-to-machine communication across diverse use cases like web services and APIs. 
+
+This document provides the normative specifications for creating data models, namespaces, schemas, and messages that conform to the NIEM framework. It defines enforceable rules for naming conventions, documentation, structural integrity, and conformance targets. The document outlines how developers can use NIEM to define structured data contracts, specifying syntax, semantics, and relationships for machine-to-machine communication.
 
 #### Status:
 This document was last revised or approved by the Project Governing Board of the OASIS NIEMOpen OP on the above date. The level of approval is also listed above. Check the "Latest stage" location noted above for possible later revisions of this document. Any other numbered Versions and other technical work produced by the Open Project (OP) are listed at http://www.niemopen.org/.
@@ -313,12 +301,21 @@ Each Clark notation value usually consists of a namespace URI surrounded by curl
 
 The following namespace prefixes are used consistently within this specification. These prefixes are not normative; this document issues no requirement that these prefixes be used in any conformant artifact. Although there is no requirement for a schema or XML document to use a particular namespace prefix, the meaning of the following namespace prefixes have fixed meaning in this document.
 
-* `xs`: The namespace for the XML Schema definition language as defined by [XML Schema Structures](#ref) and [XML Schema Datatypes](#ref), http://www.w3.org/2001/XMLSchema.
-* `xsi`: The XML Schema instance namespace, defined by [XML Schema Structures](#ref) Section 2.6, Schema-Related Markup in Documents Being Validated, for use in XML documents, http://www.w3.org/2001/XMLSchema-instance.
-* `ct`: The namespace defined by [CTAS](#ref) for the conformanceTargets attribute, https://docs.oasis-open.org/niemopen/ns/specification/conformanceTargets/6.0/.
-* `appinfo`: The namespace for the [appinfo namespace](#def), https://docs.oasis-open.org/niemopen/ns/model/appinfo/6.0/.
-* `structures`: The namespace for the structures namespace, https://docs.oasis-open.org/niemopen/ns/model/structures/6.0/.
-* `cmf`: The namespace for the CMF model representation, https://docs.oasis-open.org/niemopen/ns/specification/cmf/1.0/.
+* `xs` and `xsd`: The namespace for the XML Schema definition language as defined by [XML Schema Structures](#ref) and [XML Schema Datatypes](#ref), <uri>http://www.w3.org/2001/XMLSchema</uri>.
+* `xsi`: The XML Schema instance namespace, defined by [XML Schema Structures](#ref) Section 2.6, Schema-Related Markup in Documents Being Validated, for use in XML documents, <uri>http://www.w3.org/2001/XMLSchema-instance</uri>.
+* `ct`: The namespace defined by [CTAS](#ref) for the conformanceTargets attribute, <uri>https://docs.oasis-open.org/niemopen/ns/specification/conformanceTargets/6.0/</uri>.
+* `appinfo`: The namespace for the [appinfo namespace](#def), <uri>https://docs.oasis-open.org/niemopen/ns/model/appinfo/6.0/</uri>.
+* `structures`: The namespace for the structures namespace, <uri>https://docs.oasis-open.org/niemopen/ns/model/structures/6.0/</uri>.
+* `cmf`: The namespace for the CMF model representation, <uri>https://docs.oasis-open.org/niemopen/ns/specification/cmf/1.0/</uri>.
+* `rdf`: The namespace for the [Resource Description Framework](#ref), <uri>http://www.w3.org/1999/02/22-rdf-syntax-ns#</uri>.
+* `rdfs`: The namespace for [RDF Schema](#ref), <uri>http://www.w3.org/2000/01/rdf-schema#</uri>.
+* `owl`: The namespace for [OWL 2 Web Ontology Language](#ref), <uri>http://www.w3.org/2002/07/owl#</uri>.
+
+XML Schema examples in this document presume namespace declarations for the above; for example, `xmlns:xs="http://www.w3.org/2001/XMLSchema"`.
+
+RDF examples in Turtle syntax presume prefix declarations; e.g. `@prefix xs: <http://www.w3.org/2001/XMLSchema> .`
+
+JSON-LD examples presume `@context` entries; e.g. `"@context": { "xs":, "http://www.w3.org/2001/XMLSchema" }`
 
 -------
 
@@ -3340,7 +3337,230 @@ For example, the following NIEM JSON is valid, because `nc:Item` and `nc:Equipme
 ```
 -------
 
-# 14. RDF interpretation of NIEM models and messages
+# 14. The NIEM conceptual model
+
+Each release of NIEM provides a concrete data model. The components of this model may be used to build message specifications and define information exchanges. The model spells out what kinds of objects exist and how those objects may be related. Data that conforms to a NIEM message specification has a specific meaning. This section describes the framework within which NIEM data has meaning; that is, the NIEM conceptual model.
+
+The NIEM conceptual model and the rules contained in this NDR are based on the RDF conceptual model. This provides numerous advantages:
+
+* NIEM’s conceptual model is defined by a recognized standard.
+
+* NIEM’s conceptual model is very well defined.
+
+* NIEM’s conceptual model provides a consistent basis for relating attributes, elements, types, and other XML Schema components.
+
+* NIEM’s use of the RDF model defines what a set of NIEM data means. The RDF specification provides a detailed description of what a statement means. This meaning is leveraged by NIEM.
+
+* NIEM’s use of the RDF model provides a basis for inferring and reasoning about XML data that uses NIEM. That is, using the rules defined for the RDF model, programs can determine implications of relationships between NIEM-defined objects.
+
+With the exception of this section, NIEM rules are explained in this document without reference to RDF or RDF concepts. Understanding RDF is not required to understand NIEM-conformant schemas or data based on NIEM. However, understanding RDF concepts may deepen understanding of NIEM.
+
+## 14.1 The RDF conceptual model
+
+This section identifies features of RDF and RDFS, in order to establish a mapping between RDF semantics and NIEM. A reader should read the referenced source documents to obtain a full understanding of the concepts mentioned in this section.
+
+RDF establishes a graph-based data model, as described by [RDF Concepts](#ref) Section 1.1, Graph-based Data Model, which states:
+
+> The core structure of the abstract syntax is a set of triples, each consisting of a subject, a predicate and an object. A set of such triples is called an RDF graph.
+
+[RDF Concepts](#ref) also states:
+
+> There can be three kinds of nodes in an RDF graph: IRIs, literals, and blank nodes.
+
+[RDF Concepts](#ref) Section 1.2, Resources and Statements describes resources:
+
+> Any IRI or literal denotes something in the world (the universe of discourse). These things are called resources. Anything can be a resource, including physical things, documents, abstract concepts, numbers and strings; the term is synonymous with entity as it is used in the RDF Semantics specification. The resource denoted by an IRI is called its referent, and the resource denoted by a literal is called its literal value.
+
+[RDF Concepts](#ref) also describes relationships and blank nodes.
+
+> Asserting an RDF triple says that some relationship, indicated by the predicate, holds between the resources denoted by the subject and object. This statement corresponding to an RDF triple is known as an RDF statement. The predicate itself is an IRI and denotes a property, that is, a resource that can be thought of as a binary relation. (Relations that involve more than two entities can only be indirectly expressed in RDF.)
+
+> Unlike IRIs and literals, blank nodes do not identify specific resources. Statements involving blank nodes say that something with the given relationships exists, without explicitly naming it.
+
+[RDF Concepts](#ref) Section 1.7, Equivalence, Entailment and Inconsistency describes the meaning of an RDF triple:
+
+> An RDF triple encodes a statement—a simple logical expression, or claim about the world. An RDF graph is the conjunction (logical AND) of its triples.
+
+[RDF Concepts](#ref) Section 3.1, Triples defines an RDF triple:
+
+> An RDF triple consists of three components:
+>
+> * the subject, which is an IRI or a blank node
+> * the predicate, which is an IRI
+> * the object, which is an IRI, a literal or a blank node
+>
+>An RDF triple is conventionally written in the order subject, predicate, object.
+
+[RDF Concepts](#ref) Section 4, RDF Datasets defines an RDF dataset:
+
+> An RDF dataset is a collection of RDF graphs, and comprises:
+>
+> * Exactly one default graph, being an RDF graph. The default graph does not have a name and MAY be empty.
+> * Zero or more named graphs. Each named graph is a pair consisting of an IRI or a blank node (the graph name), and an RDF graph. Graph names are unique within an RDF dataset.
+
+## 14.2 NIEM in terms of RDF
+
+The RDF view of the meaning of data carries into NIEM: NIEM objects are statements that make claims about the world: that a person has a name, a residence location, a spouse, etc. The assertion of one set of facts does not necessarily rule out other statements: A person could have multiple names, could have moved, or could be divorced. Each statement is a claim asserted to be true by the originator of the statement.
+
+Apart from this section, this document makes little use of RDF terminology, instead describing the components of a model in terms of the metamodel, CMF, and XSD.  The correspondences among these terminologies are given in the table below.
+
+| CMF          | XSD         | RDF     |
+| ------------ | ----------- | ------- |
+| Class    | Type definition<br> (with complex content and/or attributes) | rdfs:Class |
+| Datatype | Type definition<br> (with simple content and no attributes)  | rdfs:Datatype |
+| Property | Element or attribute declaration | rdfs:Property |
+| ObjectProperty | Element declaration | owl:ObjectProperty |
+| DataProperty | Element or attribute declaration | owl:DataProperty (or DatatypeProperty) |
+
+When describing the instance data in messages, this document uses terminology from XML and JSON, not RDF.  The correspondences are given below.
+
+| XML          | JSON        | RDF     |
+|--------------|-------------|---------|
+| Element      | Object      | Resource or blank node |
+| Value        | String, number, or boolean | Literal |
+
+## 14.3 Identifiers for model components
+
+Identifiers for the objects in a NIEM message are described in [Section 5.3, Identifiers and references in NIEM messages](#53-identifiers-and-references-in-niem-messages). This section describes the identifiers for the components in a NIEM model.
+
+Every component in a NIEM model has exactly one Uniform Resource Identifier (URI). This is formed from the component name (`Component.Name`) and the URI for the component's namespace (`Component.Namespace.NamespaceURI`), according to the following algorithm:
+
+* If the namespace URI ends in `/` or in `#`, then the component URI is formed by concatenating the namespace URI and the component name; for example:
+
+  * Namespace URI: `https://docs.oasis-open.org/niemopen/ns/model/niem-core/6.0/`
+  * Component name: `PersonType`
+  * Component URI: `https://docs.oasis-open.org/niemopen/ns/model/niem-core/6.0/PersonType`
+
+* Otherwise, the component URI is formed by concatenating the namespace URI, the character `/`, and the component name; for example:
+
+  * Namespace URI: `http://example.com/SomeNamespace`
+  * Component name: `FooType`
+  * Component URI: `http://example.com/SomeNamespace/FooType`
+
+* When the namespace URI is a URN, the component URI is formed by concatenating the namespace URI, the character `:`, and the component name; for example:
+
+  * Namespace URI: `urn:us:gov:some:thing`
+  * Component name: `BarType`
+  * Component URI: `urn:us:gov:some:thing:BarType`
+
+## 14.4 NIEM model mapped to RDF
+
+This section describes the RDF triples that are entailed by Class, DataProperty, and ObjectProperty objects in a NIEM model. Terms beginning with `$` are variables representing the value of some model object property.
+
+### 14.4.1 Class object
+
+A Class object 
+
+* with the identifier `$id` entails the following RDF: `$id rdf:type owl:Class .`
+* with a non-empty DocumentationText property `$doc` entails: `$id skos:definition $doc .`
+* with a non-empty SubClassOf property `$sub` entails:  `$id owl:subClassOf $sub .`
+
+[Example 14-1](#ex14-1) below shows the CMF and XSD representation of a Class object, plus the RDF entailed by that object.
+
+```
+<Class structures:id="nc.WeightMeasureType">
+  <Name>WeightMeasureType</Name>
+  <Namespace structures:ref="nc" xsi:nil="true"/>
+  <DocumentationText>A data type for a measure of a weight.</DocumentationText>
+  <SubClassOf structures:ref="nc.MeasureType" xsi:nil="true"/>
+  <ChildPropertyAssociation>
+    <ObjectProperty structures:ref="nc.WeightUnitAbstract" xsi:nil="true"/>
+    <MinOccursQuantity>0</MinOccursQuantity>
+    <MaxOccursQuantity>unbounded</MaxOccursQuantity>
+  </ChildPropertyAssociation>
+</Class>
+---------------
+ <xs:complexType name="WeightMeasureType">
+  <xs:annotation>
+    <xs:documentation>A data type for a measure of a weight.</xs:documentation>
+  </xs:annotation>
+  <xs:complexContent>
+    <xs:extension base="nc:MeasureType">
+      <xs:sequence>
+        <xs:element ref="nc:WeightUnitAbstract" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="nc:WeightMeasureAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:extension>
+  </xs:complexContent>
+</xs:complexType>
+---------------
+nc:WeightMeasureType 
+  rdf:type owl:Class ;
+  skos:definition "A data type for a measure of a weight." ;
+  owl:subClassOf nc:MeasureType .
+```
+<figcaption><a name="ex14-1">Example 14-1: RDF entailed by a Class object</a></figcaption>
+
+### 14.4.2 DataProperty object
+
+A DataProperty object
+
+* with the identifier `$id` entails the following RDF: `$id rdf:type owl:ObjectProperty .`
+* with a non-empty DocumentationText property `$doc` entails: `$id skos:definition $doc .`
+* with a non-empty Datatype property `$type` entails: `$id rdfs:range $type .`
+* with a non-empty SubPropertyOf property `$sub` entails: `$id rdfs:subPropertyOf $sub .`
+
+[Example 14-2](#ex14-2) below shows the CMF and XSD representation of an DataProperty object, plus the RDF entailed by that object.
+
+```
+<DataProperty structures:id="unece.MassUnitCode">
+  <Name>MassUnitCode</Name>
+  <Namespace structures:ref="unece" xsi:nil="true"/>
+  <DocumentationText>A unit of measure of the weight value.</DocumentationText>
+  <SubPropertyOf structures:ref="nc.WeightUnitAbstract" xsi:nil="true"/>
+  <Datatype structures:ref="unece.MassCodeType" xsi:nil="true"/>
+</DataProperty>
+---------------
+<xs:element name="MassUnitCode" type="unece:MassCodeType" substitutionGroup="nc:WeightUnitAbstract" nillable="true">
+  <xs:annotation>
+    <xs:documentation>A unit of measure of the weight value.</xs:documentation>
+  </xs:annotation>
+</xs:element>
+---------------
+unece:MassUnitCode
+  rdf:type owl:DatatypeProperty ;
+  skos:definition "A unit of measure of the weight value." ;
+  rdfs:range unece:MassCodeType ;
+  rdfs:subPropertyOf nc:WeightUnitAbstract .
+```
+<figcaption><a name="ex14-2">Example 14-2: RDF entailed by a DataProperty object</a></figcaption>
+
+### 14.4.3 ObjectProperty object
+
+An ObjectProperty object
+
+* with the identifier `$id` entails the following RDF: `$id rdf:type owl:ObjectProperty .`
+* with a non-empty DocumentationText property `$doc` entails: `$id skos:definition $doc .`
+* with a non-empty Class property `$class` entails: `$id rdfs:range $class .`
+* with a non-empty SubClassOf property `$sub` entails: `$id rdfs:subClassOf $sub .`
+
+[Example 14-3](#ex14-3) below shows the CMF and XSD representation of an ObjectProperty object, plus the RDF entailed by that object.
+
+```
+<ObjectProperty structures:id="nc.Location2DGeospatialCoordinate">
+  <Name>Location2DGeospatialCoordinate</Name>
+  <Namespace structures:ref="nc" xsi:nil="true"/>
+  <DocumentationText>A location identified by a latitude and longitude.</DocumentationText>
+  <SubPropertyOf structures:ref="nc.LocationGeospatialCoordinateAbstract" xsi:nil="true"/>
+  <Class structures:ref="nc.Location2DGeospatialCoordinateType" xsi:nil="true"/>
+</ObjectProperty>
+---------------
+<xs:element name="Location2DGeospatialCoordinate" type="nc:Location2DGeospatialCoordinateType"
+    substitutionGroup="nc:LocationGeospatialCoordinateAbstract" nillable="true">
+  <xs:annotation>
+    <xs:documentation>A location identified by a latitude and longitude.</xs:documentation>
+  </xs:annotation>
+</xs:element>
+---------------
+nc:Location2DGeospatialCoordinate
+  rdf:type owl:ObjectProperty ;
+  skos:definition "A location identified by a latitude and longitude." ;
+  rdfs:range nc:Location2DGeospatialCoordinateType ;
+  rdfs:subPropertyOf nc:LocationGeospatialCoordinateAbstract .
+```
+<figcaption><a name="ex14-3">Example 14-3: RDF entailed by an ObjectProperty object</a></figcaption>
+
+## 14.5 NIEM messages mapped to RDF
 
 TODO
 
@@ -4041,6 +4261,9 @@ Jacobs, I. "Architecture of the World Wide Web, Volume One". W3C Recommendation 
 * [Example 5-21: RDF-star equivalent for a relationship property](#ex5-21)
 * [Example 6-1: Conformance target assertion in XSD](#ex6-1)
 * [Example 6-2: Conformance target assertion in CMF](#ex6-2)
+* [Example 14-1: RDF entailed by a Class object](#ex14-1)
+* [Example 14-2: RDF entailed by a DataProperty object](#ex14-2)
+* [Example 14-3: RDF entailed by an ObjectProperty object](#ex14-3)
 
 -------
 
@@ -4191,4 +4414,5 @@ h2,h3 { margin-top:18pt; }
 code { font-size: 11pt; }
 pre > code { font-size: 9pt; margin-left:auto; margin-right:auto; }
 table { margin-bottom: 12pt; }
+uri { font-family: monospace; font-size: 11pt; white-space: nowrap; overflow-wrap: normal; word-wrap: normal; }
 </style>
