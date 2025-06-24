@@ -5,8 +5,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>440</x>
-      <y>350</y>
+      <x>640</x>
+      <y>330</y>
       <w>200</w>
       <h>220</h>
     </coordinates>
@@ -14,23 +14,23 @@
 Namespace
 --
 -namespaceURI
--namespacePrefix
+-namespacePrefixText
 -documentationText
 -namespaceLanguageName
 -namespaceVersionText
 -namespaceCategoryCode
 -conformanceTargetURI
--NIEMVersionText*
+-NIEMVersionName*
 -documentFilePathText*
--importDocumentationText*</panel_attributes>
+-importDocumentation*</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>630</x>
-      <y>400</y>
-      <w>210</w>
+      <x>830</x>
+      <y>380</y>
+      <w>240</w>
       <h>50</h>
     </coordinates>
     <panel_attributes>lt=&lt;-&gt;&gt;&gt;&gt;&gt;
@@ -38,14 +38,14 @@ m1=0..*
 m2=1
 augmentationRecord &gt;
 </panel_attributes>
-    <additional_attributes>190.0;20.0;10.0;20.0</additional_attributes>
+    <additional_attributes>220.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>630</x>
-      <y>470</y>
-      <w>210</w>
+      <x>830</x>
+      <y>450</y>
+      <w>240</w>
       <h>50</h>
     </coordinates>
     <panel_attributes>lt=&lt;-&gt;&gt;&gt;&gt;&gt;
@@ -53,13 +53,13 @@ m1=0..*
 m2=1
 localTerm &gt;
 </panel_attributes>
-    <additional_attributes>190.0;20.0;10.0;20.0</additional_attributes>
+    <additional_attributes>220.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>820</x>
-      <y>350</y>
+      <x>1050</x>
+      <y>330</y>
       <w>160</w>
       <h>90</h>
     </coordinates>
@@ -73,8 +73,8 @@ bg=LIGHT_GRAY</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>820</x>
-      <y>450</y>
+      <x>1050</x>
+      <y>430</y>
       <w>160</w>
       <h>120</h>
     </coordinates>
@@ -84,5 +84,36 @@ LocalTerm
 
 bg=LIGHT_GRAY</panel_attributes>
     <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>230</x>
+      <y>330</y>
+      <w>200</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>--
+ImportDocumentation
+--
+-namespaceURI
+-documentationText
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>420</x>
+      <y>380</y>
+      <w>240</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-&gt;&gt;&gt;&gt;&gt;
+m1=0..*
+m2=1
+&lt; importDocumentation
+</panel_attributes>
+    <additional_attributes>10.0;20.0;220.0;20.0</additional_attributes>
   </element>
 </diagram>

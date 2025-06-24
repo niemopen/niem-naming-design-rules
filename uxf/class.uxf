@@ -31,7 +31,7 @@ fontsize=10
       <x>540</x>
       <y>620</y>
       <w>130</w>
-      <h>100</h>
+      <h>110</h>
     </coordinates>
     <panel_attributes>--
 Class
@@ -89,7 +89,7 @@ bg=LIGHT_GRAY</panel_attributes>
       <x>830</x>
       <y>620</y>
       <w>130</w>
-      <h>100</h>
+      <h>110</h>
     </coordinates>
     <panel_attributes>--
 ChildPropertyAssociation
@@ -134,7 +134,7 @@ property &gt;</panel_attributes>
       <x>1050</x>
       <y>620</y>
       <w>130</w>
-      <h>100</h>
+      <h>110</h>
     </coordinates>
     <panel_attributes>--
 /Property/
@@ -182,5 +182,38 @@ m2=1
 m1=0:*
 ns &gt;</panel_attributes>
     <additional_attributes>10.0;20.0;210.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>260</x>
+      <y>620</y>
+      <w>130</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>--
+AnyProperty
+--
+-minOccursQuantity
+-maxOccursQuantity
+-attributeIndicator
+-namespaceConstraintText
+-processingCode</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>380</x>
+      <y>660</y>
+      <w>180</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-&gt;
+m2=0..*
+m1=1
+&lt; anyProperty
+</panel_attributes>
+    <additional_attributes>160.0;20.0;10.0;20.0</additional_attributes>
   </element>
 </diagram>

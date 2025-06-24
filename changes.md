@@ -11,3 +11,7 @@
 * Rule 7-6: fixed to apply only to literal classes
 
 * GlobalClassCode is repeatable
+
+* augmentation elements should not be nillable
+
+* ImportDocumentation

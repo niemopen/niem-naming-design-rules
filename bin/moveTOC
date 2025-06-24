@@ -1,5 +1,9 @@
 #!/usr/bin/perl
 
+# When converting markdown to HTML, pandoc puts the table of contents at the
+# beginning.  Use a custom template to wrap the TOC with a <nav id="TOC"> tag,
+# then pipe through this script to move it to the first <tocHere> tag.
+
 use warnings;
 use strict;
 
@@ -14,11 +18,13 @@ while (<>) {
   if (m!<tocHere/>!) {
     my $preF = 1;
     print shift @toc;
+    print "<ul>\n";
     foreach my $line (@toc) {
 #      print "preF=$preF, line=$line";
       print $line if $preF == 0;
       $preF = 2 if $preF == 1 && $line =~ m!#table-of-contents!;
       $preF = 0 if $preF == 2 && $line =~ m!</li>!;
     }
+    print "</ul>\n";
   }
 }

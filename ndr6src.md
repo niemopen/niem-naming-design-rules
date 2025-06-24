@@ -1,21 +1,18 @@
-<link rel="stylesheet" href="https://docs.oasis-open.org/templates/css/markdown-styles-v1.7.3a.css" />
-
 <h2 id="niem-logo"><img src="https://github.com/niemopen/oasis-open-project/raw/main/artwork/NIEM-NO-Logo-v5.png" alt="NIEM Logo" style="width: 400px; display: block; margin: 0;"</h2>
-
 
 <!--
 If you want to check the line length in code blocks, uncomment this code block,
 set the width of your markdown preview window so that the following line does not wrap,
 and the terminal "X" is visible without the horizontal scrollbar:
-```
-.........1.........2.........3.........4.........5.........6.........7.........8.........9.........0.........1.........2.......X
-This is the width of a code block when the OASIS-formatted HTML is printed to PDF by Microsoft Edge with 0.4 inch margins
-```
 -->
+```
+.........1.........2.........3.........4.........5.........6.........7.........8.........9.........0.........1.........2.........3.......
+This is the width of a code block in the PDF version
+```
 
 # NIEM Naming and Design Rules (NDR) Version 6.0
 ## Project Specification Draft 02
-## 12 May 2025 draft
+## 23 June 2025 draft
 
 &nbsp;
 
@@ -113,7 +110,7 @@ This document specifies principles and enforceable rules for NIEM data component
 | Term                 |  Definition  |
 | :----                |  :---  |
 | Absolute URI         | A Uniform Resource Identifier (URI) with scheme, hierarchical part, and optional query, but without a fragment; a URI matching the grammar syntax `<absoluteURI>` as defined by [[RFC 3986]](#ref). |
-| Adapter class        | A class that contains only properties from a single [external namespace](#def). [*see [§4.4](#44-class)*]  |
+| Adapter class        | A class that contains only properties from a single [external namespace](#def). *(see [§4.4](#44-class))*  |
 | Adapter type         | An XSD type definition that encapsulates [external components](#def) for use within NIEM. *(see [§9.4](#94-rules-for-adapters-and-external-components))* |
 | Appinfo namespace    | A namespace defined by a schema document that provides additional semantics for components in the XSD representation of a model. *(see [§9.7](#97-rules-for-machine-readable-annotations))* |
 | Association class    | A class that represents a specific relationship between objects. *(see [§4.4](#44-class))* |
@@ -175,7 +172,7 @@ This document specifies principles and enforceable rules for NIEM data component
 | Term                 |  Definition  |
 | :----                |  :---        |
 | Document element     | An element, no part of which appears in the content of another element; preferred synonym for *root element*. |
-| XML document         | A data object is an XML document if it is well-formed, as defined in this specification. ([Section 2, Documents](https://www.w3.org/TR/2008/REC-xml-20081126/#dt-xml-doc)) |
+| XML document         | A data object is an XML document if it is well-formed, as defined in this specification. ([Section 2, Documents](https://www.w3.org/TR/2008/REC-xml-20081126/#dt-xml-doc))* |
 
 **Terms imported from *XML Information Set (Second Edition)* [[XML Infoset]](#ref):**
 
@@ -304,9 +301,10 @@ The following namespace prefixes are used consistently within this specification
 * `xs` and `xsd`: The namespace for the XML Schema definition language as defined by [XML Schema Structures](#ref) and [XML Schema Datatypes](#ref), <uri>http://www.w3.org/2001/XMLSchema</uri>.
 * `xsi`: The XML Schema instance namespace, defined by [XML Schema Structures](#ref) Section 2.6, Schema-Related Markup in Documents Being Validated, for use in XML documents, <uri>http://www.w3.org/2001/XMLSchema-instance</uri>.
 * `ct`: The namespace defined by [CTAS](#ref) for the conformanceTargets attribute, <uri>https://docs.oasis-open.org/niemopen/ns/specification/conformanceTargets/6.0/</uri>.
-* `appinfo`: The namespace for the [appinfo namespace](#def), <uri>https://docs.oasis-open.org/niemopen/ns/model/appinfo/6.0/</uri>.
-* `structures`: The namespace for the structures namespace, <uri>https://docs.oasis-open.org/niemopen/ns/model/structures/6.0/</uri>.
+* `appinfo`: The [appinfo namespace](#def), <uri>https://docs.oasis-open.org/niemopen/ns/model/appinfo/6.0/</uri>.
+* `structures`: The structures namespace, <uri>https://docs.oasis-open.org/niemopen/ns/model/structures/6.0/</uri>.
 * `cmf`: The namespace for the CMF model representation, <uri>https://docs.oasis-open.org/niemopen/ns/specification/cmf/1.0/</uri>.
+* `nc`: The namespace of the NIEM Core model, <uri>https://docs.oasis-open.org/niemopen/ns/model/niem-core/6.0/</uri>.
 * `rdf`: The namespace for the [Resource Description Framework](#ref), <uri>http://www.w3.org/1999/02/22-rdf-syntax-ns#</uri>.
 * `rdfs`: The namespace for [RDF Schema](#ref), <uri>http://www.w3.org/2000/01/rdf-schema#</uri>.
 * `owl`: The namespace for [OWL 2 Web Ontology Language](#ref), <uri>http://www.w3.org/2002/07/owl#</uri>.
@@ -323,7 +321,7 @@ JSON-LD examples presume `@context` entries; e.g. `"@context": { "xs":, "http://
 
 This overview describes NIEM's design goals and principles, and introduces key features of the architecture. The major design goals are:
 
-* *Shared understanding of data.* NIEM helps developers working on different systems to understand the data their systems share with each other.
+* *Shared understanding of data.* NIEM helps developers working on different systems to understand the data their systems share with each other.  NIEM also helps data analysts understand and integrate data from multiple sources.
 
 * *Reuse of community-agreed data definitions.* NIEM reduces the cost of data interoperability by promoting shared data definitions — without requiring a single data model of everything for everyone.
 
@@ -339,7 +337,7 @@ The key architecture features mentioned in this section:
 
 ## 3.1 Machine-to-machine data specifications
 
-NIEM is a framework for developer-level specifications of data. A NIEM-based data specification — which is built *using* NIEM and in *conformance* to NIEM, but is not itself a *part* of NIEM — describes data to the developers of producing and consuming systems. This data may be shared via:
+NIEM is a framework for developer-level specifications of data. A NIEM-based data specification — which is built *using* NIEM and in *conformance* to NIEM, but is not itself a *part* of NIEM — describes data in detail sufficientto the developers of producing and consuming systems. This data may be shared via:
 
 * a message passed between applications
 * an information resource published on the web
@@ -375,13 +373,13 @@ In NIEM terms, the package of data shared at runtime is a [message](#def). This 
     <nc:ItemName>Wrench</nc:ItemName>                         |   "msg:Request": {
     <nc:ItemQuantity>10</nc:ItemQuantity>                     |     "msg:RequestID" : "RQ001",
   </msg:RequestedItem>                                        |     "msg:RequestedItem": {
-</msg:Request>                                                |       "nc:ItemName": Wrench",
+</msg:Request>                                                |       "nc:ItemName": "Wrench",
                                                               |       "nc:ItemQuantity": 10
                                                               |      }
                                                               |   }
                                                               | }
 ```
-<figcaption><a name="ex3-2">Example 3-2: Example of messages in XML and JSON syntax</a></figcaption>
+<figcaption><a name="ex3-2">Example 3-2: Messages in XML and JSON syntax</a></figcaption>
 
 The data structure of a NIEM message appears to be a tree with a root node. It is actually a directed graph with an initial node called the [message object](#def).  For example, the [message object](#def) in [example 3-2](#ex3-2) is the `msg:Request` element in the XML message. In the JSON message it is the value for the `msg:Request` key.
 
@@ -730,9 +728,9 @@ A Namespace object represents a namespace in a model. For example, the namespace
 | NamespaceVersionText  | A version of a namespace; for example, used to distinguish a namespace subset, bug fix, documentation change, etc. | 1 | - | xs:token |
 | NamespaceCategoryCode | A kind of namespace in a NIEM model (external, core, domain, etc.). | 1 | - | NamespaceCategoryCodeType |
 | ConformanceTargetURI  | A [conformance target identifier](#def). | 0..* | - | xs:anyURI |
-| NIEMVersionText       | A NIEM version number of the builtin schema components used in a namespace; e.g. "5" or "6". | 0..1 | - | xs:token |
+| NIEMVersionName       | A name of a NIEM version for the utility schema components used in an XSD representation of a namespace; e.g. "NIEM5.0" or "NIEM6.0". | 0..1 | - | xs:token |
 | DocumentFilePathText  | A relative file path from the top schema directory to a schema document for this namespace. | 0..1 | - | xs:string |
-| ImportDocumentationText | Human-readable documentation from the first `xs:import` element importing this namespace. | 0..1 | - | xs:string |
+| ImportDocumentation   | A documentation of an xs:import element in a schema document. | 0..* | - | TextType |
 | AugmentationRecord    | An augmentation of a class with a property by a namespace. | 0..* | - | AugmentationType|
 | LocalTerm             | A data type for the meaning of a term that may appear within the name of a model component. | 0..* | - | LocalTermType |
 <figcaption><a name="tab4-7">Table 4-7: Properties of the Namespace object class</a></figcaption>
@@ -838,14 +836,13 @@ A Class object represents a class of message objects defined by a NIEM model.  F
 | --------------------- | ---------- | :--: | :-: | ----- |
 | Class                 | A data type for a class. |
 | AbstractIndicator     | True if a class is a base for extension, and must be specialized to be used directly; false if a class may be used directly. | 0..1 | - | xs:boolean |
-| AnyAttributeIndicator | True when instances of a class may have arbitrary [attribute properties](#def) in addition to those specified by ChildPropertyAssociation. | 0..1 | - | xs:boolean |
-| AnyElementIndicator   | True when instances of a class may have arbitrary [element properties](#def) in addition to those specified by ChildPropertyAssociation. | 0..1 | - | xs:boolean |
 | ReferenceCode         | A code describing how a property may be referenced (or must appear inline). | 0..1 | - | ReferenceCodeType |
+| AnyProperty           | An unconstrained property of a class. | 0..* | AnyPropertyType |
 | SubClassOf            | A base class of a subclass. | 0..1 | - | ClassType |
 | ChildPropertyAssociation   | An association between a class and a child property of that class. | 0..* | Y | ChildPropertyAssociationType |
 <figcaption><a name="tab4-15">Table 4-15: Properties of the Class object class</a></figcaption>
 
-The range of the `ReferenceCode` property is a [code list](#def) with the following codes and meanings:
+The range of the `ReferenceCode` property is a [code list](#def) with the following codes and meanings: FIX TODO
 
 | Code | Definition |
 | ---- | ---------- |
@@ -913,8 +910,6 @@ The following table shows the mapping between Class object representations in CM
 | CMF                 | XSD |
 | ------------------- | --- |
 | AbstractIndicator   | `xs:complexType/@abstract` |
-| AnyAttributeIndicator | `xs:anyAttribute` |
-| AnyElementIndicator | `xs:any` |
 | ReferenceCode       | `xs:complexType/@appinfo:referenceCode` |
 | SubClassOf          | `xs:complexType/xs:complexContent/xs:extension/@base` |
 | ChildPropertyAssociation | `xs:complexType/xs:complexContent/xs:extension/xs:sequence/xs:element` or `xs:complexType/xs:complexContent/xs:extension/xs:attribute` |
@@ -1020,12 +1015,13 @@ The following table shows the mapping between PropertyAssociation representation
 | MaxOccursQuantity | `xs:element/@maxOccurs` |
 | DocumentationText | `xs:element/xs:annotation/xs:documentation` or `xs:attribute/xs:annotation/xs:documentation`|
 | OrderedPropertyIndicator | `xs:element/@appinfo:orderedPropertyIndicator` |
-| AugmentingNamespace | `xs:element/@appinfo:augmentingNamespace` or `xs:attribute/@appinfo:augmentingNamespace`|
 <figcaption><a name="tab4-24">Table 4-24: ChildPropertyAssociation object properties in CMF and XSD</a></figcaption>
+
+TODO add AnyProperty class here
 
 ## 4.6 Property
 
-A Property object is either an ObjectProperty or a DataProperty in a NIEM model. This abstract class defines the common properties of those two concrete subclasses.
+A Property object in a NIEM model is either an ObjectProperty or a DataProperty. This abstract class defines the common properties of those two concrete subclasses.
 
 <figure class="image">
   <img src="images/property.png" style="zoom:100%"/>
@@ -1052,7 +1048,7 @@ An instance of the ObjectProperty class represents a property in a NIEM model wi
 | --------------------- | ---------- | :--: | :-: | ----- |
 | ObjectProperty        | A data type for an object property. |
 | ReferenceCode         | A  code describing how a property may be referenced (or must appear inline). | 0..1 | - | ReferenceCodeType |
-| Class                 | The class of this object property. | 1 | - | ClassType |
+| Class                 | The class of this object property. | 0..1 | - | ClassType |
 <figcaption><a name="tab4-27">Table 4-27: Properties of the ObjectProperty object class</a></figcaption>
 
 An ObjectProperty object is represented in XSD as an element declaration with a type that is a Class object. [Example 4-28](#ex4-28) shows an ObjectProperty object, represented first in CMF, and then in XSD.
@@ -1429,6 +1425,8 @@ The following table shows the mapping between CodeListBinding representations in
 
 ## 4.15 Augmentation class
 
+TODO rewrite 4.15
+
 <figure class="image">
   <a name="fig4-18"/></a>
   <img src="images/augment.png" style="zoom:100%"/>
@@ -1450,7 +1448,7 @@ The XSD representation of an augmentation is complex and is explained below. In 
 | MinOccursQuantity | The minimum number of times a property may occur within an object of a class. | 1 | - | xs:integer |
 | MaxOccursQuantity | The maximum number of times a property may occur within an object of a class. | 1 | - | MaxOccursType |
 | AugmentationIndex | The ordinal position of an [augmentation property](#def) that is part of an [augmentation type](#def). | 0..1 | - | xs:integer |
-| GlobalClassCode | A code for a kind of class (object, association, or literal), such that every class in a model of that kind is augmented with a property | 0..1 | - | GlobalClassCodeType |
+| GlobalClassCode | A code for a kind of class (object, association, or literal), such that every class in a model of that kind is augmented with a property | 0..* | - | GlobalClassCodeType |
 | Class | An augmented class. | 0..1 | - | ClassType |
 | Property | An augmentation property . | 1 | - | PropertyType |
 <figcaption><a name="tab4-51">Table 4-51: Properties of the Augmentation object class</a></figcaption>
@@ -1502,7 +1500,7 @@ A global AugmentationRecord object has no Class property (because it applies to 
 | ------------ | ---------- |
 | OBJECT       | A code for an [augmentation property](#def) that applies to all [object classes](#def). |
 | ASSOCIATION  | A code for an [augmentation property](#def) that applies to all [association classes](#def) in the model. |
-| LITERAL      | A code for an [augmentation property](#def) that applies to all [datatypes](#def) and [literal classes](#def) in the model. *(see [§4.15.5](#4155-global-augmentations-in-xsd))* |
+| LITERAL      | A code for an [augmentation property](#def) that applies to all [datatypes](#def) and [literal classes](#def) in the model. (see [§4.15.5](#4155-global-augmentations-in-xsd)) |
 <figcaption><a name="tab4-54">Table 4-54: GlobalClassCode code list</a></figcaption>
 
 ### 4.15.1 Augmentations in NIEM XSD
@@ -1825,7 +1823,7 @@ This section is informative.  It explains common patterns in NIEM models and mes
 
 A model component can be a datatype in one message model and a class in another. This occurs when a message designer creates a subset of a reused literal class, or augments a reused datatype.
 
-Removing attribute properties from a reused literal class can turn it into a datatype. For example, `nc:NumericType` is a literal class in the NIEM model, but in a subset can become a datatype in a message model.  In the NIEM model, `nc:NumericType` has one [element property](#def) and one [attribute property](#def). [Example 5-1](#ex5-1) shows the class representation in CMF and XSD; [example 5-2](#ex5-2) shows an object of the class in an XML and JSON message.
+Removing attribute properties from a reused literal class can turn it into a datatype. For example, `nc:NumericType` is a literal class in the NIEM Core reference namespace, but in a subset can become a datatype in a message model.  In the NIEM model, `nc:NumericType` has one [element property](#def) and one [attribute property](#def). [Example 5-1](#ex5-1) shows the class representation in CMF and XSD; [example 5-2](#ex5-2) shows an object of the class in an XML and JSON message.
 
 ```
 <Class structures:id="nc.NumericType">                       | <xs:complexType name="NumericType">
@@ -1873,7 +1871,7 @@ If a message designer decides to reuse `nc:NumericType`, and to remove `nc:toler
 ```
 <figcaption><a name="ex5-4">Example 5-4: A data property in an XML and JSON message</a></figcaption>
 
-Going the other way, augmenting a reused datatype turns it into a literal class. For example, `nc:PersonUnionCategoryCodeType` is a datatype in the NIEM model, and `nc:PersonUnionCategoryCode` is a data property with that datatype. [Example 5-5](#ex5-5) shows the datatype representation in CMF and XSD; [example 5-6](#ex5-6) shows the data property in an XML and JSON message.
+Going the other way, augmenting a reused datatype with an attribute property turns it into a literal class. For example, `nc:PersonUnionCategoryCodeType` is a datatype in the NIEM model, and `nc:PersonUnionCategoryCode` is a data property with that datatype. [Example 5-5](#ex5-5) shows the datatype representation in CMF and XSD; [example 5-6](#ex5-6) shows the data property in an XML and JSON message.
 
 ```
 <Restriction structures:id="nc.PersonUnionCategoryCodeType">      | <xs:complexType name="PersonUnionCategoryCodeType">
@@ -1965,230 +1963,11 @@ A message designer might decide to augment `nc:PersonUnionCategoryCodeType` with
 
 The representation of a literal class is complex when compared to the datatype. The JSON message is likewise complicated. Best practice is therefore to avoid augmenting a datatype whenever possible.
 
-## 5.2 Meaning of NIEM data
-
-The meaning of NIEM data is partly expressed through the hierarchy of nested objects in a message, and partly through the message model's definition of those objects. For example, the meaning of the two equivalent messages in [example 3-2](#ex3-2) (reproduced below) is described in [table 5-9](#tab5-9).
-
-```
-<msg:Request                                                  | {
- xmlns:nc="https://docs.oasis-open.org/niemopen/ns/model/niem |   "@context": {
- xmlns:msg="http://example.com/ReqRes/1.0/">                  |     "nc": "https://docs.oasis-open.org/niemopen/ns/model/niem-
-  <msg:RequestID>RQ001</msg:RequestID>                        |     "msg": "http://example.com/ReqRes/1.0/"
-  <msg:RequestedItem>                                         |   },
-    <nc:ItemName>Wrench</nc:ItemName>                         |   "msg:Request": {
-    <nc:ItemQuantity>10</nc:ItemQuantity>                     |     "msg:RequestID" : "RQ001",
-  </msg:RequestedItem>                                        |     "msg:RequestedItem": {
-</msg:Request>                                                |       "nc:ItemName": Wrench",
-                                                              |       "nc:ItemQuantity": 10
-                                                              |      }
-                                                              |   }
-                                                              | }
-```
-
-| Message data | Description | Meaning |
-| ------------ | ----------- | ------- |
-| `<msg:Request>` *or*</br>`"msg:Request":{...}` |The initial property is `msg:Request`. The message model defines the range of this property as the `msg:RequestType` class. | There is an object that is a request for a specified quantity of a named item. |
-| `<msg:RequestID>` *or</br>`"msg:RequestID":...` | The next property is `msg:RequestID`. The message model defines the range of this data property as the `xs:token` datatype. | There is a relationship between the object of `msg:RequestType` and the literal value `RQ001`. |
-| `<msg:RequestedItem>` *or*</br>`"msg:RequestedItem":{...}` | The next property is `msg:RequestedItem`. The message model defines the range of this object property as the `nc:ItemType` class. | There is a relationship between the object of `msg:RequestType` and the object of `nc:ItemType`. |
-| `<nc:ItemName>` *or*</br>`"nc:ItemName":...` | The next property is `nc:ItemName`. The message model defines the range of this data property as the `nc:TextType` datatype. | There is a relationship between the object of `nc:ItemType` and the literal value `Wrench`. |
-| `<nc:ItemQuantity>` *or*</br>`nc:ItemQuantity":...` | The next property is `nc:ItemQuantity`. The message model defines the range of this data property as the `nc:QuantityType` datatype. | There is a relationship between the object of `nc:ItemType` and the literal value `10`. |
-<figcaption><a name="tab5-9">Table 5-9: Meaning of NIEM data</a></figcaption>
-
-NIEM is designed so that NIEM data is a form of RDF data. For example, the message data above corresponds to the RDF shown in [example 5-10](#ex5-10)
-
-```
-@prefix nc: <https://docs.oasis-open.org/niemopen/ns/model/adapters/niem-xs/6.0/> .
-@prefix msg: <http://example.com/ReqRes/1.0/> .
-_:n1 a msg:RequestType .
-_:n1 msg:RequestID "RQ001".
-_:n1 msg:RequestedItem _:n2 .
-_:n2 a nc:ItemType .
-_:n2 nc:ItemName "Wrench" .
-_:n2 nc:ItemQuantity "10" .
-```
-<figcaption><a name="ex5-10">Example 5-10: RDF interpretation of NIEM data (Turtle syntax)</a></figcaption>
-
-That RDF data expresses a graph, illustrated by the diagram in [figure 5-11](#fig5-11).
-
-<figure>
-  <img src="images/meaning.png" alt="Diagram showing meaning of NIEM data"/>
-  <figcaption><a name="fig5-11">Figure 5-11: Diagram showing meaning of NIEM data</a></figcaption>
-</figure>
-
-In a NIEM message, that which is not stated is not implied. If data says a person's name is John, it is not implicitly saying that he does not have other names, or that John is his legal name, or that he is different from a person known as Bob. The only assertion being made is that one of the names by which this person is known is John.
-
-Likewise, nothing may be inferred from data that is not present in a NIEM message. It may be absent due to lack of availability, lack of knowledge, or deliberate withholding of information. These cases should be modeled explicitly, if they are required.
-
-## 5.3 Identifiers and references in NIEM messages
-
-A hierarchy of nested objects (illustrated above) is sufficient to represent simple data that takes the form of a tree. However, this simple representation has limitations, and is not capable of expressing all relationships among objects. Situations that cause problems include:
-
-* Cycles: some object has a relationship that, when followed, eventually circles back to itself. For example, suppose that Bob has a sister relationship to Sue, who has a brother relationship back to Bob. These relationships do not form a tree, and require a data structure that is a graph, rather than a simple hierarchy of objects.
-
-* Reuse: multiple objects have a relationship to a common object. For example, suppose Bob and Sue both have a mother relationship to Sally. Expressed via nested objects, this would result in a duplicate representation of Sally.
-
-NIEM solves these problems through object identifiers and object references. Any object may have an identifier. An object reference can take the place of any object in a message, and is interpreted as if the object with the same identifier actually appeared in that place. The resulting data structure is a graph, not a tree.
-
-For example, in [example 5-12](#ex5-12) below, there is only one Person object in the message; it has the identifier `JD`, and is a child property of `nc:PersonLocationAssociation`. The `nc:Person` property of the `nc:PersonOrganizationAssociation` object is an object reference. The interpretation is that the person located at the Pentagon is also the person associated with the US Army.
-
-```
-<nc:PersonLocationAssociation>                             | "nc:PersonLocationAssociation": {
-  <nc:Person structures:id="JD">                           |   "nc:Person": {
-    <nc:PersonName>                                        |     "@id": "#JD",
-      <nc:PersonFullName>4R</nc:PersonFullName>            |     "nc:PersonName": {
-    </nc:PersonName>                                       |       "nc:PersonFullName": "John Doe"
-  </nc:Person>                                             |     }
-  <nc:Location>                                            |   },
-    <nc:LocationName>Pentagon</nc:LocationName>            |   "nc:Location": {
-  </nc:Location>                                           |     "nc:LocationName": "Pentagon"
-</nc:PersonLocationAssociation>                            |   }
-<nc:PersonOrganizationAssociation>                         | },
-  <nc:Person structures:ref="JD" xsi:nil="true"/>          | "nc:PersonOrganizationAssociation": {
-  <nc:Organization>                                        |   "nc:Person": {
-    <nc:OrganizationName>US Army</nc:OrganizationName>     |     "@id": "#JD"
-  </nc:Organization>                                       |   },
-</nc:PersonOrganizationAssociation>                        |   "nc:Organization": {
-                                                           |     "nc:OrganizationName": "US Army"
-                                                           |   }
-                                                           | }
-```
-<figcaption><a name="ex5-12">Example 5-12: Example of object references in NIEM XML and JSON</a></figcaption>
-
-### 5.3.1 Object references in NIEM XML using structures:id and structures:ref
-
-[[XML]](#ref) defines ID and IDREF attributes; these act as references in XML data. NIEM XML uses ID and IDREF as one way to reference data across data objects.
-
-* `structures:id` is an ID attribute. Its value is an identifier for the object in which it appears. For example, in [example 5-12](#ex5-12) the value `JD` is an identifier for the `nc:Person` object. According to the rules of XML, an ID value must be unique within the XML document.
-
-  An ID attribute is a *fragment identifier* within the XML document. For example, if the message as a whole has the URI `http://example.com/MSG/`, then the object identifier `JD` is equivalent to `http://example.com/MSG/#JD`.
-
-* `structures:ref` is an IDREF attribute. An object with this attribute is a reference to the object with that identifier. For example, in [example 5-12](#ex5-12), the element `<nc:Person structures:ref="JD" xsi:nil="true"/>` is a reference to the `<nc:Person>` object that has the identifier `JD`.
-
-  The `structures:ref` attribute has type `xs:IDREF`, so according to the rules of XML the message must contain an ID attribute with the same value. This means a `structures:ref` reference can only link to an object within the same message.
-
-  Object references using `structures:ref` must not have content. If the object type has mandatory content, then `xsi:nil="true"` is required.
-
-### 5.3.2 Object references in NIEM XML using structures:uri
-
-NIEM introduced support for linked data through the use of uniform resource identifiers (URIs), expressed in NIEM XML through the attribute `structures:uri`. In linked data, anything modeled or addressed by an information system may be called a *resource*: people, vehicles, reports, documents, relationships, ideas: anything that is talked about and modeled in an information system is a resource. In NIEM, the objects in a message are the resources; an object identifier is a resource identifier.
-
-The `structures:uri` attribute assigns an object identifier to the element in which it appears. All of the elements having the same identifier refer to a single object, and all of those elements provide property values for that one object. For example, in [example 5-13](#ex5-13) below, there is only one Person object in the message. The person located at the Pentagon is also the person associated with the US Army; that person is named "John Doe" and also has red hair.
-
-```
-<nc:PersonLocationAssociation>                               | "nc:PersonLocationAssociation": {
-  <nc:Person structures:uri="#JD">                           |   "nc:Person": {
-    <nc:PersonName>                                          |     "@id": "#JD",
-      <nc:PersonFullName>John Doe</nc:PersonFullName>        |     "nc:PersonName": {
-    </nc:PersonName>                                         |       "nc:PersonFullName": "John Doe"
-  </nc:Person>                                               |     }
-  <nc:Location>                                              |   },
-    <nc:LocationName>Pentagon</nc:LocationName>              |   "nc:Location": {
-  </nc:Location>                                             |     "nc:LocationName": "Pentagon"
-</nc:PersonLocationAssociation>                              |   }
-<nc:PersonOrganizationAssociation>                           | },
-  <nc:Person structures:uri="#JD">                           | "nc:PersonOrganizationAssociation": {
-    <nc:PersonHairColorText>Red</nc:PersonHairColorText>     |   "nc:Person": {
-  </nc:Person>                                               |     "@id": "#JD",
-  <nc:Organization>                                          |     "nc:PersonHairColorText": "Red"
-    <nc:OrganizationName>US Army</nc:OrganizationName>       |   },
-  </nc:Organization>                                         |   "nc:Organization": {
-</nc:PersonOrganizationAssociation>                          |     "nc:OrganizationName": "US Army"
-                                                             |   }
-                                                             | }
-```
-<figcaption><a name="ex5-13">Example 5-13: Example of URI object references in NIEM XML and JSON</a></figcaption>
-
-The `structures:uri` attribute has the type `xs:anyURI`. Values can be either a *URI-reference* or a *relative-ref*, as defined by [[RFC 3986]](#ref). A URI-reference can be a URN or URL; for example:
-
-```
-  <nc:Person structures:uri="urn:uuid:f81d4fae-7dec-11d0-a765-00a0c91e6bf6"/>
-  <nc:Person structures:uri="http://example.com/PersonID/B263-1655-2187"/>
-```
-
-If the message as a whole has a URI, then a relative reference is interpreted according to the rules for reference resolution in [[RFC 3986]](#ref). For example, if the message URI is `http://example.com/MSG/`, then the relative reference `JD` resolves to `http://example.com/MSG/#JD`.
-
-A relative resource in `structures:uri` is the same thing as a fragment identifier in `structures:id`, but with a leading `#` character. For example, `structures:uri="#JD"` and `structures:id="JD"` denote the same resource identifier.
-
-### 5.3.3 Comparison of object references in NIEM XML
-
-* `structures:ref` and `structures:id` must appear within the same message.
-
-* `structures:ref` requires and provides type safety, in that the type of an object pointed to by structures:ref must be consistent with the referencing element's type declaration.
-
-* The value of `structures:id` must be unique for IDs within the XML document.
-
-* The value of `structures:ref` must appear within the document as the value of an attribute `structures:id`.
-
-* A `structures:uri` can reference any `structures:id` in the same message, or in another message.
-
-* Any `structures:uri` may reference any other `structures:uri`, in the same message, or in another message.
-
-### 5.3.4 Object references in NIEM JSON using @id
-
-Object references in NIEM JSON use JSON-LD's `@id` keyword. This is equivalent to `structures:uri` in NIEM XML. For example, the following NIEM XML and JSON references mean the same thing and are interpreted in the same way. (There is no JSON equivalent to XML's ID/IDREF attributes.)
-
-```
-<nc:Person structures:uri="#JD">
-"nc:Person": { "@id": "#JD" }
-```
-
-The two JSON objects in [example 5-13](#ex5-13) that are values of a `nc:Person` key have the same `#JD` value for `@id`. That means the two JSON objects contain properties of a single NIEM message object, representing a person named "John Doe" who has red hair.
-
-### 5.3.5 Meaning of inline objects and object references
-
-An important aspect of all of the object reference mechanisms (`structures:ref`, `structures:uri`, and `@id`) is that they all have the same meaning. There is also no difference in meaning between an object that appears inline and an object that appears through a reference.
-
-Any claim that inline objects represent composition, while object references represent aggregation is incorrect. No life cycle dependency is implied by either method. Similarly, any claim that inline objects are intrinsic (i.e., a property inherent to an object), while object references are extrinsic (i.e., a property derived from a relationship to other things), is false. A property represented as an inline object has the exact same meaning as that property represented by a reference.
-
-### 5.3.6 Reference attribute properties
-
-A [reference attribute property](#def) contains a list of object identifiers, and is interpreted as an object reference to each of the objects thus identified, each a child property of the object containing the [reference attribute property](#def). For example, the two XML messages in [example 5-14](#ex5-14) have the same meaning.
-
-```
-<my:Thing nc:metadataRef="m6 m7">                        | <my:Thing>
-  <my:ThingName>The Snark</my:ThingName>                 |   <my:ThingName>The Snark</my:ThingName>
-  <my:ThingLocation>Dismal Valley</my:ThingLocation>     |   <my:ThingLocation>Dismal Valley</my:ThingLocation>
-</my:Thing>                                              |   <nc:Metadata>
-<nc:Metadata structures:id="m6">                         |     <nc:ConfidencePercent>75</nc:ConfidencePercent>
-  <nc:ConfidencePercent>75</nc:ConfidencePercent>        |   </nc:Metadata>
-</nc:Metadata>                                           |   <nc:Metadata>
-<nc:Metadata structures:id="m7">                         |     <nc:SourceIDText>Bingo-7</nc:SourceIDText>
-  <nc:SourceIDText>Bingo-7</nc:SourceIDText>             |   </nc:Metadata>
-</nc:Metadata>                                           | </my:Thing>
-```
-<figcaption><a name="ex5-14">Example 5-14: Reference attribute property and equivalent message in XML</a></figcaption>
-
-[Example 5-15](#ex5-15) shows the equivalent JSON message.
-
-```
-"my:Thing": {
-  "my:ThingName": "The Snark",
-  "my:ThingLocation": "Dismal Valley",
-  "nc:metadataRef": [
-    { "@id": "#m6"},
-    { "@id": "#m7"}
-  ]
-},
-"nc:Metadata": [
-  {
-    "nc:ConfidencePercent": "75",
-    "@id": "#m6"
-  },
-  {
-    "nc:SourceIDText": "Bingo-7",
-    "@id": "#m7"
-  }
-]
-```
-<figcaption><a name="ex5-15">Example 5-15: Reference attribute property in JSON message</a></figcaption>
-
-The class of these objects is determined by the name of the reference attribute property. For example, an object reference belonging to `nc:metadataRef` must have the class `nc:MetadataType`, or a derived class. *(see [rule 12-11](#rule12-11).)*
-
-## 5.4 Metadata and augmentation
+## 5.2 Metadata and augmentation
 
 Metadata is data about data.  The distinction is created by intended use.  To the person editing an image, the creation timestamp is metadata, something he does not need.  To the person writing software to sort photos into creation order, the timestamp is the data for his code.  One man's metadata is another man's data.
 
-The NIEM model contains a number of classes and properties that are suitable for metadata representations, and any model designer is free to invent new components for this purpose, as needed.  A message designer may use these components in his message model, in the same way as any other component.  For example, a message designer might, within the components he creates, use `nc:Metadata` to represent a source of information and the level of confidence in that information. [Figure 5-16](fig5-16) shows an example of a message in which the designer chose to use `nc:Metadata` as a property within his own `my:ThingType` class.
+The NIEM model contains a number of classes and properties that are suitable for metadata representations, and any model designer is free to invent new components for this purpose, as needed.  A message designer may use these components in his message model, in the same way as any other component.  For example, a message designer might, within the components he creates, use `nc:Metadata` to represent a source of information and the level of confidence in that information. [Figure 5-14](fig5-14) shows an example of a message in which the designer chose to use `nc:Metadata` as a property within his own `my:ThingType` class.
 
 ```
 <my:Thing>
@@ -2198,9 +1977,9 @@ The NIEM model contains a number of classes and properties that are suitable for
     <nc:ConfidencePercent>75</nc:ConfidencePercent>
     <nc:SourceIDText>Bingo-7</nc:SourceIDText>
 ```
-<figcaption><a name="ex5-16">Example 5-16: Metadata properties used in a designer's own class</a></figcaption>
+<figcaption><a name="ex5-9">Example 5-9: Metadata properties used in a designer's own class</a></figcaption>
 
-A message designer might also want to record source and confidence in a class reused from another namespace.  This is done through augmentation, following one of two patterns.  The first is to augment the class with an object property.  [Example 5-17](#ex5-17) shows a message example in which `nc:PersonType` is augmented with `nc:Metadata`.
+A message designer might also want to record source and confidence in a class reused from another namespace.  This is done through augmentation, following one of two patterns.  The first is to augment the class with an object property.  [Example 5-9](#ex5-9) shows a message example in which `nc:PersonType` is augmented with `nc:Metadata`.
 
 ```
 <nc:Person>                                             | "nc:Person": {
@@ -2217,9 +1996,11 @@ A message designer might also want to record source and confidence in a class re
   </my:PersonAugmentation>                              | 
 </nc:Person>                                            | 
 ```
-<figcaption><a name="ex5-17">Example 5-17: Metadata object property augmenting a reused class</a></figcaption>
+<figcaption><a name="ex5-10">Example 5-10: Metadata object property augmenting a reused class</a></figcaption>
 
-The above augmentation pattern only works for a class with element properties.  To add metadata properties to a [literal class](#def), the message designer must augment the class with a [reference attribute property](#def).  [Example 5-18](#ex5-18) shows a message example in which `nc:PersonNameTextType` is augmented with `nc:metadataRef`.
+The above augmentation pattern only works for a class that has element properties.  To add metadata properties to a datatype or a [literal class](#def), the message designer must augment with a [reference attribute property](#def).  [Example 5-10](#ex5-10) shows a message example in which `nc:PersonNameTextType` is augmented with `nc:metadataRef`.
+
+> Explain reference attribute augmentations in section 4 TODO
 
 ```
 <nc:Person>                                                                 | "nc:Person": {
@@ -2228,7 +2009,7 @@ The above augmentation pattern only works for a class with element properties.  
   </nc:PersonBirthDate>                                                     |   },
   <nc:PersonName>                                                           |   "nc:PersonName": {
     <nc:PersonFullName nc:metadataRef="m2">John Doe</nc:PersonFullName>     |     "nc:PersonFullName": "John Doe",
-  </nc:PersonName>                                                          |     "nc:metadataRef": "#m2"
+  </nc:PersonName>                                                          |     "nc:Metadata": { "@id": "#m2" }
 </nc:Person>                                                                |   },
 <nc:Metadata structures:id="m2">                                            |   "nc:Metadata": {
   <nc:ConfidencePercent>75</nc:ConfidencePercent>                           |     "@id": "#m2",
@@ -2236,11 +2017,11 @@ The above augmentation pattern only works for a class with element properties.  
                                                                             |   }
                                                                             | }
 ```
-<figcaption><a name="ex5-18">Example 5-18: Metadata reference attribute augmenting a reused class</a></figcaption>
+<figcaption><a name="ex5-11">Example 5-11: Metadata reference attribute augmenting a reused class</a></figcaption>
 
-## 5.5 Relationship properties
+## 5.3 Relationship properties
 
-The value of a property usually provides information about its parent object. For example, the value of `nc:personNameCommentText` in [example 5-19](#ex5-19) tells us something about the parent object; namely, that this name is a silly name.
+The value of a property usually provides information about its parent object. For example, the value of `nc:personNameCommentText` in [example 5-9](#ex5-9) tells us something about the parent object; namely, that this name is a silly name.
 
 ```
 <nc:Person>                                                          | "nc:Person": {
@@ -2250,9 +2031,9 @@ The value of a property usually provides information about its parent object. Fo
 </nc:Person>                                                         |   }
                                                                      | }
 ```
-<figcaption><a name="ex5-19">Example 5-19: Example of an ordinary property</a></figcaption>
+<figcaption><a name="ex5-12">Example 5-12: Example of an ordinary property</a></figcaption>
 
-Sometimes that is not what is needed. For example, in [example 5-20](#ex5-20), the [relationship property](#def) `my:isSecret` is not telling us the name "Superman" is a secret. Everybody knows that name!  Instead, `my:isSecret` is telling us something about the *relationship* between the name "Superman" and the person object with the other name "Clark Kent".  That relationship is the thing to be kept secret.
+Sometimes that is not what is needed. For example, in [example 5-13](#ex5-13), the [relationship property](#def) `my:isSecret` is not telling us the name "Superman" is a secret. Everybody knows that name!  Instead, `my:isSecret` is telling us something about the *relationship* between the name "Superman" and the person object that also has the name "Clark Kent".  That relationship is the thing to be kept secret.
 
 ```
 <nc:Person>                                               | "nc:Person": {
@@ -2267,33 +2048,37 @@ Sometimes that is not what is needed. For example, in [example 5-20](#ex5-20), t
                                                           |   }
                                                           | }
 ```
-<figcaption><a name="ex5-20">Example 5-20: Example of a relationship property</a></figcaption>
+<figcaption><a name="ex5-13">Example 5-13: Example of a relationship property</a></figcaption>
 
-NIEM uses RDF-star to represent relationship properties.  [Example 5-21](#ex5-21) shows the RDF equivalent for the message in [example 5-20](#ex5-20).  [Figure 5-22](#fig5-22) provides a diagram of that RDF graph.
+A relationship property is represented in CMF by a Property object with RelationshipIndicator equal to true; in XSD, by an attribute or element declaration with `appinfo:relationshipIndicator="true"`.  [Example 5-14](#ex5-14) shows the model representation of the relationship property 'my:isSecret` in CMF and XSD.  *(See also [§14.2.9](#1429-relationship-properties))*
 
 ```
-_:n1 nc:PersonName _:n2 .
-_:n1 nc:PersonName _:n2 {| "my:isSecret": "true" |} .
-_:n2 nc:PersonFullName "Superman" .
-_:n3 nc:PersonFullName "Clark Kent" .
+<DataProperty>
+  <Name>isSecret</Name>
+  <Namespace structures:ref="my"/>
+  <DocumentationText>True if the relationship with this property is a secret.</DocumentationText>
+  <RelationshipIndicator>true</RelationshipIndicator>
+  <AttributeIndicator>true</AttributeIndicator>
+  <Datatype structures:ref="xs:boolean"/>
+</DataProperty>
+----------
+<xs:attribute name="isSecret" appinfo:relationshipPropertyIndicator="true">
+  <xs:annotation>
+    <xs:documentation>True if the relationship with this property is a secret.</xs:documentation>
+  </xs:annotation>
+</xs:attribute>
 ```
-<figcaption><a name="ex5-21">Example 5-21: RDF-star equivalent for a relationship property</a></figcaption>
+<figcaption><a name="ex5-14">Example 5-14: Relationship property in CMF and XSD</a></figcaption>
 
-<figure>
-  <img src="images/relProp.png" style="zoom: 100%;" />
-<figcaption><a name="fig5-22">Figure 5-22: RDF-star graph diagram for a relationship property</a></figcaption>
-</figure>
-```
-
-## 5.6 Roles
+## 5.4 Roles
 
 > These use `structures:uri` in NIEM 6.  Need explanation and example TODO
 
-## 5.6 Representation pattern
+## 5.5 Representation pattern
 
 > Stuff from NDR 5 section 10.7 TODO
 
-## 5.7 Container objects
+## 5.6 Container objects
 
 > NDR 5 section 10.6 TODO
 -------
@@ -2750,7 +2535,7 @@ In CMF, the prefix is the value of the NamespacePrefix property in a Namespace o
 
 ## 8.2 Rules for reference namespaces
 
-**Rule 8-9:** Reference namespace asserts conformance || A [reference namespace](#def) MUST assert the conformance target identifier `https://docs.oasis-open.org/niemopen/ns/specification/NDR/6.0/#ReferenceSchemaDocument`; all other namespaces MUST NOT. In CMF, this is a value of the ConformanceTargetURI property in the Namespace object. In XSD, this is an [effective conformance target identifier](#def) of the schema document (*see [§6.2](#62-conformance-target-assertions))*. (N5R 4-1,4-5)
+**Rule 8-9:** Reference namespace asserts conformance || A [reference namespace](#def) MUST assert the conformance target identifier `https://docs.oasis-open.org/niemopen/ns/specification/NDR/6.0/#ReferenceSchemaDocument`; all other namespaces MUST NOT. In CMF, this is a value of the ConformanceTargetURI property in the Namespace object. In XSD, this is an [effective conformance target identifier](#def) of the schema document (*see [§6.2](#62-conformance-target-assertions)). (N5R 4-1,4-5)
 
 The conformance target identifier ends in "ReferenceSchemaDocument" instead of "ReferenceNamespace" for historical reasons.
 
@@ -2766,13 +2551,13 @@ To promote reuse, object properties defined in [reference namespaces](#def) and 
 
 ## 8.3 Rules for extension namespaces
 
-**Rule 8-13:** Extension namespace asserts conformance || An [extension namespace](#def) MUST assert the conformance target identifier `https://docs.oasis-open.org/niemopen/ns/specification/NDR/6.0/#ExtensionSchemaDocument`; all other namespaces MUST NOT. In CMF, this is a value of the ConformanceTargetURI property in the Namespace object. In XSD, this is an [effective conformance target identifier](#def) of the schema document *(see [§6.2](#62-conformance-target-assertions))*. (N5R 4-2,4-6)
+**Rule 8-13:** Extension namespace asserts conformance || An [extension namespace](#def) MUST assert the conformance target identifier `https://docs.oasis-open.org/niemopen/ns/specification/NDR/6.0/#ExtensionSchemaDocument`; all other namespaces MUST NOT. In CMF, this is a value of the ConformanceTargetURI property in the Namespace object. In XSD, this is an [effective conformance target identifier](#def) of the schema document (see [§6.2](#62-conformance-target-assertions)). (N5R 4-2,4-6)
 
 **Rule 8-14:** Object properties in extension namespace are referenceable || In CMF, a Class object or an ObjectProperty object in an [extension namespace](#def) MUST NOT have a ReferenceCode property of `ID`, `URI`, or `NONE`. In XSD, a type definition or an element declaration in an [extension namespace](#def) MUST NOT have an `@appinfo:referenceCode` property of `ID`, `URI`, or `NONE`. (NEW)
 
 ## 8.4 Rules for subset namespaces
 
-**Rule 8-15:** Subset namespace asserts conformance || A [subset namespace](#def) must assert the conformance target identifier `https://docs.oasis-open.org/niemopen/ns/specification/NDR/6.0/#SubsetSchemaDocument`. In CMF, this is a value of the ConformanceTargetURI property in the Namespace object. In XSD, this is an [effective conformance target identifier](#def) of the schema document *(see [§6.2](#62-conformance-target-assertions))*. (N5R 4-5)
+**Rule 8-15:** Subset namespace asserts conformance || A [subset namespace](#def) must assert the conformance target identifier `https://docs.oasis-open.org/niemopen/ns/specification/NDR/6.0/#SubsetSchemaDocument`. In CMF, this is a value of the ConformanceTargetURI property in the Namespace object. In XSD, this is an [effective conformance target identifier](#def) of the schema document (see [§6.2](#62-conformance-target-assertions)). (N5R 4-5)
 
 **Rule 8-16:** Subset has corresponding reference or extension namespace || A  representation of a [reference namespace](#def) or [extension namespace](#def) with the same identifier as the [subset namespace](#def) MUST exist. (NEW)
 
@@ -3124,7 +2909,7 @@ Properties in a reference or extension namespace are always referenceable, in or
 
 **Rule 9-88:** Attribute augmentations are documented || Within a [message model](#def), an attribute reference that does not appear in the corresponding [reference schema document](#def) or [extension schema document](#def) MUST have the attribute `appinfo:augmentingNamespace` containing the namespace prefix or URI of the augmenting namespace. (NEW)
 
-Augmented XSD type definitions in a message model must include attribute augmentations so that the schema will validate all conforming messages. *(See [section 4.15.6, Attribute augmentations in message models](#4156-attribute-augmentations-in-message-models))*.
+Augmented XSD type definitions in a message model must include attribute augmentations so that the schema will validate all conforming messages. (see [section 4.15.6, Attribute augmentations in message models](#4156-attribute-augmentations-in-message-models)).
 
 -------
 
@@ -3284,6 +3069,8 @@ even though this is schema-valid. Instead, all augmentation properties should be
 
 The attribute `xsi:nil` can only be used to create an object reference. It cannot be used to omit mandatory content.
 
+-------
+
 # 13. Rules for JSON messages
 
 **Rule 13-1:** Message is a JSON object || A JSON message MUST be valid according to the grammar syntax `<object>` as defined by [[RFC 8259]](#ref). (NEW)
@@ -3335,74 +3122,71 @@ For example, the following NIEM JSON is valid, because `nc:Item` and `nc:Equipme
   "nc:EquipmentName": "Pump"
 }
 ```
+
 -------
 
-# 14. The NIEM conceptual model
+# 14. Interpretation of NIEM data
 
-Each release of NIEM provides a concrete data model. The components of this model may be used to build message specifications and define information exchanges. The model spells out what kinds of objects exist and how those objects may be related. Data that conforms to a NIEM message specification has a specific meaning. This section describes the framework within which NIEM data has meaning; that is, the NIEM conceptual model.
+NIEM is a framework for developer-level specifications of data.  The primary purpose of a NIEM-based data specification is to establish a common understanding among developers, so that they can write software that correctly handles the shared data.  Much of that common understanding comes from the natural language documentation in a NIEM model.  For example, consider the documentation of the `nc:PersonName` object property shown below:
 
-The NIEM conceptual model and the rules contained in this NDR are based on the RDF conceptual model. This provides numerous advantages:
+```
+<ObjectProperty structures:id="nc.PersonName">               | <xs:element name="PersonName" type="nc:PersonNameType">
+  <Name>PersonName</Name>                                    |   <xs:annotation>
+  <Namespace structures:ref="nc"/>                           |     <xs:documentation>
+  <DocumentationText>                                        |       A combination of names and/or titles
+    A combination of names and/or titles                     |       by which a person is known.
+    by which a person is known.                              |     </xs:documentation>
+  </DocumentationText>                                       |   </xs:annotation>
+  <Class structures:ref="nc.PersonNameType"/>                | </xs:element>
+</ObjectProperty>                                            | 
+```
+<figcaption><a name="ex14-1">Example 14-1:  Natural language documentation in CMF and XSD</a></figcaption>
 
-* NIEM’s conceptual model is defined by a recognized standard.
+In addition to the definition of individual model components, the meaning of NIEM data is also expressed through the arrangement of nested objects in a message, which expresses a relationship between the parent and child.  For example, the meaning of the two equivalent messages in [example 3-2](#ex3-2) (reproduced below) is described in [table 14-2](#tab14-2).
 
-* NIEM’s conceptual model is very well defined.
+```
+<msg:Request                                                  | {
+ xmlns:nc="https://docs.oasis-open.org/niemopen/ns/model/niem |   "@context": {
+ xmlns:msg="http://example.com/ReqRes/1.0/">                  |     "nc": "https://docs.oasis-open.org/niemopen/ns/model/niem-
+  <msg:RequestID>RQ001</msg:RequestID>                        |     "msg": "http://example.com/ReqRes/1.0/"
+  <msg:RequestedItem>                                         |   },
+    <nc:ItemName>Wrench</nc:ItemName>                         |   "msg:Request": {
+    <nc:ItemQuantity>10</nc:ItemQuantity>                     |     "msg:RequestID" : "RQ001",
+  </msg:RequestedItem>                                        |     "msg:RequestedItem": {
+</msg:Request>                                                |       "nc:ItemName": Wrench",
+                                                              |       "nc:ItemQuantity": 10
+                                                              |      }
+                                                              |   }
+                                                              | }
+```
+<figcaption>Example 3-2: Messages in XML and JSON syntax</figcaption>
 
-* NIEM’s conceptual model provides a consistent basis for relating attributes, elements, types, and other XML Schema components.
+| Message data | Description | Meaning |
+| ------------ | ----------- | ------- |
+| `<msg:Request>` *or*</br>`"msg:Request":{...}` |The initial property is `msg:Request`. The message model defines the range of this property as the `msg:RequestType` class. | There is an object that is a request for a specified quantity of a named item. |
+| `<msg:RequestID>` *or</br>`"msg:RequestID":...` | The next property is `msg:RequestID`. The message model defines the range of this data property as the `xs:token` datatype. | There is a RequestID relationship between the object of `msg:RequestType` and the literal value `RQ001`. |
+| `<msg:RequestedItem>` *or*</br>`"msg:RequestedItem":{...}` | The next property is `msg:RequestedItem`. The message model defines the range of this object property as the `nc:ItemType` class. | There is a RequestedItem relationship between the object of `msg:RequestType` and the object of `nc:ItemType`. |
+| `<nc:ItemName>` *or*</br>`"nc:ItemName":...` | The next property is `nc:ItemName`. The message model defines the range of this data property as the `nc:TextType` datatype. | There is an ItemName relationship between the object of `nc:ItemType` and the literal value `Wrench`. |
+| `<nc:ItemQuantity>` *or*</br>`nc:ItemQuantity":...` | The next property is `nc:ItemQuantity`. The message model defines the range of this data property as the `nc:QuantityType` datatype. | There is an ItemQuantity relationship between the object of `nc:ItemType` and the literal value `10`. |
+<figcaption><a name="tab14-2">Table 14-2: Meaning of NIEM data</a></figcaption>
 
-* NIEM’s use of the RDF model defines what a set of NIEM data means. The RDF specification provides a detailed description of what a statement means. This meaning is leveraged by NIEM.
+NIEM also provides an interpretive framework for model and message semantics that is grounded in the Resource Description Framework (RDF).   Every component in a NIEM model and every object in a NIEM message corresponds to a set of RDF triples, using terms from RDFS and OWL.  The semantics of NIEM models and messages are defined by the meaning of those RDF triples, offering several benefits:
 
-* NIEM’s use of the RDF model provides a basis for inferring and reasoning about XML data that uses NIEM. That is, using the rules defined for the RDF model, programs can determine implications of relationships between NIEM-defined objects.
+* Cross-format equivalence: NIEM RDF defines equivalence among messages of different message formats.  An XML message and a JSON message that correspond to the same RDF triples are semantically equivalent and can be translated between formats with no loss of information.
 
-With the exception of this section, NIEM rules are explained in this document without reference to RDF or RDF concepts. Understanding RDF is not required to understand NIEM-conformant schemas or data based on NIEM. However, understanding RDF concepts may deepen understanding of NIEM.
+* Open-world semantics and explicit assertions:  RDF operates under the open-world assumption, meaning that the absence of information does not imply its negation.  It avoids inferring implicit relationships unless explicitly stated.  These principles also apply to NIEM data.
 
-## 14.1 The RDF conceptual model
+* Knowledge graph representation: The RDF entailed by a NIEM message and its model is a knowledge graph.  This representation allows NIEM data to be used in semantic web applications, linked data ecosystems, and AI-driven systems.
 
-This section identifies features of RDF and RDFS, in order to establish a mapping between RDF semantics and NIEM. A reader should read the referenced source documents to obtain a full understanding of the concepts mentioned in this section.
+Message designers and developers are not required to understand or work directly RDF.  NIEM models, messages, and conformance rules are explained without reference to RDF or RDF concepts.  NIEM messages can always be processed as ordinary XML or JSON data.  However, with no additional effort, NIEM messages and models are automatically available as RDF as well, to the benefit of those who use semantic technologies.
 
-RDF establishes a graph-based data model, as described by [RDF Concepts](#ref) Section 1.1, Graph-based Data Model, which states:
+## 14.1 RDF interpretation of NIEM models
 
-> The core structure of the abstract syntax is a set of triples, each consisting of a subject, a predicate and an object. A set of such triples is called an RDF graph.
+This subsection defines the RDF triples that are entailed by the components of a NIEM model.  At present, these RDF triples express only semantics; they do not express cardinality or datatype constraints.  A later version of this document may add RDF entailments for those constraints, at which point RDF may be said to be a third representation for NIEM models. 
 
-[RDF Concepts](#ref) also states:
+### 14.1.1 Model terminology in CMF, XSD, and RDF
 
-> There can be three kinds of nodes in an RDF graph: IRIs, literals, and blank nodes.
-
-[RDF Concepts](#ref) Section 1.2, Resources and Statements describes resources:
-
-> Any IRI or literal denotes something in the world (the universe of discourse). These things are called resources. Anything can be a resource, including physical things, documents, abstract concepts, numbers and strings; the term is synonymous with entity as it is used in the RDF Semantics specification. The resource denoted by an IRI is called its referent, and the resource denoted by a literal is called its literal value.
-
-[RDF Concepts](#ref) also describes relationships and blank nodes.
-
-> Asserting an RDF triple says that some relationship, indicated by the predicate, holds between the resources denoted by the subject and object. This statement corresponding to an RDF triple is known as an RDF statement. The predicate itself is an IRI and denotes a property, that is, a resource that can be thought of as a binary relation. (Relations that involve more than two entities can only be indirectly expressed in RDF.)
-
-> Unlike IRIs and literals, blank nodes do not identify specific resources. Statements involving blank nodes say that something with the given relationships exists, without explicitly naming it.
-
-[RDF Concepts](#ref) Section 1.7, Equivalence, Entailment and Inconsistency describes the meaning of an RDF triple:
-
-> An RDF triple encodes a statement—a simple logical expression, or claim about the world. An RDF graph is the conjunction (logical AND) of its triples.
-
-[RDF Concepts](#ref) Section 3.1, Triples defines an RDF triple:
-
-> An RDF triple consists of three components:
->
-> * the subject, which is an IRI or a blank node
-> * the predicate, which is an IRI
-> * the object, which is an IRI, a literal or a blank node
->
->An RDF triple is conventionally written in the order subject, predicate, object.
-
-[RDF Concepts](#ref) Section 4, RDF Datasets defines an RDF dataset:
-
-> An RDF dataset is a collection of RDF graphs, and comprises:
->
-> * Exactly one default graph, being an RDF graph. The default graph does not have a name and MAY be empty.
-> * Zero or more named graphs. Each named graph is a pair consisting of an IRI or a blank node (the graph name), and an RDF graph. Graph names are unique within an RDF dataset.
-
-## 14.2 NIEM in terms of RDF
-
-The RDF view of the meaning of data carries into NIEM: NIEM objects are statements that make claims about the world: that a person has a name, a residence location, a spouse, etc. The assertion of one set of facts does not necessarily rule out other statements: A person could have multiple names, could have moved, or could be divorced. Each statement is a claim asserted to be true by the originator of the statement.
-
-Apart from this section, this document makes little use of RDF terminology, instead describing the components of a model in terms of the metamodel, CMF, and XSD.  The correspondences among these terminologies are given in the table below.
+CMF, XSD, and RDF use different terms for the same kind of model components.  The correspondence among these terms is given in [table 14-3](#tab14-3) below.
 
 | CMF          | XSD         | RDF     |
 | ------------ | ----------- | ------- |
@@ -3412,18 +3196,11 @@ Apart from this section, this document makes little use of RDF terminology, inst
 | ObjectProperty | Element declaration | owl:ObjectProperty |
 | DataProperty | Element or attribute declaration | owl:DataProperty (or DatatypeProperty) |
 
-When describing the instance data in messages, this document uses terminology from XML and JSON, not RDF.  The correspondences are given below.
+<figcaption><a name="tab14-3">Table 14-3: Correspondence of model terminology in CMF, XSD, and RDF</a></figcaption>
 
-| XML          | JSON        | RDF     |
-|--------------|-------------|---------|
-| Element      | Object      | Resource or blank node |
-| Value        | String, number, or boolean | Literal |
+### 14.1.2 Identifiers for model components
 
-## 14.3 Identifiers for model components
-
-Identifiers for the objects in a NIEM message are described in [Section 5.3, Identifiers and references in NIEM messages](#53-identifiers-and-references-in-niem-messages). This section describes the identifiers for the components in a NIEM model.
-
-Every component in a NIEM model has exactly one Uniform Resource Identifier (URI). This is formed from the component name (`Component.Name`) and the URI for the component's namespace (`Component.Namespace.NamespaceURI`), according to the following algorithm:
+Every component in a NIEM model has exactly one Uniform Resource Identifier (URI). It is formed from the component name and the URI for the component's namespace, according to the following algorithm:
 
 * If the namespace URI ends in `/` or in `#`, then the component URI is formed by concatenating the namespace URI and the component name; for example:
 
@@ -3443,19 +3220,15 @@ Every component in a NIEM model has exactly one Uniform Resource Identifier (URI
   * Component name: `BarType`
   * Component URI: `urn:us:gov:some:thing:BarType`
 
-## 14.4 NIEM model mapped to RDF
-
-This section describes the RDF triples that are entailed by Class, DataProperty, and ObjectProperty objects in a NIEM model. Terms beginning with `$` are variables representing the value of some model object property.
-
-### 14.4.1 Class object
+### 14.1.3 RDF interpretation of Class objects
 
 A Class object 
 
-* with the identifier `$id` entails the following RDF: `$id rdf:type owl:Class .`
+* with the URI `$id` entails the following RDF: `$id rdf:type owl:Class .`
 * with a non-empty DocumentationText property `$doc` entails: `$id skos:definition $doc .`
 * with a non-empty SubClassOf property `$sub` entails:  `$id owl:subClassOf $sub .`
 
-[Example 14-1](#ex14-1) below shows the CMF and XSD representation of a Class object, plus the RDF entailed by that object.
+[Example 14-4](#ex14-4) below shows the CMF and XSD representation of a Class object, plus the RDF entailed by that object.
 
 ```
 <Class structures:id="nc.WeightMeasureType">
@@ -3489,18 +3262,18 @@ nc:WeightMeasureType
   skos:definition "A data type for a measure of a weight." ;
   owl:subClassOf nc:MeasureType .
 ```
-<figcaption><a name="ex14-1">Example 14-1: RDF entailed by a Class object</a></figcaption>
+<figcaption><a name="ex14-4">Example 14-4: RDF entailed by a Class object</a></figcaption>
 
-### 14.4.2 DataProperty object
+### 14.1.4 RDF interpretation of DataProperty objects
 
 A DataProperty object
 
-* with the identifier `$id` entails the following RDF: `$id rdf:type owl:ObjectProperty .`
+* with the URI `$id` entails the following RDF: `$id rdf:type owl:DataProperty .`
 * with a non-empty DocumentationText property `$doc` entails: `$id skos:definition $doc .`
 * with a non-empty Datatype property `$type` entails: `$id rdfs:range $type .`
 * with a non-empty SubPropertyOf property `$sub` entails: `$id rdfs:subPropertyOf $sub .`
 
-[Example 14-2](#ex14-2) below shows the CMF and XSD representation of an DataProperty object, plus the RDF entailed by that object.
+[Example 14-5](#ex14-5) below shows the CMF and XSD representation of an DataProperty object, plus the RDF entailed by that object.
 
 ```
 <DataProperty structures:id="unece.MassUnitCode">
@@ -3523,18 +3296,18 @@ unece:MassUnitCode
   rdfs:range unece:MassCodeType ;
   rdfs:subPropertyOf nc:WeightUnitAbstract .
 ```
-<figcaption><a name="ex14-2">Example 14-2: RDF entailed by a DataProperty object</a></figcaption>
+<figcaption><a name="ex14-5">Example 14-5: RDF entailed by a DataProperty object</a></figcaption>
 
-### 14.4.3 ObjectProperty object
+### 14.1.5 RDF interpretation of ObjectProperty objects
 
 An ObjectProperty object
 
-* with the identifier `$id` entails the following RDF: `$id rdf:type owl:ObjectProperty .`
+* with the URI `$id` entails the following RDF: `$id rdf:type owl:ObjectProperty .`
 * with a non-empty DocumentationText property `$doc` entails: `$id skos:definition $doc .`
 * with a non-empty Class property `$class` entails: `$id rdfs:range $class .`
 * with a non-empty SubClassOf property `$sub` entails: `$id rdfs:subClassOf $sub .`
 
-[Example 14-3](#ex14-3) below shows the CMF and XSD representation of an ObjectProperty object, plus the RDF entailed by that object.
+[Example 14-6](#ex14-6) below shows the CMF and XSD representation of an ObjectProperty object, plus the RDF entailed by that object.
 
 ```
 <ObjectProperty structures:id="nc.Location2DGeospatialCoordinate">
@@ -3558,11 +3331,382 @@ nc:Location2DGeospatialCoordinate
   rdfs:range nc:Location2DGeospatialCoordinateType ;
   rdfs:subPropertyOf nc:LocationGeospatialCoordinateAbstract .
 ```
-<figcaption><a name="ex14-3">Example 14-3: RDF entailed by an ObjectProperty object</a></figcaption>
+<figcaption><a name="ex14-6">Example 14-6: RDF entailed by an ObjectProperty object</a></figcaption>
 
-## 14.5 NIEM messages mapped to RDF
+## 14.2 RDF interpretation of NIEM messages
 
-TODO
+This subsection defines the RDF triples that are entailed by the constructs in a NIEM message.  The examples show portions of equivalent XML and JSON messages, and of the RDF those portions entail.
+
+### 14.2.1 Objects, properties, and values
+
+The information in a NIEM message is expressed as values of properties of objects.
+
+* An object in NIEM XML is an element that has attributes, or complex content, or both.  An object in NIEM JSON is a JSON object that is the value of a key/value pair.
+
+* A property in NIEM XML is an attribute name or an element tag.  The QName of the attribute or the element tag identifies a Property object in the message model; [section 14.1.2](#1412-identifiers-for-model-components) specifies how to convert that QName to the property's URI.  A property in NIEM JSON is the key in a key/value pair.  The key is a compact IRI that expands to the property's URI.
+
+* A value in NIEM XML can be a literal, the value of an attribute or the simple content of an element.  A value in NIEM XML can also be an object, a child element with attributes and/or complex content.  A value in NIEM JSON can be an object, or a literal; that is, a string, number, or boolean.  (A value in NIEM JSON can also be an array of values for a repeatable property; see [section TODO]().)
+
+In the XML shown in [example 14-7](#ex14-7) below, the `nc:PersonName` element is an object; `nc:PersonGivenName` is a property of that object; `Tom` is a literal value of that property.  In the JSON, the value of the `nc:PersonName` key is an object; `nc:PersonGivenName` is a property of that object; `Tom` is a literal value of that property.
+
+```
+<nc:PersonName>                                           | "nc:PersonName": {    
+  <nc:PersonGivenName>Tom</nc:PersonGivenName>            |   "nc:PersonGivenName": "Tom"
+</nc:PersonName>                                          | }   
+```
+<figcaption><a name="ex14-7">Example 14-7:  NIEM objects, properties, and values</a></figcaption>
+
+### 14.2.2 Messages and message objects
+
+A [message type](#def) declares the [message property](#def) for the messages of that type (*see [§3.1.3](#313)*).  The value of the message property is known as the [message object](#def).  The data structure of a NIEM message is a directed graph in which all nodes are reachable from the message object.
+
+A NIEM XML message is an XML document.  The message object is the element with the message property tag; this is usually the document object.
+
+A NIEM JSON message is a JSON object with at least one `@context` key, plus one key that is the message property.  The message object is the value of that key.
+
+For example, the message object in the XML message below is the element with the `msg:Request` tag.  The message object in the JSON message is the value of the `msg:Request` key.
+
+```
+<msg:Request                                                  | {
+ xmlns:nc="https://docs.oasis-open.org/niemopen/ns/model/niem |   "@context": {
+ xmlns:msg="http://example.com/ReqRes/1.0/">                  |     "nc": "https://docs.oasis-open.org/niemopen/ns/model/niem-
+  <msg:RequestID>RQ001</msg:RequestID>                        |     "msg": "http://example.com/ReqRes/1.0/"
+  <msg:RequestedItem>                                         |   },
+    <nc:ItemName>Wrench</nc:ItemName>                         |   "msg:Request": {
+    <nc:ItemQuantity>10</nc:ItemQuantity>                     |     "msg:RequestID" : "RQ001",
+  </msg:RequestedItem>                                        |     "msg:RequestedItem": {
+</msg:Request>                                                |       "nc:ItemName": "Wrench",
+                                                              |       "nc:ItemQuantity": 10
+                                                              |      }
+                                                              |   }
+                                                              | }
+```
+<figcaption><a name="ex14-8">Example 14-8: Message objects in NIEM XML and NIEM JSON</a></figcaption>
+
+### 14.2.3 Objects and object identifiers
+
+A hierarchy of nested objects (for example, those described in [table 14-2](#tab14-2) above) is sufficient to represent simple data that takes the form of a tree. However, this simple representation has limitations, and is not capable of expressing all relationships among objects. Situations that cause problems include:
+
+* Cycles: some object has a relationship that, when followed, eventually circles back to itself. For example, suppose that Bob has a sister relationship to Sue, who has a brother relationship back to Bob. These relationships do not form a tree; they require a data structure that is a graph, rather than a simple hierarchy of objects.
+
+* Reuse: multiple objects have a relationship to a common object. For example, suppose Bob and Sue both have a mother relationship to Sally. Expressed as a tree of nested objects, this would result in a duplicate representation of Sally.
+
+NIEM solves these problems through message object identifiers. The data that represents an object may include an object identifier. Data with the same identifier represents the same object, and is interpreted as if the the object in its entirety appeared at that point in the message. The resulting data structure is a graph, not a tree.
+
+This subsection describes how those identifiers become the subject IRIs or blank node identifiers in the RDF triples entailed by a message object.
+
+Most objects in a NIEM message have no identifier.  These objects entail RDF triples with a subject that is a blank node.  [Example 14-9](#ex14-9) shows XML and JSON objects with no identifier, and the triples these objects entail.
+
+```
+<nc:PersonName>                                      | "nc:PersonName": {                  | _:b0 rdf:type nc:PersonNameType .
+  <nc:PersonGivenName>Tom</nc:PersonGivenName>       |   "nc:PersonGivenName": "Tom"       | _:b0 nc:PersonName _:b1 .
+</nc:PersonName>                                     | }                                   | 
+```
+<figcaption><a name="ex14-9">Example 14-9:  NIEM objects without identifiers</a></figcaption>
+
+Some objects are identified by a *fragment identifier*.  In the common case, where the message does not have a base URI, these objects also entail RDF triples with a blank node subject.  In an XML message, `structures:id` always supplies a fragment identifier, as does `structures:uri` when the leading character is `#`.  In a JSON message, a value of the `@id` key beginning with `#` also supplies a fragment identifier.  By convention, the fragment identifier is used as the blank node identifier.  [Example 14-10](#ex14-10) shows XML and JSON objects with fragment identifiers, and the blank node RDF triples these objects entail.
+
+```
+<nc:PersonName structures:id="N01">                 | "nc:PersonName": [                   | _:N01 rdf:type nc:PersonNameType .
+  <nc:PersonGivenName>Tom</nc:PersonGivenName>      |   { "@id": "#N01",                   | _:N01 nc:PersonName _:b1 .
+</nc:PersonName>                                    |     "nc:PersonGivenName": "Tom"      | _:N02 rdf:type nc:PersonNameType .
+<nc:PersonName structures:uri="#N02">               |   },                                 | _:N02 nc:PersonName _:b2 .
+  <nc:PersonGivenName>Dick</nc:PersonGivenName>     |   { "@id": "#N02",                   | 
+</nc:PersonName>                                    |     "nc:PersonGivenName": "Dick"     | 
+                                                    |   }                                  | 
+                                                    | ]                                    |
+```
+<figcaption><a name="ex14-10">Example 14-10:  NIEM objects with fragment identifiers</a></figcaption>
+
+Some objects are identified by an *absolute URI*.  These entail RDF triples with a resource subject.  In XML, these identifiers are supplied by `structures:uri`; in JSON, by `@id`.   [Example 14-11](#ex14-11) shows XML and JSON objects identified by absolute URI, and the RDF triples these objects entail.
+
+```
+<nc:PersonName structures:uri="http://example.com/Name7">
+  <nc:PersonGivenName>Harry</nc:PersonGivenName>
+</nc:PersonName>
+----------
+"nc:PersonName": {
+  "@id": "http://example.com/Name7",
+  "nc:PersonGivenName": "Harry"
+}
+----------
+<http://example.com/Name7> rdf:type nc:PersonNameType .
+<http://example.com/Name7> nc:PersonName _:b1 .
+```
+<figcaption><a name="ex14-11">Example 14-11:  NIEM objects identified by absolute URI</a></figcaption>
+
+NIEM messages are often without expectation of permanence, existing only to exchange data from producer to consumers.  There is typically no identifier for such a message as a whole.  However, some messages do have identifiers; these are encoded in an XML message by `xml:base`, and in JSON by a `@base` key in the message context.  
+
+When a NIEM message has an identifier, objects with a fragment identifier entail RDF triples with a resource subject instead of a blank node identifier.  The URI for the resource is then formed from the fragment identifier and the message URI according to the process in section 5 of [RFC 3986](#ref), treating the message URI as the base URI.  [Example 14-12](#ex14-12) shows an XML and JSON message with an identifer, and the RDF triples entailed by the objects therein.
+
+```
+<my:Message
+  xmlns:my="http://example.com/My/Namespace/"
+  xmlns:nc="https://docs.oasis-open.org/niemopen/ns/model/niem-core/6.0/"
+  xml:base="http://example.com/MSG/22">
+  <nc:PersonName structures:id="N01">
+    <nc:PersonGivenName>Tom</nc:PersonGivenName>
+  </nc:PersonName>
+  <nc:PersonName structures:uri="#N02">
+    <nc:PersonGivenName>Dick</nc:PersonGivenName>
+  </nc:PersonName>
+</my:Message>
+----------
+{ 
+  "@context": {
+    "my": "http://example.com/My/Namespace/",
+    "nc": "https://docs.oasis-open.org/niemopen/ns/model/niem-core/6.0/",
+    "@base": "http://example.com/MSG/22"
+  },
+  "nc:PersonName": [
+    { "@id": "#N01",
+      "nc:PersonGivenName": "Tom"
+    },
+    { "@id": "#N02",
+      "nc:PersonGivenName": "Dick"
+    }
+  ]
+}
+--------
+<http://example.com/MSG/22#N01> nc:PersonGivenName "Tom" .
+<http://example.com/MSG/22#N02> nc:PersonGivenName "Dick" .
+```
+<figcaption><a name="ex14-12">Example 14-12: Objects with fragment identifiers and message base URI</a></figcaption>
+
+### 14.2.4 Object properties and object class
+
+Every object in a NIEM message is an instance of a Class in the message model; specifically, the class of the [object property](#def) *(see [§4.7](#47-objectproperty))*.  Every object entails a RDF triple specifying its class via `rdf:type`.  For example, the objects below are values of the `nc:PersonName` object property, and are instances of the `nc:PersonNameType` class, and entail the RDF triple shown.
+
+```
+<nc:PersonName>                                      | "nc:PersonName": {                    | _:b0 rdf:type nc:PersonNameType .
+  <nc:PersonGivenName>Tom</nc:PersonGivenName>       |   "nc:PersonGivenName": "Tom"         | 
+</nc:PersonName>                                     | }                                     |                                  
+
+<nc:PersonName structures:id="N01">                  | "nc:PersonName": {                    | _:N01 rdf:type nc:PersonNameType
+  <nc:PersonGivenName>Dick</nc:PersonGivenName>      |   "@id": "#N01",                      |
+</nc:PersonName>                                     |   "nc:PersonGivenName": "Dick"        |
+
+<nc:PersonName                                       | "nc:PersonName": {                    | <http://example.com/Name7>
+  structures:uri="http://example.com/Name7">         |   "@id": "http://example.com/Name7",  |     rdf:type nc:PersonNameType .
+  <nc:PersonGivenName>Harry</nc:PersonGivenName>     |   nc:PersonGivenName": "Harry"        |
+</nc:PersonName>                                     | }                                     |
+```
+<figcaption><a name="ex14-13">Example 14-13:  Object property and class</a></figcaption>
+
+## 14.2.5 Data properties and literal values
+
+When the Property in the model is a DataProperty, the property value in the message is a literal.  In [example 14-13](#ex14-13) above, `nc:PersonGivenName` is a data property; it has the Datatype `nc:PersonNameType`; its values are  the literal strings "Tom", "Dick", and "Harry".  
+
+Literal values have a type definition that is a Datatype object in the message model; specifically, the datatype of the [data property](#def) *(see [§4.8](#48-dataproperty))*.  If the datatype is not derived from `xs:string`, then the value in the RDF triple includes a specification of the XSD base type, in the form `"$value"^^$baseType`, where *$value* is the literal and *$baseType* is the QName of the XSD type.  For example, in [example 14-14](#ex14-14) below, the datatype of `nc:ItemQuantity` is derived from `xsd:decimal`; the RDF triple entailed by that property is as shown.
+
+```
+<msg:RequestedItem>                           | {                                  | _:b0 rdf:type msg:RequestedItemType .
+  <nc:ItemName>Wrench</nc:ItemName>           |   "msg:RequestedItem": {           | _:b0 nc:ItemName "Wrench" .
+  <nc:ItemQuantity>10</nc:ItemQuantity>       |     "nc:ItemName": "Wrench",       | _:b0 nc:ItemQuantity "10"^^xsd:decimal .
+</msg:RequestedItem>                          |     "nc:ItemQuantity": 10          | 
+                                              |    }                               | 
+                                              | }                                  | 
+```
+<figcaption><a name="ex14-14">Example 14-14: Data property and datatype in RDF</a></figcaption>
+
+Language-tagged strings are represented in NIEM as an [object property](#def) with a [literal class](#def), and not as a data property, as shown in the next section.
+
+### 14.2.6 Literal class and language tags
+
+A literal that has a language specification is represented as an instance of a literal class in NIEM XML and NIEM JSON.  The language tag is specified by `xml:lang` in an XML message, and is specified by `@language` in a JSON message, and entails a language-tagged string in RDF.  For example, the class of the object property `nc:CommentText` is `nc:TextType`, which is defined as follows in CMF and XSD:
+
+```
+<Class structures:id="nc.TextType">
+  <Name>TextType</Name>
+  <Namespace structures:ref="nc" xsi:nil="true"/>
+  <DocumentationText>A data type for a character string.</DocumentationText>
+  <ChildPropertyAssociation>
+    <DataProperty structures:ref="nc.TextLiteral" xsi:nil="true"/>
+    <MinOccursQuantity>1</MinOccursQuantity>
+    <MaxOccursQuantity>1</MaxOccursQuantity>
+  </ChildPropertyAssociation>
+  <ChildPropertyAssociation>
+    <DataProperty structures:ref="xml.lang" xsi:nil="true"/>
+    <MinOccursQuantity>0</MinOccursQuantity>
+    <MaxOccursQuantity>1</MaxOccursQuantity>
+  </ChildPropertyAssociation>
+</Class>
+----------
+  <xs:complexType name="TextType">
+    <xs:annotation>
+      <xs:documentation>A data type for a character string.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="niem-xs:string">
+        <xs:attribute ref="xml:lang" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+```
+<figcaption><a name="ex14-15">Example 14-15: Literal class definition of a language-tagged string</a></figcaption>
+
+[Example 14-16](#ex14-16) shows a language-tagged instance of `nc:CommentText` in XML and JSON, and shows the RDF triples entailed by this object.
+
+```
+<nc:CommentText xml:lang="fr">            | "nc:CommentText": {                  | _:b0 rdf:type nc:TextType .
+  Très bien!                              |   "@value": "Très bien!",            | _:b0 nc:CommentText "Très bien!"@fr .
+</nc:CommentText>                         |   "@language": "fr"                  | 
+                                          | }                                    | 
+```
+<figcaption><a name="ex14-16">Example 14-16: Language-tagged string in XML, JSON, and RDF</a></figcaption>
+
+[Section 5.1, *Datatypes and literal classes*](#51-datatypes-and-literal-classes) contains more examples of literal class values in XML and JSON.
+
+### 14.2.7 Repeatable properties
+
+Class objects in the model specify the allowable cardinalities of their properties via a ChildPropertyAssociation object.
+
+A ChildPropertyAssociation object in the message model represents an association between a class and a child property of that class (*see [§4.5](#45-childpropertyassociation))*.  When that model object has a MaxOccursQuantity greater than one, the property is repeatable.  The values of a repeatable property are represented as an array in JSON (even if the property occurs only once).  Each value entails a separate RDF triple.  [Example 14-17](#ex14-17) shows the values of the repeatable property `foo` in XML and JSON, and the RDF triples entailed by those values.
+
+```
+<msg:Inventory>                               | {                                    | _:b0 rdf:type msg:InventoryType .
+  <nc:Item>                                   |   "msg:Inventory": {                 | _:b0 nc:Item :_b1 .
+    <nc:ItemName>Wrench</nc:ItemName>         |     "nc:Item": [                     | _:b0 nc:Item :_b2 .
+    <nc:ItemQuantity>10</nc:ItemQuantity>     |       {                              | _:b1 rdf:type nc:ItemType .
+  </nc:Item>                                  |         "nc:ItemName": "Wrench",     | _:b1 nc:ItemName "Wrench" .
+  <nc:Item>                                   |         "nc:ItemQuantity": 10        | _:b1 nc:ItemQuantity "10"^^xsd:decimal .
+    <nc:ItemName>Hammer</nc:ItemName>         |       },                             | _:b2 rdf:type nc:ItemType .
+    <nc:ItemQuantity>2</nc:ItemQuantity>      |       {                              | _:b2 nc:ItemName "Hammer" .
+  </nc:Item>                                  |         "nc:ItemName": "Hammer",     | _:b2 nc:ItemQuantity "2"^^xsd:decimal .
+</msg:Inventory>                              |         "nc:ItemQuantity": 2         | 
+                                              |       }                              | 
+                                              |     ]                                | 
+                                              |   }                                  | 
+                                              | }                                    | 
+```
+<figcaption><a name="ex14-17">Example 14-17: Repeatable object property</a></figcaption>
+
+Data properties that have a List datatype are also repeatable properties.  For example, `nc:MeasureTextList` is a data property with a datatype that is a list of `xs:string` values.  [Example 14-18](#ex14-18) shows an instance of that property in XML and JSON, and shows the RDF triples entailed by that property.
+
+```
+<cbrn:TotalEfficiencyCalculation>
+  <cbrn:EnergyValueList>15.0 32.2</cbrn:EnergyValueList>
+</cbrn:TotalEfficiencyCalculation>
+----------
+{
+  "cbrn:TotalEfficiencyCalculation": {
+    "cbrn:EnergyValueList": [ 15.0, 32.2 ]
+  }
+}
+----------
+_:b0 rdf:type cbrn:EfficiencyCalibrationType .
+_:b0 cbrn:EnergyValueList 15.0^^xsd:double .
+_:b0 cbrn:EnergyValueList 32.2^^xsd:double .
+```
+<figcaption><a name="ex14-18">Example 14-18: Repeatable data property with a List datatype</a></figcaption>
+
+### 14.2.8 Ordered properties
+
+By default, the order of a repeated property in an object is not significant.  For example, there is no meaning to the fact that "Wrench" appears before "Hammer" in [example 14-17](#ex14-17), or that "15.0" comes before "32.2" in [example 14-18](#ex14-18).
+
+An ordered property is a repeatable property in which order is signficant.  For example, the order of a repeated `nc:PersonMiddleName` property is usually significant; "Peter Death Bredon Wimsey" is not the same name as "Peter Bredon Death Wimsey".  An ordered property is indicated in the model by a ChildPropertyAssociation object in which OrderedPropertyIndicator is true.  For example, [example 4-23](#ex4-23) shows the CMF and XSD definition of a ChildPropertyAssociation object belonging to `nc:PersonNameType`, in which `nc:PersonMiddleName` is an ordered property.
+
+An ordered property is represented in JSON as a JSON object with the `@list` key and an array of the ordered values.  In RDF, it is a list.  [Example 14-19](#ex14-19) below shows the values of an ordered property in XML and JSON, and the RDF triples entailed by those values.
+
+```
+<nc:PersonName>
+  <nc:PersonGivenName>Peter</nc:PersonGivenName>
+  <nc:PersonMiddleName>Death</nc:PersonMiddleName>
+  <nc:PersonMiddleName>Bredon</nc:PersonMiddleName>
+  <nc:PersonSurName>Wimsey</nc:PersonSurName>
+</nc:PersonName>
+----------
+{
+  "nc:PersonName": {
+    "nc:PersonGivenName": "Peter",
+    "nc:PersonMiddleName": {
+      "@list": [ "Death", "Bredon" ]
+    },
+    "nc:PersonSurName": "Wimsey"
+  }
+}
+----------
+_:b0 rdf:type nc:PersonNameType .
+_:b0 nc:PersonGivenName "Peter" .
+_:b0 nc:PersonMiddleName ( "Death", "Bredon" ) .
+_:b0 nc:PersonSurName "Wimsey" .
+```
+<figcaption><a name="ex14-19">Example 14-19: Ordered property values</a></figcaption>
+
+### 14.2.9 Relationship properties
+
+NIEM uses embedded triples from [RDF 1.2](#ref) to represent relationship properties. [Example 14-20](#ex14-20) shows the RDF entailed by the XML and JSON message from [example 5-13](#ex5-13), which records the secret relationship between a person object and the name "Superman". [Figure 14-21](#fig14-21) depicts that RDF graph.
+
+```
+<nc:Person>                            | "nc:Person": {                                   | _:b1 nc:PersonName _:b2 .
+  <nc:PersonName my:isSecret="true">   |   "nc:PersonName": [                             | _:b1 nc:PersonName _:b2
+    <nc:PersonFullName>                |     {                                            |        {| "my:isSecret": "true" |} .
+      Superman                         |       "nc:PersonFullName": "Superman",           | _:b2 nc:PersonFullName "Superman" .
+    </nc:PersonFullName>               |       "@annotation": { "my:isSecret": "true" }   | _:b3 nc:PersonFullName "Clark Kent" .
+  </nc:PersonName>                     |     },                                           | 
+  <nc:PersonName>                      |     {                                            | 
+    <nc:PersonFullName>                |       "nc:PersonFullName": "Clark Kent"          | 
+      Clark Kent                       |     }                                            | 
+    </nc:PersonFullName>               |   ]                                              | 
+  </nc:PersonName>                     | }                                                | 
+</nc:Person>                           |                                                  | 
+```
+<figcaption><a name="ex14-20">Example 14-20: RDF-star equivalent for a relationship property</a></figcaption>
+
+<figure>
+  <img src="images/relProp.png" style="zoom: 100%;" />
+<figcaption><a name="fig14-21">Figure 14-21: RDF graph for a relationship property</a></figcaption>
+</figure>
+```
+
+### 14.2.10 Reference attributes
+
+> Revise after fixing 4.15 and 5.2 TODO
+
+Reference attributes are a means for of augmentation in XML messages, used to augment a datatype or literal class with an object property.  *(See [§4.15-TODO]())*  
+
+### 14.2.11 Augmentation elements
+
+Augmentation elements are a means for augmentation in XML messages, used to augment an ordinary class with an object property.  *(See [§4.15-TODO]())*  An augmentation element is a container for property values belonging to its parent.  For example, the augmentation element `j:PersonAugmentation` in [example 14-22](#ex14-22) below contains two values belonging to the `nc:Person` element.  Augmentation elements have no meaning of their own, and do not appear in JSON messages.  [Example 14-22](#ex14-22) shows an XML message with an augmentation element, plus the corresponding JSON message and the RDF entailed.
+
+```
+<nc:Person>
+  <nc:PersonBirthDate>
+    <nc:Date>2021-09-11</nc:Date>
+  </nc:PersonBirthDate>
+  <nc:PersonName>
+    <nc:PersonFullName>John Doe</nc:PersonFullName>
+  </nc:PersonName>
+  <j:PersonAugmentation>
+    <j:PersonAdultIndicator>true</j:PersonAdultIndicator>
+    <j:PersonSightedIndicator>true</j:PersonSightedIndicator>
+  </j:PersonAugmentation>
+</nc:Person>
+----------
+"nc:Person": {
+  "nc:PersonBirthDate": {
+    "nc:Date": "2021-09-11"
+  },
+  "nc:PersonName": {
+    "nc:PersonFullName": "John Doe"
+  },
+  "j:PersonAdultIndicator": true,
+  "j:PersonSightedIndicator": true
+}
+----------
+_:b0 rdf:type nc:PersonType .
+_:b0 nc:PersonBirthDate _:b1 .
+_:b0 nc:PersonName _:b2 .
+_:b0 j:PersonAdultIndicator "true"^^xsd:boolean .
+_:b0 j:PersonSightedIndicator "true"^^xsd:boolean .
+_:b1 rdf:type nc:DateType .
+_:b1 nc:Date "2021-09-11" .
+_:b2 rdf:type nc:PersonNameType .
+_:b2 nc:PersonFullName "John Doe" .
+```
+<figcaption><a name="ex14-22">Example 14-22: Augmentation element and RDF</a></figcaption>
+
+----------
 
 # Appendix A. References
 
@@ -4204,7 +4348,7 @@ Jacobs, I. "Architecture of the World Wide Web, Volume One". W3C Recommendation 
 
 # Appendix E. Table of examples
 
-* [Example 3-2: Example of messages in XML and JSON syntax](#ex3-2)
+* [Example 3-2: Messages in XML and JSON syntax](#ex3-2)
 * [Example 3-3: Example message format schemas](#ex3-3)
 * [Example 3-4: Example message model in XSD and CMF](#ex3-4)
 * [Example 3-5: Message specifications, types, and formats](#ex3-5)
@@ -4248,22 +4392,32 @@ Jacobs, I. "Architecture of the World Wide Web, Volume One". W3C Recommendation 
 * [Example 5-6: A data property in an XML and JSON message](#ex5-6)
 * [Example 5-7: A literal class in a CMF and XSD model subset](#ex5-7)
 * [Example 5-8: An object property with a code list class in an XML and JSON message](#ex5-8)
-* [Example 5-10: RDF interpretation of NIEM data (Turtle syntax)](#ex5-10)
-* [Example 5-12: Example of object references in NIEM XML and JSON](#ex5-12)
-* [Example 5-13: Example of URI object references in NIEM XML and JSON](#ex5-13)
-* [Example 5-14: Reference attribute property and equivalent message in XML](#ex5-14)
-* [Example 5-15: Reference attribute property in JSON message](#ex5-15)
-* [Example 5-16: Metadata properties used in a designer's own class](#ex5-16)
-* [Example 5-17: Metadata object property augmenting a reused class](#ex5-17)
-* [Example 5-18: Metadata reference attribute augmenting a reused class](#ex5-18)
-* [Example 5-19: Example of an ordinary property](#ex5-19)
-* [Example 5-20: Example of a relationship property](#ex5-20)
-* [Example 5-21: RDF-star equivalent for a relationship property](#ex5-21)
+* [Example 5-9: Metadata properties used in a designer's own class](#ex5-9)
+* [Example 5-10: Metadata object property augmenting a reused class](#ex5-10)
+* [Example 5-11: Metadata reference attribute augmenting a reused class](#ex5-11)
+* [Example 5-12: Example of an ordinary property](#ex5-12)
+* [Example 5-13: Example of a relationship property](#ex5-13)
+* [Example 5-14: Relationship property in CMF and XSD](#ex5-14)
 * [Example 6-1: Conformance target assertion in XSD](#ex6-1)
 * [Example 6-2: Conformance target assertion in CMF](#ex6-2)
-* [Example 14-1: RDF entailed by a Class object](#ex14-1)
-* [Example 14-2: RDF entailed by a DataProperty object](#ex14-2)
-* [Example 14-3: RDF entailed by an ObjectProperty object](#ex14-3)
+* [Example 14-1: Natural language documentation in CMF and XSD](#ex14-1)
+* [Example 14-4: RDF entailed by a Class object](#ex14-4)
+* [Example 14-5: RDF entailed by a DataProperty object](#ex14-5)
+* [Example 14-6: RDF entailed by an ObjectProperty object](#ex14-6)
+* [Example 14-7: NIEM objects, properties, and values](#ex14-7)
+* [Example 14-8: Message objects in NIEM XML and NIEM JSON](#ex14-8)
+* [Example 14-9: NIEM objects without identifiers](#ex14-9)
+* [Example 14-10: NIEM objects with fragment identifiers](#ex14-10)
+* [Example 14-11: NIEM objects identified by absolute URI](#ex14-11)
+* [Example 14-12: Objects with fragment identifiers and message base URI](#ex14-12)
+* [Example 14-13: Object property and class](#ex14-13)
+* [Example 14-14: Data property and datatype in RDF](#ex14-14)
+* [Example 14-15: Literal class definition of a language-tagged string](#ex14-15)
+* [Example 14-16: Language-tagged string in XML, JSON, and RDF](#ex14-16)
+* [Example 14-17: Repeatable object property](#ex14-17)
+* [Example 14-18: Repeatable data property with a List datatype](#ex14-18)
+* [Example 14-19: Ordered property values](#ex14-19)
+* [Example 5-15: RDF-star equivalent for a relationship property](#ex5-15)
 
 -------
 
@@ -4282,8 +4436,7 @@ Jacobs, I. "Architecture of the World Wide Web, Volume One". W3C Recommendation 
 * [Figure 4-25: Property class diagram](#fig4-25)
 * [Figure 4-33: Datatype classes](#fig4-33)
 * [Figure 4-50: Augmentation class diagram](#fig4-50)
-* [Figure 5-11: Diagram showing meaning of NIEM data](#fig5-11)
-* [Figure 5-22: RDF-star graph diagram for a relationship property](#fig5-22)
+* [Figure 5-16: RDF-star graph diagram for a relationship property](#fig5-16)
 
 -------
 
@@ -4322,8 +4475,9 @@ Jacobs, I. "Architecture of the World Wide Web, Volume One". W3C Recommendation 
 * [Table 4-68: Properties of the LocalTerm object class](#tab4-68)
 * [Table 4-70: LocalTerm object properties in CMF and XSD](#tab4-70)
 * [Table 4-71: Properties of the TextType object class](#tab4-71)
-* [Table 5-9: Meaning of NIEM data](#tab5-9)
 * [Table 7-1: Property representation terms](#tab7-1)
+* [Table 14-2: Meaning of NIEM data](#tab14-2)
+* [Table 14-3: Correspondence of model terminology in CMF, XSD, and RDF](#tab14-3)
 
 -------
 
@@ -4397,22 +4551,126 @@ As stated in the OASIS IPR Policy, the following three paragraphs in brackets ap
 
 The name "OASIS" is a trademark of [OASIS](https://www.oasis-open.org/), the owner and developer of this specification, and should be used only to refer to the organization and its official outputs. OASIS welcomes reference to, and implementation and use of, specifications, while reserving the right to enforce its marks against misleading uses. Please see https://www.oasis-open.org/policies-guidelines/trademark/ for above guidance.
 
-<!--
-I have copied the CSS styling from *styles/ndr-styles.css* to help your markdown previewer do the right thing.
--->
+<!-- OASIS style -->
+<style>
+body {
+  margin-left: 3pc;
+  margin-right: 3pc;
+  font-family: LiberationSans, Arial, Helvetica, sans-serif;
+  font-size:12pt;
+  line-height:1.2;
+}
+html {overflow-x:auto }
+
+h1 { font-size:18pt; }
+h2 { font-size:14pt; }
+h3 { font-size:13pt; }
+h4 { font-size:12pt; }
+h5 { font-size:11pt; }
+h1,h2,h3,h4,h5 { 
+  font-family: LiberationSans, Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  margin:8pt 0;
+  color: #446CAA
+}
+h6 { 
+  font-size:12pt; 
+  line-height:1.0; 
+  font-family: LiberationSans, Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  margin:0pt;
+}
+hr{page-break-before: always;}
+table {
+  border-collapse:collapse;
+  border-spacing:0;
+  width:100%;
+  display:table;
+  font-size:12pt;
+  margin-top: 6pt;
+}
+table, th, td {
+  border: 1pt solid black;
+  padding:6pt 6pt;
+  text-align:left;
+  /*vertical-align:top; -- this causes alignment errors in cells with italics */
+}
+th {
+  color:#ffffff;
+  background-color: #446CAA;
+}
+pre {
+  background-color:#f0f0f0;
+  padding: 6px;
+}
+code {
+  font-family: "Source Code Pro", "Liberation Mono", monospace;
+  font-size: 9pt;
+  background-color: #eeeeee;
+  color: #111;
+  padding: 2px 5px;
+  white-space: nowrap;
+  border: none;
+}
+
+/* Block code (unchanged) */
+pre {
+  font-family: "Source Code Pro", "Liberation Mono", monospace;
+  font-size: 8pt;
+  line-height: 1.4;
+  background-color: #eeeeee;
+  color: #111;
+  white-space: pre;
+  overflow-x: auto;
+  box-sizing: border-box;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  width: 100%;
+  max-width: 100vw;
+}
+
+/* remove ALL layout from nested code */
+pre code {
+  font-family: inherit;
+  font-size: 8pt;
+  line-height: inherit;
+  background: inherit;
+  overflow-x: auto;
+  color: inherit;
+  white-space: inherit;
+  padding: 0;
+  margin: 0;
+  border: none;
+  width: 100%;
+  max-width: 100vw;
+  display: block;
+}
+blockquote {
+  padding-left: 10px;
+  padding-right: 10px;
+  border-left: solid lightgray 6px;
+}
+
+li { margin: 3px 0; }
+</style>
+
+<!-- NDR style customizations -->
 <style>
 a { text-decoration: none; color: #000; background-color: #FFF; }
-a[href]:hover { color: #000; background-color: #F9FAD4; }
+a [href^="#ex"] { white-space: nowrap; }
+a[href]:hover { color: #000; background-color:rgb(212, 225, 250); }
 span.termRef::before { font-weight: bold; content: "·"; }
 span.termRef::after { font-weight:bold; content: "·"; }
 span.highlight { background-color: #F9FAD4; }
-span.normal { font-family: LiberationSans, Arial, Helvetica, sans-serif; }
-span.codeComment { background-color: #F9FAD4; font-family: LiberationSas, Arial, Helvetica, sans-serif; }
+span.codeComment { background-color: #F9FAD4; font-family: LiberationSans, Arial, Helvetica, sans-serif; }
 img { display:block; margin-left:auto; margin-right:auto; height:auto; }
 figcaption { text-align:center; font-style:italic; margin-top: 10pt; margin-bottom:10pt; }
-h2,h3 { margin-top:18pt; }
+h2,h3 { margin-top:18pt; border: none; }
 code { font-size: 11pt; }
 pre > code { font-size: 9pt; margin-left:auto; margin-right:auto; }
 table { margin-bottom: 12pt; }
 uri { font-family: monospace; font-size: 11pt; white-space: nowrap; overflow-wrap: normal; word-wrap: normal; }
+#TOC > ul > li { margin-bottom: 1em; }
 </style>

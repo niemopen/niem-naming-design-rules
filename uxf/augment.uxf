@@ -29,7 +29,7 @@ AugmentationRecord
 --
 -minOccurQuantity
 -maxOccursQuantity
--augmentedGlobalComponentID
+-globalClassCode
 -augmentationIndex*</panel_attributes>
     <additional_attributes/>
   </element>

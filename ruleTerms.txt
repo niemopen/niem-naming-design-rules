@@ -1,0 +1,40 @@
+# Terms used in the text of a rule
+absolute URI
+adapter class
+adapter type
+appinfo namespace
+association class
+attribute property
+augmentation element
+augmentation point element
+augmentation property
+augmentation type
+code list
+code list datatype
+conforming schema document
+data definitions
+document element
+documented component
+effective conformance target identifier
+extension namespace
+extension schema document
+external attribute
+external schema document
+literal class
+literal property
+local term
+message
+message format
+message model
+message type
+messages
+proxy type
+reference attribute property
+reference namespace
+reference schema document
+schema
+schema document
+schema document set
+schema documents
+structures namespace
+subset namespace
