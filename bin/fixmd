@@ -19,6 +19,9 @@
 #   **Rule 0-0:** Rule name || Rule text. (N5R 1-1) -->
 #   <a name="rule0-0"></a>**Rule 0-0:** Rule text.
 #
+#   **Rule 0-0:M** Rule name || Rule text. (N5R 1-1) -->
+#   <a name="rule0-0"></a>**Rule 0-0:** Rule text. *[Manual]*
+#
 # * Reference links are fixed:
 #   [[RFC 3986]](#ref) ->
 #   <a href="#rfc-3986"><b>[RFC 3986]</b></a>
@@ -117,12 +120,16 @@ sub fixline {
     }
   }
   # Add anchor to rules; remove rule name and (N5R) crossref
-  if ($ldat =~ m/^\*\*Rule (\d+-\d+):\*\*\s+/) {
+  if ($ldat =~ m/^\*\*Rule (\d+-\d+):(M?)\*\*\s+/) {
     my $anchor = sprintf('<a name="rule%s"></a>',$1);
+    my $manF = 'M' eq $2;
+    $ldat =~ s/:M/:/;
     $ldat =~ s/^/$anchor/;
     $ldat =~ s/:\*\*\s*.*\|\|\s*/:** /;
-    $ldat =~ s/\s*\(NEW\)\s*$/\n/;
-    $ldat =~ s/\s*\(N5R [^)]+\)\s*$/\n/;
+    $ldat =~ s/\s*\(NEW\)\s*$//;
+    $ldat =~ s/\s*\(N5R [^)]+\)\s*$//;
+    $ldat =~ s/$/ *[Manual]*/ if $manF;
+    $ldat .= "\n";
   }
   # Replace each reference link in the current line;
   # for example: [webarch](#ref)

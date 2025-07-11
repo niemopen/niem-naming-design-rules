@@ -25,6 +25,7 @@ my %ruleName;                   # map of new rule tag to rule name
 my %n5Map;                      # map of NIEM 5 rule to new rule tag
 my @rules;                      # ordered list of new rule tags
 my @newRules;                   # rule tags w/o corresponding NIEM 5 rule
+my %manRules;                   # rtags of manual rules
 
 my %tagCt;                      # last ex/fig/table number seen, by section
 my %tagMap;                     # map of old tags to new tags
@@ -42,13 +43,14 @@ while (<>) {
 
   # Handle rule lines in source
   if (m/^\*\*Rule /) {
-    if (!m/^\*\*Rule (\d+)-(\d+):\*\*\s+(.+)\s\|\|\s+/) {
+    if (!m/^\*\*Rule (\d+)-(\d+):(M?)\*\*\s+(.+)\s\|\|\s+/) {
       print STDERR "Bad rule syntax at line $lnum\n";
     }
     else {
       my $sect  = $1;           # section number
       my $onum  = $2;           # current rule number in section
-      my $rname = $3;           # rule name
+      my $manF  = $3;
+      my $rname = $4;           # rule name
       my $rest  = $';
       my $olab  = "$1-$2";          # old rule label; eg. "7-1"
       my $otag  = "rule$1-$2";      # old rule tag; eg. "rule7-1"
@@ -64,6 +66,7 @@ while (<>) {
       # print STDERR "ntag=$ntag\n";
 
       $ruleName{$ntag} = $rname;
+      $manRules{$ntag} = 1 if $manF;
       push(@rules,$ntag);
 
       # Look for mapping to NDR5 rule
@@ -196,7 +199,9 @@ print "\n";
 foreach my $rtag (@rules) {
   my $rname = $ruleName{$rtag} || "NO NAME YET";
   my $rnum  = substr($rtag, 4);
-  print "* [Rule $rnum: $rname](#$rtag).\n";
+  print "* [Rule $rnum: $rname](#$rtag).";
+  print " *[Manual]*" if $manRules{$rtag};
+  print "\n";
 }
 print "\n-------\n\n$_";
 

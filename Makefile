@@ -1,6 +1,6 @@
 .PHONY: all clean md html
 
-NDR     = ndr-v6.0-psd01
+NDR     = ndr-v6.0-ps01
 NDRHTML = $(NDR).html
 NDRPDF  = $(NDR).pdf
 SRC     = ndr6src.md
