@@ -201,6 +201,9 @@ representations: XSD and CMF</a></li>
 Namespaces</a></li>
 <li><a href="#37-model-extensions" id="toc-37-model-extensions">3.7
 Model extensions</a></li>
+<li><a href="#38-model-and-message-semantics"
+id="toc-38-model-and-message-semantics">3.8 Model and message
+semantics</a></li>
 </ul></li>
 <li><a href="#4-data-models-in-niem" id="toc-4-data-models-in-niem">4.
 Data models in NIEM</a>
@@ -2418,6 +2421,72 @@ I. Notices</a></li>
   designer to combine in his message model the properties of a person
   from NIEM Justice, NIEM Immigration, etc. Such a combination is easily
   done with augmentations.</p>
+  <h2 id="38-model-and-message-semantics">3.8 Model and message
+  semantics</h2>
+  <p>The RDF Core Working Group of the World Wide Web consortium has
+  developed a simple, consistent conceptual model, the RDF model. The
+  RDF model is described and specified through a set of W3C
+  Recommendations, the Resource Description Framework (RDF)
+  specifications, making it a very well defined standard. The
+  interpretations of NIEM models and messages are based on the RDF
+  model. This provides numerous advantages:</p>
+  <ul>
+  <li>NIEM’s conceptual model is defined by a recognized standard.</li>
+  <li>NIEM’s conceptual model is very well defined.</li>
+  <li>NIEM’s conceptual model provides a consistent basis for relating
+  attributes, elements, types, and other XML Schema components.</li>
+  <li>NIEM’s use of the RDF model defines what a set of NIEM data means.
+  The RDF specification provides a detailed description of what a
+  statement means. This meaning is leveraged by NIEM.</li>
+  <li>NIEM’s use of the RDF model provides a basis for inferring and
+  reasoning about XML data that uses NIEM. That is, using the rules
+  defined for the RDF model, programs can determine implications of
+  relationships between NIEM-defined objects.</li>
+  </ul>
+  <p>Each construct in a NIEM model or message entails a number of RDF
+  triples. NIEMOpen provides free and open-source software to generate
+  those triples. The identifiers in these triples connect the message
+  data to the model in a way that forms a <em>knowledge graph</em>. <a
+  href="#ex3-10">Example 3-10</a> shows some of the triples entailed by
+  the model in <a href="#ex3-4">example 3-4</a> and the message in <a
+  href="#ex3-2">example 3-2</a>; <a href="#fig3-11">figure 3-11</a>
+  shows a knowledge graph illustration of those triples.</p>
+  <pre><code>nc:ItemType
+  rdf:type owl:Class ;
+  skos:definition &quot;A data type for an article or thing&quot; .
+
+nc:ItemName
+  rdf:type owl:DataProperty ;
+  rdfs:range nc:TextType ;
+  skos:definition &quot;A name of an item.&quot; .
+
+msg:RequestedItem
+  rdf:type owl:ObjectProperty ;
+  rdfs:range nc:ItemType ;
+  skos:definition &quot;A specification of an item request.&quot; .
+
+_:b0 rdf:Type msg:RequestType .
+_:b0 msg:RequestID &quot;RQ001&quot; .
+_:b0 msg:RequestedItem _:b1 .
+_:b1 rdf:type nc:ItemType .
+_:b1 nc:ItemName &quot;Wrench&quot; .
+_:b1 nc:ItemQuantity &quot;10&quot;^^xsd:decimal .</code></pre>
+  <figcaption><a name="ex3-10">Example 3-10: RDF triples from a NIEM model and message</a></figcaption>
+
+  <figure>
+    <a name="fig3-11"/></a>
+    <img src="images/kgraph.png"/>
+    <figcaption><a name="fig3-11">Figure 3-11: Knowledge graph portrayal of a NIEM model and message</a></figcaption>
+  </figure>
+
+  <p>With the exception of <a
+  href="#14-interpretation-of-niem-data"><em>section 14: Interpretation
+  of NIEM data</em></a>, NIEM rules are explained in this document
+  without reference to RDF or RDF concepts. Understanding RDF is not
+  required to understand NIEM-conformant schemas or data based on NIEM.
+  The knowledge graph representation of NIEM data is available to the
+  message designers and developers who want it, without burdening those
+  who do not.</p>
   <hr />
   <h1 id="4-data-models-in-niem">4. Data models in NIEM</h1>
   <p>The NIEM metamodel is an abstract model that specifies the content
@@ -5352,17 +5421,19 @@ I. Notices</a></li>
   <em>relationship</em> between the name "Superman" and the person
   object that also has the name "Clark Kent". That relationship is the
   thing to be kept secret.</p>
-  <pre><code>&lt;nc:Person&gt;                                               | &quot;nc:Person&quot;: {
-  &lt;nc:PersonName my:isSecret=&quot;true&quot;&gt;                      |   &quot;nc:PersonName&quot;: [
-    &lt;nc:PersonFullName&gt;Superman&lt;/nc:PersonFullName&gt;       |     {
-  &lt;/nc:PersonName&gt;                                        |       &quot;nc:PersonFullName&quot;: &quot;Superman&quot;,
-  &lt;nc:PersonName&gt;                                         |       &quot;@annotation&quot;: { &quot;my:isSecret&quot;: &quot;true&quot; }
-    &lt;nc:PersonFullName&gt;Clark Kent&lt;/nc:PersonFullName&gt;     |     },
-  &lt;/nc:PersonName&gt;                                        |     {
-&lt;/nc:Person&gt;                                              |       &quot;nc:PersonFullName&quot;: &quot;Clark Kent&quot;
-                                                          |     }
-                                                          |   }
-                                                          | }</code></pre>
+  <pre><code>&lt;nc:Person&gt;                                                             | &quot;nc:Person&quot;: {
+  &lt;nc:PersonName my:isSecret=&quot;true&quot;&gt;                                    |   &quot;nc:PersonName&quot;: [
+    &lt;nc:PersonFullName&gt;Superman&lt;/nc:PersonFullName&gt;                     |     {
+  &lt;/nc:PersonName&gt;                                                      |       &quot;nc:PersonFullName&quot;: &quot;Superman&quot;,
+  &lt;nc:PersonName&gt;                                                       |       &quot;@annotation&quot;: {
+    &lt;nc:PersonFullName&gt;Clark Kent&lt;/nc:PersonFullName&gt;                   |         &quot;my:isSecret&quot;: &quot;true&quot;
+  &lt;/nc:PersonName&gt;                                                      |       }
+&lt;/nc:Person&gt;                                                            |     },
+                                                                        |     {
+                                                                        |       &quot;nc:PersonFullName&quot;: &quot;Clark Kent&quot;
+                                                                        |     }
+                                                                        |   }
+                                                                        | }</code></pre>
   <figcaption><a name="ex5-12">Example 5-12: Example of a relationship property</a></figcaption>
 
   <p>A relationship property is represented in CMF by a Property object
@@ -7832,12 +7903,11 @@ http://example.com/yourNS/1.1.1-alpha.7/</code></pre>
   ecosystems, and AI-driven systems.</p></li>
   </ul>
   <p>Message designers and developers are not required to understand or
-  work directly RDF. NIEM models, messages, and conformance rules are
-  explained without reference to RDF or RDF concepts. NIEM messages can
-  always be processed as ordinary XML or JSON data. However, with no
-  additional effort, NIEM messages and models are automatically
-  available as RDF as well, to the benefit of those who use semantic
-  technologies.</p>
+  work directly with RDF. NIEM models, messages, and conformance rules
+  are explained without reference to RDF or RDF concepts. NIEM messages
+  can always be processed as ordinary XML or JSON data. However, with no
+  additional effort, NIEM messages and models are also available as RDF
+  as well, for the benefit of those who use semantic technologies.</p>
   <h2 id="141-rdf-interpretation-of-niem-models">14.1 RDF interpretation
   of NIEM models</h2>
   <p>This subsection defines the RDF triples that are entailed by the
@@ -8454,19 +8524,20 @@ _:b0 nc:PersonSurName &quot;Wimsey&quot; .</code></pre>
   records the secret relationship between a person object and the name
   "Superman". <a href="#fig14-21">Figure 14-21</a> depicts that RDF
   graph.</p>
-  <pre><code>&lt;nc:Person&gt;                            | &quot;nc:Person&quot;: {                                   | _:b1 nc:PersonName _:b2 .
-  &lt;nc:PersonName my:isSecret=&quot;true&quot;&gt;   |   &quot;nc:PersonName&quot;: [                             | _:b1 nc:PersonName _:b2
-    &lt;nc:PersonFullName&gt;                |     {                                            |        {| &quot;my:isSecret&quot;: &quot;true&quot; |} .
-      Superman                         |       &quot;nc:PersonFullName&quot;: &quot;Superman&quot;,           | _:b2 nc:PersonFullName &quot;Superman&quot; .
-    &lt;/nc:PersonFullName&gt;               |       &quot;@annotation&quot;: { &quot;my:isSecret&quot;: &quot;true&quot; }   | _:b3 nc:PersonFullName &quot;Clark Kent&quot; .
-  &lt;/nc:PersonName&gt;                     |     },                                           | 
-  &lt;nc:PersonName&gt;                      |     {                                            | 
-    &lt;nc:PersonFullName&gt;                |       &quot;nc:PersonFullName&quot;: &quot;Clark Kent&quot;          | 
-      Clark Kent                       |     }                                            | 
-    &lt;/nc:PersonFullName&gt;               |   ]                                              | 
-  &lt;/nc:PersonName&gt;                     | }                                                | 
-&lt;/nc:Person&gt;                           |                                                  | </code></pre>
-  <figcaption><a name="ex14-20">Example 14-20: RDF-star equivalent for a relationship property</a></figcaption>
+  <pre><code>&lt;nc:Person&gt;                              | &quot;nc:Person&quot;: {                              | _:b1 nc:PersonName _:b2 .
+  &lt;nc:PersonName my:isSecret=&quot;true&quot;&gt;     |   &quot;nc:PersonName&quot;: [                        | _:b1 nc:PersonName _:b2
+    &lt;nc:PersonFullName&gt;                  |     {                                       |        {| &quot;my:isSecret&quot;: &quot;true&quot; |} .
+      Superman                           |       &quot;nc:PersonFullName&quot;: &quot;Superman&quot;,      | _:b2 nc:PersonFullName &quot;Superman&quot; .
+    &lt;/nc:PersonFullName&gt;                 |       &quot;@annotation&quot;: {                      | _:b3 nc:PersonFullName &quot;Clark Kent&quot; .
+  &lt;/nc:PersonName&gt;                       |         &quot;my:isSecret&quot;: &quot;true&quot;               | 
+  &lt;nc:PersonName&gt;                        |       }                                     | 
+    &lt;nc:PersonFullName&gt;                  |     },                                      | 
+      Clark Kent                         |     {                                       | 
+    &lt;/nc:PersonFullName&gt;                 |       &quot;nc:PersonFullName&quot;: &quot;Clark Kent&quot;     | 
+  &lt;/nc:PersonName&gt;                       |     }                                       | 
+&lt;/nc:Person&gt;                             |   ]                                         | 
+                                         | }                                           | </code></pre>
+  <figcaption><a name="ex14-20">Example 14-20: RDF1.2 equivalent for a relationship property</a></figcaption>
 
   <figure>
     <img src="images/relProp.png" style="zoom: 100%;" />
@@ -8517,7 +8588,7 @@ _:PRIV01 my:PrivacyText &quot;RESTRICTED&quot; .</code></pre>
   <code>j:PersonAugmentation</code> in <a href="#ex14-23">example
   14-23</a> below contains two values belonging to the
   <code>nc:Person</code> element. Augmentation elements have no meaning
-  of their own, and do not appear in JSON messages. <a
+  of their own, and do not appear in JSON or RDF messages. <a
   href="#ex14-23">Example 14-23</a> shows an XML message with an
   augmentation element, plus the corresponding JSON message and the RDF
   entailed.</p>
