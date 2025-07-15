@@ -18,7 +18,7 @@
   <h1 id="niem-naming-and-design-rules-ndr-version-60">NIEM Naming and
   Design Rules (NDR) Version 6.0</h1>
   <h2 id="project-specification-01">Project Specification 01</h2>
-  <h2 id="11-july-2025-draft">11 July 2025 draft</h2>
+  <h2 id="15-july-2025-draft">15 July 2025 draft</h2>
   <p> </p>
   <h4 id="this-stage">This stage:</h4>
   <p><a
@@ -215,8 +215,8 @@ Data models in NIEM</a>
 <li><a href="#45-childpropertyassociation"
 id="toc-45-childpropertyassociation">4.5
 ChildPropertyAssociation</a></li>
-<li><a href="#46-anyproperty" id="toc-46-anyproperty">4.6
-AnyProperty</a></li>
+<li><a href="#46-anypropertyassociation"
+id="toc-46-anypropertyassociation">4.6 AnyPropertyAssociation</a></li>
 <li><a href="#47-property" id="toc-47-property">4.7 Property</a></li>
 <li><a href="#48-objectproperty" id="toc-48-objectproperty">4.8
 ObjectProperty</a></li>
@@ -2716,10 +2716,9 @@ _:b1 nc:ItemQuantity &quot;10&quot;^^xsd:decimal .</code></pre>
   <td>xs:anyURI</td>
   </tr>
   <tr>
-  <td>NIEMVersionName</td>
-  <td>A name of a NIEM version for the utility schema components used in
-  an XSD representation of a namespace; e.g. "NIEM5.0" or
-  "NIEM6.0".</td>
+  <td>ArchitectureVersionName</td>
+  <td>A name of a version for the utility schema components used in an
+  XSD representation of a namespace; e.g. "NIEM5.0" or "NIEM6.0".</td>
   <td style="text-align: center;">0..1</td>
   <td style="text-align: center;">-</td>
   <td>xs:token</td>
@@ -2945,7 +2944,7 @@ _:b1 nc:ItemQuantity &quot;10&quot;^^xsd:decimal .</code></pre>
   <figure class="image">
     <a name="fig4-6"/></a>
     <img src="images/class.png" style="zoom:100%"/>
-    <figcaption><a name="fig4-14">Figure 4-14: Class, AnyProperty, and ChildPropertyAssociation class diagram</a></figcaption>
+    <figcaption><a name="fig4-14">Figure 4-14: Class, AnyPropertyAssociation, and ChildPropertyAssociation class diagram</a></figcaption>
   </figure>
 
   <table>
@@ -2983,12 +2982,12 @@ _:b1 nc:ItemQuantity &quot;10&quot;^^xsd:decimal .</code></pre>
   <td>ReferenceCodeType</td>
   </tr>
   <tr>
-  <td>AnyProperty</td>
+  <td>AnyPropertyAssociation</td>
   <td>An association between a class and a set of properties not fully
   specified by the model.</td>
   <td style="text-align: center;">0..*</td>
   <td style="text-align: center;">-</td>
-  <td>AnyPropertyType</td>
+  <td>AnyPropertyAssociationType</td>
   </tr>
   <tr>
   <td>SubClassOf</td>
@@ -3268,14 +3267,6 @@ _:b1 nc:ItemQuantity &quot;10&quot;^^xsd:decimal .</code></pre>
   <td>TextType</td>
   </tr>
   <tr>
-  <td>OrderedPropertyIndicator</td>
-  <td>True if the order of a repeated property within an object is
-  significant.</td>
-  <td style="text-align: center;">0..1</td>
-  <td style="text-align: center;">-</td>
-  <td>xs:boolean</td>
-  </tr>
-  <tr>
   <td>Property</td>
   <td>The property that occurs in the class.</td>
   <td style="text-align: center;">1</td>
@@ -3297,7 +3288,6 @@ _:b1 nc:ItemQuantity &quot;10&quot;^^xsd:decimal .</code></pre>
   &lt;DocumentationText&gt;
     Documentation here is unusual; it refers to the association between the object and this property.
   &lt;/DocumentationText&gt;
-  &lt;OrderedPropertyIndicator&gt;true&lt;/OrderedPropertyIndicator&gt;
 &lt;/ChildPropertyAssociation&gt;
 &lt;ChildPropertyAssociation&gt;
   &lt;DataProperty structures:ref=&quot;nc:personNameCommentText&quot; xsi:nil=&quot;true&quot;/&gt;
@@ -3306,8 +3296,7 @@ _:b1 nc:ItemQuantity &quot;10&quot;^^xsd:decimal .</code></pre>
 &lt;/ChildPropertyAssociation&gt;
 ---------------
 &lt;xs:sequence&gt;
-  &lt;xs:element ref=&quot;nc:PersonMiddleName&quot;
-    minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot; appinfo:orderedPropertyIndicator=&quot;true&quot;&gt;
+  &lt;xs:element ref=&quot;nc:PersonMiddleName&quot; minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;
     &lt;xs:annotation&gt;
       &lt;xs:documentation&gt;
         Documentation here is unusual; it refers to the relationship between the object and this property.
@@ -3316,10 +3305,10 @@ _:b1 nc:ItemQuantity &quot;10&quot;^^xsd:decimal .</code></pre>
   &lt;/xs:element&gt;
 &lt;/xs:sequence&gt;
 &lt;xs:attribute ref=&quot;nc:personNameCommentText&quot; use=&quot;optional&quot;/&gt;</code></pre>
-  <figcaption><a name="ex4-23">Example 4-23: PropertyAssociation object in CMF and XSD</a></figcaption>
+  <figcaption><a name="ex4-23">Example 4-23: ChildPropertyAssociation object in CMF and XSD</a></figcaption>
 
-  <p>The following table shows the mapping between PropertyAssociation
-  representations in CMF and XSD.</p>
+  <p>The following table shows the mapping between
+  ChildPropertyAssociation representations in CMF and XSD.</p>
   <table>
   <thead>
   <tr>
@@ -3355,12 +3344,12 @@ _:b1 nc:ItemQuantity &quot;10&quot;^^xsd:decimal .</code></pre>
   </table>
   <figcaption><a name="tab4-24">Table 4-24: ChildPropertyAssociation object properties in CMF and XSD</a></figcaption>
 
-  <h2 id="46-anyproperty">4.6 AnyProperty</h2>
-  <p>An instance of the AnyProperty class represents an association
-  between a class and a "wildcard" set of possible properties that are
-  not fully specified by the model. It is an exact analogue of the
-  <code>xs:any</code> and <code>xs:anyAttribute</code> constructs in
-  XSD.</p>
+  <h2 id="46-anypropertyassociation">4.6 AnyPropertyAssociation</h2>
+  <p>An instance of the AnyPropertyAssociation class represents an
+  association between a class and a "wildcard" set of possible
+  properties that are not fully specified by the model. It is an exact
+  analogue of the <code>xs:any</code> and <code>xs:anyAttribute</code>
+  constructs in XSD.</p>
   <table>
   <thead>
   <tr>
@@ -3373,8 +3362,9 @@ _:b1 nc:ItemQuantity &quot;10&quot;^^xsd:decimal .</code></pre>
   </thead>
   <tbody>
   <tr>
-  <td>ChildPropertyAssociation</td>
-  <td>A data type for a set of unspecified properties of a class.</td>
+  <td>AnyPropertyAssociation</td>
+  <td>A data type for a set of partially specified properties of a
+  class.</td>
   <td style="text-align: center;"></td>
   <td style="text-align: center;"></td>
   <td></td>
@@ -3405,33 +3395,34 @@ _:b1 nc:ItemQuantity &quot;10&quot;^^xsd:decimal .</code></pre>
   </tr>
   <tr>
   <td>AttributeIndicator</td>
-  <td>True for a set of unspecified properties represented as attributes
-  in XML.</td>
+  <td>True for a set of partially specified properties represented as
+  attributes in XML.</td>
   <td style="text-align: center;">0..1</td>
   <td style="text-align: center;">-</td>
   <td>xs:boolean</td>
   </tr>
   <tr>
   <td>NamespaceConstraintText</td>
-  <td>A description of the namespace constraints on an unspecified
-  property of a class.</td>
+  <td>A description of the namespace constraints on a partially
+  specified property of a class.</td>
   <td style="text-align: center;">0..1</td>
   <td style="text-align: center;">-</td>
   <td>xs:string</td>
   </tr>
   <tr>
   <td>ProcessingCode</td>
-  <td>A code describing the validation required for each unspecified
-  property in the set.</td>
+  <td>A code describing the validation required for each partially
+  specified property in the set.</td>
   <td style="text-align: center;">0..1</td>
   <td style="text-align: center;">-</td>
   <td>ProcessingCodeType</td>
   </tr>
   </tbody>
   </table>
-  <p>An AnyProperty object is represented in XSD as a schema wildcard.
-  <a href="#ex4-25">Example 4-25</a> shows the representation of two
-  AnyProperty objects, first in CMF and then in XSD.</p>
+  <p>An AnyPropertyAssociation object is represented in XSD as a schema
+  wildcard. <a href="#ex4-25">Example 4-25</a> shows the representation
+  of two AnyPropertyAssociation objects, first in CMF and then in
+  XSD.</p>
   <pre><code>&lt;Class&gt;
   &lt;Name&gt;RequestType&lt;/Name&gt;
   &lt;Namespace structures.ref=&quot;msg&quot;/&gt;
@@ -3445,17 +3436,17 @@ _:b1 nc:ItemQuantity &quot;10&quot;^^xsd:decimal .</code></pre>
     &lt;MinOccursQuantity&gt;1&lt;/MinOccursQuantity&gt;
     &lt;MaxOccursQuantity&gt;1&lt;/MaxOccursQuantity&gt;
   &lt;/ChildPropertyAssociation&gt;
-  &lt;AnyProperty&gt;
+  &lt;AnyPropertyAssociation&gt;
     &lt;MinOccursQuantity&gt;1&lt;/MinOccursQuantity&gt;
     &lt;MaxOccursQuantity&gt;1&lt;/MaxOccursQuantity&gt;
     &lt;NamespaceConstraintText&gt;https://docs.oasis-open.org/niemopen/ns/model/niem-core/6.0/&lt;/NamespaceConstraintText&gt;
     &lt;ProcessingCode&gt;strict&lt;/ProcessingCode&gt;
-  &lt;/AnyProperty&gt;
-  &lt;AnyProperty&gt;
+  &lt;/AnyPropertyAssociation&gt;
+  &lt;AnyPropertyAssociation&gt;
     &lt;AttributeIndicator&gt;true&lt;/AttributeIndicator&gt;
     &lt;NamespaceConstraintText&gt;##targetNamespace&lt;/NamespaceConstraintText&gt;
     &lt;ProcessingCode&gt;lax&lt;/ProcessingCode&gt;
-  &lt;/AnyProperty&gt;
+  &lt;/AnyPropertyAssociation&gt;
 &lt;/Class&gt;
 ----------
 &lt;xs:schema
@@ -3474,12 +3465,12 @@ _:b1 nc:ItemQuantity &quot;10&quot;^^xsd:decimal .</code></pre>
       &lt;/xs:extension&gt;
     &lt;/xs:complexContent&gt;
   &lt;/xs:complexType&gt;</code></pre>
-  <figcaption><a name="ex4-25">Example 4-25:  AnyProperty objects in CMF and XSD</a></figcaption>
+  <figcaption><a name="ex4-25">Example 4-25:  AnyPropertyAssociation objects in CMF and XSD</a></figcaption>
 
   <p>The meaning and valid values of NamespaceConstraintText and
   ProcessingCode are copied from <a href="#xml-schema"><b>[XML
   Schema]</b></a>. The following table shows the mapping between
-  AnyProperty representations in CMF and XSD.</p>
+  AnyPropertyAssociation representations in CMF and XSD.</p>
   <table>
   <thead>
   <tr>
@@ -3554,6 +3545,14 @@ _:b1 nc:ItemQuantity &quot;10&quot;^^xsd:decimal .</code></pre>
   <td>AbstractIndicator</td>
   <td>True if a property must be specialized; false if a property may be
   used directly.</td>
+  <td style="text-align: center;">0..1</td>
+  <td style="text-align: center;">-</td>
+  <td>xs:boolean</td>
+  </tr>
+  <tr>
+  <td>OrderedPropertyIndicator</td>
+  <td>True if the order of a repeated property within an object is
+  significant.</td>
   <td style="text-align: center;">0..1</td>
   <td style="text-align: center;">-</td>
   <td>xs:boolean</td>
@@ -3902,14 +3901,6 @@ _:b1 nc:ItemQuantity &quot;10&quot;^^xsd:decimal .</code></pre>
   <td></td>
   </tr>
   <tr>
-  <td>OrderedPropertyIndicator</td>
-  <td>True if the order of a repeated property within an object is
-  significant.</td>
-  <td style="text-align: center;">0..1</td>
-  <td style="text-align: center;">-</td>
-  <td>xs:boolean</td>
-  </tr>
-  <tr>
   <td>ListItemDatatype</td>
   <td>The datatype of the literal values in a list.</td>
   <td style="text-align: center;">1</td>
@@ -3929,13 +3920,12 @@ _:b1 nc:ItemQuantity &quot;10&quot;^^xsd:decimal .</code></pre>
   &lt;Namespace structures:ref=&quot;ex&quot; xsi:nil=&quot;true&quot;/&gt;
   &lt;DocumentationText&gt;A data type for a list of integers.&lt;/DocumentationText&gt;
   &lt;ListItemDatatype structures:ref=&quot;xs.integer&quot; xsi:nil=&quot;true&quot;/&gt;
-  &lt;OrderedPropertyIndicator&gt;true&lt;/OrderedPropertyIndicator&gt;
 &lt;/List&gt;
 ---------------
 &lt;xs:simpleType name=&quot;ExListSimpleType&quot;&gt;
   &lt;xs:list itemType=&quot;xs:integer&quot;/&gt;
 &lt;/xs:simpleType&gt;
-&lt;xs:complexType name=&quot;ExListType&quot; appinfo:orderedPropertyIndicator=&quot;true&quot;&gt;
+&lt;xs:complexType name=&quot;ExListType&quot;&gt;
   &lt;xs:annotation&gt;
     &lt;xs:documentation&gt;A data type for a list of integers.&lt;/xs:documentation&gt;
   &lt;/xs:annotation&gt;
@@ -3976,10 +3966,6 @@ _:b1 nc:ItemQuantity &quot;10&quot;^^xsd:decimal .</code></pre>
   <tr>
   <td>ListItemDatatype</td>
   <td><code>xs:simpleType/xs:list/@itemType</code></td>
-  </tr>
-  <tr>
-  <td>OrderedPropertyIndicator</td>
-  <td><code>xs:complexType/@appinfo:orderedPropertyIndicator</code></td>
   </tr>
   </tbody>
   </table>
@@ -5781,7 +5767,7 @@ _:b1 nc:ItemQuantity &quot;10&quot;^^xsd:decimal .</code></pre>
   &lt;ConformanceTargetURI&gt;
     https://docs.oasis-open.org/niemopen/ns/specification/NDR/6.0/#ReferenceSchemaDocument
   &lt;/ConformanceTargetURI&gt;
-  &lt;NIEMVersionText&gt;6&lt;/NIEMVersionText&gt;
+  &lt;ArchitectureVersionName&gt;6&lt;/ArchitectureVersionName&gt;
   &lt;NamespaceVersionText&gt;1&lt;/NamespaceVersionText&gt;
   &lt;NamespaceLanguageName&gt;en-US&lt;/NamespaceLanguageName&gt;
 &lt;/Namespace&gt;</code></pre>
@@ -6605,8 +6591,9 @@ http://example.com/yourNS/1.1.1-alpha.7/</code></pre>
   <p><a name="rule8-10"></a><strong>Rule 8-10:</strong> In CMF, a Class
   object with a Namespace that is a <a
   href="#def-reference-namespace"><span class="termRef">reference
-  namespace</span></a> MUST NOT contain an AnyProperty property. In XSD,
-  the <a href="#def-schema-document"><span class="termRef">schema
+  namespace</span></a> MUST NOT contain an AnyPropertyAssociation
+  property. In XSD, the <a
+  href="#def-schema-document"><span class="termRef">schema
   document</span></a> for the <a
   href="#def-reference-namespace"><span class="termRef">reference
   namespace</span></a> MUST NOT contain the element <code>xs:any</code>
@@ -8482,9 +8469,9 @@ _:b0 cbrn:EnergyValueList 32.2^^xsd:double .</code></pre>
   <code>nc:PersonMiddleName</code> property is usually significant;
   "Peter Death Bredon Wimsey" is not the same name as "Peter Bredon
   Death Wimsey". An ordered property is indicated in the model by a
-  ChildPropertyAssociation object in which OrderedPropertyIndicator is
-  true. For example, <a href="#ex4-23">example 4-23</a> shows the CMF
-  and XSD definition of a ChildPropertyAssociation object belonging to
+  Property object in which OrderedPropertyIndicator is true. For
+  example, <a href="#ex4-23">example 4-23</a> shows the CMF and XSD
+  definition of a ChildPropertyAssociation object belonging to
   <code>nc:PersonNameType</code>, in which
   <code>nc:PersonMiddleName</code> is an ordered property.</p>
   <p>An ordered property is represented in JSON as a JSON object with

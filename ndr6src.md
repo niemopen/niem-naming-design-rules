@@ -13,7 +13,7 @@ This is the width of a code block in the PDF version
 
 # NIEM Naming and Design Rules (NDR) Version 6.0
 ## Project Specification 01
-## 11 July 2025 draft
+## 15 July 2025 draft
 
 &nbsp;
 
@@ -784,7 +784,7 @@ A Namespace object represents a namespace in a model. For example, the namespace
 | NamespaceVersionText  | A version of a namespace; for example, used to distinguish a namespace subset, bug fix, documentation change, etc. | 1 | - | xs:token |
 | NamespaceCategoryCode | A kind of namespace in a NIEM model (external, core, domain, etc.). | 1 | - | NamespaceCategoryCodeType |
 | ConformanceTargetURI  | A [conformance target identifier](#def). | 0..* | - | xs:anyURI |
-| NIEMVersionName       | A name of a NIEM version for the utility schema components used in an XSD representation of a namespace; e.g. "NIEM5.0" or "NIEM6.0". | 0..1 | - | xs:token |
+| ArchitectureVersionName | A name of a version for the utility schema components used in an XSD representation of a namespace; e.g. "NIEM5.0" or "NIEM6.0". | 0..1 | - | xs:token |
 | DocumentFilePathText  | A relative file path from the top schema directory to a schema document for this namespace. | 0..1 | - | xs:string |
 | ImportDocumentation   | A documentation of an xs:import element in a schema document. | 0..* | - | TextType |
 | AugmentationRecord    | An augmentation of a class with a property by a namespace. | 0..* | - | AugmentationType|
@@ -885,7 +885,7 @@ A Class object represents a class of message objects defined by a NIEM model.  F
 <figure class="image">
   <a name="fig4-6"/></a>
   <img src="images/class.png" style="zoom:100%"/>
-  <figcaption><a name="fig4-14">Figure 4-14: Class, AnyProperty, and ChildPropertyAssociation class diagram</a></figcaption>
+  <figcaption><a name="fig4-14">Figure 4-14: Class, AnyPropertyAssociation, and ChildPropertyAssociation class diagram</a></figcaption>
 </figure>
 
 | Name                  | Definition | Card | Ord | Range |
@@ -893,7 +893,7 @@ A Class object represents a class of message objects defined by a NIEM model.  F
 | Class                 | A data type for a class. |
 | AbstractIndicator     | True if a class is a base for extension, and must be specialized to be used directly; false if a class may be used directly. | 0..1 | - | xs:boolean |
 | ReferenceCode         | A code describing how a property may be referenced (or must appear inline). | 0..1 | - | ReferenceCodeType |
-| AnyProperty           | An association between a class and a set of properties not fully specified by the model. | 0..* | - | AnyPropertyType |
+| AnyPropertyAssociation           | An association between a class and a set of properties not fully specified by the model. | 0..* | - | AnyPropertyAssociationType |
 | SubClassOf            | A base class of a subclass. | 0..1 | - | ClassType |
 | ChildPropertyAssociation   | An association between a class and a child property of that class. | 0..* | Y | ChildPropertyAssociationType |
 <figcaption><a name="tab4-15">Table 4-15: Properties of the Class object class</a></figcaption>
@@ -1025,7 +1025,6 @@ An instance of the ChildPropertyAssociation class represents an association betw
 | MinOccursQuantity     | The minimum number of times a property may occur within an object of a class. | 1 | - | xs:integer |
 | MaxOccursQuantity     | The maximum number of times a property may occur within an object of a class. | 1 | - | MaxOccursType |
 | DocumentationText     | A human-readable documentation of the association between a class and a child property content of that class. | 0..* | Y | TextType |
-| OrderedPropertyIndicator | True if the order of a repeated property within an object is significant. | 0..1 | - | xs:boolean |
 | Property              | The property that occurs in the class. | 1 | - | PropertyType |
 <figcaption><a name="tab4-22">Table 4-22: Properties of the ChildPropertyAssociation object class</a></figcaption>
 
@@ -1039,7 +1038,6 @@ A ChildPropertyAssociation object is represented in XSD as an element or attribu
   <DocumentationText>
     Documentation here is unusual; it refers to the association between the object and this property.
   </DocumentationText>
-  <OrderedPropertyIndicator>true</OrderedPropertyIndicator>
 </ChildPropertyAssociation>
 <ChildPropertyAssociation>
   <DataProperty structures:ref="nc:personNameCommentText" xsi:nil="true"/>
@@ -1048,8 +1046,7 @@ A ChildPropertyAssociation object is represented in XSD as an element or attribu
 </ChildPropertyAssociation>
 ---------------
 <xs:sequence>
-  <xs:element ref="nc:PersonMiddleName"
-    minOccurs="0" maxOccurs="unbounded" appinfo:orderedPropertyIndicator="true">
+  <xs:element ref="nc:PersonMiddleName" minOccurs="0" maxOccurs="unbounded">
     <xs:annotation>
       <xs:documentation>
         Documentation here is unusual; it refers to the relationship between the object and this property.
@@ -1059,9 +1056,9 @@ A ChildPropertyAssociation object is represented in XSD as an element or attribu
 </xs:sequence>
 <xs:attribute ref="nc:personNameCommentText" use="optional"/>
 ```
-<figcaption><a name="ex4-23">Example 4-23: PropertyAssociation object in CMF and XSD</a></figcaption>
+<figcaption><a name="ex4-23">Example 4-23: ChildPropertyAssociation object in CMF and XSD</a></figcaption>
 
-The following table shows the mapping between PropertyAssociation representations in CMF and XSD.
+The following table shows the mapping between ChildPropertyAssociation representations in CMF and XSD.
 
 | CMF | XSD |
 | --- | --- |
@@ -1072,21 +1069,21 @@ The following table shows the mapping between PropertyAssociation representation
 | OrderedPropertyIndicator | `xs:element/@appinfo:orderedPropertyIndicator` |
 <figcaption><a name="tab4-24">Table 4-24: ChildPropertyAssociation object properties in CMF and XSD</a></figcaption>
 
-## 4.6 AnyProperty
+## 4.6 AnyPropertyAssociation
 
-An instance of the AnyProperty class represents an association between a class and a "wildcard" set of possible properties that are not fully specified by the model.  It is an exact analogue of the `xs:any` and `xs:anyAttribute` constructs in XSD.
+An instance of the AnyPropertyAssociation class represents an association between a class and a "wildcard" set of possible properties that are not fully specified by the model.  It is an exact analogue of the `xs:any` and `xs:anyAttribute` constructs in XSD.
 
 | Name                  | Definition | Card | Ord | Range |
 | --------------------- | ---------- | :--: | :-: | ----- |
-| ChildPropertyAssociation | A data type for a set of unspecified properties of a class. |
+| AnyPropertyAssociation | A data type for a set of partially specified properties of a class. |
 | MinOccursQuantity     | The minimum number of times the properties from the set may occur within an object of a class. | 1 | - | xs:integer |
 | MaxOccursQuantity     | The maximum number of times the properties from the set may occur within an object of a class. | 1 | - | MaxOccursType |
 | DocumentationText     | A human-readable documentation of the association between a class and the set of unspecified properties. | 0..* | Y | TextType |
-| AttributeIndicator | True for a set of unspecified properties represented as attributes in XML. | 0..1 | - | xs:boolean |
-| NamespaceConstraintText | A description of the namespace constraints on an unspecified property of a class. | 0..1 | - | xs:string |
-| ProcessingCode | A code describing the validation required for each unspecified property in the set. | 0..1 | - | ProcessingCodeType |
+| AttributeIndicator | True for a set of partially specified properties represented as attributes in XML. | 0..1 | - | xs:boolean |
+| NamespaceConstraintText | A description of the namespace constraints on a partially specified property of a class. | 0..1 | - | xs:string |
+| ProcessingCode | A code describing the validation required for each partially specified property in the set. | 0..1 | - | ProcessingCodeType |
 
-An AnyProperty object is represented in XSD as a schema wildcard.  [Example 4-25](#ex4-25) shows the representation of two AnyProperty objects, first in CMF and then in XSD.
+An AnyPropertyAssociation object is represented in XSD as a schema wildcard.  [Example 4-25](#ex4-25) shows the representation of two AnyPropertyAssociation objects, first in CMF and then in XSD.
 
 ```
 <Class>
@@ -1102,17 +1099,17 @@ An AnyProperty object is represented in XSD as a schema wildcard.  [Example 4-25
     <MinOccursQuantity>1</MinOccursQuantity>
     <MaxOccursQuantity>1</MaxOccursQuantity>
   </ChildPropertyAssociation>
-  <AnyProperty>
+  <AnyPropertyAssociation>
     <MinOccursQuantity>1</MinOccursQuantity>
     <MaxOccursQuantity>1</MaxOccursQuantity>
     <NamespaceConstraintText>https://docs.oasis-open.org/niemopen/ns/model/niem-core/6.0/</NamespaceConstraintText>
     <ProcessingCode>strict</ProcessingCode>
-  </AnyProperty>
-  <AnyProperty>
+  </AnyPropertyAssociation>
+  <AnyPropertyAssociation>
     <AttributeIndicator>true</AttributeIndicator>
     <NamespaceConstraintText>##targetNamespace</NamespaceConstraintText>
     <ProcessingCode>lax</ProcessingCode>
-  </AnyProperty>
+  </AnyPropertyAssociation>
 </Class>
 ----------
 <xs:schema
@@ -1132,10 +1129,10 @@ An AnyProperty object is represented in XSD as a schema wildcard.  [Example 4-25
     </xs:complexContent>
   </xs:complexType>
 ```
-<figcaption><a name="ex4-25">Example 4-25:  AnyProperty objects in CMF and XSD</a></figcaption>
+<figcaption><a name="ex4-25">Example 4-25:  AnyPropertyAssociation objects in CMF and XSD</a></figcaption>
 
 The meaning and valid values of NamespaceConstraintText and ProcessingCode are copied from [XML Schema](#ref).
-The following table shows the mapping between AnyProperty representations in CMF and XSD.
+The following table shows the mapping between AnyPropertyAssociation representations in CMF and XSD.
 
 | CMF | XSD |
 | --- | --- |
@@ -1161,6 +1158,7 @@ A Property object in a NIEM model is either an ObjectProperty or a DataProperty.
 | --------------------- | ---------- | :--: | :-: | ----- |
 | Property              | A data type for a property. |
 | AbstractIndicator     | True if a property must be specialized; false if a property may be used directly. | 0..1 | - | xs:boolean |
+| OrderedPropertyIndicator | True if the order of a repeated property within an object is significant. | 0..1 | - | xs:boolean |
 | RelationshipIndicator | True for a [relationship property](#def), a property that applies to the relationship between its parent and grandparent objects. | 0..1 | - | xs:boolean |
 | SubPropertyOf         | A property of which a property is a subproperty. | 0..1 | - | PropertyType |
 <figcaption><a name="tab4-28">Table 4-28: Properties of the Property abstract class</a></figcaption>
@@ -1307,7 +1305,6 @@ An instance of the List class represents a NIEM model datatype with values that 
 | Name                  | Definition | Card | Ord | Range |
 | --------------------- | ---------- | :--: | :-: | ----- |
 | List                  | A data type for a NIEM model datatype that is a whitespace-separated list of literal values.||||
-| OrderedPropertyIndicator | True if the order of a repeated property within an object is significant. | 0..1 | - | xs:boolean |
 | ListItemDatatype      | The datatype of the literal values in a list. | 1 | - | DatatypeType |
 <figcaption><a name="tab4-37">Table 4-37: Properties of the List object class </a></figcaption>
 
@@ -1319,13 +1316,12 @@ A List object is represented in XSD as a complex type definition that extends a 
   <Namespace structures:ref="ex" xsi:nil="true"/>
   <DocumentationText>A data type for a list of integers.</DocumentationText>
   <ListItemDatatype structures:ref="xs.integer" xsi:nil="true"/>
-  <OrderedPropertyIndicator>true</OrderedPropertyIndicator>
 </List>
 ---------------
 <xs:simpleType name="ExListSimpleType">
   <xs:list itemType="xs:integer"/>
 </xs:simpleType>
-<xs:complexType name="ExListType" appinfo:orderedPropertyIndicator="true">
+<xs:complexType name="ExListType">
   <xs:annotation>
     <xs:documentation>A data type for a list of integers.</xs:documentation>
   </xs:annotation>
@@ -1347,7 +1343,6 @@ The following table shows the mapping between List object representations in CMF
 | DocumentationText | `xs:complexType/xs:annotation/xs:documentation` |
 | DeprecatedIndicator | `xs:complexType/@appinfo:deprecated` |
 | ListItemDatatype | `xs:simpleType/xs:list/@itemType` |
-| OrderedPropertyIndicator | `xs:complexType/@appinfo:orderedPropertyIndicator` |
 <figcaption><a name="tab4-39">Table 4-39: List object properties in CMF and XSD</a></figcaption>
 
 
@@ -2402,7 +2397,7 @@ In CMF, the `ConformanceTargetURI` property indicates whether a Namespace object
   <ConformanceTargetURI>
     https://docs.oasis-open.org/niemopen/ns/specification/NDR/6.0/#ReferenceSchemaDocument
   </ConformanceTargetURI>
-  <NIEMVersionText>6</NIEMVersionText>
+  <ArchitectureVersionName>6</ArchitectureVersionName>
   <NamespaceVersionText>1</NamespaceVersionText>
   <NamespaceLanguageName>en-US</NamespaceLanguageName>
 </Namespace>
@@ -2790,7 +2785,7 @@ In CMF, the prefix is the value of the NamespacePrefix property in a Namespace o
 
 The conformance target identifier ends in "ReferenceSchemaDocument" instead of "ReferenceNamespace" for historical reasons.
 
-**Rule 8-10:** Reference namespace does not have wildcard || In CMF, a Class object with a Namespace that is a [reference namespace](#def) MUST NOT contain an AnyProperty property. In XSD, the [schema document](#def) for the [reference namespace](#def) MUST NOT contain the element `xs:any` or `xs:anyAttribute`. (N5R 9-70, 9-71)
+**Rule 8-10:** Reference namespace does not have wildcard || In CMF, a Class object with a Namespace that is a [reference namespace](#def) MUST NOT contain an AnyPropertyAssociation property. In XSD, the [schema document](#def) for the [reference namespace](#def) MUST NOT contain the element `xs:any` or `xs:anyAttribute`. (N5R 9-70, 9-71)
 
 Wildcards are permitted in [extension namespaces](#def), but not in [reference namespaces](#def) or in subsets of [reference namespaces](#def).
 
@@ -3845,7 +3840,7 @@ _:b0 cbrn:EnergyValueList 32.2^^xsd:double .
 
 By default, the order of a repeated property in an object is not significant.  For example, there is no meaning to the fact that "Wrench" appears before "Hammer" in [example 14-17](#ex14-17), or that "15.0" comes before "32.2" in [example 14-18](#ex14-18).
 
-An ordered property is a repeatable property in which order is signficant.  For example, the order of a repeated `nc:PersonMiddleName` property is usually significant; "Peter Death Bredon Wimsey" is not the same name as "Peter Bredon Death Wimsey".  An ordered property is indicated in the model by a ChildPropertyAssociation object in which OrderedPropertyIndicator is true.  For example, [example 4-23](#ex4-23) shows the CMF and XSD definition of a ChildPropertyAssociation object belonging to `nc:PersonNameType`, in which `nc:PersonMiddleName` is an ordered property.
+An ordered property is a repeatable property in which order is signficant.  For example, the order of a repeated `nc:PersonMiddleName` property is usually significant; "Peter Death Bredon Wimsey" is not the same name as "Peter Bredon Death Wimsey".  An ordered property is indicated in the model by a Property object in which OrderedPropertyIndicator is true.  For example, [example 4-23](#ex4-23) shows the CMF and XSD definition of a ChildPropertyAssociation object belonging to `nc:PersonNameType`, in which `nc:PersonMiddleName` is an ordered property.
 
 An ordered property is represented in JSON as a JSON object with the `@list` key and an array of the ordered values.  In RDF, it is a list.  [Example 14-19](#ex14-19) below shows the values of an ordered property in XML and JSON, and the RDF triples entailed by those values.
 
@@ -4628,14 +4623,15 @@ Jacobs, I. "Architecture of the World Wide Web, Volume One". W3C Recommendation 
 * [Example 3-4: Example message model in XSD and CMF](#ex3-4)
 * [Example 3-5: Message specifications, types, and formats](#ex3-5)
 * [Example 3-9: CMF model in XML and JSON syntax](#ex3-9)
+* [Example 3-10: RDF triples from a NIEM model and message](#ex3-10)
 * [Example 4-8: Namespace object in CMF and XSD](#ex4-8)
 * [Example 4-12: Component object (abstract) in CMF and XSD](#ex4-12)
 * [Example 4-17: Instance of a class in XML and JSON](#ex4-17)
 * [Example 4-18: A Class object in CMF and XSD (CCC type)](#ex4-18)
 * [Example 4-20: Instance of a literal class in XML and JSON](#ex4-20)
 * [Example 4-21: A literal class object in CMF and XSD (CSC type)](#ex4-21)
-* [Example 4-23: PropertyAssociation object in CMF and XSD](#ex4-23)
-* [Example 4-25: AnyProperty objects in CMF and XSD](#ex4-25)
+* [Example 4-23: ChildPropertyAssociation object in CMF and XSD](#ex4-23)
+* [Example 4-25: AnyPropertyAssociation objects in CMF and XSD](#ex4-25)
 * [Example 4-30: ObjectProperty object in CMF and XSD](#ex4-30)
 * [Example 4-33: DataProperty object in CMF and XSD](#ex4-33)
 * [Example 4-36: Plain CMF datatype object for `xs:string`](#ex4-36)
@@ -4695,7 +4691,7 @@ Jacobs, I. "Architecture of the World Wide Web, Volume One". W3C Recommendation 
 * [Example 14-17: Repeatable object property](#ex14-17)
 * [Example 14-18: Repeatable data property with a List datatype](#ex14-18)
 * [Example 14-19: Ordered property values](#ex14-19)
-* [Example 14-20: RDF-star equivalent for a relationship property](#ex14-20)
+* [Example 14-20: RDF1.2 equivalent for a relationship property](#ex14-20)
 * [Example 14-22: Reference attribute and RDF](#ex14-22)
 * [Example 14-23: Augmentation element and RDF](#ex14-23)
 
@@ -4708,11 +4704,12 @@ Jacobs, I. "Architecture of the World Wide Web, Volume One". W3C Recommendation 
 * [Figure 3-6: NIEM communities and data models](#fig3-6)
 * [Figure 3-7: High-level view of the NIEM metamodel](#fig3-7)
 * [Figure 3-8: Message, message model, and metamodel relationships](#fig3-8)
+* [Figure 3-11: Knowledge graph portrayal of a NIEM model and message](#fig3-11)
 * [Figure 4-1: The NIEM metamodel](#fig4-1)
 * [Figure 4-4: Model class diagram](#fig4-4)
 * [Figure 4-6: Namespace class diagram](#fig4-6)
 * [Figure 4-10: Component class diagram](#fig4-10)
-* [Figure 4-14: Class, AnyProperty, and ChildPropertyAssociation class diagram](#fig4-14)
+* [Figure 4-14: Class, AnyPropertyAssociation, and ChildPropertyAssociation class diagram](#fig4-14)
 * [Figure 4-27: Property class diagram](#fig4-27)
 * [Figure 4-35: Datatype classes](#fig4-35)
 * [Figure 4-52: Augmentation class diagram](#fig4-52)

@@ -73,7 +73,7 @@ Namespace
 -namespaceVersionText
 -namespaceKindCode
 -conformanceTargetURI
--NIEMVersionName*
+-ArchitectureVersionName*
 -documentFilePathText*
 -importDocumentation*</panel_attributes>
     <additional_attributes/>
@@ -104,6 +104,7 @@ namespace &gt;</panel_attributes>
 /Property/
 --
 -abstractIndicator
+-orderedPropertyIndicator
 -relationshipPropertyIndicator</panel_attributes>
     <additional_attributes/>
   </element>
@@ -175,8 +176,7 @@ ChildPropertyAssociation
 --
 -minOccursQuantity
 -maxOccursQuantity
--documentationText
--orderedPropertyIndicator</panel_attributes>
+-documentationText</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -840,7 +840,7 @@ drawPolygon(p);</custom_code>
       <h>110</h>
     </coordinates>
     <panel_attributes>--
-AnyProperty
+AnyPropertyAssociation
 --
 -minOccursQuantity
 -maxOccursQuantity

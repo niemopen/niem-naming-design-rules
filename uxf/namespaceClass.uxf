@@ -5,7 +5,7 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>640</x>
+      <x>650</x>
       <y>330</y>
       <w>200</w>
       <h>220</h>
@@ -20,7 +20,7 @@ Namespace
 -namespaceVersionText
 -namespaceCategoryCode
 -conformanceTargetURI
--NIEMVersionName*
+-ArchitectureVersionName*
 -documentFilePathText*
 -importDocumentation*</panel_attributes>
     <additional_attributes/>
@@ -28,7 +28,7 @@ Namespace
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>830</x>
+      <x>840</x>
       <y>380</y>
       <w>240</w>
       <h>50</h>
@@ -43,7 +43,7 @@ augmentationRecord &gt;
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>830</x>
+      <x>840</x>
       <y>450</y>
       <w>240</w>
       <h>50</h>
@@ -58,7 +58,7 @@ localTerm &gt;
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1050</x>
+      <x>1060</x>
       <y>330</y>
       <w>160</w>
       <h>90</h>
@@ -73,7 +73,7 @@ bg=LIGHT_GRAY</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1050</x>
+      <x>1060</x>
       <y>430</y>
       <w>160</w>
       <h>120</h>
@@ -88,7 +88,7 @@ bg=LIGHT_GRAY</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>230</x>
+      <x>240</x>
       <y>330</y>
       <w>200</w>
       <h>100</h>
@@ -104,7 +104,7 @@ ImportDocumentation
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>420</x>
+      <x>430</x>
       <y>380</y>
       <w>240</w>
       <h>50</h>
