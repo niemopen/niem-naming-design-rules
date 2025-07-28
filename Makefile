@@ -9,7 +9,8 @@ TITLE   = NIEM Naming and Design Rules (NDR) Version 6.0
 
 TEMPLATE    = --template=styles/tocTemplate.html
 METADATA    = --metadata title="$(TITLE)"
-PANDOC_ARGS = -f gfm -t html --toc --toc-depth=5 -s $(TEMPLATE) $(METADATA)
+PANDOC_ARGS = -f gfm -t html --toc --toc-depth=5 \
+	      -f gfm-autolink_bare_uris -s $(TEMPLATE) $(METADATA)
 
 all : html pdf
 

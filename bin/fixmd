@@ -25,6 +25,10 @@
 # * Reference links are fixed:
 #   [[RFC 3986]](#ref) ->
 #   <a href="#rfc-3986"><b>[RFC 3986]</b></a>
+#
+# * Link elements turned into monospace anchors
+#   <link>http://example.com</link> turns into
+#   <a class="uri" href="http://example.com">http://example.com</a>
 
 use warnings;
 use strict;
@@ -33,15 +37,17 @@ my $openFence = 1;
 my $line = 0;
 my %terms;
 
-# Copy everything up to the start of the glossary section
+# Fix each line up the start of the glossary section
 while (<>) {
   $line++;
+  $_ = fixline($_);
   print;
   last if m/^#+ .*Glossary/;
 }
 # Now skip to the glossary definitions table header: | :--- | :--- |
 while (<>) {
   $line++;
+  $_ = fixline($_);
   print;
   last if m/^\|\s*[:-]+\s*\|\s*[:-]+\s*\|/;
 }
@@ -56,11 +62,12 @@ while (<>) {
   push(@glos,$_), next if /^\| :---/;   # table header
   if (m/^\|([^|]*)\|([^|]*)\|/) {
     my $def  = trim($2);
+    my $tlab = $1;
     my $term = lc trim($1);
     my $href = lc trim($1);
     $href =~ s/ +/-/g;
     $href = "def-$href";
-    push(@glos, sprintf "| <a name=\"%s\"></a>%s | %s |\n", $href, $term, $def);
+    push(@glos, sprintf "| <a name=\"%s\">%s</a> | %s |\n", $href, $tlab , $def);
     $terms{$term} = $href;
   }
   else {
@@ -144,6 +151,9 @@ sub fixline {
     my $repl = sprintf("<a href=\"#%s\"><b>[%s]</b></a>", $href, $ttxt);
     substr($ldat, $si, $mlen) = $repl;
   }
+  # Replace each <uri> and <link> element in the current line
+  $ldat =~ s!<link>(.*?)</link>!<a href="$1">$1</a>!g;
+  $ldat =~ s{<uri>(.*?)</uri>}{<a class="uri" href="$1">$1</a>}g;  
   return $ldat;
 }
 

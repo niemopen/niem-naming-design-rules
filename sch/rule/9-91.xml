@@ -1,0 +1,11 @@
+  <!-- NDR6 rule 9-91 (same as NDR5 rule 10-13) -->
+  <sch:pattern id="rule9-91" xmlns:sch="http://purl.oclc.org/dsdl/schematron">
+    <sch:title>External attribute use only in adapter type</sch:title>
+    <sch:rule context="xs:attribute[some $ref-namespace in namespace-uri-from-QName(resolve-QName(@ref, .)),
+                                        $import in ancestor::xs:schema[1]/xs:import satisfies (
+                                     xs:anyURI($import/@namespace) = $ref-namespace
+                                     and exists($import/@appinfo:externalImportIndicator))]">
+      <sch:assert test="exists(ancestor::xs:complexType[1]/@appinfo:externalAdapterTypeIndicator)"
+        >Rule 9-91: An external attribute use within a reference schema document MUST be in an adapter type.</sch:assert>
+    </sch:rule>
+  </sch:pattern>

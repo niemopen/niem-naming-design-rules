@@ -1,8 +1,10 @@
-  <!-- NDR6 rule 9-80 (same as NDR5 rule 9-11) -->
+  <!-- NDR6 rule 9-80 (same as NDR5 rule 9-79) -->
   <pattern id="rule9-80" xmlns="http://purl.oclc.org/dsdl/schematron">
-    <title>No simple type disallowed derivation</title>
-    <rule context="xs:simpleType">
-      <assert test="empty(@final)"
-        >Rule 9-80: A reference schema document MUST NOT have an attribute {}final.</assert>
+    <title>`xs:appinfo` children are comments, elements, or whitespace</title>
+    <rule context="xs:appinfo/node()">
+      <assert test="self::comment()
+                       or self::element()
+                       or self::text()[string-length(normalize-space(.)) = 0]"
+        >Rule 9-80: A child of element xs:appinfo MUST be an element, a comment, or whitespace text.</assert>
     </rule>
   </pattern>

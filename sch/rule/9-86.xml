@@ -1,11 +1,10 @@
-  <!-- NDR6 rule 9-86 (same as NDR5 rule 10-13) -->
-  <sch:pattern id="rule9-86" xmlns:sch="http://purl.oclc.org/dsdl/schematron">
-    <sch:title>External attribute use only in adapter type</sch:title>
-    <sch:rule context="xs:attribute[some $ref-namespace in namespace-uri-from-QName(resolve-QName(@ref, .)),
-                                        $import in ancestor::xs:schema[1]/xs:import satisfies (
-                                     xs:anyURI($import/@namespace) = $ref-namespace
-                                     and exists($import/@appinfo:externalImportIndicator))]">
-      <sch:assert test="exists(ancestor::xs:complexType[1]/@appinfo:externalAdapterTypeIndicator)"
-        >Rule 9-86: An external attribute use within a reference schema document MUST be in an adapter type.</sch:assert>
-    </sch:rule>
-  </sch:pattern>
+  <!-- NDR6 rule 9-86 (same as NDR5 rule 9-13) -->
+  <pattern id="rule9-86" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>No use of fixed on simple type facets</title>
+    <rule context="xs:*[self::xs:length or self::xs:minLength or self::xs:maxLength or self::xs:whiteSpace
+      or self::xs:maxInclusive or self::xs:maxExclusive or self::xs:minExclusive or self::xs:minInclusive
+      or self::xs:totalDigits or self::xs:fractionDigits]">
+      <assert test="empty(@fixed)"
+        >Rule 9-86: A simple type constraining facet in a reference schema document MUST NOT have an attribute {}fixed.</assert>
+    </rule>
+  </pattern>

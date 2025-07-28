@@ -1,10 +1,8 @@
-  <!-- NDR6 rule 9-84 (same as NDR5 rule 9-47) -->
+  <!-- NDR6 rule 9-84 (same as NDR5 rule 10-76) -->
   <pattern id="rule9-84" xmlns="http://purl.oclc.org/dsdl/schematron">
-    <title>Element declaration is nillable</title>
-    <rule context="xs:element[@name and (empty(@abstract)
-                                            or xs:boolean(@abstract) = false())]">
-      <assert test="exists(@nillable)
-                       and xs:boolean(@nillable) = true()"
-        >Rule 9-84: An element declaration in a reference schema document MUST have the {nillable} property with a value of true.</assert>
+    <title>LocalTerm appinfo applies to schema</title>
+    <rule context="appinfo:LocalTerm">
+      <assert test="parent::xs:appinfo[parent::xs:annotation[parent::xs:schema]]"
+        >Rule 9-84: When the element appinfo:LocalTerm appears in a schema document, it MUST be application information on an element xs:schema.</assert>
     </rule>
   </pattern>

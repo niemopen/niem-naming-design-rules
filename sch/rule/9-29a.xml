@@ -1,0 +1,8 @@
+  <!-- NDR6 rule 9-29 (same as NDR5 rule 9-10) -->
+  <pattern id="rule9-29a" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Type definition is top-level</title>
+    <rule context="xs:simpleType">
+      <assert test="exists(parent::xs:schema)"
+        >Rule 9-29: A type definition MUST be top-level.</assert>
+    </rule>
+  </pattern>

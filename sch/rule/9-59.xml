@@ -1,13 +1,9 @@
-  <!-- NDR6 rule 9-59 (same as NDR5 rule 10-16) -->
+  <!-- NDR6 rule 9-59 (same as NDR5 rule 10-36) -->
   <pattern id="rule9-59" xmlns="http://purl.oclc.org/dsdl/schematron">
-    <title>External element use has data definition</title>
-    <rule context="xs:element[
-       some $ref-namespace in namespace-uri-from-QName(resolve-QName(@ref, .)) satisfies
-         nf:get-document-element(.)/self::xs:schema//xs:import[
-           xs:anyURI(@namespace) = $ref-namespace
-           and @appinfo:externalImportIndicator]]">
-      <assert test="some $documentation in xs:annotation/xs:documentation[1] satisfies
-                         string-length(normalize-space(string($documentation))) &gt; 0"
-        >Rule 9-59: An external attribute use MUST be a documented component with a non-empty data definition.</assert>
+    <title>Name of augmentation elements</title>
+    <rule context="xs:element[exists(@name)]">
+      <assert test="exists(@type[ends-with(., 'AugmentationType')])
+                       = exists(@name[ends-with(., 'Augmentation')])"
+        >Rule 9-59: The XSD declaration of an augmentation element MUST have a name ending in "Augmentation"; all other XSD components MUST NOT.</assert>
     </rule>
   </pattern>

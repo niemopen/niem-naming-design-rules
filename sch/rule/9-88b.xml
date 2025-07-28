@@ -1,0 +1,8 @@
+  <!-- NDR6 rule 9-88 (same as NDR5 rule 9-44) -->
+  <pattern id="rule9-88b" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>No disallowed derivation</title>
+    <rule context="xs:element">
+      <assert test="empty(@final)"
+        >Rule 9-88: A reference schema document MUST NOT contain the attribute {}final or {}finalDefault.</assert>
+    </rule>
+  </pattern>

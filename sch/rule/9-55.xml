@@ -1,12 +1,13 @@
-  <!-- NDR6 rule 9-55 (same as NDR5 rule 10-10) -->
+  <!-- NDR6 rule 9-55 (same as NDR5 rule 10-16) -->
   <pattern id="rule9-55" xmlns="http://purl.oclc.org/dsdl/schematron">
-    <title>Element use from external adapter type defined by external schema documents</title>
-    <rule context="xs:element[@ref
-                                 and exists(ancestor::xs:complexType[exists(@appinfo:externalAdapterTypeIndicator)])]">
-      <assert test="some $ref-namespace in namespace-uri-from-QName(resolve-QName(@ref, .)) satisfies
-                         nf:get-document-element(.)/xs:import[
-                           $ref-namespace = xs:anyURI(@namespace)
-                           and @appinfo:externalImportIndicator]"
-        >Rule 9-55: An element reference that appears within an adapter type MUST have a target namespace that is imported as external.</assert>
+    <title>External element use has data definition</title>
+    <rule context="xs:element[
+       some $ref-namespace in namespace-uri-from-QName(resolve-QName(@ref, .)) satisfies
+         nf:get-document-element(.)/self::xs:schema//xs:import[
+           xs:anyURI(@namespace) = $ref-namespace
+           and @appinfo:externalImportIndicator]]">
+      <assert test="some $documentation in xs:annotation/xs:documentation[1] satisfies
+                         string-length(normalize-space(string($documentation))) &gt; 0"
+        >Rule 9-55: An external attribute use MUST be a documented component with a non-empty data definition.</assert>
     </rule>
   </pattern>

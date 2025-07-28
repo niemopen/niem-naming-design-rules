@@ -1,0 +1,10 @@
+  <!-- NDR6 rule 9-62 (same as NDR5 rule 11-32) -->
+  <pattern id="rule9-62" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Standard opening phrase for augmentation element data definition</title>
+    <rule context="xs:element[ends-with(@name, 'Augmentation')]/xs:annotation/xs:documentation[1]">
+      <report role="warning" test="every $phrase
+               in ('supplements ', 'additional information about ')
+               satisfies not(starts-with(lower-case(normalize-space(.)), $phrase))"
+        >Rule 9-62: The data definition for an augmentation element SHOULD begin with the standard opening phrase "Supplements..." or "Additional information about...".</report>
+    </rule>
+  </pattern>

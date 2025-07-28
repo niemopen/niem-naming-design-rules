@@ -228,7 +228,9 @@ while (<N5R>) {
     my $sep = "";
     my @n6rules = split(m/,\s*/, $n5maps);
     foreach my $n6r (@n6rules) {
-      print "$sep","[$n6r](#$n6r)";
+      my $n6rn = $n6r;
+      $n6rn =~ s/rule/rule /;
+      print "$sep","[$n6rn](#$n6r)";
       $sep=", ";
     }
   }

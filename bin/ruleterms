@@ -1,0 +1,17 @@
+#!/usr/bin/perl
+
+# Create a list of terms used within a rule in the NDR
+
+use warnings;
+use strict;
+
+my %terms;
+while (<>) {
+  next unless /^\*\*Rule /;
+  while ($_ =~ /\[([^\]]+)\]\(#def\)/g) {
+    $terms{$1} = 1;
+  }
+}
+foreach my $term (sort keys %terms) {
+  print "$term\n";
+}
