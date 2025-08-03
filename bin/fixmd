@@ -23,11 +23,15 @@
 #   <a name="rule0-0"></a>**Rule 0-0:** Rule text. *[Manual]*
 #
 # * Reference links are fixed:
-#   [[RFC 3986]](#ref) ->
+#   [RFC 3986](#ref) ->
 #   <a href="#rfc-3986"><b>[RFC 3986]</b></a>
 #
-# * Link elements turned into monospace anchors
+# * Link elements turned into normal-font anchors
 #   <link>http://example.com</link> turns into
+#   <a class="uri" href="http://example.com">http://example.com</a>
+
+# * URI elements turned into monofont  anchors
+#   <uri>http://example.com</uri> turns into
 #   <a class="uri" href="http://example.com">http://example.com</a>
 
 use warnings;
@@ -91,13 +95,18 @@ sub fixline {
 
   # Replace each defined term reference in the current line;
   # for example: [atomic class](#def)
-  while ($ldat =~ m/\[([^]]+)\]\(#def\)/g) {
+  # or: [literal class](#dot)
+  while ($ldat =~ m/\[([^]]+)\]\((#def|#dot)\)/g) {
     my $si    = $-[0];        # beginning index of defined term ref
     my $ei    = $+[0];        # ending index of defined term ref
     my $mlen  = $ei - $si;    # length of defined term ref
     my $ttxt  = $1;           # text of defined term; eg. "atomic class"
     my $term  = lc $1;        # defined term, all lowercase
+
+    my $cstr  = $2 eq '#dot' ? ' class="termRef"' : '';
+
     $term =~ s/[^\s\w]//g;    # remove everything but spaces and word chars
+
 
     if (defined $terms{$term}) { }
     else {
@@ -117,7 +126,7 @@ sub fixline {
     }
     my $href = $terms{$term};
     if (defined $href) {
-      my $rep = "[<span class=\"termRef\">$ttxt</span>](#$href)";
+      my $rep = "[<span$cstr>$ttxt</span>](#$href)";
       substr($ldat, $si, $mlen) = $rep;
     }
     else {

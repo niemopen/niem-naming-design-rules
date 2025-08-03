@@ -1,0 +1,8 @@
+  <!-- NDR6 rule 9-83 (same as NDR5 rule 9-81) -->
+  <pattern id="rule9-83" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Appinfo descendants are not XML Schema elements</title>
+    <rule context="xs:appinfo//xs:*">
+      <assert test="false()"
+        >Rule 9-83: An element that is a descendent of xs:appinfo MUST NOT have the XML Schema namespace.</assert>
+    </rule>
+  </pattern>

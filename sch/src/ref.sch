@@ -1,19 +1,15 @@
   <!-- Rules applicable only to reference schema documents -->
 
-  <title>Rules for reference schema documents</title>
-  
-  <include href="rule/8-9.xml"/>
-  <include href="rule/8-10.xml"/>
-  <include href="rule/8-12.xml"/>
-  <include href="rule/9-87.xml"/>
-  <include href="rule/9-80.xml"/>
-  <include href="rule/9-82a.xml"/>
-  <include href="rule/9-82b.xml"/>
-  <include href="rule/9-82c.xml"/>
-  <include href="rule/9-83a.xml"/>
-  <include href="rule/9-83b.xml"/>
-  <include href="rule/9-83c.xml"/>
-  <include href="rule/9-84.xml"/>
-  <include href="rule/9-85.xml"/>
-  <include href="rule/9-86.xml"/>
-  
+  <include href="rule/8-9.xml"/>     <!-- Reference namespace asserts conformance -->
+  <include href="rule/8-10.xml"/>    <!-- Reference namespace does not have wildcard -->
+  <include href="rule/8-12.xml"/>    <!-- Reference namespace uses reference namespace components -->
+  <include href="rule/9-86.xml"/>    <!-- No simple type disallowed derivation -->
+  <include href="rule/9-87.xml"/>    <!-- No use of fixed on simple type facets -->
+  <include href="rule/9-88a.xml"/>   <!-- No disallowed substitutions -->
+  <include href="rule/9-88b.xml"/>   <!-- No disallowed substitutions -->
+  <include href="rule/9-88c.xml"/>   <!-- No disallowed substitutions -->
+  <include href="rule/9-89a.xml"/>   <!-- No disallowed derivation -->
+  <include href="rule/9-89b.xml"/>   <!-- No disallowed derivation -->
+  <include href="rule/9-89c.xml"/>   <!-- No disallowed derivation -->
+  <include href="rule/9-90.xml"/>    <!-- Element declaration is nillable -->
+  <include href="rule/9-91.xml"/>    <!-- No xs:choice -->

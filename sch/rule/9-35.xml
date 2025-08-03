@@ -1,6 +1,6 @@
   <!-- NDR6 rule 9-35 (same as NDR5 rule 11-11) -->
   <pattern id="rule9-35" xmlns="http://purl.oclc.org/dsdl/schematron">
-    <title>Complex type with simple content has `structures:SimpleObjectAttributeGroup`</title>
+    <title>Complex type with simple content has structures:SimpleObjectAttributeGroup</title>
     <rule context="xs:simpleContent/xs:extension[
        some $base-qname in resolve-QName(@base, .) satisfies
          namespace-uri-from-QName($base-qname) = xs:anyURI('http://www.w3.org/2001/XMLSchema')

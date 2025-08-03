@@ -1,6 +1,6 @@
   <!-- NDR6 rule 8-9 (same as NDR5 rule 4-5) -->
   <pattern id="rule8-9" xmlns="http://purl.oclc.org/dsdl/schematron">
-    <title>Subset namespace asserts conformance</title>
+    <title>Reference namespace asserts conformance</title>
     <rule context="*[. is nf:get-document-element(.)]">
       <assert test="nf:has-effective-conformance-target-identifier(., xs:anyURI('https://docs.oasis-open.org/niemopen/ns/specification/NDR/6.0/#ReferenceSchemaDocument'))"
         >Rule 8-9: A reference namespace must assert the conformance target identifier https://docs.oasis-open.org/niemopen/ns/specification/NDR/6.0/#ReferenceSchemaDocument.</assert>

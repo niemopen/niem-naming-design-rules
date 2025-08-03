@@ -13,7 +13,7 @@
   version="ps02"
   xml:lang="en-US">
   <xs:annotation>
-    <xs:documentation>rule 9-38: An attribute or element reference MUST have the target namespace or a namespace that is imported as conformant.</xs:documentation>
+    <xs:documentation>rule 9-37: An attribute or element reference MUST have the target namespace or a namespace that is imported as conformant.</xs:documentation>
   </xs:annotation>
   <xs:import namespace="http://www.opengis.net/gml/3.2" schemaLocation="niem/external/ogc/gml/3.2.1/gml.xsd" appinfo:externalImportIndicator="true"/>
   <xs:import namespace="https://docs.oasis-open.org/niemopen/ns/model/adapters/niem-xs/6.0/" schemaLocation="niem/adapters/niem-xs.xsd"/>

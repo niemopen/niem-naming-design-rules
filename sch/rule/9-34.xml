@@ -1,6 +1,6 @@
   <!-- NDR6 rule 9-34 (same as NDR5 rule 10-2) -->
   <pattern id="rule9-34" xmlns="http://purl.oclc.org/dsdl/schematron">
-    <title>Object type with complex content is derived from `structures:ObjectType`</title>
+    <title>Object type derived from structures:ObjectType</title>
     <rule context="xs:complexType[exists(xs:complexContent)
                                      and not(ends-with(@name, 'AssociationType')
                                          or ends-with(@name, 'MetadataType')

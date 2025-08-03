@@ -1,38 +1,34 @@
-.PHONY: all clean
+VERSION = 6.0
+REF = refTarget-$(VERSION)
+REFSCH = $(REF).sch
+REFXSL = $(REF).xsl
 
-VERSION	= 6.0ps01
+EXT = extTarget-$(VERSION)
+EXTSCH = $(EXT).sch
+EXTXSL = $(EXT).xsl
 
+SUB = subTarget-$(VERSION)
+SUBSCH = $(SUB).sch
+SUBXSL = $(SUB).xsl
 
-REF	= refTarget-$(VERSION)
-REFSCH	= $(REF).sch
-REFXSL  = $(REF).xsl
+SCH = $(REFSCH) $(EXTSCH) $(SUBSCH)
+XSL = $(REFXSL) $(EXTXSL) $(SUBXSL)
 
-EXT	= extTarget-$(VERSION)
-EXTSCH	= $(EXT).sch
-EXTXSL  = $(EXT).xsl
-
-SUB	= subTarget-$(VERSION)
-SUBSCH	= $(SUB).sch
-SUBXSL  = $(SUB).xsl
-
-SCH	= $(REFSCH) $(EXTSCH) $(SUBSCH)
-XSL     = $(REFXSL) $(EXTXSL) $(SUBXSL)
-
-$(REFSCH) : $(addprefix src/, hdr.sch all.sch ref.sch) 
+$(REFSCH) : $(addprefix src/, hdr.sch all.sch ref.sch)
 	cat $+ > $@
 	echo '</schema>' >>$@
 
-$(EXTSCH) : $(addprefix src/, hdr.sch all.sch ext.sch) 
+$(EXTSCH) : $(addprefix src/, hdr.sch all.sch ext.sch)
 	cat $+ > $@
 	echo '</schema>' >>$@
 
-$(SUBSCH) : $(addprefix src/, hdr.sch all.sch sub.sch) 
+$(SUBSCH) : $(addprefix src/, hdr.sch all.sch sub.sch)
 	cat $+ > $@
 	echo '</schema>' >>$@
 
 %.xsl: %.sch
 	scheval --compile -s "$<" > TEMPfile
-	xsltproc xsl/xsltpp.xsl TEMPfile > "$@"
+	xsltproc src/xsltpp.xsl TEMPfile > "$@"
 	rm -f TEMPfile
 
 all: sch xsl

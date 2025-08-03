@@ -1,6 +1,6 @@
   <!-- NDR6 rule 9-47 -->
   <pattern id="rule9-47" xmlns="http://purl.oclc.org/dsdl/schematron">
-    <title>Prohibited attribute types</title>
+    <title>Only reference attributes have type xs:IDREFS</title>
     <rule context="xs:attribute[exists(@type)]">
       <assert test="(resolve-QName(@type, .) = xs:QName('xs:IDREFS')) =
                     (@appinfo:referenceAttributeIndicator = 'true')"

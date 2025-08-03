@@ -1,6 +1,6 @@
   <!-- NDR6 rule 9-32 (same as NDR5 rule 10-21) -->
   <pattern xmlns="http://purl.oclc.org/dsdl/schematron">
-    <title>Association type derived form structures:AssociationType</title>
+    <title>Association type derived from structures:AssociationType</title>
     <rule context="xs:complexType">
       <let name="is-association-type" value="exists(@name[ends-with(., 'AssociationType')])"/>
       <let name="has-association-base-type" value="

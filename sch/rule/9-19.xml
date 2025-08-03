@@ -1,6 +1,6 @@
   <!-- NDR6 rule 9-19 (same as NDR5 rule 9-65) -->
   <pattern id="rule9-19" xmlns="http://purl.oclc.org/dsdl/schematron">
-    <title>`xs:choice` must be child of `xs:sequence`</title>
+    <title>xs:choice must be child of xs:sequence</title>
     <rule context="xs:choice">
       <assert test="exists(parent::xs:sequence)"
         >Rule 9-19: An element xs:choice MUST be a child of xs:sequence.</assert>

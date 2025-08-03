@@ -48,10 +48,6 @@ Please post comments on NDR 6.0 PS01 on the [issues page](https://github.com/nie
 * [niem5ndr.md](niem5ndr.md) – NDR 5 converted to markdown, with edits to XSD rules
 * [pptx](pptx) – originals of images created with Powerpoint
 * [sch](sch) – Schematron for XSD rules in NDR 6
-  * [ndr-ct-ext.sch](ndr-ct-ext.sch) – Schematron for extension schema documents
-  * [ndr-ct-msg.sch](ndr-ct-msg.sch) – Schematron for message schema documents
-  * [ndr-ct-sub.sch](ndr-ct-sub.sch) – Schematron for subset schema documents
-  * [ndr-ct-ref.sch](ndr-ct-ref.sch) – Schematron for reference schema documents
 * [styles](styles) – CSS files used to generate OASIS HTML from Markdown
 * [uxf](uxf) – originals of UML diagrams in NDR6
 

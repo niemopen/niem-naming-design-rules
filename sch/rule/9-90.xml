@@ -1,8 +1,10 @@
-  <!-- NDR6 rule 9-90 (same as NDR5 rule 9-64) -->
+  <!-- NDR6 rule 9-90 (same as NDR5 rule 9-47) -->
   <pattern id="rule9-90" xmlns="http://purl.oclc.org/dsdl/schematron">
-    <title>No `xs:choice`</title>
-    <rule context="xs:choice">
-      <assert test="false()"
-        >Rule 9-90: A reference schema document MUST NOT contain the element xs:choice.</assert>
+    <title>Element declaration is nillable</title>
+    <rule context="xs:element[@name and (empty(@abstract)
+                                            or xs:boolean(@abstract) = false())]">
+      <assert test="exists(@nillable)
+                       and xs:boolean(@nillable) = true()"
+        >Rule 9-90: An element declaration in a reference schema document MUST have the {nillable} property with a value of true.</assert>
     </rule>
   </pattern>

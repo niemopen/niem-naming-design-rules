@@ -1,3 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema 
+  xmlns="http://purl.oclc.org/dsdl/schematron" 
+  xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+  queryBinding="xslt2">
+  
+  <ns prefix="appinfo" uri="https://docs.oasis-open.org/niemopen/ns/model/appinfo/6.0/"/>  
+  <ns prefix="catalog" uri="urn:oasis:names:tc:entity:xmlns:xml:catalog"/>
+  <ns prefix="ct" uri="https://docs.oasis-open.org/niemopen/ns/specification/conformanceTargets/6.0/"/>
+  <ns prefix="impl" uri="http://example.org/impl"/>
+  <ns prefix="nf" uri="https://docs.oasis-open.org/niemopen/ns/specification/NDR/6.0/#NDRFunctions"/>
+  <ns prefix="saxon" uri="http://saxon.sf.net/"/>
+  <ns prefix="structures" uri="https://docs.oasis-open.org/niemopen/ns/model/structures/6.0/"/>
+  <ns prefix="xsi" uri="http://www.w3.org/2001/XMLSchema-instance"/>
+  <ns prefix="xs" uri="http://www.w3.org/2001/XMLSchema"/>
+  <ns prefix="xsl" uri="http://www.w3.org/1999/XSL/Transform"/>
+
+  <xsl:include href="src/ndr-functions.xsl"/>
+
   <!-- Rules applicable to all conforming schema documents -->
   
   <include href="rule/7-2a.xml"/>    <!-- Name of Class, Datatype, and Property components -->
@@ -142,3 +162,8 @@
   <include href="rule/9-85.xml"/>    <!-- LocalTerm appinfo applies to schema -->
   <include href="rule/10-5.xml"/>    <!-- Consistent import schema document -->
   <include href="rule/10-6.xml"/>    <!-- Consistent import labels -->
+  <!-- Rules applicable only to extension schema documents -->
+
+  <include href="rule/8-13.xml"/>    <!-- Extension namespace asserts conformance -->
+  <include href="rule/9-94.xml"/>    <!-- Element declaration is nillable -->
+</schema>
