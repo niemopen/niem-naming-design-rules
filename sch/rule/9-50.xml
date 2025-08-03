@@ -1,9 +1,10 @@
-  <!-- NDR6 rule 9-50 -->
+  <!-- NDR6 rule 9-50 (same as NDR5 rule 10-9) -->
   <pattern id="rule9-50" xmlns="http://purl.oclc.org/dsdl/schematron">
-    <title>Prohibited attribute types</title>
-    <rule context="xs:attribute[exists(@type)]">
-      <assert test="(resolve-QName(@type, .) = xs:QName('xs:IDREFS')) =
-                    (@appinfo:referenceAttributeIndicator = 'true')"
-        >Rule 9-50: The attribute declaration of a reference attribute MUST have type `xs:IDREFS`; all other components MUST NOT.</assert>
+    <title>Structure of adapter type definition follows pattern</title>
+    <rule context="xs:complexType[@appinfo:externalAdapterTypeIndicator]">
+      <assert test="xs:complexContent/xs:extension[
+                         resolve-QName(@base, .) = xs:QName('structures:ObjectType')
+                       ]/xs:sequence"
+        >Rule 9-50: An adapter type definition MUST be a complex type definition with complex content that extends structures:ObjectType, and that uses xs:sequence as its top-level compositor.</assert>
     </rule>
   </pattern>

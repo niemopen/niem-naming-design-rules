@@ -1,0 +1,9 @@
+  <!-- NDR6 rule 9-33 (same as NDR5 rule 10-35) -->
+  <pattern id="rule9-33" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Augmentation type derived from structures:AugmentationType</title>
+    <rule context="xs:*[(self::xs:restriction or self::xs:extension)
+                           and ends-with(@base, 'AugmentationType')]">
+      <assert test="ancestor::xs:complexType[ends-with(@name, 'AugmentationType')]"
+        >Rule 9-33: A type definition that is an augmentation type MUST be derived from structures:AugmentationType.</assert>
+    </rule>
+  </pattern>

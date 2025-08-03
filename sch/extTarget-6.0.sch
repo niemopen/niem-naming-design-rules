@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema 
+  xmlns="http://purl.oclc.org/dsdl/schematron" 
+  xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+  queryBinding="xslt2">
+  
+  <ns prefix="appinfo" uri="https://docs.oasis-open.org/niemopen/ns/model/appinfo/6.0/"/>  
+  <ns prefix="catalog" uri="urn:oasis:names:tc:entity:xmlns:xml:catalog"/>
+  <ns prefix="ct" uri="https://docs.oasis-open.org/niemopen/ns/specification/conformanceTargets/6.0/"/>
+  <ns prefix="impl" uri="http://example.org/impl"/>
+  <ns prefix="nf" uri="https://docs.oasis-open.org/niemopen/ns/specification/NDR/6.0/#NDRFunctions"/>
+  <ns prefix="saxon" uri="http://saxon.sf.net/"/>
+  <ns prefix="structures" uri="https://docs.oasis-open.org/niemopen/ns/model/structures/6.0/"/>
+  <ns prefix="xsi" uri="http://www.w3.org/2001/XMLSchema-instance"/>
+  <ns prefix="xs" uri="http://www.w3.org/2001/XMLSchema"/>
+  <ns prefix="xsl" uri="http://www.w3.org/1999/XSL/Transform"/>
+
+  <xsl:include href="src/ndr-functions.xsl"/>
+
+  <!-- Rules applicable to all conforming schema documents -->
+  
+  <include href="rule/7-2a.xml"/>    <!-- Name of Class, Datatype, and Property components -->
+  <include href="rule/7-2b.xml"/>    <!-- Name of Class, Datatype, and Property components -->
+  <include href="rule/7-4.xml"/>     <!-- Name of adapter classes -->
+  <include href="rule/7-5.xml"/>     <!-- Name of association classes -->
+  <include href="rule/7-8.xml"/>     <!-- Names ending in "CodeSimpleType" -->
+  <include href="rule/7-9.xml"/>     <!-- Name of code list datatypes -->
+  <include href="rule/7-10.xml"/>    <!-- Name of abstract properties -->
+  <include href="rule/7-11.xml"/>    <!-- Name of association properties -->
+  <include href="rule/7-12a.xml"/>   <!-- Name of code properties -->
+  <include href="rule/7-12b.xml"/>   <!-- Name of code properties -->
+  <include href="rule/7-16.xml"/>    <!-- Component names have only specific characters -->
+  <include href="rule/7-18.xml"/>    <!-- Name of attribute properties begin with lower case letter -->
+  <include href="rule/7-19.xml"/>    <!-- Name of components other than attribute properties begin with upper case letter -->
+  <include href="rule/7-36.xml"/>    <!-- Local term has literal or definition -->
+  <include href="rule/7-37.xml"/>    <!-- Namespace has data definition -->
+  <include href="rule/7-38a.xml"/>   <!-- Model component has data definition -->
+  <include href="rule/7-38b.xml"/>   <!-- Model component has data definition -->
+  <include href="rule/7-38c.xml"/>   <!-- Model component has data definition -->
+  <include href="rule/7-38d.xml"/>   <!-- Model component has data definition -->
+  <include href="rule/7-39.xml"/>    <!-- Enumeration facet has data definition -->
+  <include href="rule/7-48.xml"/>    <!-- Standard opening phrase for abstract property data definition -->
+  <include href="rule/7-49.xml"/>    <!-- Standard opening phrase for association property data definition -->
+  <include href="rule/7-50.xml"/>    <!-- Standard opening phrase for date property data definition -->
+  <include href="rule/7-51.xml"/>    <!-- Standard opening phrase for quantity property data definition -->
+  <include href="rule/7-52.xml"/>    <!-- Standard opening phrase for picture property data definition -->
+  <include href="rule/7-53.xml"/>    <!-- Standard opening phrase for indicator property data definition -->
+  <include href="rule/7-54.xml"/>    <!-- Standard opening phrase for identification property data definition -->
+  <include href="rule/7-55.xml"/>    <!-- Standard opening phrase for name property data definition -->
+  <include href="rule/7-56.xml"/>    <!-- Standard opening phrase for property data definition -->
+  <include href="rule/7-57.xml"/>    <!-- Standard opening phrase for association class data definition -->
+  <include href="rule/8-7.xml"/>     <!-- Namespace has version -->
+  <include href="rule/9-1a.xml"/>    <!-- Schema is CTAS-conformant -->
+  <include href="rule/9-1b.xml"/>    <!-- Schema is CTAS-conformant -->
+  <include href="rule/9-1c.xml"/>    <!-- Schema is CTAS-conformant -->
+  <include href="rule/9-2.xml"/>     <!-- Document element has attribute ct:conformanceTargets -->
+  <include href="rule/9-4.xml"/>     <!-- Document element is xs:schema -->
+  <include href="rule/9-5a.xml"/>    <!-- Prohibited schema components -->
+  <include href="rule/9-5b.xml"/>    <!-- Prohibited schema components -->
+  <include href="rule/9-5c.xml"/>    <!-- Prohibited schema components -->
+  <include href="rule/9-5d.xml"/>    <!-- Prohibited schema components -->
+  <include href="rule/9-5e.xml"/>    <!-- Prohibited schema components -->
+  <include href="rule/9-5f.xml"/>    <!-- Prohibited schema components -->
+  <include href="rule/9-5g.xml"/>    <!-- Prohibited schema components -->
+  <include href="rule/9-5h.xml"/>    <!-- Prohibited schema components -->
+  <include href="rule/9-5i.xml"/>    <!-- Prohibited schema components -->
+  <include href="rule/9-6a.xml"/>    <!-- Prohibited base types -->
+  <include href="rule/9-6b.xml"/>    <!-- Prohibited base types -->
+  <include href="rule/9-6c.xml"/>    <!-- Prohibited base types -->
+  <include href="rule/9-6d.xml"/>    <!-- Prohibited base types -->
+  <include href="rule/9-6e.xml"/>    <!-- Prohibited base types -->
+  <include href="rule/9-6f.xml"/>    <!-- Prohibited base types -->
+  <include href="rule/9-6g.xml"/>    <!-- Prohibited base types -->
+  <include href="rule/9-6h.xml"/>    <!-- Prohibited base types -->
+  <include href="rule/9-6i.xml"/>    <!-- Prohibited base types -->
+  <include href="rule/9-7a.xml"/>    <!-- Prohibited list item types -->
+  <include href="rule/9-7b.xml"/>    <!-- Prohibited list item types -->
+  <include href="rule/9-7c.xml"/>    <!-- Prohibited list item types -->
+  <include href="rule/9-7d.xml"/>    <!-- Prohibited list item types -->
+  <include href="rule/9-8a.xml"/>    <!-- Prohibited union item types -->
+  <include href="rule/9-8b.xml"/>    <!-- Prohibited union item types -->
+  <include href="rule/9-8c.xml"/>    <!-- Prohibited union item types -->
+  <include href="rule/9-8d.xml"/>    <!-- Prohibited union item types -->
+  <include href="rule/9-8e.xml"/>    <!-- Prohibited union item types -->
+  <include href="rule/9-8f.xml"/>    <!-- Prohibited union item types -->
+  <include href="rule/9-9a.xml"/>    <!-- Prohibited attribute types -->
+  <include href="rule/9-9b.xml"/>    <!-- Prohibited attribute types -->
+  <include href="rule/9-9c.xml"/>    <!-- Prohibited attribute types -->
+  <include href="rule/9-9d.xml"/>    <!-- Prohibited attribute types -->
+  <include href="rule/9-9e.xml"/>    <!-- Prohibited attribute types -->
+  <include href="rule/9-10a.xml"/>   <!-- No mixed content on complex type or complex content -->
+  <include href="rule/9-10b.xml"/>   <!-- No mixed content on complex type or complex content -->
+  <include href="rule/9-11.xml"/>    <!-- Complex type content is explicitly simple or complex -->
+  <include href="rule/9-12a.xml"/>   <!-- Base type of complex type with complex content must have complex content -->
+  <include href="rule/9-12b.xml"/>   <!-- Base type of complex type with complex content must have complex content -->
+  <include href="rule/9-13a.xml"/>   <!-- Untyped element is abstract -->
+  <include href="rule/9-13b.xml"/>   <!-- Untyped element is abstract -->
+  <include href="rule/9-14a.xml"/>   <!-- Element type not in the XML or XML Schema namespace -->
+  <include href="rule/9-14b.xml"/>   <!-- Element type not in the XML or XML Schema namespace -->
+  <include href="rule/9-15.xml"/>    <!-- Element type is not simple type -->
+  <include href="rule/9-16.xml"/>    <!-- Attribute declaration has type -->
+  <include href="rule/9-17a.xml"/>   <!-- No default or fixed value -->
+  <include href="rule/9-17b.xml"/>   <!-- No default or fixed value -->
+  <include href="rule/9-17c.xml"/>   <!-- No default or fixed value -->
+  <include href="rule/9-17d.xml"/>   <!-- No default or fixed value -->
+  <include href="rule/9-18a.xml"/>   <!-- Sequence has minimum and maximum cardinality 1 -->
+  <include href="rule/9-18b.xml"/>   <!-- Sequence has minimum and maximum cardinality 1 -->
+  <include href="rule/9-19.xml"/>    <!-- xs:choice must be child of xs:sequence -->
+  <include href="rule/9-20a.xml"/>   <!-- Choice has minimum and maximum cardinality 1 -->
+  <include href="rule/9-20b.xml"/>   <!-- Choice has minimum and maximum cardinality 1 -->
+  <include href="rule/9-21.xml"/>    <!-- Comment is not recommended -->
+  <include href="rule/9-22.xml"/>    <!-- Documentation element has no element children -->
+  <include href="rule/9-23.xml"/>    <!-- Import has namespace -->
+  <include href="rule/9-25.xml"/>    <!-- Name of type definitions -->
+  <include href="rule/9-26.xml"/>    <!-- Name of simple type definitions -->
+  <include href="rule/9-28.xml"/>    <!-- xs:sequence must be child of xs:extension -->
+  <include href="rule/9-29a.xml"/>   <!-- Type definition is top-level -->
+  <include href="rule/9-29b.xml"/>   <!-- Type definition is top-level -->
+  <include href="rule/9-32.xml"/>    <!-- Association type derived from structures:AssociationType -->
+  <include href="rule/9-33.xml"/>    <!-- Augmentation type derived from structures:AugmentationType -->
+  <include href="rule/9-34.xml"/>    <!-- Object type derived from structures:ObjectType -->
+  <include href="rule/9-35.xml"/>    <!-- Complex type with simple content has structures:SimpleObjectAttributeGroup -->
+  <include href="rule/9-36.xml"/>    <!-- Base type definition defined by conformant schema -->
+  <include href="rule/9-37a.xml"/>   <!-- Component reference defined by conformant schema -->
+  <include href="rule/9-37b.xml"/>   <!-- Component reference defined by conformant schema -->
+  <include href="rule/9-38.xml"/>    <!-- Schema uses only known attribute groups -->
+  <include href="rule/9-39.xml"/>    <!-- List item type defined by conformant schemas -->
+  <include href="rule/9-40.xml"/>    <!-- Union member types defined by conformant schemas -->
+  <include href="rule/9-42a.xml"/>   <!-- Declarations are top-level -->
+  <include href="rule/9-42b.xml"/>   <!-- Declarations are top-level -->
+  <include href="rule/9-43a.xml"/>   <!-- Element type is not simple type -->
+  <include href="rule/9-43b.xml"/>   <!-- Element type is not simple type -->
+  <include href="rule/9-44a.xml"/>   <!-- Attribute and element type is from conformant namespace -->
+  <include href="rule/9-44b.xml"/>   <!-- Attribute and element type is from conformant namespace -->
+  <include href="rule/9-45.xml"/>    <!-- Element substitution group defined by conformant schema -->
+  <include href="rule/9-47.xml"/>    <!-- Only reference attributes have type xs:IDREFS -->
+  <include href="rule/9-49.xml"/>    <!-- Import of external namespace has data definition -->
+  <include href="rule/9-50.xml"/>    <!-- Structure of adapter type definition follows pattern -->
+  <include href="rule/9-51.xml"/>    <!-- Element use from external adapter type defined by external schema documents -->
+  <include href="rule/9-52a.xml"/>   <!-- External adapter type not a base type -->
+  <include href="rule/9-52b.xml"/>   <!-- External adapter type not a base type -->
+  <include href="rule/9-53.xml"/>    <!-- External attribute use has data definition -->
+  <include href="rule/9-55.xml"/>    <!-- External element use has data definition -->
+  <include href="rule/9-57.xml"/>    <!-- Proxy type has designated structure -->
+  <include href="rule/9-58b.xml"/>   <!-- Name of augmentation types -->
+  <include href="rule/9-59.xml"/>    <!-- Name of augmentation elements -->
+  <include href="rule/9-61.xml"/>    <!-- Standard opening phrase for augmentation point element data definition -->
+  <include href="rule/9-62.xml"/>    <!-- Standard opening phrase for augmentation element data definition -->
+  <include href="rule/9-63.xml"/>    <!-- Standard opening phrase for augmentation type data definition -->
+  <include href="rule/9-66.xml"/>    <!-- Augmentation point element corresponds to its base type -->
+  <include href="rule/9-67.xml"/>    <!-- An augmentation point element has no type -->
+  <include href="rule/9-68.xml"/>    <!-- An augmentation point element has no substitution group -->
+  <include href="rule/9-69.xml"/>    <!-- Augmentation point element is only referenced by its base type -->
+  <include href="rule/9-70a.xml"/>   <!-- Augmentation point element use is optional and unbounded -->
+  <include href="rule/9-70b.xml"/>   <!-- Augmentation point element use is optional and unbounded -->
+  <include href="rule/9-71.xml"/>    <!-- Augmentation point element use must be last element in its base type -->
+  <include href="rule/9-80.xml"/>    <!-- Appinfo attribute annotates schema component -->
+  <include href="rule/9-81.xml"/>    <!-- xs:appinfo children are comments, elements, or whitespace -->
+  <include href="rule/9-82.xml"/>    <!-- Appinfo child elements have namespaces -->
+  <include href="rule/9-83.xml"/>    <!-- Appinfo descendants are not XML Schema elements -->
+  <include href="rule/9-85.xml"/>    <!-- LocalTerm appinfo applies to schema -->
+  <include href="rule/10-5.xml"/>    <!-- Consistent import schema document -->
+  <include href="rule/10-6.xml"/>    <!-- Consistent import labels -->
+  <!-- Rules applicable only to extension schema documents -->
+
+  <include href="rule/8-13.xml"/>    <!-- Extension namespace asserts conformance -->
+  <include href="rule/9-94.xml"/>    <!-- Element declaration is nillable -->
+</schema>

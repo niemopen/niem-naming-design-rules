@@ -1,0 +1,103 @@
+<style>
+body {
+  margin-left: 3pc;
+  margin-right: 3pc;
+  font-family: LiberationSans, Arial, Helvetica, sans-serif;
+  font-size:12pt;
+  line-height:1.2;
+}
+html {overflow-x:auto }
+
+h1 { font-size:18pt; }
+h2 { font-size:14pt; }
+h3 { font-size:13pt; }
+h4 { font-size:12pt; }
+h5 { font-size:11pt; }
+h1,h2,h3,h4,h5 { 
+  font-family: LiberationSans, Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  margin:8pt 0;
+  color: #446CAA
+}
+h6 { 
+  font-size:12pt; 
+  line-height:1.0; 
+  font-family: LiberationSans, Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  margin:0pt;
+}
+hr{page-break-before: always;}
+table {
+  border-collapse:collapse;
+  border-spacing:0;
+  width:100%;
+  display:table;
+  font-size:12pt;
+  margin-top: 6pt;
+}
+table, th, td {
+  border: 1pt solid black;
+  padding:6pt 6pt;
+  text-align:left;
+  /*vertical-align:top; -- this causes alignment errors in cells with italics */
+}
+th {
+  color:#ffffff;
+  background-color: #446CAA;
+}
+pre {
+  background-color:#f0f0f0;
+  padding: 6px;
+}
+code {
+  font-family: "Source Code Pro", "Liberation Mono", monospace;
+  font-size: 9pt;
+  background-color: #eeeeee;
+  color: #111;
+  padding: 2px 5px;
+  white-space: nowrap;
+  border: none;
+}
+
+/* Block code (unchanged) */
+pre {
+  font-family: "Source Code Pro", "Liberation Mono", monospace;
+  font-size: 8pt;
+  line-height: 1.4;
+  background-color: #eeeeee;
+  color: #111;
+  white-space: pre;
+  overflow-x: auto;
+  box-sizing: border-box;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  width: 100%;
+  max-width: 100vw;
+}
+
+/* remove ALL layout from nested code */
+pre code {
+  font-family: inherit;
+  font-size: 8pt;
+  line-height: inherit;
+  background: inherit;
+  overflow-x: auto;
+  color: inherit;
+  white-space: inherit;
+  padding: 0;
+  margin: 0;
+  border: none;
+  width: 100%;
+  max-width: 100vw;
+  display: block;
+}
+blockquote {
+  padding-left: 10px;
+  padding-right: 10px;
+  border-left: solid lightgray 6px;
+}
+
+li { margin: 3px 0; }
+</style>

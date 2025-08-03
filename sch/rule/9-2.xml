@@ -1,6 +1,6 @@
   <!-- NDR6 rule 9-2 (same as NDR5 rule 4-4) -->
   <pattern id="rule9-2" xmlns="http://purl.oclc.org/dsdl/schematron">
-    <title>Document element has attribute `ct:conformanceTargets`</title>
+    <title>Document element has attribute ct:conformanceTargets</title>
     <rule context="*[. is nf:get-document-element(.)
                         or exists(@ct:conformanceTargets)]">
       <assert test="(. is nf:get-document-element(.)) = exists(@ct:conformanceTargets)"

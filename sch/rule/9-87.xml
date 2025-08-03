@@ -1,10 +1,10 @@
-  <!-- NDR6 rule 9-87 (same as NDR5 rule 9-47) -->
+  <!-- NDR6 rule 9-87 (same as NDR5 rule 9-13) -->
   <pattern id="rule9-87" xmlns="http://purl.oclc.org/dsdl/schematron">
-    <title>Element declaration is nillable</title>
-    <rule context="xs:element[@name and (empty(@abstract)
-                                            or xs:boolean(@abstract) = false())]">
-      <assert test="exists(@nillable)
-                       and xs:boolean(@nillable) = true()"
-        >Rule 9-87: An element declaration in an extension schema document MUST have the {nillable} property with a value of true.</assert>
+    <title>No use of fixed on simple type facets</title>
+    <rule context="xs:*[self::xs:length or self::xs:minLength or self::xs:maxLength or self::xs:whiteSpace
+      or self::xs:maxInclusive or self::xs:maxExclusive or self::xs:minExclusive or self::xs:minInclusive
+      or self::xs:totalDigits or self::xs:fractionDigits]">
+      <assert test="empty(@fixed)"
+        >Rule 9-87: A simple type constraining facet in a reference schema document MUST NOT have an attribute {}fixed.</assert>
     </rule>
   </pattern>

@@ -24,21 +24,62 @@ foreach my $nr (values %map) {
   $targ{$nr} = 1;
 }
 
-# Create empty 'rule-new' directory
+# Create empty 'rule-new' and 'rtest-new' directories
 
 die "rule-new directory exists\n" if -d 'rule-new';
+die "rtest-new directory exists\n" if -d 'rtest-new';
 mkdir 'rule-new' or die "can't create rule-new directory: $!\n";
+mkdir 'rtest-new' or die "can't create rtest-new directory: $!\n";
 
-# Edit the master files
+# Edit the source files
 
-foreach my $fn ("extTarget.sch", "refTarget.sch") {
+foreach my $fn (qw(src/all.sch src/ref.sch src/ext.sch src/sub.sch)) {
   open IN, "$fn" or die "can't open $fn for reading: $_\n";
   open OUT, ">$fn-new" or die "can't open $fn-new for writing: $!\n";
+  my @out;
   while (<IN>) {
     if ( m!<include href="rule/(\d+-\d+)[a-z]?.xml"! ) {
       my $or = $1;
       my $nr = $map{$or};
       s!rule/${or}!rule/${nr}! if defined $nr;
+    }
+    push @out, $_;
+  }
+  my @sout = sort {
+    my($a1,$a2,$a3) = $a =~ /rule\/(\d+)-(\d+)([a-z])/;
+    my($b1,$b2,$b3) = $b =~ /rule\/(\d+)-(\d+)([a-z])/;
+    $a1 //= 0; $a2 //= 0; $a3 //= '';
+    $b1 //= 0; $b2 //= 0; $b3 //= '';
+    $a1 <=> $b1 || $a2 <=> $b2 || $a3 cmp $b3
+  } @out;
+  print OUT @sout;
+  close IN;
+  close OUT;
+}
+
+# Create "rtest-new" directory with renumbered files
+opendir(my $tdh, "rtest") or die "can't open test directory: $!\n";
+my @tests = readdir($tdh);
+closedir($tdh);
+foreach my $tfn (@tests) {
+  next if $tfn eq '.';
+  next if $tfn eq '..';
+  next if $tfn eq 'niem';
+  my $or = $tfn;
+  $or =~ s/\.xsd//;
+  $or =~ s/(#\d+)$//;           # old rule name; eg. "9-38a"
+  my $tnum = $1 || '';          # test number suffix; eg. "#3"
+  $or =~ s/([a-z]+)$//;         # old rule number; eg. "9-38"
+  my $sc = $1 || '';            # test suffix; eg. "a"
+  my $nr = $map{$or};           # new rule number; eg. "9-39"
+
+  # new file name; eg. "9-39a#3.xsd"
+  my $nf = defined $nr ? "$nr$sc$tnum.xsd" : $tfn;
+  open IN, "rtest/$tfn" or die "can't open rtest/$tfn for reading: $!\n";
+  open OUT, ">rtest-new/$nf" or die "can't open rtest-new/$nf for writing: $!\n";
+  while (<IN>) {
+    if (defined $nr) {
+      s/rule $or test/rule $nr test/;
     }
     print OUT $_;
   }
@@ -56,7 +97,7 @@ foreach my $fn (@files) {       # file name, eg. "9-13b.xml"
   next if $fn eq '..';
   my $or = $fn;
   $or =~ s/\.xml$//;
-  $or =~ s/([a-z])$//;          # old rule number, eg. "9-13"
+  $or =~ s/([a-z]+)$//;         # old rule number, eg. "9-13"
   my $sc = $1 || '';            # suffix character, eg. "b"
   my $nr = $map{$or};           # new rule number, eg. "9-24"
   my $nf = defined $nr ? "$nr$sc.xml" : $fn;  # new file name, eg. "9-24b.xml"

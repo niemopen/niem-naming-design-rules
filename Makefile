@@ -1,43 +1,47 @@
 .PHONY: all clean md html
 
-NDR     = ndr-v6.0-psd01
-NDRMD   = $(NDR).md
+NDR     = ndr-v6.0-ps01
 NDRHTML = $(NDR).html
 NDRPDF  = $(NDR).pdf
-NDRSRC  = ndr6src.md
+SRC     = ndr6src.md
+TITLE   = NIEM Naming and Design Rules (NDR) Version 6.0
 
-NDR_CSS     = styles/ndr-styles.css
-OASIS_CSS   = styles/markdown-styles-v1.7.3a.css
-TOC_HTML    = styles/tocTemplate.html
-STYLES      = -c $(OASIS_CSS) -c $(NDR_CSS) --template=$(TOC_HTML)
-METADATA    = --metadata title="NIEM Naming and Design Rules (NDR) Version 6.0"
-PANDOC_ARGS = -f gfm -t html --toc --toc-depth=5 -s $(STYLES) $(METADATA)
 
-all : md html
+TEMPLATE    = --template=styles/tocTemplate.html
+METADATA    = --metadata title="$(TITLE)"
+PANDOC_ARGS = -f gfm -t html --toc --toc-depth=5 \
+	      -f gfm-autolink_bare_uris -s $(TEMPLATE) $(METADATA)
 
-md:   $(NDRMD)
+all : html pdf
+
 html: $(NDRHTML)
-
-$(NDRMD) : $(NDRSRC)
-	bin/fixmd $(NDRSRC) > $(NDRMD)
+pdf:  $(NDRPDF)
 
 # Using pandoc 3.0 to generate HTML from markdown
 
-$(NDRHTML) : $(NDRMD)
-	pandoc $(PANDOC_ARGS) $(NDRMD) | bin/moveTOC > $(NDRHTML)
+$(NDRHTML) : $(SRC)
+	bin/fixmd $(SRC) | pandoc $(PANDOC_ARGS) $(NDRMD) | bin/moveTOC > $(NDRHTML)
 
-# wkhtmltopdf produces PDF with broken links
-# also the font looks wrong
-# using Edge and print-to-pdf instead
-
-VMARG   = --margin-top 16mm --margin-bottom 16mm
-HMARG   = --margin-left 10mm --margin-right 10mm
-PDFARGS = --enable-local-file-access $(VMARG) $(HMARG)
+PDFARGS = \
+  --enable-local-file-access \
+  --page-size Letter \
+  -T 25 \
+  -B 20 \
+  --header-spacing 6 \
+  --header-font-size 10 \
+  --footer-line \
+  --footer-spacing 4 \
+  --footer-left '' \
+  --footer-center 'fCopyright © OASIS Open 2025. All Rights Reserved.' \
+  --footer-right 'f{formatted_date}  - Page [page] of [topage]' \
+  --footer-font-size 8 \
+  --footer-font-name LiberationSans
 
 $(NDRPDF) : $(NDRHTML)
 	wkhtmltopdf $(PDFARGS) $(NDRHTML) $(NDRPDF)
 
 GENERATED = $(NDRMD) $(NDRHTML) $(NDRPDF)
+
 clean:
 	rm -f $(GENERATED)
 

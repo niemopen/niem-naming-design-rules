@@ -1,10 +1,10 @@
-  <!-- NDR6 rule 9-81 (same as NDR5 rule 9-13) -->
+  <!-- NDR6 rule 9-81 (same as NDR5 rule 9-79) -->
   <pattern id="rule9-81" xmlns="http://purl.oclc.org/dsdl/schematron">
-    <title>No use of fixed on simple type facets</title>
-    <rule context="xs:*[self::xs:length or self::xs:minLength or self::xs:maxLength or self::xs:whiteSpace
-      or self::xs:maxInclusive or self::xs:maxExclusive or self::xs:minExclusive or self::xs:minInclusive
-      or self::xs:totalDigits or self::xs:fractionDigits]">
-      <assert test="empty(@fixed)"
-        >Rule 9-81: A simple type constraining facet in a reference schema document MUST NOT have an attribute {}fixed.</assert>
+    <title>xs:appinfo children are comments, elements, or whitespace</title>
+    <rule context="xs:appinfo/node()">
+      <assert test="self::comment()
+                       or self::element()
+                       or self::text()[string-length(normalize-space(.)) = 0]"
+        >Rule 9-81: A child of element xs:appinfo MUST be an element, a comment, or whitespace text.</assert>
     </rule>
   </pattern>

@@ -1,9 +1,0 @@
-  <!-- NDR6 rule 9-70 (same as NDR5 rule 10-27) -->
-  <pattern id="rule9-70" xmlns="http://purl.oclc.org/dsdl/schematron">
-    <title>An augmentation point element has no substitution group</title>
-    <rule context="xs:element[exists(@name[
-                                  matches(., 'AugmentationPoint$')])]">
-      <assert test="empty(@substitutionGroup)"
-        >Rule 9-70: An augmentation point element MUST have no substitution group.</assert>
-    </rule>
-  </pattern>

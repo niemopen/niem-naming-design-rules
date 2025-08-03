@@ -1,0 +1,30 @@
+#!/usr/bin/perl
+
+# Create a list of terms with links to the glossary.
+# Optionally list only terms used within a rule in the NDR.
+
+use Getopt::Std;
+use warnings;
+use strict;
+
+my %opt;
+my $usage = <<'END_USAGE';
+usage: listterms [-nr] ndr6src.md
+Options:
+ -n = only list terms not linkded within a rule
+ -r = only list linked terms within a rule
+END_USAGE
+
+getopts('nr',\%opt) or die "$usage\n";
+
+my %terms;
+while (<>) {
+  next if $opt{n} && /^\*\*Rule /;
+  next if $opt{r} && !/^\*\*Rule /;
+  while ($_ =~ /\[([^\]]+)\]\((#def|#dot)\)/g) {
+    $terms{$1} = 1;
+  }
+}
+foreach my $term (sort keys %terms) {
+  print "$term\n";
+}

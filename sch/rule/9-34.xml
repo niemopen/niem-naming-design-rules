@@ -1,13 +1,19 @@
-  <!-- NDR6 rule 9-34 (same as NDR5 rule 10-21) -->
-  <pattern xmlns="http://purl.oclc.org/dsdl/schematron">
-    <title>Association type derived form structures:AssociationType</title>
-    <rule context="xs:complexType">
-      <let name="is-association-type" value="exists(@name[ends-with(., 'AssociationType')])"/>
-      <let name="has-association-base-type" value="
-        exists(xs:complexContent[
-          exists(xs:*[local-name() = ('extension', 'restriction')
-                      and exists(@base[ends-with(., 'AssociationType')])])])"/>
-      <assert test="$is-association-type = $has-association-base-type"
-          >Rule 9-34: A type definition that represents an association class MUST be derived from structures:AssociationType or from another association class.</assert>
+  <!-- NDR6 rule 9-34 (same as NDR5 rule 10-2) -->
+  <pattern id="rule9-34" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>Object type derived from structures:ObjectType</title>
+    <rule context="xs:complexType[exists(xs:complexContent)
+                                     and not(ends-with(@name, 'AssociationType')
+                                         or ends-with(@name, 'MetadataType')
+                                         or ends-with(@name, 'AugmentationType'))]">
+      <assert test="
+         every $derivation-method in (xs:complexContent/xs:extension, xs:complexContent/xs:restriction),
+               $base in $derivation-method/@base,
+               $base-qname in resolve-QName($base, $derivation-method),
+               $base-local-name in local-name-from-QName($base-qname) satisfies (
+           $base-qname = xs:QName('structures:ObjectType')
+           or not(ends-with($base-local-name, 'AssociationType')
+                  or ends-with($base-local-name, 'MetadataType')
+                  or ends-with($base-local-name, 'AugmentationType')))"
+        >Rule 9-34: A type with complex content that does not represent an adapter class, an association class, or an augmentation type MUST be derived from structures:ObjectType or from another object type.</assert>
     </rule>
   </pattern>

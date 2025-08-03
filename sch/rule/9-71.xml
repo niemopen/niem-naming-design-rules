@@ -1,11 +1,9 @@
-  <!-- NDR6 rule 9-71 (same as NDR5 rule 10-28) -->
+  <!-- NDR6 rule 9-71 (same as NDR5 rule 10-31) -->
   <pattern id="rule9-71" xmlns="http://purl.oclc.org/dsdl/schematron">
-    <title>Augmentation point element is only referenced by its base type</title>
+    <title>Augmentation point element use must be last element in its base type</title>
     <rule context="xs:complexType//xs:element[exists(@ref[
-      matches(local-name-from-QName(resolve-QName(., ..)), 'AugmentationPoint$')]) ]">
-      <assert test="QName(string(nf:get-target-namespace(ancestor::xs:complexType[1])), ancestor::xs:complexType[1]/@name)
-        = QName(string(namespace-uri-from-QName(resolve-QName(@ref, .))),
-        replace(local-name-from-QName(resolve-QName(@ref, .)), 'AugmentationPoint$', 'Type'))"
-        >Rule 9-71: An augmentation point element MUST only be referenced by its base type.</assert>
+                            matches(local-name-from-QName(resolve-QName(., ..)), 'AugmentationPoint$')]) ]">
+      <assert test="empty(following-sibling::*)"
+        >Rule 9-71: An augmentation point element particle MUST be the last element occurrence in the content model of its augmentable type.</assert>
     </rule>
   </pattern>

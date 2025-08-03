@@ -1,12 +1,12 @@
-  <!-- NDR6 rule 9-36 (same as NDR5 rule 11-11) -->
+  <!-- NDR6 rule 9-36 (same as NDR5 rule 11-3) -->
   <pattern id="rule9-36" xmlns="http://purl.oclc.org/dsdl/schematron">
-    <title>Complex type with simple content has `structures:SimpleObjectAttributeGroup`</title>
-    <rule context="xs:simpleContent/xs:extension[
-       some $base-qname in resolve-QName(@base, .) satisfies
-         namespace-uri-from-QName($base-qname) = xs:anyURI('http://www.w3.org/2001/XMLSchema')
-         or ends-with(local-name-from-QName($base-qname), 'SimpleType')]">
-      <assert test="xs:attributeGroup[
-                         resolve-QName(@ref, .) = xs:QName('structures:SimpleObjectAttributeGroup')]"
-        >Rule 9-36: A complex type definition with simple content MUST include structures:SimpleObjectAttributeGroup.</assert>
+    <title>Base type definition defined by conformant schema</title>
+    <rule context="xs:*[exists(@base)]">
+      <assert test="some $base-namespace in namespace-uri-from-QName(resolve-QName(@base, .)) satisfies (
+                         $base-namespace = (nf:get-target-namespace(.), xs:anyURI('http://www.w3.org/2001/XMLSchema'))
+                         or exists(ancestor::xs:schema[1]/xs:import[exists(@namespace)
+                                                                    and $base-namespace = xs:anyURI(@namespace)
+                                                                    and empty(@appinfo:externalImportIndicator)]))"
+        >Rule 9-36: The base type definition of a type definition MUST have the target namespace or the XML Schema namespace or a namespace that is imported as conformant.</assert>
     </rule>
   </pattern>

@@ -1,0 +1,8 @@
+  <!-- NDR6 rule 9-91 (same as NDR5 rule 9-64) -->
+  <pattern id="rule9-91" xmlns="http://purl.oclc.org/dsdl/schematron">
+    <title>No xs:choice</title>
+    <rule context="xs:choice">
+      <assert test="false()"
+        >Rule 9-91: A reference schema document MUST NOT contain the element xs:choice.</assert>
+    </rule>
+  </pattern>

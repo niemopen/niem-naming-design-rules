@@ -1,8 +1,8 @@
-  <!-- NDR6 rule 9-85 (same as NDR5 rule 9-64) -->
+  <!-- NDR6 rule 9-85 (same as NDR5 rule 10-76) -->
   <pattern id="rule9-85" xmlns="http://purl.oclc.org/dsdl/schematron">
-    <title>No `xs:choice`</title>
-    <rule context="xs:choice">
-      <assert test="false()"
-        >Rule 9-85: A reference schema document MUST NOT contain the element xs:choice.</assert>
+    <title>LocalTerm appinfo applies to schema</title>
+    <rule context="appinfo:LocalTerm">
+      <assert test="parent::xs:appinfo[parent::xs:annotation[parent::xs:schema]]"
+        >Rule 9-85: When the element appinfo:LocalTerm appears in a schema document, it MUST be application information on an element xs:schema.</assert>
     </rule>
   </pattern>

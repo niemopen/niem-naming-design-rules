@@ -1,9 +1,9 @@
-  <!-- NDR6 rule 9-63 (same as NDR5 rule 10-36) -->
+  <!-- NDR6 rule 9-63 (same as NDR5 rule 11-44) -->
   <pattern id="rule9-63" xmlns="http://purl.oclc.org/dsdl/schematron">
-    <title>Name of augmentation elements</title>
-    <rule context="xs:element[exists(@name)]">
-      <assert test="exists(@type[ends-with(., 'AugmentationType')])
-                       = exists(@name[ends-with(., 'Augmentation')])"
-        >Rule 9-63: The XSD declaration of an augmentation element MUST have a name ending in "Augmentation"; all other XSD components MUST NOT.</assert>
+    <title>Standard opening phrase for augmentation type data definition</title>
+    <rule context="xs:complexType[ends-with(@name, 'AugmentationType')]/xs:annotation/xs:documentation[1]">
+      <report role="warning" test="not(matches(lower-case(normalize-space(.)),
+                           '^a data type (that supplements|for additional information about)'))"
+        >Rule 9-63: The data definition for an augmentation type SHOULD begin with the standard opening phrase "A data type (that supplements|for additional information about)...".</report>
     </rule>
   </pattern>
