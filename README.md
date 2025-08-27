@@ -1,6 +1,6 @@
 <img src="https://github.com/niemopen/oasis-open-project/blob/main/artwork/NIEM-NO-Logo-v5.png" width="200">
 
-# Naming and Design Rules
+# NIEM Naming and Design Rules (NDR) 6.0
 
 This repository is part of the NIEM Open Project.
 
@@ -10,10 +10,11 @@ General questions about OASIS Open Projects may be directed to OASIS staff at pr
 
 ## Status
 
-NDR 6.0 is a complete rewrite of the previous NDR 5.0.  The current draft is proposed as Project Specification 01.
+NDR 6.0 PS 01 is a complete rewrite of the previous NDR 5.0.  It was approved by the NIEMOpen PGB on 29 August 2025.  The approved specification is posted at [docs.oasis-open.org/niemopen/ndr/v6.0](https://docs.oasis-open.org/niemopen/ndr/v6.0/).
 
-* HTML:  [ndr-v6.0-ps01.html](https://niemopen.github.io/niem-naming-design-rules/ndr-v6.0-ps01.html)
-* PDF:  [ndr-v6.0-ps01.pdf](ndr-v6.0-ps01.pdf)
+* HTML:  [ndr-v6.0-ps01.html](https://docs.oasis-open.org/niemopen/ndr/v6.0/ps01/ndr-v6.0-ps01.html)
+
+* PDF:  [ndr-v6.0-ps01.pdf](https://docs.oasis-open.org/niemopen/ndr/v6.0/ps01/ndr-v6.0-ps01.pdf)
 
 Please post comments on NDR 6.0 PS01 on the [issues page](https://github.com/niemopen/niem-naming-design-rules/issues).
 
@@ -77,7 +78,3 @@ NIEM Open operates under the terms of the [Open Project Rules](https://www.oasis
 
 All technical contributions must be covered by a Contributor's License Agreement. This requirement allows our work to advance through OASIS standards development stages and potentially be submitted to de jure organizations such as ISO. You will get a prompt to sign this document when you submit your first pull request to a project repository, or you can sign [here](https://www.oasis-open.org/open-projects/cla/oasis-open-projects-individual-contributor-license-agreement-i-cla/). If you are contributing on behalf of your employer, you must also sign the ECLA [here](https://www.oasis-open.org/open-projects/cla/entity-cla-20210630/).
 
-<style>
-a.termRef { text-decoration: none; color: #000; background-color: #FFF; }
-a.termRef[href]:hover { color: #000; background-color: #F9FAD4; }
-</style>
