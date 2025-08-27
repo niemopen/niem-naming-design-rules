@@ -13,7 +13,7 @@ This is the width of a code block in the PDF version
 
 # NIEM Naming and Design Rules (NDR) Version 6.0
 ## Project Specification 01
-## 1 August 2025 draft
+## 29 August 2025
 
 &nbsp;
 
@@ -154,7 +154,7 @@ This document specifies principles and enforceable rules for NIEM data component
 | Message developer    | A person who writes software to implement a [message specification](#def), producing or processing [messages](#dot) that conform to the [message format](#dot). |
 | Message format       | A specification of the valid syntax of [messages](#dot) that conform to a [message type](#dot). *(see [§3.1.2](#312-message-format))* |
 | Message model        | A data model intended to precisely define the mandatory and optional content of [messages](#dot) and the meaning of that content. *(see [§3.1.3](#313-message-type))* |
-| Message object       | The initial object in a message. |
+| Message object       | The initial object in a message; the value of the [message property](#def). |
 | Message property     | The initial property of a message type. *(See [§3.1.3](#313-message-type)) |
 | Message specification | A collection of related [message formats](#def) and [message types](#def). *(see [§3.1.4](#314-message-specification))* |
 | Message type         | A specification of the information content of [messages](#dot). *(see [§3.1.3](#313-message-type))* |
@@ -3284,7 +3284,7 @@ This is the only conformance rule for the XML Schema in an XML message format, o
 
 # 12. Rules for XML messages
 
-**Rule 12-1:** Message begins with initial property || An XML [message](#dot) MUST be an XML document that contains one instance of the element for the initial property specified by its [message type](#dot), and all of the message content MUST be a descendent of that element. (NEW)
+**Rule 12-1:** Message begins with initial property || An XML [message](#dot) MUST be an XML document that contains one instance of the element for the [message property](#def) specified by its [message type](#dot) (that is, the element for the [message object](#def)), and all of the message content MUST be a descendent of that element. (NEW)
 
 The element for the initial property is often the [document element](#dot), but this is not necessarily so. An XML message may be embedded within an XML document; for example, as a payload within a SOAP response.
 
@@ -3354,6 +3354,10 @@ even though this is schema-valid. Instead, those [augmentation properties](#def)
 **Rule 12-14:** Nilled element must be an object reference || An element with `xsi:nil="true"` MUST have the attribute `structures:ref` or `structures:uri`. (NEW)
 
 The attribute `xsi:nil` can only be used to create an object reference. It cannot be used to omit mandatory content.
+
+**Rule 12-15:** `xml:base` only on message element || A descendent of the element for the [message object](#def) MUST NOT have the attribute `xml:base`. (NEW)
+
+`xml:base` is allowed on the top-level element in the message; see [§14.2.3](#1423-objects-and-object-identifiers).
 
 -------
 

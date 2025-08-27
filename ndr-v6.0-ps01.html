@@ -18,7 +18,7 @@
   <h1 id="niem-naming-and-design-rules-ndr-version-60">NIEM Naming and
   Design Rules (NDR) Version 6.0</h1>
   <h2 id="project-specification-01">Project Specification 01</h2>
-  <h2 id="1-august-2025-draft">1 August 2025 draft</h2>
+  <h2 id="29-august-2025">29 August 2025</h2>
   <p> </p>
   <h4 id="this-stage">This stage:</h4>
   <p><a href="https://docs.oasis-open.org/niemopen/ndr/v6.0/ps01/ndr-v6.0-ps01.html">https://docs.oasis-open.org/niemopen/ndr/v6.0/ps01/ndr-v6.0-ps01.html</a>
@@ -910,7 +910,9 @@ I. Notices</a></li>
   <tr>
   <td style="text-align: left;"><a name="def-message-object"> Message
   object </a></td>
-  <td style="text-align: left;">The initial object in a message.</td>
+  <td style="text-align: left;">The initial object in a message; the
+  value of the <a href="#def-message-property"><span>message
+  property</span></a>.</td>
   </tr>
   <tr>
   <td style="text-align: left;"><a name="def-message-property"> Message
@@ -7720,11 +7722,13 @@ urn:nato:stanag:0000:specname:1.5.1</code></pre>
   <h1 id="12-rules-for-xml-messages">12. Rules for XML messages</h1>
   <p><a name="rule12-1"></a><strong>Rule 12-1:</strong> An XML <a
   href="#def-message"><span class="termRef">message</span></a> MUST be
-  an XML document that contains one instance of the element for the
-  initial property specified by its <a
-  href="#def-message-type"><span class="termRef">message
-  type</span></a>, and all of the message content MUST be a descendent
-  of that element.</p>
+  an XML document that contains one instance of the element for the <a
+  href="#def-message-property"><span>message property</span></a>
+  specified by its <a
+  href="#def-message-type"><span class="termRef">message type</span></a>
+  (that is, the element for the <a
+  href="#def-message-object"><span>message object</span></a>), and all
+  of the message content MUST be a descendent of that element.</p>
   <p>The element for the initial property is often the <a
   href="#def-document-element"><span class="termRef">document
   element</span></a>, but this is not necessarily so. An XML message may
@@ -7871,6 +7875,13 @@ urn:nato:stanag:0000:specname:1.5.1</code></pre>
   <code>structures:ref</code> or <code>structures:uri</code>.</p>
   <p>The attribute <code>xsi:nil</code> can only be used to create an
   object reference. It cannot be used to omit mandatory content.</p>
+  <p><a name="rule12-15"></a><strong>Rule 12-15:</strong> A descendent
+  of the element for the <a href="#def-message-object"><span>message
+  object</span></a> MUST NOT have the attribute
+  <code>xml:base</code>.</p>
+  <p><code>xml:base</code> is allowed on the top-level element in the
+  message; see <a
+  href="#1423-objects-and-object-identifiers">§14.2.3</a>.</p>
   <hr />
   <h1 id="13-rules-for-json-messages">13. Rules for JSON messages</h1>
   <p><a name="rule13-1"></a><strong>Rule 13-1:</strong> A JSON message
